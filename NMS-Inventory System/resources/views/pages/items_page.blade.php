@@ -47,47 +47,24 @@
               <div class="card-body table-responsive p-0">
 
                 <table class="table table-hover text-nowrap">
-                  <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Item</th>
-                      <th>Category</th>
+                      <td>Item ID</td>
+                      <td>Name</td>
+                      <td>Description</td>
+                      <td>Price</td>
+                      <td>Quantity</td>
                     </tr>
-                  </thead>
-                  <tbody>
+
+                    @foreach($data as $value)
                     <tr>
-                      <td>1</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
+                      <td>{{$value->itemid}}</td>
+                      <td>{{$value->itemname}}</td>
+                      <td>{{$value->itemdesc}}</td>
+                      <td>{{$value->price}}</td>
+                      <td>{{$value->quantity}}</td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
+                    @endforeach
+                  </table>
               </div>
               <!-- /.card-body -->
             </div>

@@ -45,46 +45,26 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
-                  <thead>
+
                     <tr>
-                      <th>#</th>
-                      <th>Category</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>School Supplies</td>
+                      <td>Category ID</td>
+                      <td>Name</td>
+                      <td>Description</td>
+                      <td>Date Created</td>
+                      <td>Date Updated</td>
                     </tr>
 
-                    
-                    
-                  </tbody>
-                </table>
+                    @foreach($data as $value)
+                    <tr>
+                      <td>{{$value->catid}}</td>
+                      <td>{{$value->catname}}</td>
+                      <td>{{$value->catdesc}}</td>
+                      <td>{{$value->createdat}}</td>
+                      <td>{{$value->updatedat}}</td>
+                    </tr>
+                    @endforeach
+
+                  </table>
               </div>
               <!-- /.card-body -->
             </div>
