@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('pages/dashboard');
 });
 
 Route::get('/login', function () {
-    return view('pages/login');
+    return view('auth/login');
 });
 
 Route::get('/items', function () {
@@ -26,6 +26,7 @@ Route::get('/items', function () {
 Route::get('/categories', function () {
     return view('pages/categories_page');
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
