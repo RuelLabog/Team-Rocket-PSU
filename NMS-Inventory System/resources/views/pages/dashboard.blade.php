@@ -171,7 +171,4 @@
         <!-- /.row -->
 
 
-        <h1>QWEQWEQWEWQEQW</h1>
-
-
   @endsection
