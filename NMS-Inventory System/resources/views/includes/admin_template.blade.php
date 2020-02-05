@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>NMS Inventory System</title>
+  <title>Inventory System</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css">
@@ -21,9 +21,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-@include('header')
+@include('includes/header')
 
-@include('sidebar')
+@include('includes/sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-@include('footer')
+@include('includes/footer')
 </div>
 <!-- ./wrapper -->
 
