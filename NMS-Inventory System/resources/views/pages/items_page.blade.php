@@ -113,6 +113,19 @@
             </div>
             <div class="modal-body">
               <p>One fine body&hellip;</p>
+                <div class="form-group">
+                  <label>Category:</label>
+                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                    <option selected="selected">Test Category 1</option>
+                    <option>Test Category 2</option>
+                    <option>Test Category 3</option>
+                    <option>Test Category 4</option>
+                    <option>Test Category 5</option>
+                    <option>Test Category 6</option>
+                    <option>Test Category 7</option>
+                  </select>
+                </div>
+
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
