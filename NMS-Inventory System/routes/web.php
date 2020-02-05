@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('pages/dashboard');
+    return view('auth/login');
 });
 
 Route::get('/login', function () {
@@ -26,3 +26,6 @@ Route::get('/items', function () {
 Route::get('/categories', function () {
     return view('pages/categories_page');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
