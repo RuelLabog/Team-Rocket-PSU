@@ -23,14 +23,15 @@
     <!-- /.content-header -->
 
 
-<h1>This is Categories page.</h1>
 
 <!-- /.row -->
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Categories</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                  <i class="fas fa-plus mr-2"></i>Add Category
+                </button>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -45,46 +46,26 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
-                  <thead>
+
                     <tr>
-                      <th>#</th>
-                      <th>Category</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>School Supplies</td>
+                      <td>Category ID</td>
+                      <td>Name</td>
+                      <td>Description</td>
+                      <td>Date Created</td>
+                      <td>Date Updated</td>
                     </tr>
 
-                    
-                    
-                  </tbody>
-                </table>
+                    @foreach($data as $value)
+                    <tr>
+                      <td>{{$value->catid}}</td>
+                      <td>{{$value->catname}}</td>
+                      <td>{{$value->catdesc}}</td>
+                      <td>{{$value->createdat}}</td>
+                      <td>{{$value->updatedat}}</td>
+                    </tr>
+                    @endforeach
+
+                  </table>
               </div>
               <!-- /.card-body -->
             </div>
@@ -93,6 +74,39 @@
         </div>
         <!-- /.row -->
 
+
+
+<!-- add items modal -->
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add New Category</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Category:</label>
+                <input type="text" class="form-control" name="" placeholder="Category Name">
+              </div>
+              <div class="form-group">
+                <label>Description:</label>
+                <textarea class="form-control" placeholder="Category Description"></textarea>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.add items modal -->
 
 
 

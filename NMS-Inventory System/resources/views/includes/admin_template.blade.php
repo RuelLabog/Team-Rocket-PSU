@@ -74,16 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    
-
-
+    $('#select2').select2();
   });
 </script>
 

@@ -43,51 +43,30 @@
                 </div>
               </div>
 
+
+
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 
                 <table class="table table-hover text-nowrap">
-                  <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Item</th>
-                      <th>Category</th>
+                      <td>Item ID</td>
+                      <td>Name</td>
+                      <td>Description</td>
+                      <td>Price</td>
+                      <td>Quantity</td>
                     </tr>
-                  </thead>
-                  <tbody>
+
+                    @foreach($data as $value)
                     <tr>
-                      <td>1</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
+                      <td>{{$value->itemid}}</td>
+                      <td>{{$value->itemname}}</td>
+                      <td>{{$value->itemdesc}}</td>
+                      <td>{{$value->price}}</td>
+                      <td>{{$value->quantity}}</td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>Notebooks</td>
-                      <td>School Supplies</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
+                    @endforeach
+                  </table>
               </div>
               <!-- /.card-body -->
             </div>
@@ -112,10 +91,37 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>One fine body&hellip;</p>
+                <div class="form-group">
+                  <label>Item:</label>
+                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                </div>
+
+                <div class="form-group">
+                <label>Description:</label>
+                <textarea class="form-control" placeholder="Item Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">₱</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Amount">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Quantity:</label>
+                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                </div>
+
+
                 <div class="form-group">
                   <label>Category:</label>
-                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
                     <option selected="selected">Test Category 1</option>
                     <option>Test Category 2</option>
                     <option>Test Category 3</option>
@@ -127,9 +133,9 @@
                 </div>
 
             </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success">Save changes</button>
             </div>
           </div>
           <!-- /.modal-content -->
