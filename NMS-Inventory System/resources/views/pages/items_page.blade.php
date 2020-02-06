@@ -127,13 +127,10 @@
                 <div class="form-group">
                   <label>Category:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Test Category 1</option>
-                    <option>Test Category 2</option>
-                    <option>Test Category 3</option>
-                    <option>Test Category 4</option>
-                    <option>Test Category 5</option>
-                    <option>Test Category 6</option>
-                    <option>Test Category 7</option>
+                    
+                    @foreach($category as $data)
+                  <option value="{{$data->catid}}"> {{$data->catname}}</option>
+                    @endforeach
                   </select>
                 </div>
 
