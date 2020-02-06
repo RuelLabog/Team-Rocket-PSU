@@ -60,7 +60,7 @@
 
                     @foreach($data as $value)
                     <tr>
-                      <td width="10%">{{$value->itemid}}</td>
+                      <td width="10%">{{$value->id}}</td>
                       <td width="20%">{{$value->itemname}}</td>
                       <td width="40%">{{$value->itemdesc}}</td>
                       <td width="10%">{{'₱'.$value->price}}</td>
