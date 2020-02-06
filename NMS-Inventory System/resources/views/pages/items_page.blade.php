@@ -60,13 +60,18 @@
 
                     @foreach($data as $value)
                     <tr>
-                      <td width="10%">{{$value->itemid}}</td>
+                      <td width="10%">{{$value->id}}</td>
                       <td width="20%">{{$value->itemname}}</td>
                       <td width="40%">{{$value->itemdesc}}</td>
                       <td width="10%">{{'₱'.$value->price}}</td>
                       <td width="10%">{{$value->quantity}}</td>
                       <td width="10%">
-                        <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                        <span class="table-button cursor-pointer mr-3"
+                        data-itemname="{{$value->itemname}}"
+                        data-itemdesc="{{$value->itemdesc}}"
+                        data-price="{{'₱'.$value->price}}"
+                        data-quantity="{{$value->quantity}}"
+                        data-toggle="modal" data-target="#modal-edit-items" >
                           <a>
                             <i class="fas fa-edit text-danger"></i>
                           </a>
@@ -162,25 +167,27 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title">Edit Item</h4>
             </div>
+            <form action="{{route('items_page.update', 'test')}}" method="POST">
+                {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group">
                   <label>Item:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                  <input type="text" class="form-control" id="eName" name="eName" placeholder="Item Name">
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description"></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="eDesc" name="eDesc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity">
                 </div>
 
                 <div class="form-group">
                   <label>Price:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Price">
+                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price">
                 </div>
 
 
@@ -202,6 +209,7 @@
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-success">Save changes</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
