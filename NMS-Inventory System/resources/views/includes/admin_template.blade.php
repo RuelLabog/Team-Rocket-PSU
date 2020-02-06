@@ -25,6 +25,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     table.table tr td .table-button { display:none !important;}
     table.table tr:hover td .table-button { display:inline-block !important;}
 
+    .fade {
+   opacity: 1;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+   }
+
+
     .cursor-pointer{
       cursor: pointer;
     }

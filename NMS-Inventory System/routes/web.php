@@ -27,9 +27,13 @@ Route::get('/categories', function () {
     return view('pages/categories_page');
 });
 
+Route::get('/users', function () {
+    return view('pages/users_page');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/items', 'ItemsController@getData');
 Route::get('/categories', 'CategoriesController@getData');
+Route::get('/users', 'UsersController@getData');

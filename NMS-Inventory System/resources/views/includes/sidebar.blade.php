@@ -40,9 +40,9 @@
               </p>
             </a>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <a href="{{url('categories')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Categories
               </p>
@@ -50,10 +50,21 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{url('users')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Users
+              </p>
+            </a>
+          </li>
+
+
+
+          <li class="nav-item">
             <a class="nav-link"  href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-              <i class="nav-icon fas fa-power"></i>
+              <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                 {{ __('Logout') }}
                 </p>

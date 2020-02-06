@@ -9,7 +9,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
 
-            <h1 class="m-0 text-dark"><i class="nav-icon fas fa-box"></i> Categories</h1>
+            <h1 class="m-0 text-dark"><i class="nav-icon fas fa-sitemap"></i> Categories</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -45,21 +45,21 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap text-center">
 
                     <tr>
-                      <th>Category ID</th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Action</th>
+                      <th width="10%">Category ID</th>
+                      <th width="25%">Name</th>
+                      <th width="55">Description</th>
+                      <th width="10%"></th>
                     </tr>
 
                     @foreach($data as $value)
                     <tr>
-                      <td>{{$value->catid}}</td>
-                      <td>{{$value->catname}}</td>
-                      <td>{{$value->catdesc}}</td>
-                      <td>
+                      <td width="10%">{{$value->catid}}</td>
+                      <td width="25%">{{$value->catname}}</td>
+                      <td width="55%">{{$value->catdesc}}</td>
+                      <td width="10%">
                         <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
                           <a>
                             <i class="fas fa-edit text-danger"></i>
@@ -91,11 +91,8 @@
       <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger">
               <h4 class="modal-title">Add New Category</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -159,7 +156,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h5 class="modal-title">Delete Category</h5>
+              <h4 class="modal-title">Delete Category</h4>
             </div>
             <div class="modal-body">
                 

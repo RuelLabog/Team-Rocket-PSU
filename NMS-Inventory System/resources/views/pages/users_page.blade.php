@@ -9,7 +9,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
 
-            <h1 class="m-0 text-dark"><i class="nav-icon fas fa-box"></i> Items</h1>
+            <h1 class="m-0 text-dark"><i class="nav-icon fas fa-user"></i> Users</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                  <i class="fas fa-plus mr-2"></i>Add Item
+                  <i class="fas fa-plus mr-2"></i>Add User
                 </button>
 
 
@@ -50,22 +50,18 @@
 
                 <table class="table table-hover text-nowrap">
                     <tr>
-                      <th width="10%">Item ID</th>
-                      <th width="20%">Name</th>
-                      <th width="40%">Description</th>
-                      <th width="10%">Price</th>
-                      <th width="10%">Quantity</th>
+                      <th width="30%">Username</th>
+                      <th width="30%">Email</th>
+                      <th width="30%">Name</th>
                       <th width="10%"></th>
                     </tr>
 
                     @foreach($data as $value)
                     <tr>
-                      <td width="10%">{{$value->itemid}}</td>
-                      <td width="20%">{{$value->itemname}}</td>
-                      <td width="40%">{{$value->itemdesc}}</td>
-                      <td width="10%">{{'₱'.$value->price}}</td>
-                      <td width="10%">{{$value->quantity}}</td>
-                      <td width="10%">
+                      <td>{{$value->username}}</td>
+                      <td>{{$value->email}}</td>
+                      <td>{{$value->fname.' '.$value->lname}}</td>
+                      <td>
                         <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
                           <a>
                             <i class="fas fa-edit text-danger"></i>
@@ -97,50 +93,67 @@
 
 <!-- add items modal -->
       <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
-              <h4 class="modal-title">Add New Item</h4>
+              <h4 class="modal-title">Add New User</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                  <label>Item:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Username:</label>
+                      <input type="text" class="form-control" name="" placeholder="Username">
+                    </div>
+                    <div class="col-6">
+                      <label>Email:</label>
+                      <input type="email" class="form-control" name="" placeholder="user@example.com">
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description"></textarea>
+                  <div class="row">
+                    <div class="col-6">
+                      <label>First Name:</label>
+                      <input type="text" class="form-control" name="" placeholder="Given Name">
+                    </div>
+                    <div class="col-6">
+                      <label>Last Name:</label>
+                      <input type="text" class="form-control" name="" placeholder="Familiy Name">
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label>Quantity:</label>
-                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Password:</label>
+                      <input type="password" class="form-control" name="" placeholder="Password">
+                    </div>
+                    <div class="col-6">
+                      <label>Confirm Password:</label>
+                      <input type="password" class="form-control" name="" placeholder="Confirm Password">
+                    </div>
+                  </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Price:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Price">
-                </div>
+
+
 
 
                 <div class="form-group">
-                  <label>Category:</label>
+                  <label>Account Type:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Test Category 1</option>
-                    <option>Test Category 2</option>
-                    <option>Test Category 3</option>
-                    <option>Test Category 4</option>
-                    <option>Test Category 5</option>
-                    <option>Test Category 6</option>
-                    <option>Test Category 7</option>
+                    <option selected="selected">Admin</option>
+                    <option>User</option>
                   </select>
                 </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-success">Save</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -157,50 +170,67 @@
 
       <!-- edit item modal -->
       <div class="modal fade" id="modal-edit-items">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title">Edit Item</h4>
+              <h4 class="modal-title">Edit User</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                  <label>Item:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Username:</label>
+                      <input type="text" class="form-control" name="" placeholder="Username">
+                    </div>
+                    <div class="col-6">
+                      <label>Email:</label>
+                      <input type="email" class="form-control" name="" placeholder="user@example.com">
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description"></textarea>
+                  <div class="row">
+                    <div class="col-6">
+                      <label>First Name:</label>
+                      <input type="text" class="form-control" name="" placeholder="Given Name">
+                    </div>
+                    <div class="col-6">
+                      <label>Last Name:</label>
+                      <input type="text" class="form-control" name="" placeholder="Familiy Name">
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label>Quantity:</label>
-                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Password:</label>
+                      <input type="password" class="form-control" name="" placeholder="Password">
+                    </div>
+                    <div class="col-6">
+                      <label>Confirm Password:</label>
+                      <input type="password" class="form-control" name="" placeholder="Confirm Password">
+                    </div>
+                  </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Price:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Price">
-                </div>
+
+
 
 
                 <div class="form-group">
-                  <label>Category:</label>
+                  <label>Account Type:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Test Category 1</option>
-                    <option>Test Category 2</option>
-                    <option>Test Category 3</option>
-                    <option>Test Category 4</option>
-                    <option>Test Category 5</option>
-                    <option>Test Category 6</option>
-                    <option>Test Category 7</option>
+                    <option selected="selected">Admin</option>
+                    <option>User</option>
                   </select>
                 </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-success">Save</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -219,11 +249,11 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Delete Item</h4>
+              <h5 class="modal-title">Delete User</h5>
             </div>
             <div class="modal-body">
                 
-              <h4>Are you sure you want to delete this item?</h4>
+              <h4>Are you sure you want to delete this user?</h4>
 
             </div>
             <div class="modal-footer">
