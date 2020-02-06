@@ -9,6 +9,12 @@ use DB;
 
 class ItemsController extends Controller
 {
+    // for authentication
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //Retreiving of Data.
     function getData(){
         $data['data'] = DB::table('items')->get();
