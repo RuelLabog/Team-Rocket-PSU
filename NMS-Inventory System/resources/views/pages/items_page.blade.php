@@ -222,7 +222,7 @@
               <h4 class="modal-title">Delete Item</h4>
             </div>
             <div class="modal-body">
-                
+
               <h4>Are you sure you want to delete this item?</h4>
 
             </div>
