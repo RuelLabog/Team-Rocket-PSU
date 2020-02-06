@@ -94,21 +94,24 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Add New Category</h4>
             </div>
+            <form action="" method="POST">
             <div class="modal-body">
               <div class="form-group">
+                {{ csrf_field() }}
                 <label>Category:</label>
-                <input type="text" class="form-control" name="" placeholder="Category Name">
+                <input type="text" class="form-control" name="catname" placeholder="Category Name">
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Category Description"></textarea>
+                <textarea class="form-control" name="catdesc" placeholder="Category Description"></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="submit" class="btn btn-success" name="submit">Save changes</button>
             </div>
+          </form>
           </div>
           <!-- /.modal-content -->
         </div>

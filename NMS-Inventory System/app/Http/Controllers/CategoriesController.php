@@ -26,4 +26,11 @@ class CategoriesController extends Controller
             return view('pages/categories_page');
         }
     }
+
+    function insert(Request $req){
+        $catname = $req->input('catname');
+        $catdesc = $req->input('catdesc');
+        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'createdat'=>NOW(),'updatedat'=>NULL);
+        DB::table('categories')->insert($data);
+    }
 }
