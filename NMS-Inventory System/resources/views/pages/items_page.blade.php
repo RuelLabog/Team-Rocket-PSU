@@ -102,31 +102,33 @@
             <div class="modal-header btn-danger ">
               <h4 class="modal-title">Add New Item</h4>
             </div>
+            <form action="" method="POST">
             <div class="modal-body">
                 <div class="form-group">
+                  {{ csrf_field() }}
                   <label>Item:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                  <input type="text" class="form-control" name="itemname" placeholder="Item Name">
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description"></textarea>
+                <textarea class="form-control" placeholder="Item Description" name="itemdesc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                  <input type="number" class="form-control" name="quantity" placeholder="Item Quantity">
                 </div>
 
                 <div class="form-group">
                   <label>Price:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Price">
+                  <input type="text" class="form-control" name="price" placeholder="Item Price">
                 </div>
 
 
                 <div class="form-group">
                   <label>Category:</label>
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
                     
                     @foreach($category as $data)
                   <option value="{{$data->catid}}"> {{$data->catname}}</option>
@@ -137,8 +139,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="submit" class="btn btn-success" name="submit">Save changes</button>
             </div>
+          </form>
           </div>
           <!-- /.modal-content -->
         </div>
