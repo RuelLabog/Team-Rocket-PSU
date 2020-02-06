@@ -6,9 +6,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
-
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidateRequests;
+use Illuminate\Foundation\Validation\AuthorizesRequests;
 class ItemsController extends Controller
 {
+
     // for authentication
     public function __construct()
     {
@@ -108,5 +111,14 @@ class ItemsController extends Controller
     }
 
 
+    function insert(Request $req){
+        $itemname = $req->input('itemname');
+        $itemdesc = $req->input('itemdesc');
+        $price = $req->input('price');
+        $quantity = $req->input('quantity');
+        $catid = $req->input('catid');
+        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid);
+        DB::table('items')->insert($data);
+    }
 }
 
