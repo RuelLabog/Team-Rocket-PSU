@@ -37,3 +37,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/items', 'ItemsController@getData');
 Route::get('/categories', 'CategoriesController@getData');
 Route::get('/users', 'UsersController@getData');
+
+Route::post('/items','ItemsController@insert');
