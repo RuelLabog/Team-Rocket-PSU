@@ -33,7 +33,10 @@ Route::get('/users', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('items_page', 'ItemsController');
+
 
 Route::get('/items', 'ItemsController@getData');
+
 Route::get('/categories', 'CategoriesController@getData');
 Route::get('/users', 'UsersController@getData');
