@@ -48,11 +48,10 @@
                 <table class="table table-hover text-nowrap">
 
                     <tr>
-                      <td>Category ID</td>
-                      <td>Name</td>
-                      <td>Description</td>
-                      <td>Date Created</td>
-                      <td>Date Updated</td>
+                      <th>Category ID</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Action</th>
                     </tr>
 
                     @foreach($data as $value)
@@ -60,8 +59,20 @@
                       <td>{{$value->catid}}</td>
                       <td>{{$value->catname}}</td>
                       <td>{{$value->catdesc}}</td>
-                      <td>{{$value->createdat}}</td>
-                      <td>{{$value->updatedat}}</td>
+                      <td>
+                        <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                          <a>
+                            <i class="fas fa-edit text-danger"></i>
+                          </a>
+                        </span>
+
+                         <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                          <a>
+                            <i class="fas fa-trash text-danger"></i>
+                          </a>
+                        </span>
+
+                      </td>
                     </tr>
                     @endforeach
 
@@ -107,6 +118,64 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add items modal -->
+
+
+       <!-- edit item modal -->
+      <div class="modal fade" id="modal-edit-items">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header btn-danger">
+              <h4 class="modal-title">Edit Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                <label>Category:</label>
+                <input type="text" class="form-control" name="" placeholder="Category Name">
+              </div>
+              <div class="form-group">
+                <label>Description:</label>
+                <textarea class="form-control" placeholder="Category Description"></textarea>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.edit item modal -->
+
+
+
+
+
+
+            <!-- delete item modal -->
+      <div class="modal fade" id="modal-delete-items">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger">
+              <h5 class="modal-title">Delete Category</h5>
+            </div>
+            <div class="modal-body">
+                
+              <h4>Are you sure you want to delete this category?</h4>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.delete item modal -->
 
 
 
