@@ -443,7 +443,7 @@ class ComposerStaticInitcceab5a96bacbf5587e653d68bae0b84
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\category' => __DIR__ . '/../..' . '/app/category.php',
         'App\\item' => __DIR__ . '/../..' . '/app/item.php',
-        'App\\user' => __DIR__ . '/../..' . '/app/user.php',
+        'App\\user' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
         'Carbon\\CarbonInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterface.php',

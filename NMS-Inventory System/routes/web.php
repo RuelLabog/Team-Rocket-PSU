@@ -12,12 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('pages/dashboard');
+    return view('auth.login');
 });
 
-Route::get('/login', function () {
-    return view('auth/login');
-});
+// Route::get('/login', function () {
+//     return view('auth/login');
+// });
 
 Route::get('/items', function () {
     return view('pages/items_page');

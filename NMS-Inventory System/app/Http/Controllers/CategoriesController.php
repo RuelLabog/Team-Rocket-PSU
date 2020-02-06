@@ -8,6 +8,13 @@ use DB;
 
 class CategoriesController extends Controller
 {
+    //for authentication
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     //
     function getData(){
         $data['data'] = DB::table('categories')->get();
