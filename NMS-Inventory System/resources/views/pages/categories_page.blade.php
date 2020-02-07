@@ -27,73 +27,12 @@
 <!-- /.row -->
         <div class="row">
           <div class="col-12">
-<<<<<<< HEAD
-            <div class="card">
-              <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                  <i class="fas fa-plus mr-2"></i>Add Category
-                </button>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap text-center">
-
-                    <tr>
-                      <th width="10%">Category ID</th>
-                      <th width="25%">Name</th>
-                      <th width="55">Description</th>
-                      <th width="10%"></th>
-                    </tr>
-
-                    @foreach($data as $value)
-                    <tr>
-                      <td width="10%">{{$value->id}}</td>
-                      <td width="25%">{{$value->catname}}</td>
-                      <td width="55%">{{$value->catdesc}}</td>
-                      <td width="10%">
-                        <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
-                          <a>
-                            <i class="fas fa-edit text-danger"></i>
-                          </a>
-                        </span>
-
-                         <span class="table-button cursor-pointer"
-                         data-itemname="{{$value->catname}}"
-                         data-id="{{$value->id}}"
-                         data-toggle="modal" data-target="#modal-delete-categories">
-                          <a>
-                            <i class="fas fa-trash text-danger"></i>
-                          </a>
-                        </span>
-
-                      </td>
-                    </tr>
-                    @endforeach
-
-                  </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-=======
 
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
             <i class="fas fa-plus mr-2"></i>Add Category
           </button>
->>>>>>> 91db805fb495e181b61fa1cc32a53c25fb659c35
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -123,7 +62,10 @@
                       </a>
                     </span>
 
-                     <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                     <span class="table-button cursor-pointer"
+                    data-catid="{{$value->id}}"
+                    data-catname="{{$value->catname}}"
+                     data-toggle="modal" data-target="#categories">
                       <a>
                         <i class="fas fa-trash text-danger"></i>
                       </a>
@@ -182,7 +124,6 @@
               <h4 class="modal-title">Edit Category</h4>
             </div>
             <form action="{{route('categories_page.update', 'test')}}" method="POST">
-
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
@@ -215,7 +156,7 @@
 
 
             <!-- delete categories modal -->
-      <div class="modal fade" id="modal-delete-categories">
+      <div class="modal fade" id="categories">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -226,7 +167,6 @@
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
             <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

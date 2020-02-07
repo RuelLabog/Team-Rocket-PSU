@@ -67,7 +67,10 @@
                         </a>
                       </span>
 
-                       <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                       <span class="table-button cursor-pointer"
+                       data-itemname="{{$value->itemname}}"
+                       data-itemid="{{$value->id}}"
+                       data-toggle="modal" data-target="#modal-delete-items">
                         <a>
                           <i class="fas fa-trash text-danger"></i>
                         </a>
@@ -238,15 +241,12 @@
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
 
 
 
->>>>>>> 91db805fb495e181b61fa1cc32a53c25fb659c35
  @endsection
 
 

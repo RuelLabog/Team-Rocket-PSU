@@ -124,9 +124,10 @@ class CategoriesController extends Controller
     function insert(Request $req){
         $catname = $req->input('catname');
         $catdesc = $req->input('catdesc');
-        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'createdat'=>NOW(),'updatedat'=>NULL);
+        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL);
         DB::table('categories')->insert($data);
 
         return back();
     }
 
+}

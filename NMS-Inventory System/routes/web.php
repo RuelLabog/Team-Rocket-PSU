@@ -32,6 +32,7 @@ Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 
 //categoies routes
 Route::get('/categories', 'CategoriesController@getData');
+Route::resource('/categories_page', 'CategoriesController');
 Route::get('/softdelcat', 'CategoriesController@destroy')->name('catSoftDelete');
 
 //users routes
