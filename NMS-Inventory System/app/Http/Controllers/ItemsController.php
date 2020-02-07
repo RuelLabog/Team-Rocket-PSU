@@ -118,7 +118,17 @@ class ItemsController extends Controller
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
         $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
-        DB::table('items')->insert($data);
+        
+
+        if (DB::table('items')->insert($data)) {
+            return redirect()->back()->with('alert', 'Item Successfully added!');
+    
+        } else {
+            return redirect()->back()->with('alert', 'error!');
+        }
+
+        
+        
     }
 }
 

@@ -38,6 +38,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   </style>
 
+<script>
+  var msg = '{{Session::get('alert')}}';
+  var exist = '{{Session::has('alert')}}';
+  if(exist){
+    alert(msg);
+  }
+</script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
