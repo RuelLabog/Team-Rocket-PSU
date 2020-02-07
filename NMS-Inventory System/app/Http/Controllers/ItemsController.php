@@ -6,9 +6,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use App\item;
+use App\Items;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
+use Illuminate\Support\Facades\Redirect;
+
 class ItemsController extends Controller
 {
 
@@ -20,7 +24,9 @@ class ItemsController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('items')->get();
+        $data['data'] = DB::table('items')->get()
+                        ->where('deleted_at', '=', null);
+
 
         if(count($data) > 0){
             return view('pages/items_page', $data);
@@ -105,9 +111,12 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $deleteItem = $request->input('ditemID');
+        Items::find($deleteItem)->delete();
+        // DB::table('items')->delete($deleteItem);
+        return Redirect::back();
     }
 
 

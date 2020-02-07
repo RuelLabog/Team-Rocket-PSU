@@ -115,5 +115,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     </script>
 
+
+
+    <script>
+    //retrieve name of items in delete items modal
+      $('#modal-delete-items').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var itemName = button.data('itemname');
+        var id= button.data('id');
+
+        var modal = $(this);
+
+        modal.find('.modal-body #dItemID').val(id);
+        modal.find('.modal-body #dItemName').html(itemName);
+
+        })
+
+
+    </script>
+
+<script>
+    $('#modal-delete-categories').on('show.bs.modal', function (event) {
+
+      var button = $(event.relatedTarget)
+      var itemName = button.data('itemname')
+      var id = button.data('id')
+ // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+
+      modal.find('.modal-body #dCatID').val(id)
+      modal.find('.modal-body #dCatName').html(itemName)
+
+    })
+
+    </script>
+
 </body>
 </html>

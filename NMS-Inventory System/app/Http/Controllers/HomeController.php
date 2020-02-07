@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\item;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {

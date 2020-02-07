@@ -12,33 +12,30 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    // return view('auth.login');
+    return redirect('/login');
 });
 
 // Route::get('/login', function () {
 //     return view('auth/login');
 // });
 
-Route::get('/items', function () {
-    return view('pages/items_page');
-});
-
-Route::get('/categories', function () {
-    return view('pages/categories_page');
-});
-
-Route::get('/users', function () {
-    return view('pages/users_page');
-});
 Auth::routes();
 
+//dashboard route
 Route::get('/home', 'HomeController@index')->name('home');
+
+//items routes
 Route::resource('items_page', 'ItemsController');
-
-
 Route::get('/items', 'ItemsController@getData');
+Route::post('/items','ItemsController@insert');
+Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 
+//categoies routes
 Route::get('/categories', 'CategoriesController@getData');
+Route::get('/softdelcat', 'CategoriesController@destroy')->name('catSoftDelete');
+
+//users routes
 Route::get('/users', 'UsersController@getData');
 
-Route::post('/items','ItemsController@insert');
+

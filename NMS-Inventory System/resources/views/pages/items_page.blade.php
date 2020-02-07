@@ -77,7 +77,10 @@
                           </a>
                         </span>
 
-                         <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                         <span class="table-button cursor-pointer"
+                         data-itemname="{{$value->itemname}}"
+                         data-id="{{$value->id}}"
+                         data-toggle="modal" data-target="#modal-delete-items">
                           <a>
                             <i class="fas fa-trash text-danger"></i>
                           </a>
@@ -134,9 +137,9 @@
                 <div class="form-group">
                   <label>Category:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
-                    
+
                     @foreach($category as $data)
-                  <option value="{{$data->catid}}"> {{$data->catname}}</option>
+                  <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -229,21 +232,25 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Item</h4>
             </div>
+            <form action="{{route('itemSoftDelete')}}" method="get">
+            {{ csrf_field() }}
             <div class="modal-body">
-
-              <h4>Are you sure you want to delete this item?</h4>
+                <input type="hidden" id="dItemID" name="dItemID"/>
+                <h6 style="text-align:center">Are you sure you want to delete item <label id='dItemName'></label> ?</h6>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
 
 
  @endsection

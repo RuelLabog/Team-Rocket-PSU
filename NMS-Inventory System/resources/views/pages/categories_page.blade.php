@@ -56,7 +56,7 @@
 
                     @foreach($data as $value)
                     <tr>
-                      <td width="10%">{{$value->catid}}</td>
+                      <td width="10%">{{$value->id}}</td>
                       <td width="25%">{{$value->catname}}</td>
                       <td width="55%">{{$value->catdesc}}</td>
                       <td width="10%">
@@ -66,7 +66,10 @@
                           </a>
                         </span>
 
-                         <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                         <span class="table-button cursor-pointer"
+                         data-itemname="{{$value->catname}}"
+                         data-id="{{$value->id}}"
+                         data-toggle="modal" data-target="#modal-delete-categories">
                           <a>
                             <i class="fas fa-trash text-danger"></i>
                           </a>
@@ -151,29 +154,30 @@
 
 
 
-            <!-- delete item modal -->
-      <div class="modal fade" id="modal-delete-items">
+            <!-- delete categories modal -->
+      <div class="modal fade" id="modal-delete-categories">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Category</h4>
             </div>
+            <form action="{{route('catSoftDelete')}}" method="get">
+            {{ csrf_field() }}
             <div class="modal-body">
-                
-              <h4>Are you sure you want to delete this category?</h4>
+            <input type="hidden" id="dCatID" name="dCatID" class="form-control">
+            <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
-
-
 
  @endsection

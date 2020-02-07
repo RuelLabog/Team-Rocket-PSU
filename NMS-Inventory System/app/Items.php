@@ -3,9 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class category extends Model
+class Items extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
