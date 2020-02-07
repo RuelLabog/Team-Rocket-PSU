@@ -28,6 +28,7 @@ class CategoriesController extends Controller
         }
     }
 
+<<<<<<< HEAD
 
 
     /**
@@ -115,4 +116,14 @@ class CategoriesController extends Controller
         //
     }
 
+=======
+    function insert(Request $req){
+        $catname = $req->input('catname');
+        $catdesc = $req->input('catdesc');
+        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'createdat'=>NOW(),'updatedat'=>NULL);
+        DB::table('categories')->insert($data);
+
+        return back();
+    }
+>>>>>>> f9e7992a303ea8697bbebdb4ca642f366e5fa838
 }

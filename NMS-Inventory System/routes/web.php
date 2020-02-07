@@ -43,3 +43,4 @@ Route::get('/categories', 'CategoriesController@getData');
 Route::get('/users', 'UsersController@getData');
 
 Route::post('/items','ItemsController@insert');
+Route::post('/categories','CategoriesController@insert');

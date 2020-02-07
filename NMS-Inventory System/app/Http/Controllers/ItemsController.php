@@ -130,8 +130,26 @@ class ItemsController extends Controller
         $price = $req->input('price');
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
-        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid);
-        DB::table('items')->insert($data);
+        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
+
+
+        if (DB::table('items')->insert($data)) {
+
+            $notification = array(
+                'message'=> 'A New Item is Inserted!',
+                'alert-type' => 'success'
+            );
+            
+    
+        }else{
+            $notification = array(
+                'message'=> 'Error!',
+                'alert-type' => 'danger'
+            );
+        }
+        return back()->with($notification);
+
+
     }
 }
 
