@@ -28,7 +28,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 //items routes
 Route::resource('items_page', 'ItemsController');
 Route::get('/items', 'ItemsController@getData');
-Route::post('/items','ItemsController@insert');
 Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 
 //categoies routes
@@ -38,4 +37,5 @@ Route::get('/softdelcat', 'CategoriesController@destroy')->name('catSoftDelete')
 //users routes
 Route::get('/users', 'UsersController@getData');
 
-
+Route::post('/items','ItemsController@insert');
+Route::post('/categories','CategoriesController@insert');
