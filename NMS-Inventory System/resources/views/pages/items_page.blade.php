@@ -60,7 +60,7 @@
                       data-price="{{$value->price}}"
                       data-quantity="{{$value->quantity}}"
                       data-itemid="{{$value->id}}"
-                      data-ecat="{{$value->catid}}"
+                      data-catid="{{$value->catid}}"
                       data-toggle="modal" data-target="#modal-edit-items">
                         <a>
                           <i class="fas fa-edit text-danger"></i>
@@ -160,6 +160,7 @@
                 {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" class="form-control"  id="itemid" name="editid" value="" placeholder="Item Name">
+            <input type="hidden" class="form-control"  id="catid" name="catid" value="" placeholder="Item Name">
                 <div class="form-group">
                   <label>Item:</label>
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name">

@@ -131,8 +131,8 @@ class ItemsController extends Controller
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
         $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
-     
-        
+
+
         if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
             $notification = array(
                 'message'=> 'Error!',
