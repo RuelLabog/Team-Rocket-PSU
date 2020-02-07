@@ -101,7 +101,7 @@
             <form action="" method="POST">
             <div class="modal-body">
                 <div class="form-group">
-
+{{csrf_field()}}
                   <label>Item:</label>
                   <input type="text" class="form-control" name="itemname" placeholder="Item Name">
                 </div>
@@ -190,7 +190,7 @@
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
 
                     @foreach($category as $data)
-                    <option value="{{$data->catid}}"> {{$data->catname}}</option>
+                    <option value="{{$data->catid}}" > {{$data->catname}}</option>
                       @endforeach
                   </select>
                 </div>
