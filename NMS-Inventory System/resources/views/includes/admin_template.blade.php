@@ -152,8 +152,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       toastr.danger('{{Session::get('message')}}');
       break;
     }
-
-
   @endif
 </script>
 
