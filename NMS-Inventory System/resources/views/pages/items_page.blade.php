@@ -25,27 +25,10 @@
 
 
 
-
-<?php
-  
-if($msg):
-echo "<script>
-  window.onload = function(){
-    var button = document.getElementById('successmsg');
-    button.click();
-}
-</script>";
-endif;
-?>
-
           <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                   <i class="fas fa-plus mr-2"></i>Add Item
-                </button>
-
-                <button type="button" class="btn btn-success insert_item_message" id="successmsg" hidden="">
-                  Launch Success Toast
                 </button>
             </div>
             <!-- /.card-header -->
@@ -165,25 +148,27 @@ endif;
             <div class="modal-header btn-danger">
               <h4 class="modal-title">Edit Item</h4>
             </div>
+            <form action="{{route('items_page.update', 'test')}}" method="POST">
+                {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group">
                   <label>Item:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Name">
+                  <input type="text" class="form-control" id="eName" name="eName" placeholder="Item Name">
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description"></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="eDesc" name="eDesc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" name="" placeholder="Item Quantity">
+                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity">
                 </div>
 
                 <div class="form-group">
                   <label>Price:</label>
-                  <input type="text" class="form-control" name="" placeholder="Item Price">
+                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price">
                 </div>
 
 
@@ -205,6 +190,7 @@ endif;
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-success">Save changes</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -225,7 +211,7 @@ endif;
               <h4 class="modal-title">Delete Item</h4>
             </div>
             <div class="modal-body">
-                
+
               <h4>Are you sure you want to delete this item?</h4>
 
             </div>
@@ -239,6 +225,7 @@ endif;
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
 
 
 

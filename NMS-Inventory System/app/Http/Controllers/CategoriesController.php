@@ -32,5 +32,7 @@ class CategoriesController extends Controller
         $catdesc = $req->input('catdesc');
         $data = array('catname'=>$catname,'catdesc'=>$catdesc,'createdat'=>NOW(),'updatedat'=>NULL);
         DB::table('categories')->insert($data);
+
+        return back();
     }
 }

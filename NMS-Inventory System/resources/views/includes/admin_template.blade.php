@@ -21,9 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 
-    <!-- Toastr -->
+      <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
-
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -44,6 +43,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   </style>
 
+<script>
+  var msg = '{{Session::get('alert')}}';
+  var exist = '{{Session::has('alert')}}';
+  if(exist){
+    alert(msg);
+  }
+</script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -97,13 +103,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
+
+
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
   });
 </script>
+<script>
+    $('#modal-edit-items').on('show.bs.modal', function (event) {
 
+      var button = $(event.relatedTarget)
+      var itemName = button.data('itemname')
+      var itemDesc = button.data('itemdesc')
+      var price = button.data('price')
+      var quantity = button.data('quantity') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+
+      modal.find('.modal-body #eName').val(itemName)
+      modal.find('.modal-body #eDesc').val(itemDesc)
+      modal.find('.modal-body #ePrice').val(price)
+      modal.find('.modal-body #eQuantity').val(quantity)
+    })
+
+    </script>
 
 <script>
   $(function () {
@@ -112,10 +138,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<script type="text/javascript">
-      $('.insert_item_message').click(function() {
-      toastr.success('A New Item is Inserted!')
-    });
+
+
+<script>
+  @if(Session::has('message'))
+    var type="{{Session::get('alert-type', 'success')}}";
+
+    switch(type){
+      case 'success':
+      toastr.success('{{Session::get('message')}}');
+      break;
+      case 'danger':
+      toastr.danger('{{Session::get('message')}}');
+      break;
+    }
+
+
+  @endif
 </script>
 
 

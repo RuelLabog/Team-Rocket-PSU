@@ -2,37 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidateRequests;
-use Illuminate\Foundation\Validation\AuthorizesRequests;
-class ItemsController extends Controller
+
+class tryController extends Controller
 {
-
-    // for authentication
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    //Retreiving of Data.
-    function getData(){
-        $data['data'] = DB::table('items')->get();
-
-        if(count($data) > 0){
-            return view('pages/items_page', $data);
-        }
-        else{
-            return view('pages/items_page');
-        }
-    }
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -96,7 +70,6 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         //
-
     }
 
     /**
@@ -109,34 +82,4 @@ class ItemsController extends Controller
     {
         //
     }
-
-
-    function insert(Request $req){
-        $itemname = $req->input('itemname');
-        $itemdesc = $req->input('itemdesc');
-        $price = $req->input('price');
-        $quantity = $req->input('quantity');
-        $catid = $req->input('catid');
-        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
-
-
-        if (DB::table('items')->insert($data)) {
-
-            $notification = array(
-                'message'=> 'A New Item is Inserted!',
-                'alert-type' => 'success'
-            );
-            
-    
-        }else{
-            $notification = array(
-                'message'=> 'Error!',
-                'alert-type' => 'danger'
-            );
-        }
-        return back()->with($notification);
-
-
-    }
 }
-
