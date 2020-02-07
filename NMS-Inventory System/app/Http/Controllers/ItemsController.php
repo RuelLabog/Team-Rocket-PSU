@@ -126,9 +126,6 @@ class ItemsController extends Controller
         } else {
             return redirect()->back()->with('alert', 'error!');
         }
-
-        
-        
     }
 }
 

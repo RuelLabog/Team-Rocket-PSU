@@ -22,78 +22,61 @@
     </div>
     <!-- /.content-header -->
 
-<!-- /.row -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
+
+
+
+
+
+          <div class="card">
+            <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                   <i class="fas fa-plus mr-2"></i>Add Item
                 </button>
-
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-
-                <table class="table table-hover text-nowrap">
-                    <tr>
-                      <th width="10%">Item ID</th>
-                      <th width="20%">Name</th>
-                      <th width="40%">Description</th>
-                      <th width="10%">Price</th>
-                      <th width="10%">Quantity</th>
-                      <th width="10%"></th>
-                    </tr>
-
-                    @foreach($data as $value)
-                    <tr>
-                      <td width="10%">{{$value->id}}</td>
-                      <td width="20%">{{$value->itemname}}</td>
-                      <td width="40%">{{$value->itemdesc}}</td>
-                      <td width="10%">{{'₱'.$value->price}}</td>
-                      <td width="10%">{{$value->quantity}}</td>
-                      <td width="10%">
-                        <span class="table-button cursor-pointer mr-3"
-                        data-itemname="{{$value->itemname}}"
-                        data-itemdesc="{{$value->itemdesc}}"
-                        data-price="{{'₱'.$value->price}}"
-                        data-quantity="{{$value->quantity}}"
-                        data-toggle="modal" data-target="#modal-edit-items" >
-                          <a>
-                            <i class="fas fa-edit text-danger"></i>
-                          </a>
-                        </span>
-
-                         <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
-                          <a>
-                            <i class="fas fa-trash text-danger"></i>
-                          </a>
-                        </span>
-
-                      </td>
-                    </tr>
-                    @endforeach
-                  </table>
-              </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="items_table" class="table table-bordered table-striped">
+                <thead>
+                 <tr>
+                    <th width="10%">Item ID</th>
+                    <th width="20%">Name</th>
+                    <th width="40%">Description</th>
+                    <th width="10%">Price</th>
+                    <th width="10%">Quantity</th>
+                    <th width="10%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                @foreach($data as $value)
+                  <tr>
+                    <td width="10%">{{$value->id}}</td>
+                    <td width="20%">{{$value->itemname}}</td>
+                    <td width="40%">{{$value->itemdesc}}</td>
+                    <td width="10%">{{'₱'.$value->price}}</td>
+                    <td width="10%">{{$value->quantity}}</td>
+                    <td width="10%" class="text-center">
+
+                      <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                        <a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a>
+                      </span>
+
+                       <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                        <a>
+                          <i class="fas fa-trash text-danger"></i>
+                        </a>
+                      </span>
+
+                    </td>
+                  </tr>
+                @endforeach
+
+              </table>
+            </div>
+            <!-- /.card-body -->
           </div>
-        </div>
-        <!-- /.row -->
+          <!-- /.card -->
 
 
 
@@ -244,6 +227,12 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
+
+
+
+
+
 
 
  @endsection
