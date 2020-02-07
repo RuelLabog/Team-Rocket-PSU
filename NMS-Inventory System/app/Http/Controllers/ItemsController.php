@@ -125,7 +125,7 @@ class ItemsController extends Controller
      */
     public function destroy(Request $request) {
         $deleteItem = $request->input('dItemID');
-        Items::find($deleteItem)->delete();
+        item::find($deleteItem)->delete();
         // DB::table('items')->delete($deleteItem);
         return Redirect::back();
     }
