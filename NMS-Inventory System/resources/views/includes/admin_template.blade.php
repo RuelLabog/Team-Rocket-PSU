@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
     $('#modal-edit-items').on('show.bs.modal', function (event) {
-        alert("asdas")
+       
       var button = $(event.relatedTarget)
       var itemid = button.data('itemid')
       var itemName = button.data('itemname')
