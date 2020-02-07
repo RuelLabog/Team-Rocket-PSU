@@ -26,11 +26,26 @@
 
 
 
+<?php
+  
+if($msg):
+echo "<script>
+  window.onload = function(){
+    var button = document.getElementById('successmsg');
+    button.click();
+}
+</script>";
+endif;
+?>
 
           <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                   <i class="fas fa-plus mr-2"></i>Add Item
+                </button>
+
+                <button type="button" class="btn btn-success insert_item_message" id="successmsg" hidden="">
+                  Launch Success Toast
                 </button>
             </div>
             <!-- /.card-header -->

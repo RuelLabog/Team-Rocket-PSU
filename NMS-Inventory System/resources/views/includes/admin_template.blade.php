@@ -20,6 +20,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
+    <!-- Toastr -->
+  <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -91,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/datatables/jquery.dataTables.js"></script>
 <script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
-
+<script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
 <script>
   $(function () {
@@ -106,6 +110,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $("#items_table").DataTable();
     
   });
+</script>
+
+<script type="text/javascript">
+      $('.insert_item_message').click(function() {
+      toastr.success('A New Item is Inserted!')
+    });
 </script>
 
 

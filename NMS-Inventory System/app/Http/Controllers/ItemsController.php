@@ -37,9 +37,12 @@ class ItemsController extends Controller
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
         $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
-        DB::table('items')->insert($data);
 
-        return redirect()->to('items/');
+
+    if(DB::table('items')->insert($data)){
+        $msg = 'z';
+        return redirect()->to( 'items/' )->with( [ 'msg' => $msg ] );
+        }
     }
 }
 
