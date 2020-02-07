@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\item;
+use App\category;
 use Illuminate\Http\Request;
 use DB;
+use View;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
@@ -93,10 +96,20 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $updateitem = item::findOrFail($request->editid);
 
+        $updateitem->itemname =  $request['itemname'];
+        $updateitem->itemdesc = $request['itemdesc'];
+        $updateitem->price = $request['price'];
+        $updateitem->quantity = $request['quantity'];
+        $updateitem->catid = $request['catid'];
+
+        $updateitem->save();
+
+        return back();
     }
 
     /**

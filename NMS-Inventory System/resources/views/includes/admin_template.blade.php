@@ -95,25 +95,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#select2').select2();
   });
 </script>
+
 <script>
-    $('#modal-edit-items').on('show.bs.modal', function (event) {
+     $('#modal').on('show.bs.modal', function (event) {
 
       var button = $(event.relatedTarget)
-      var itemName = button.data('itemname')
-      var itemDesc = button.data('itemdesc')
-      var price = button.data('price')
-      var quantity = button.data('quantity') // Extract info from data-* attributes
+      var catid = button.data('catid')
+      var catname = button.data('catname')
+      var catdesc = button.data('catdesc') // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #eName').val(itemName)
-      modal.find('.modal-body #eDesc').val(itemDesc)
-      modal.find('.modal-body #ePrice').val(price)
-      modal.find('.modal-body #eQuantity').val(quantity)
+      modal.find('.modal-body #catid').val(catid)
+      modal.find('.modal-body #catdesc').val(catdesc)
+      modal.find('.modal-body #catname').val(catname)
+
     })
 
-    </script>
+</script>
+
+<script>
+    $('#modal-edit-items').on('show.bs.modal', function (event) {
+        alert("asdas")
+      var button = $(event.relatedTarget)
+      var itemid = button.data('itemid')
+      var itemName = button.data('itemname')
+      var itemDesc = button.data('itemdesc')
+      var price = button.data('price')
+      var quantity = button.data('quantity')
+      var category = button.data('catid') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+
+      modal.find('.modal-body #itemname').val(itemName)
+      modal.find('.modal-body #itemdesc').val(itemDesc)
+      modal.find('.modal-body #price').val(price)
+      modal.find('.modal-body #quantity').val(quantity)
+      modal.find('.modal-body #catid').val(category)
+      modal.find('.modal-body #itemid').val(itemid)
+
+    })
+
+</script>
+
+
+
 
 </body>
 </html>
