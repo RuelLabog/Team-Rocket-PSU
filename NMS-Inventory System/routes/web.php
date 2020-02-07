@@ -35,6 +35,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('items_page', 'ItemsController');
 
+Route::resource('categories_page', 'CategoriesController');
 
 Route::get('/items', 'ItemsController@getData');
 

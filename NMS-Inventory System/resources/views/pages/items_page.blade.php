@@ -54,7 +54,14 @@
                     <td width="10%">{{$value->quantity}}</td>
                     <td width="10%" class="text-center">
 
-                      <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                      <span class="table-button cursor-pointer mr-3"
+                      data-itemname="{{$value->itemname}}"
+                      data-itemdesc="{{$value->itemdesc}}"
+                      data-price="{{$value->price}}"
+                      data-quantity="{{$value->quantity}}"
+                      data-itemid="{{$value->id}}"
+                      data-ecat="{{$value->catid}}"
+                      data-toggle="modal" data-target="#modal-edit-items">
                         <a>
                           <i class="fas fa-edit text-danger"></i>
                         </a>
@@ -91,7 +98,7 @@
             <form action="" method="POST">
             <div class="modal-body">
                 <div class="form-group">
-                  {{ csrf_field() }}
+
                   <label>Item:</label>
                   <input type="text" class="form-control" name="itemname" placeholder="Item Name">
                 </div>
@@ -115,7 +122,7 @@
                 <div class="form-group">
                   <label>Category:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
-                    
+
                     @foreach($category as $data)
                   <option value="{{$data->catid}}"> {{$data->catname}}</option>
                     @endforeach
@@ -149,46 +156,46 @@
               <h4 class="modal-title">Edit Item</h4>
             </div>
             <form action="{{route('items_page.update', 'test')}}" method="POST">
+                {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
+            <input type="hidden" class="form-control"  id="itemid" name="editid" value="" placeholder="Item Name">
                 <div class="form-group">
                   <label>Item:</label>
-                  <input type="text" class="form-control" id="eName" name="eName" placeholder="Item Name">
+                  <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name">
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" id="eDesc" name="eDesc"></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="itemdesc" name="itemdesc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity">
+                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity">
                 </div>
 
                 <div class="form-group">
-                  <label>Price:</label>
-                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price">
+                  <label>Price (₱):</label>
+                  <input type="text" class="form-control" id="price" name="price" placeholder="Item Price">
                 </div>
 
 
                 <div class="form-group">
                   <label>Category:</label>
+
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Test Category 1</option>
-                    <option>Test Category 2</option>
-                    <option>Test Category 3</option>
-                    <option>Test Category 4</option>
-                    <option>Test Category 5</option>
-                    <option>Test Category 6</option>
-                    <option>Test Category 7</option>
+
+                    @foreach($category as $data)
+                    <option value="{{$data->catid}}"> {{$data->catname}}</option>
+                      @endforeach
                   </select>
                 </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="submit" class="btn btn-success">Save changes</button>
             </div>
             </form>
           </div>

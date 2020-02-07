@@ -24,7 +24,9 @@
 
 
 
-
+<!-- /.row -->
+        <div class="row">
+          <div class="col-12">
 
       <div class="card">
         <div class="card-header">
@@ -46,11 +48,15 @@
             <tbody>
             @foreach($data as $value)
                 <tr>
-                  <td width="10%">{{$value->catid}}</td>
+                  <td width="10%">{{$value->id}}</td>
                   <td width="25%">{{$value->catname}}</td>
                   <td width="55%">{{$value->catdesc}}</td>
                   <td width="10%" class="text-center">
-                    <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                    <span class="table-button cursor-pointer mr-3"
+                    data-catid="{{$value->id}}"
+                    data-catname="{{$value->catname}}"
+                    data-catdesc="{{$value->catdesc}}"
+                    data-toggle="modal" data-target="#modal">
                       <a>
                         <i class="fas fa-edit text-danger"></i>
                       </a>
@@ -65,7 +71,7 @@
                   </td>
                 </tr>
                 @endforeach
-            
+
           </table>
         </div>
         <!-- /.card-body -->
@@ -108,27 +114,33 @@
 
 
        <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-items">
+       <div class="modal fade" id="modal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
               <h4 class="modal-title">Edit Category</h4>
             </div>
+            <form action="{{route('categories_page.update', 'test')}}" method="POST">
+
+                {{ csrf_field() }}
+                {{method_field('PATCH')}}
             <div class="modal-body">
+                <input type="hidden" class="form-control" id="catid" name="catid" value="" placeholder="Category Name">
                 <div class="form-group">
                 <label>Category:</label>
-                <input type="text" class="form-control" name="" placeholder="Category Name">
+                <input type="text" class="form-control" id="catname" name="catname" placeholder="Category Name">
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Category Description"></textarea>
+                <textarea class="form-control" placeholder="Category Description" id="catdesc" name="catdesc"></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save changes</button>
+              <button type="submit" class="btn btn-success">Save changes</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -149,7 +161,7 @@
               <h4 class="modal-title">Delete Category</h4>
             </div>
             <div class="modal-body">
-                
+
               <h4>Are you sure you want to delete this category?</h4>
 
             </div>
