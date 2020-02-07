@@ -60,7 +60,7 @@
                       data-price="{{$value->price}}"
                       data-quantity="{{$value->quantity}}"
                       data-itemid="{{$value->id}}"
-                      data-ecat="{{$value->catid}}"
+                      data-catid="{{$value->catid}}"
                       data-toggle="modal" data-target="#modal-edit-items">
                         <a>
                           <i class="fas fa-edit text-danger"></i>
@@ -187,10 +187,10 @@
                 <div class="form-group">
                   <label>Category:</label>
 
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
 
                     @foreach($category as $data)
-                    <option value="{{$data->catid}}" > {{$data->catname}}</option>
+                    <option value="{{$data->id}}" > {{$data->catname}}</option>
                       @endforeach
                   </select>
                 </div>
