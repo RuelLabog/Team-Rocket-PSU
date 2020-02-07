@@ -24,66 +24,53 @@
 
 
 
-<!-- /.row -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-                  <i class="fas fa-plus mr-2"></i>Add Category
-                </button>
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap text-center">
-
-                    <tr>
-                      <th width="10%">Category ID</th>
-                      <th width="25%">Name</th>
-                      <th width="55">Description</th>
-                      <th width="10%"></th>
-                    </tr>
-
-                    @foreach($data as $value)
-                    <tr>
-                      <td width="10%">{{$value->catid}}</td>
-                      <td width="25%">{{$value->catname}}</td>
-                      <td width="55%">{{$value->catdesc}}</td>
-                      <td width="10%">
-                        <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
-                          <a>
-                            <i class="fas fa-edit text-danger"></i>
-                          </a>
-                        </span>
-
-                         <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
-                          <a>
-                            <i class="fas fa-trash text-danger"></i>
-                          </a>
-                        </span>
-
-                      </td>
-                    </tr>
-                    @endforeach
-
-                  </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+            <i class="fas fa-plus mr-2"></i>Add Category
+          </button>
         </div>
-        <!-- /.row -->
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="items_table" class="table table-bordered table-striped">
+            <thead>
+             <tr>
+                  <th width="10%">#</th>
+                  <th width="25%">Name</th>
+                  <th width="55">Description</th>
+                  <th width="10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($data as $value)
+                <tr>
+                  <td width="10%">{{$value->catid}}</td>
+                  <td width="25%">{{$value->catname}}</td>
+                  <td width="55%">{{$value->catdesc}}</td>
+                  <td width="10%" class="text-center">
+                    <span class="table-button cursor-pointer mr-3" data-toggle="modal" data-target="#modal-edit-items">
+                      <a>
+                        <i class="fas fa-edit text-danger"></i>
+                      </a>
+                    </span>
+
+                     <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                      <a>
+                        <i class="fas fa-trash text-danger"></i>
+                      </a>
+                    </span>
+
+                  </td>
+                </tr>
+                @endforeach
+            
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
 
 
 
