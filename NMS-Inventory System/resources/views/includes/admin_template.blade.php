@@ -239,7 +239,7 @@ table td { word-wrap: break-word; }
 
     <script>
         // retrieve name of category in delete category modal
-     $('#categories').on('show.bs.modal', function (event) {
+     $('#modal-delete-category').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       var catid = button.data('catid')
       var catname = button.data('catname')

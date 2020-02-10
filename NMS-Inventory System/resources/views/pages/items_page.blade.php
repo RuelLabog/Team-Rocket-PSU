@@ -129,6 +129,11 @@
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
+
+
+
+
+
                   </select>
                 </div>
 
