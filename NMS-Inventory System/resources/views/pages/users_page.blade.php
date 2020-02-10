@@ -230,7 +230,7 @@
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-success">Save Changes</button>
             </div>
-            </form
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
