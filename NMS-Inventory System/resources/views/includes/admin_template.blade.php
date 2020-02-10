@@ -175,8 +175,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       case 'success':
       toastr.success('{{Session::get('message')}}');
       break;
-      case 'danger':
-      toastr.danger('{{Session::get('message')}}');
+      case 'error':
+      toastr.error('{{Session::get('message')}}');
       break;
     }
   @endif

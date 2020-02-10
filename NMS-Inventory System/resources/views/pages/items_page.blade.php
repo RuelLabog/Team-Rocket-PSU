@@ -108,7 +108,7 @@
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" name="itemdesc"></textarea>
+                <textarea class="form-control" placeholder="Item Description" name="itemdesc" maxlength="200"></textarea>
                 </div>
 
                 <div class="form-group">
