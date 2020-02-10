@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-    // return view('auth.login');
     return redirect('/login');
 });
 
@@ -33,11 +32,12 @@ Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 //categoies routes
 Route::get('/categories', 'CategoriesController@getData');
 Route::resource('/categories_page', 'CategoriesController');
-Route::get('/softdelcat', 'CategoriesController@destroy')->name('catSoftDelete');
+Route::post('/softDelCat', 'CategoriesController@destroy')->name('catSoftDelete');
 
 //users routes
 Route::get('/users', 'UsersController@getData');
 Route::resource('/users_page', 'UsersController');
+Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
 Route::post('/items','ItemsController@insert');
 Route::post('/categories','CategoriesController@insert');

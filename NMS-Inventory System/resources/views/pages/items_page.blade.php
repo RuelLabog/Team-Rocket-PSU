@@ -36,9 +36,10 @@
               <table id="items_table" class="table table-bordered table-striped">
                 <thead>
                  <tr>
-                    <th width="10%">Item ID</th>
+                    <th width="8%">Item ID</th>
                     <th width="20%">Name</th>
-                    <th width="40%">Description</th>
+                    <th width="30%">Description</th>
+                    <th width="12%">Category</th>
                     <th width="10%">Price</th>
                     <th width="12%">Quantity</th>
                     <th width="8%"></th>
@@ -47,9 +48,10 @@
                 <tbody>
                 @foreach($data as $value)
                   <tr>
-                    <td width="10%">{{$value->id}}</td>
+                    <td width="8%">{{$value->id}}</td>
                     <td width="20%">{{$value->itemname}}</td>
-                    <td width="40%">{{$value->itemdesc}}</td>
+                    <td width="30%">{{$value->itemdesc}}</td>
+                    <td width="12%">{{$value->catname}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
                     <td width="12%">{{$value->quantity}}</td>
                     <td width="8%" class="text-center">

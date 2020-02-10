@@ -60,7 +60,7 @@
                       </a>
                     </span>
 
-                     <span class="table-button cursor-pointer"
+                    <span class="table-button cursor-pointer"
                     data-catid="{{$value->id}}"
                     data-catname="{{$value->catname}}"
                      data-toggle="modal" data-target="#modal-delete-category">
@@ -160,7 +160,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Category</h4>
             </div>
-            <form action="{{route('catSoftDelete')}}" method="get">
+            <form action="{{route('catSoftDelete')}}" method="POST">
             {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">

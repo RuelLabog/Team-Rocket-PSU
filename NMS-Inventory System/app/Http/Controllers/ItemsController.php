@@ -26,8 +26,11 @@ class ItemsController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('items')->get()
-                        ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('items')
+                        ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
+                        ->join('categories', 'categories.id', '=', 'items.catid')
+                        ->where('items.deleted_at', '=', null)
+                        ->get();
 
 
         if(count($data) > 0){
@@ -149,7 +152,7 @@ class ItemsController extends Controller
 
         if (item::find($deleteItem)->delete()) {
             $notification = array(
-                'message'=> 'Item delete successfully!',
+                'message'=> 'Item deleted successfully!',
                 'alert-type' => 'success'
             );
 
@@ -171,13 +174,15 @@ class ItemsController extends Controller
         $price = $req->input('price');
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
-        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
+        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
 
         if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
+            DB::table('items')->where('itemname', '=', $itemname)->delete();
+            DB::table('items')->insert($data);
             $notification = array(
-                'message'=> 'This item already exists!',
-                'alert-type' => 'error'
+                'message'=> 'A New Item is Inserted!',
+                'alert-type' => 'success'
             );
         }else{
             DB::table('items')->insert($data);

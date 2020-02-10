@@ -244,9 +244,6 @@
 
 
 
-
-
-
             <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-user">
         <div class="modal-dialog">
@@ -254,12 +251,12 @@
             <div class="modal-header bg-danger">
               <h5 class="modal-title">Delete User</h5>
             </div>
-            <form action="{{route('catSoftDelete')}}" method="get">
+            <form action="{{route('userSoftDelete')}}" method="POST">
                 {{ csrf_field() }}
 
             <div class="modal-body">
                 <input type="hidden" id="dID" name="dID" value="" class="form-control">
-              <h4>Are you sure you want to delete this user? <label id='dFullName' name="dFullName"></label></h4>
+              <h6 style="text-align:center">Are you sure you want to delete <label id='dFullName' name="dFullName"></label>?</h6>
 
             </div>
             <div class="modal-footer">

@@ -20,8 +20,9 @@ class CategoriesController extends Controller
 
     //
     function getData(){
-        $data['data'] = DB::table('categories')->get()
-                    ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('categories')
+                    ->where('deleted_at', '=', null)
+                    ->get();
 
 
         if(count($data) > 0){
@@ -97,17 +98,17 @@ class CategoriesController extends Controller
         //
         $updatecat = category::findOrFail($request->catid);
 
-        $updatecat->catname =  $request['eCatName'];
-        $updatecat->catdesc = $request['eCatDesc'];
+        $updatecat->catname =  $request['catname'];
+        $updatecat->catdesc = $request['catdesc'];
 
-        
+
 
         if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-            
+
         }else{
             $updatecat->save();
             $notification = array(
@@ -130,7 +131,7 @@ class CategoriesController extends Controller
     public function destroy(Request $request)
     {
         $deleteCat = $request->input('dCatID');
-        
+
 
         if (category::find($deleteCat)->delete()) {
             $notification = array(
@@ -153,12 +154,14 @@ class CategoriesController extends Controller
     function insert(Request $req){
         $catname = $req->input('catname');
         $catdesc = $req->input('catdesc');
-        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL);
+        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
         if(DB::table('categories')->where('catname', '=', $catname)->exists()){
+            DB::table('categories')->where('catname', '=', $catname)->delete();
+            DB::table('categories')->insert($data); 
             $notification = array(
-                'message'=> 'This category already exists!',
-                'alert-type' => 'error'
+                'message'=> 'A new category is inserted!',
+                'alert-type' => 'success'
             );
         }elseif(DB::table('categories')->insert($data)){
 
@@ -171,7 +174,7 @@ class CategoriesController extends Controller
             $notification = array(
                 'message'=> 'An error occured while adding category.',
                 'alert-type' => 'error'
-            ); 
+            );
         }
         return back()->with($notification);
 
