@@ -26,26 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  <style type="text/css">
-    table.table tr td .table-button { display:none !important;}
-    table.table tr:hover td .table-button { display:inline-block !important;}
-
-    /* Table layouts by default are `auto`, which overflows and ignores the `max-width` of the table anyway */
-table { table-layout: fixed; }
-table td { word-wrap: break-word; }
-
-    .fade {
-   opacity: 1;
-   transition: opacity .25s ease-in-out;
-   -moz-transition: opacity .25s ease-in-out;
-   -webkit-transition: opacity .25s ease-in-out;
-   }
-
-
-    .cursor-pointer{
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="css/custom.css">
 
 <script>
   var msg = '{{Session::get('alert')}}';
@@ -272,6 +253,34 @@ table td { word-wrap: break-word; }
     })
 
 </script>
+
+
+
+
+ <script type="text/javascript">
+   $(document).ready(function() {
+  
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+   
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+ </script>
 
 </body>
 </html>
