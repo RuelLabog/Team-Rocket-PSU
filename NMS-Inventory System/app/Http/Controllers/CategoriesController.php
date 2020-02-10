@@ -20,8 +20,9 @@ class CategoriesController extends Controller
 
     //
     function getData(){
-        $data['data'] = DB::table('categories')->get()
-                    ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('categories')
+                    ->where('deleted_at', '=', null)
+                    ->get();
 
 
         if(count($data) > 0){

@@ -64,7 +64,11 @@
                     </a>
                   </span>
 
-                   <span class="table-button cursor-pointer" data-toggle="modal" data-target="#modal-delete-items">
+                   <span class="table-button cursor-pointer"
+                    data-id="{{$value->id}}"
+                    data-fname="{{$value->fname}}"
+                    data-lname="{{$value->lname}}"
+                    data-toggle="modal" data-target="#modal-delete-user">
                     <a>
                       <i class="fas fa-trash text-danger"></i>
                     </a>
@@ -244,21 +248,25 @@
 
 
             <!-- delete item modal -->
-      <div class="modal fade" id="modal-delete-items">
+      <div class="modal fade" id="modal-delete-user">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
               <h5 class="modal-title">Delete User</h5>
             </div>
-            <div class="modal-body">
+            <form action="{{route('catSoftDelete')}}" method="get">
+                {{ csrf_field() }}
 
-              <h4>Are you sure you want to delete this user?</h4>
+            <div class="modal-body">
+                <input type="hidden" id="dID" name="dID" value="" class="form-control">
+              <h4>Are you sure you want to delete this user? <label id='dFullName' name="dFullName"></label></h4>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>

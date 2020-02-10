@@ -41,8 +41,8 @@
                     <th width="30%">Description</th>
                     <th width="10%">Category</th>
                     <th width="10%">Price</th>
-                    <th width="10%">Quantity</th>
-                    <th width="10%"></th>
+                    <th width="12%">Quantity</th>
+                    <th width="8%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -53,8 +53,8 @@
                     <td width="30%">{{$value->itemdesc}}</td>
                     <td width="10%">{{$value->catname}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
-                    <td width="10%">{{$value->quantity}}</td>
-                    <td width="10%" class="text-center">
+                    <td width="12%">{{$value->quantity}}</td>
+                    <td width="8%" class="text-center">
 
                       <span class="table-button cursor-pointer mr-3"
                       data-itemname="{{$value->itemname}}"
@@ -164,26 +164,26 @@
                 {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" class="form-control"  id="itemid" name="editid" value="" placeholder="Item Name">
-            <input type="hidden" class="form-control"  id="catid" name="catid" value="" placeholder="Item Name">
+            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item Name">
+
                 <div class="form-group">
                   <label>Item:</label>
-                  <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name">
+                  <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name">
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" id="itemdesc" name="itemdesc"></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity">
+                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity">
                 </div>
 
                 <div class="form-group">
                   <label>Price (₱):</label>
-                  <input type="text" class="form-control" id="price" name="price" placeholder="Item Price">
+                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price">
                 </div>
 
 
