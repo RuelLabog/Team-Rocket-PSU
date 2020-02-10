@@ -114,7 +114,7 @@ class ItemsController extends Controller
 
         
 
-        if ($request['itemname'] == NULL || $request['itemdesc'] == NULL || $request['price'] == NULL || $request['quantity'] == NULL) {
+        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['ePrice'] == NULL || $request['eQuantity'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
@@ -146,8 +146,6 @@ class ItemsController extends Controller
         // item::find($deleteItem)->delete();
         // DB::table('items')->delete($deleteItem);
         //return Redirect::back();
-
-
 
         if (item::find($deleteItem)->delete()) {
             $notification = array(
