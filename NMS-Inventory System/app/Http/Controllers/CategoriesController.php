@@ -153,12 +153,14 @@ class CategoriesController extends Controller
     function insert(Request $req){
         $catname = $req->input('catname');
         $catdesc = $req->input('catdesc');
-        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL);
+        $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
         if(DB::table('categories')->where('catname', '=', $catname)->exists()){
+            DB::table('categories')->where('catname', '=', $catname)->delete();
+            DB::table('categories')->insert($data); 
             $notification = array(
-                'message'=> 'This category already exists!',
-                'alert-type' => 'error'
+                'message'=> 'A new category is inserted!',
+                'alert-type' => 'success'
             );
         }elseif(DB::table('categories')->insert($data)){
 

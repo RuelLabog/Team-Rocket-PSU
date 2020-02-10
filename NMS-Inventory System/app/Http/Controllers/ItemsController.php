@@ -171,13 +171,15 @@ class ItemsController extends Controller
         $price = $req->input('price');
         $quantity = $req->input('quantity');
         $catid = $req->input('catid');
-        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL);
+        $data = array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
 
         if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
+            DB::table('items')->where('itemname', '=', $itemname)->delete();
+            DB::table('items')->insert($data);
             $notification = array(
-                'message'=> 'This item already exists!',
-                'alert-type' => 'error'
+                'message'=> 'A New Item is Inserted!',
+                'alert-type' => 'success'
             );
         }else{
             DB::table('items')->insert($data);
