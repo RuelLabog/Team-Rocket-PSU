@@ -28,6 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('items_page', 'ItemsController');
 Route::get('/items', 'ItemsController@getData');
 Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
+Route::post('/getItem', 'ItemsController@edit')->name('itemGetDataToEdit');
 
 //categoies routes
 Route::get('/categories', 'CategoriesController@getData');

@@ -164,7 +164,7 @@
                 {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item Name">
+            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item ID">
 
                 <div class="form-group">
                   <label>Item:</label>
@@ -190,8 +190,7 @@
                 <div class="form-group">
                   <label>Category:</label>
 
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
-
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>
                       @endforeach

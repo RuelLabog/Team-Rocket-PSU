@@ -98,8 +98,8 @@ class CategoriesController extends Controller
         //
         $updatecat = category::findOrFail($request->catid);
 
-        $updatecat->catname =  $request['catname'];
-        $updatecat->catdesc = $request['catdesc'];
+        $updatecat->catname =  $request['eCatName'];
+        $updatecat->catdesc = $request['eCatDesc'];
 
 
 
@@ -158,7 +158,7 @@ class CategoriesController extends Controller
 
         if(DB::table('categories')->where('catname', '=', $catname)->exists()){
             DB::table('categories')->where('catname', '=', $catname)->delete();
-            DB::table('categories')->insert($data); 
+            DB::table('categories')->insert($data);
             $notification = array(
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
