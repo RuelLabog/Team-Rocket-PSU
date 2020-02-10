@@ -152,7 +152,7 @@ class ItemsController extends Controller
 
         if (item::find($deleteItem)->delete()) {
             $notification = array(
-                'message'=> 'Item delete successfully!',
+                'message'=> 'Item deleted successfully!',
                 'alert-type' => 'success'
             );
 
