@@ -122,25 +122,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{-- edit items --}}
 <script>
     $('#modal-edit-items').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      var itemid = button.data('itemid')
-      var itemName = button.data('itemname')
-      var itemDesc = button.data('itemdesc')
-      var price = button.data('price')
-      var quantity = button.data('quantity')
-      var category = button.data('catid') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
+        var button = $(event.relatedTarget)
+        var itemid = button.data('itemid')
 
-      modal.find('.modal-body #eItemname').val(itemName)
-      modal.find('.modal-body #eItemDesc').val(itemDesc)
-      modal.find('.modal-body #ePrice').val(price)
-      modal.find('.modal-body #eQuantity').val(quantity)
-      modal.find('.modal-body #catid').val(category)
-      modal.find('.modal-body #eItemID').val(itemid)
+        $.ajax({
+        type: 'POST',
+        url: 'getItem',
+        data: {'_token': $('input[name=_token').val(),
+            'eItemID': itemid},
+        dataType: 'json',
+        success: function(data){
+            $('#eItemID').val(itemid);
+            $('#eItemname').val(data.result.itemname);
+            $('#eItemDesc').val(data.result.itemdesc);
+            $('#ePrice').val(data.result.price);
+            $('#eQuantity').val(data.result.quantity);
+            $('#eCatName').val(data.result.catid);
 
-    })
+        },
+        error: function (err){
+           console.log('Failed! ' + err);
+        }
+
+        })
+        })
 
 </script>
 

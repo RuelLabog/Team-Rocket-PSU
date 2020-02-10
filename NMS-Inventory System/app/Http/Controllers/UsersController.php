@@ -20,8 +20,9 @@ class UsersController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('users')->get();
-                     // ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('users')
+                     ->where('deleted_at', '=', null)
+                     ->get();
 
 
         if(count($data) > 0){
@@ -118,10 +119,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request) {
-        // $deleteItem = $request->input('dItemID');
-        // item::find($deleteItem)->delete();
-        // // DB::table('items')->delete($deleteItem);
-        // return Redirect::back();
+        $deleteUser = $request->input('dID');
+        User::find($deleteUser)->delete();
+        return back();
     }
 
 

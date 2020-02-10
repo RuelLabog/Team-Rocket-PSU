@@ -20,8 +20,9 @@ class CategoriesController extends Controller
 
     //
     function getData(){
-        $data['data'] = DB::table('categories')->get()
-                    ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('categories')
+                    ->where('deleted_at', '=', null)
+                    ->get();
 
 
         if(count($data) > 0){
@@ -100,14 +101,14 @@ class CategoriesController extends Controller
         $updatecat->catname =  $request['eCatName'];
         $updatecat->catdesc = $request['eCatDesc'];
 
-        
+
 
         if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-            
+
         }else{
             $updatecat->save();
             $notification = array(
@@ -130,7 +131,7 @@ class CategoriesController extends Controller
     public function destroy(Request $request)
     {
         $deleteCat = $request->input('dCatID');
-        
+
 
         if (category::find($deleteCat)->delete()) {
             $notification = array(
@@ -157,7 +158,7 @@ class CategoriesController extends Controller
 
         if(DB::table('categories')->where('catname', '=', $catname)->exists()){
             DB::table('categories')->where('catname', '=', $catname)->delete();
-            DB::table('categories')->insert($data); 
+            DB::table('categories')->insert($data);
             $notification = array(
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
@@ -173,7 +174,7 @@ class CategoriesController extends Controller
             $notification = array(
                 'message'=> 'An error occured while adding category.',
                 'alert-type' => 'error'
-            ); 
+            );
         }
         return back()->with($notification);
 

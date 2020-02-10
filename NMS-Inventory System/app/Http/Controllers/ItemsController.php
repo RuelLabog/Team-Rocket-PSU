@@ -26,8 +26,11 @@ class ItemsController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('items')->get()
-                        ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('items')
+                        ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
+                        ->join('categories', 'categories.id', '=', 'items.catid')
+                        ->where('items.deleted_at', '=', null)
+                        ->get();
 
 
         if(count($data) > 0){
@@ -89,9 +92,13 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $eItemID = $request->input('eItemID');
+
+        $data = item::join('categories', 'categories.id', '=', 'items.catid')->findOrFail($eItemID);
+
+        return response()->json(['result' => $data]);
     }
 
     /**
@@ -112,14 +119,14 @@ class ItemsController extends Controller
         $updateitem->quantity = $request['eQuantity'];
         $updateitem->catid = $request['catid'];
 
-        
+
 
         if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['ePrice'] == NULL || $request['eQuantity'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-            
+
         }else{
             $updateitem->save();
             $notification = array(
@@ -130,7 +137,7 @@ class ItemsController extends Controller
         }
 
         return back()->with($notification);
-        
+
 
 
     }
@@ -149,11 +156,11 @@ class ItemsController extends Controller
 
         if (item::find($deleteItem)->delete()) {
             $notification = array(
-                'message'=> 'Item delete successfully!',
+                'message'=> 'Item deleted successfully!',
                 'alert-type' => 'success'
             );
 
-            
+
         }else{
             $notification = array(
                 'message'=> 'An error occured while deleting the item!',

@@ -55,12 +55,14 @@
                     data-catname="{{$value->catname}}"
                     data-catdesc="{{$value->catdesc}}"
                     data-toggle="modal" data-target="#modal-edit-category">
-                      <a>
+                    <a>
                         <i class="fas fa-edit text-danger"></i>
                       </a>
                     </span>
 
-                     <span class="table-button cursor-pointer"
+
+
+                    <span class="table-button cursor-pointer"
                     data-catid="{{$value->id}}"
                     data-catname="{{$value->catname}}"
                      data-toggle="modal" data-target="#modal-delete-category">
@@ -160,7 +162,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Category</h4>
             </div>
-            <form action="{{route('catSoftDelete')}}" method="get">
+            <form action="{{route('catSoftDelete')}}" method="POST">
             {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
@@ -177,5 +179,21 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
+    <script type="text/javascript">
+        // function itemsDel(){
+        //     var id = $('#dCatID').val();
+        //     alert(id);
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: 'softDelCat',
+        //         data: {'_token': $('input[name=_token').val(),
+        //                 'dCatID': $('input[name=dCatID').val()},
+        //         success: function (response){
+        //             alert('deleted!');
+        //         }
+        //     });
+        // }
+    </script>
 
  @endsection

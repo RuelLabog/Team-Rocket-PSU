@@ -36,9 +36,10 @@
               <table id="items_table" class="table table-bordered table-striped">
                 <thead>
                  <tr>
-                    <th width="10%">Item ID</th>
+                    <th width="8%">Item ID</th>
                     <th width="20%">Name</th>
-                    <th width="40%">Description</th>
+                    <th width="30%">Description</th>
+                    <th width="12%">Category</th>
                     <th width="10%">Price</th>
                     <th width="12%">Quantity</th>
                     <th width="8%"></th>
@@ -47,9 +48,10 @@
                 <tbody>
                 @foreach($data as $value)
                   <tr>
-                    <td width="10%">{{$value->id}}</td>
+                    <td width="8%">{{$value->id}}</td>
                     <td width="20%">{{$value->itemname}}</td>
-                    <td width="40%">{{$value->itemdesc}}</td>
+                    <td width="30%">{{$value->itemdesc}}</td>
+                    <td width="12%">{{$value->catname}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
                     <td width="12%">{{$value->quantity}}</td>
                     <td width="8%" class="text-center">
@@ -162,7 +164,7 @@
                 {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item Name">
+            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item ID">
 
                 <div class="form-group">
                   <label>Item:</label>
@@ -188,8 +190,7 @@
                 <div class="form-group">
                   <label>Category:</label>
 
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
-
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>
                       @endforeach
