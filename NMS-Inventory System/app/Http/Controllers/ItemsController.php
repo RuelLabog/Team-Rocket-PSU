@@ -112,14 +112,14 @@ class ItemsController extends Controller
         $updateitem->quantity = $request['eQuantity'];
         $updateitem->catid = $request['catid'];
 
-        
+
 
         if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['ePrice'] == NULL || $request['eQuantity'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-            
+
         }else{
             $updateitem->save();
             $notification = array(
@@ -130,7 +130,7 @@ class ItemsController extends Controller
         }
 
         return back()->with($notification);
-        
+
 
 
     }
@@ -153,7 +153,7 @@ class ItemsController extends Controller
                 'alert-type' => 'success'
             );
 
-            
+
         }else{
             $notification = array(
                 'message'=> 'An error occured while deleting the item!',
