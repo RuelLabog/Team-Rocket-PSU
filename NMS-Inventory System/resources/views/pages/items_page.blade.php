@@ -40,8 +40,8 @@
                     <th width="20%">Name</th>
                     <th width="40%">Description</th>
                     <th width="10%">Price</th>
-                    <th width="10%">Quantity</th>
-                    <th width="10%"></th>
+                    <th width="12%">Quantity</th>
+                    <th width="8%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,8 +51,8 @@
                     <td width="20%">{{$value->itemname}}</td>
                     <td width="40%">{{$value->itemdesc}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
-                    <td width="10%">{{$value->quantity}}</td>
-                    <td width="10%" class="text-center">
+                    <td width="12%">{{$value->quantity}}</td>
+                    <td width="8%" class="text-center">
 
                       <span class="table-button cursor-pointer mr-3"
                       data-itemname="{{$value->itemname}}"

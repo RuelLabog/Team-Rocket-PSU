@@ -112,9 +112,27 @@ class ItemsController extends Controller
         $updateitem->quantity = $request['quantity'];
         $updateitem->catid = $request['catid'];
 
-        $updateitem->save();
+        
 
-        return back();
+        if ($request['itemname'] == NULL || $request['itemdesc'] == NULL || $request['price'] == NULL || $request['quantity'] == NULL) {
+            $notification = array(
+                'message'=> 'Please fill up required fields!',
+                'alert-type' => 'error'
+            );
+            
+        }else{
+            $updateitem->save();
+            $notification = array(
+                'message'=> 'Item updated successfully!',
+                'alert-type' => 'success'
+            );
+
+        }
+
+        return back()->with($notification);
+        
+
+
     }
 
     /**
@@ -125,9 +143,27 @@ class ItemsController extends Controller
      */
     public function destroy(Request $request) {
         $deleteItem = $request->input('dItemID');
-        item::find($deleteItem)->delete();
+        // item::find($deleteItem)->delete();
         // DB::table('items')->delete($deleteItem);
-        return Redirect::back();
+        //return Redirect::back();
+
+
+
+        if (item::find($deleteItem)->delete()) {
+            $notification = array(
+                'message'=> 'Item delete successfully!',
+                'alert-type' => 'success'
+            );
+
+            
+        }else{
+            $notification = array(
+                'message'=> 'An error occured while deleting the item!',
+                'alert-type' => 'error'
+            );
+        }
+
+        return back()->with($notification);
     }
 
 
