@@ -103,7 +103,7 @@
             <form action="" method="POST">
             <div class="modal-body">
                 <div class="form-group">
-{{csrf_field()}}
+                {{csrf_field()}}
                   <label>Item:</label>
                   <input type="text" class="form-control" name="itemname" placeholder="Item Name" required>
                 </div>
@@ -133,7 +133,10 @@
                     @endforeach
 
 
-
+                    {{-- @foreach ($data as $item)
+                    <option value="{{$item->id}}"  {{ $item['categories.id'] == $item->catid ?
+                    'selected="selected"' : '' }}>{{$item->catname}}</option>
+                    @endforeach --}}
 
 
                   </select>
