@@ -103,28 +103,28 @@
                 <div class="form-group">
 {{csrf_field()}}
                   <label>Item:</label>
-                  <input type="text" class="form-control" name="itemname" placeholder="Item Name">
+                  <input type="text" class="form-control" name="itemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" name="itemdesc" maxlength="200"></textarea>
+                <textarea class="form-control" placeholder="Item Description" name="itemdesc" maxlength="200" required></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" name="quantity" placeholder="Item Quantity">
+                  <input type="number" class="form-control" name="quantity" placeholder="Item Quantity" required>
                 </div>
 
                 <div class="form-group">
                   <label>Price:</label>
-                  <input type="text" class="form-control" name="price" placeholder="Item Price">
+                  <input type="text" class="form-control" name="price" placeholder="Item Price" required>
                 </div>
 
 
                 <div class="form-group">
                   <label>Category:</label>
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
 
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
@@ -166,29 +166,29 @@
 
                 <div class="form-group">
                   <label>Item:</label>
-                  <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name">
+                  <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc"></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity">
+                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
                 </div>
 
                 <div class="form-group">
                   <label>Price (₱):</label>
-                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price">
+                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price" required>
                 </div>
 
 
                 <div class="form-group">
                   <label>Category:</label>
 
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid">
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
 
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>

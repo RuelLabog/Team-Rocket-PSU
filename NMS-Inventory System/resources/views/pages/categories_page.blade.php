@@ -93,11 +93,11 @@
               <div class="form-group">
                 {{ csrf_field() }}
                 <label>Category:</label>
-                <input type="text" class="form-control" name="catname" placeholder="Category Name">
+                <input type="text" class="form-control" name="catname" placeholder="Category Name" required>
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" name="catdesc" placeholder="Category Description"></textarea>
+                <textarea class="form-control" name="catdesc" placeholder="Category Description" required></textarea>
               </div>
 
             </div>
@@ -125,14 +125,14 @@
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
-                <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name">
+                <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name" required>
                 <div class="form-group">
                 <label>Category:</label>
-                <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name">
+                <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name" required>
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc"></textarea>
+                <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc" required></textarea>
               </div>
 
             </div>

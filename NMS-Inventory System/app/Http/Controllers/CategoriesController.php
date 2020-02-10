@@ -100,9 +100,24 @@ class CategoriesController extends Controller
         $updatecat->catname =  $request['eCatName'];
         $updatecat->catdesc = $request['eCatDesc'];
 
-        $updatecat->save();
+        
 
-        return back();
+        if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
+            $notification = array(
+                'message'=> 'Please fill up required fields!',
+                'alert-type' => 'error'
+            );
+            
+        }else{
+            $updatecat->save();
+            $notification = array(
+                'message'=> 'Item updated successfully!',
+                'alert-type' => 'success'
+            );
+
+        }
+
+        return back()->with($notification);
 
     }
 
@@ -115,17 +130,51 @@ class CategoriesController extends Controller
     public function destroy(Request $request)
     {
         $deleteCat = $request->input('dCatID');
-        category::find($deleteCat)->delete();
-        return back();
+        
+
+        if (category::find($deleteCat)->delete()) {
+            $notification = array(
+                'message'=> 'Category deleted successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message'=> 'An error occured while deleting the category!',
+                'alert-type' => 'error'
+            );
+        }
+
+        return back()->with($notification);
+
+
+
     }
 
     function insert(Request $req){
         $catname = $req->input('catname');
         $catdesc = $req->input('catdesc');
         $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL);
-        DB::table('categories')->insert($data);
 
-        return back();
+        if(DB::table('categories')->where('catname', '=', $catname)->exists()){
+            $notification = array(
+                'message'=> 'This category already exists!',
+                'alert-type' => 'error'
+            );
+        }elseif(DB::table('categories')->insert($data)){
+
+            $notification = array(
+                'message'=> 'A new category is inserted!',
+                'alert-type' => 'success'
+            );
+
+        }else{
+            $notification = array(
+                'message'=> 'An error occured while adding category.',
+                'alert-type' => 'error'
+            ); 
+        }
+        return back()->with($notification);
+
     }
 
 }
