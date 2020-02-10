@@ -30,6 +30,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     table.table tr td .table-button { display:none !important;}
     table.table tr:hover td .table-button { display:inline-block !important;}
 
+    /* Table layouts by default are `auto`, which overflows and ignores the `max-width` of the table anyway */
+table { table-layout: fixed; }
+table td { word-wrap: break-word; }
+
     .fade {
    opacity: 1;
    transition: opacity .25s ease-in-out;
@@ -202,8 +206,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       case 'success':
       toastr.success('{{Session::get('message')}}');
       break;
-      case 'danger':
-      toastr.danger('{{Session::get('message')}}');
+      case 'error':
+      toastr.error('{{Session::get('message')}}');
       break;
     }
   @endif
