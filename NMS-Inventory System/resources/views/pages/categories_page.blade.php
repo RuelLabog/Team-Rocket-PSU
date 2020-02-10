@@ -24,6 +24,8 @@
 
 
 
+
+
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -158,7 +160,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Category</h4>
             </div>
-            <form action="{{route('catSoftDelete')}}" method="get">
+            <form action="{{route('catSoftDelete')}}" method="POST">
             {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
