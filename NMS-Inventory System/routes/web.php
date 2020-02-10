@@ -37,6 +37,7 @@ Route::get('/softdelcat', 'CategoriesController@destroy')->name('catSoftDelete')
 
 //users routes
 Route::get('/users', 'UsersController@getData');
+Route::resource('/users_page', 'UsersController');
 
 Route::post('/items','ItemsController@insert');
 Route::post('/categories','CategoriesController@insert');
