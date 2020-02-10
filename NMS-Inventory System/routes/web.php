@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-    // return view('auth.login');
     return redirect('/login');
 });
 

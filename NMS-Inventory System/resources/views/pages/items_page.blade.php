@@ -38,7 +38,8 @@
                  <tr>
                     <th width="10%">Item ID</th>
                     <th width="20%">Name</th>
-                    <th width="40%">Description</th>
+                    <th width="30%">Description</th>
+                    <th width="10%">Category</th>
                     <th width="10%">Price</th>
                     <th width="10%">Quantity</th>
                     <th width="10%"></th>
@@ -49,7 +50,8 @@
                   <tr>
                     <td width="10%">{{$value->id}}</td>
                     <td width="20%">{{$value->itemname}}</td>
-                    <td width="40%">{{$value->itemdesc}}</td>
+                    <td width="30%">{{$value->itemdesc}}</td>
+                    <td width="10%">{{$value->catname}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
                     <td width="10%">{{$value->quantity}}</td>
                     <td width="10%" class="text-center">

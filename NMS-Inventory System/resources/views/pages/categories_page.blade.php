@@ -24,10 +24,6 @@
 
 
 
-<!-- /.row -->
-        <div class="row">
-          <div class="col-12">
-
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -62,13 +58,13 @@
                       </a>
                     </span>
 
-                     <span class="table-button cursor-pointer"
+                    <span class="table-button cursor-pointer"
                     data-catid="{{$value->id}}"
                     data-catname="{{$value->catname}}"
-                     data-toggle="modal" data-target="#categories">
-                      <a>
-                        <i class="fas fa-trash text-danger"></i>
-                      </a>
+                    data-toggle="modal" data-target="#categories">
+                        <a>
+                            <i class="fas fa-trash text-danger"></i>
+                        </a>
                     </span>
 
                   </td>

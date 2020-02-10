@@ -26,8 +26,11 @@ class ItemsController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('items')->get()
-                        ->where('deleted_at', '=', null);
+        $data['data'] = DB::table('items')
+                        ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
+                        ->join('categories', 'categories.id', '=', 'items.catid')
+                        ->where('items.deleted_at', '=', null)
+                        ->get();
 
 
         if(count($data) > 0){
