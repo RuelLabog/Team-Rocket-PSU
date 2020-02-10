@@ -115,7 +115,11 @@ class CategoriesController extends Controller
     public function destroy(Request $request)
     {
         $deleteCat = $request->input('dCatID');
-        category::find($deleteCat)->delete();
+        // if (DB::table('items')->where('catid', '=', $deleteCat)->exists()) {
+        // }else{
+            category::find($deleteCat)->delete();
+        // }
+
         return back();
     }
 
