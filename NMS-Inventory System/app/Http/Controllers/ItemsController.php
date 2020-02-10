@@ -145,8 +145,8 @@ class ItemsController extends Controller
 
         if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
             $notification = array(
-                'message'=> 'Error!',
-                'alert-type' => 'danger'
+                'message'=> 'This item already exists!',
+                'alert-type' => 'error'
             );
         }else{
             DB::table('items')->insert($data);

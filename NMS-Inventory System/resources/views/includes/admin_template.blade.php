@@ -112,6 +112,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
+
+{{-- edit category --}}
 <script>
      $('#modal').on('show.bs.modal', function (event) {
 
@@ -131,6 +133,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
+
+{{-- edit items --}}
 <script>
     $('#modal-edit-items').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
@@ -156,7 +160,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 
+{{-- edit user --}}
+<script>
+    $('#modal-edit-user').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var userid = button.data('id')
+      var username = button.data('username')
+      var email = button.data('email')
+      var firstname = button.data('fname')
+      var lastname = button.data('lname')
+      var password = button.data('password') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
 
+      modal.find('.modal-body #eID').val(userid)
+      modal.find('.modal-body #eUsername').val(username)
+      modal.find('.modal-body #eEmail').val(email)
+      modal.find('.modal-body #eFirstName').val(firstname)
+      modal.find('.modal-body #eLastName').val(lastname)
+      modal.find('.modal-body #ePassword').val(password)
+
+    })
+
+</script>
 
 <script>
   $(function () {
@@ -175,8 +202,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       case 'success':
       toastr.success('{{Session::get('message')}}');
       break;
-      case 'danger':
-      toastr.danger('{{Session::get('message')}}');
+      case 'error':
+      toastr.error('{{Session::get('message')}}');
       break;
     }
   @endif
