@@ -97,8 +97,8 @@ class CategoriesController extends Controller
         //
         $updatecat = category::findOrFail($request->catid);
 
-        $updatecat->catname =  $request['catname'];
-        $updatecat->catdesc = $request['catdesc'];
+        $updatecat->catname =  $request['eCatName'];
+        $updatecat->catdesc = $request['eCatDesc'];
 
         $updatecat->save();
 

@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 {{-- edit category --}}
 <script>
-     $('#modal').on('show.bs.modal', function (event) {
+     $('#modal-edit-category').on('show.bs.modal', function (event) {
 
       var button = $(event.relatedTarget)
       var catid = button.data('catid')
@@ -125,9 +125,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #catid').val(catid)
-      modal.find('.modal-body #catdesc').val(catdesc)
-      modal.find('.modal-body #catname').val(catname)
+      modal.find('.modal-body #eCatID').val(catid)
+      modal.find('.modal-body #eCatDesc').val(catdesc)
+      modal.find('.modal-body #eCatName').val(catname)
 
     })
 
@@ -148,12 +148,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #itemname').val(itemName)
-      modal.find('.modal-body #itemdesc').val(itemDesc)
-      modal.find('.modal-body #price').val(price)
-      modal.find('.modal-body #quantity').val(quantity)
+      modal.find('.modal-body #eItemname').val(itemName)
+      modal.find('.modal-body #eItemDesc').val(itemDesc)
+      modal.find('.modal-body #ePrice').val(price)
+      modal.find('.modal-body #eQuantity').val(quantity)
       modal.find('.modal-body #catid').val(category)
-      modal.find('.modal-body #itemid').val(itemid)
+      modal.find('.modal-body #eItemID').val(itemid)
 
     })
 
@@ -243,6 +243,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       modal.find('.modal-body #dCatID').val(catid)
       modal.find('.modal-body #dCatName').html(catname)
+
+    })
+
+</script>
+
+
+{{-- delete user --}}
+<script>
+    $('#modal-delete-user').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var userid = button.data('id')
+      var fname = button.data('fname')
+      var lname = button.data('lname')
+      // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+
+      modal.find('.modal-body #dID').val(userid)
+      modal.find('.modal-body #dFullName').html(fname + ' ' + lname)
+
 
     })
 

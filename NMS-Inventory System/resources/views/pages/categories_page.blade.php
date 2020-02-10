@@ -54,7 +54,7 @@
                     data-catid="{{$value->id}}"
                     data-catname="{{$value->catname}}"
                     data-catdesc="{{$value->catdesc}}"
-                    data-toggle="modal" data-target="#modal">
+                    data-toggle="modal" data-target="#modal-edit-category">
                       <a>
                         <i class="fas fa-edit text-danger"></i>
                       </a>
@@ -63,7 +63,7 @@
                      <span class="table-button cursor-pointer"
                     data-catid="{{$value->id}}"
                     data-catname="{{$value->catname}}"
-                     data-toggle="modal" data-target="#categories">
+                     data-toggle="modal" data-target="#modal-delete-category">
                       <a>
                         <i class="fas fa-trash text-danger"></i>
                       </a>
@@ -115,7 +115,7 @@
 
 
        <!-- edit item modal -->
-       <div class="modal fade" id="modal">
+       <div class="modal fade" id="modal-edit-category">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -125,14 +125,14 @@
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
-                <input type="hidden" class="form-control" id="catid" name="catid" value="" placeholder="Category Name">
+                <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name">
                 <div class="form-group">
                 <label>Category:</label>
-                <input type="text" class="form-control" id="catname" name="catname" placeholder="Category Name">
+                <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name">
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Category Description" id="catdesc" name="catdesc"></textarea>
+                <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc"></textarea>
               </div>
 
             </div>
@@ -154,7 +154,7 @@
 
 
             <!-- delete categories modal -->
-      <div class="modal fade" id="categories">
+      <div class="modal fade" id="modal-delete-category">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">

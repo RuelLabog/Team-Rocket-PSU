@@ -106,10 +106,10 @@ class ItemsController extends Controller
         //
         $updateitem = item::findOrFail($request->editid);
 
-        $updateitem->itemname =  $request['itemname'];
-        $updateitem->itemdesc = $request['itemdesc'];
-        $updateitem->price = $request['price'];
-        $updateitem->quantity = $request['quantity'];
+        $updateitem->itemname =  $request['eItemname'];
+        $updateitem->itemdesc = $request['eItemDesc'];
+        $updateitem->price = $request['ePrice'];
+        $updateitem->quantity = $request['eQuantity'];
         $updateitem->catid = $request['catid'];
 
         $updateitem->save();
