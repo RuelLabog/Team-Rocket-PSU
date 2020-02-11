@@ -22,9 +22,6 @@
     </div>
     <!-- /.content-header -->
 
-
-
-
           <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -102,11 +99,6 @@
           </div>
           <!-- /.card -->
 
-
-
-
-
-
 <!-- add items modal -->
       <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
@@ -114,10 +106,10 @@
             <div class="modal-header btn-danger ">
               <h4 class="modal-title">Add New Item</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" id="item_form">
             <div class="modal-body">
                 <div class="form-group">
-                {{csrf_field()}}
+              {{csrf_field()}}
                   <label>Item:</label>
                   <input type="text" class="form-control" name="itemname" placeholder="Item Name" required>
                 </div>
@@ -158,8 +150,9 @@
 
             </div>
             <div class="modal-footer">
+              <input type="hidden" name="button_action" id="button_action" value="insert" />
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit">Save changes</button>
+              <button type="submit" class="btn btn-success" name="submit" id="action">Save changes</button>
             </div>
           </form>
           </div>
@@ -168,12 +161,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add items modal -->
-
-
-
-
-
-
 
       <!-- edit item modal -->
       <div class="modal fade" id="modal-edit-items">
@@ -232,11 +219,6 @@
       </div>
       <!-- /.edit item modal -->
 
-
-
-
-
-
             <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
@@ -264,6 +246,7 @@
       <!-- /.delete item modal -->
 
 
+<<<<<<< HEAD
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
         <div class="modal-dialog">
@@ -335,6 +318,32 @@
 
 
 
+=======
+ <!-- /.ajax -->
+      <script type="text/javascript">
+        
+            $('#add_data').click(function(){
+                $('#modal-default').modal('show');
+                $('#item_form')[0].reset();
+                $('#button_action').val('insert');
+                $('#action').val('Add');
+            });
+        
+            $('#item_form').on('submit', function(event){
+                event.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url:"{{ route('items.insert') }}",
+                    method:"POST",
+                    data:form_data,
+                    dataType:"json", 
+                    }
+                })
+            });
+        
+        });
+        </script>
+>>>>>>> aafc1ea2e9fd8f8d2e606a6f42e5922a27a6c614
 
  @endsection
 
