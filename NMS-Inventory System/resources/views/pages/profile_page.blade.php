@@ -29,28 +29,29 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-              <form action="{{route('profile_page.update', 'test')}}" method="POST">
+              <form action="{{route('profile_page.update', 'test')}}" method="POST" enctype="multipart/form-data">
                 {{method_field('patch')}}
                 {{csrf_field()}}
-
+                @foreach($data as $value)
                   <div class="avatar-wrapper mt-0">
-                    <img class="profile-pic" src="https://cdn0.iconfinder.com/data/icons/man-user-human-profile-avatar-business-person/100/09B-1User-512.png" />
+                  <img class="profile-pic" src="images/{{$value->image}}" />
                     <div class="upload-button">
                       <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                     </div>
-                    <input class="file-upload" type="file" accept="image/*"/>
+                    <input class="file-upload" type="file" accept="image/*" name="image"/>
                   </div>
 
 
 
-                
 
-                @foreach($data as $value)
+
+
 
                 <div class="form-group">
                   <div class="row">
-                    <input type="hidden" class="form-control" id="id" name="userid" placeholder="Username" value="{{$value->id}}">
+
                     <div class="col-6">
+                        <input type="hidden" class="form-control" id="id" name="userid" placeholder="Username" value="{{$value->id}}">
                       <label>Username:</label>
                       <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{$value->username}}">
                     </div>
@@ -69,7 +70,7 @@
                     </div>
                     <div class="col-6">
                       <label>Last Name:</label>
-                      <input type="text" class="form-control" id="lname" name="lname" placeholder="Familiy Name" value="{{$value->lname}}">
+                      <input type="text" class="form-control" id="lname" name="lname" placeholder="Family Name" value="{{$value->lname}}">
                     </div>
                   </div>
                 </div>
@@ -77,12 +78,12 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>Password:</label>
-                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                      <label>Current Password:</label>
+                      <input type="text" class="form-control" id="curpassword" name="curpassword" placeholder="Current Password">
                     </div>
                     <div class="col-6">
-                      <label>Confirm Password:</label>
-                      <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
+                      <label>New Password:</label>
+                      <input type="text" class="form-control" id="newpassword" name="newpassword" placeholder="New Password">
                     </div>
                   </div>
                 </div>

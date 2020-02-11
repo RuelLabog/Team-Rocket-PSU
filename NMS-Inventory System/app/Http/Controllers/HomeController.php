@@ -13,6 +13,17 @@ class HomeController extends Controller
      *
      * @return void
      */
+    function getData(){
+        $data['data'] = DB::table('users')->get()
+                        ->where('id', '=', auth()->user()->id);
+
+        if(count($data) > 0){
+            return view('pages/profile_page', $data);
+        }
+        else{
+            return view('pages/profile_page');
+        }
+    }
     public function __construct()
     {
         $this->middleware('auth');
