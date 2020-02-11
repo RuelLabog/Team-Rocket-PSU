@@ -246,7 +246,7 @@
       <!-- /.delete item modal -->
 
 
-<<<<<<< HEAD
+
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
         <div class="modal-dialog">
@@ -318,7 +318,7 @@
 
 
 
-=======
+
  <!-- /.ajax -->
       <script type="text/javascript">
         
@@ -343,7 +343,7 @@
         
         });
         </script>
->>>>>>> aafc1ea2e9fd8f8d2e606a6f42e5922a27a6c614
+
 
  @endsection
 
