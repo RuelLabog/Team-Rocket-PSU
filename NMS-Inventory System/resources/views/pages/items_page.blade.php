@@ -50,7 +50,15 @@
                     <td width="30%">{{$value->itemdesc}}</td>
                     <td width="12%">{{$value->catname}}</td>
                     <td width="10%">{{'₱'.$value->price}}</td>
-                    <td width="12%">{{$value->quantity}}</td>
+                    <td width="12%" class="text-center">
+                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity">
+                      <i class="fas fa-plus-square text-success mr-2"></i>
+                      </a> 
+                      {{$value->quantity}}
+                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity">
+                      <i class="fas fa-minus-square text-danger ml-2"></i>
+                      </a> 
+                    </td>
                     <td width="8%" class="text-center">
 
                       <span class="table-button cursor-pointer mr-3"
@@ -80,6 +88,12 @@
                 @endforeach
 
               </table>
+
+
+
+
+
+              
             </div>
             <!-- /.card-body -->
           </div>
@@ -224,6 +238,79 @@
       <!-- /.delete item modal -->
 
 
+
+      <!-- add quantity modal -->
+      <div class="modal fade" id="modal-add-quantity">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger">
+              <h4 class="modal-title">Add Quantity</h4>
+            </div>
+            <form action="" method="get">
+            {{ csrf_field() }}
+            <div class="modal-body">
+
+              <div class="form-group mt-3">
+                <label>Quantity: </label>
+                <input type="number" name="add_quantity" class="form-control" min="1">
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.add quantity modal -->
+
+
+
+            <!-- add quantity modal -->
+      <div class="modal fade" id="modal-reduce-quantity">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger">
+              <h4 class="modal-title">Reduce Quantity</h4>
+            </div>
+            <form action="" method="get">
+            {{ csrf_field() }}
+            <div class="modal-body">
+
+              <div class="form-group mt-3">
+                <label>Quantity: </label>
+                <input type="number" name="add_quantity" class="form-control" min="1" value="1">
+              </div>
+              <div class="form-group mt-3">
+                <label>Status Report: </label>
+                <textarea class="form-control" minlength="255" placeholder="Please enter reason for reducing quantity."></textarea>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.add quantity modal -->
+
+
+
+
+
+
+
+
+
  <!-- /.ajax -->
       <script type="text/javascript">
             $('#add_data').click(function(){
@@ -248,6 +335,7 @@
         
         });
         </script>
+
 
  @endsection
 

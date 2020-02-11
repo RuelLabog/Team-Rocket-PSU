@@ -22,6 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 
 //dashboard route
+
+Route::group(['middleware'=>'auth'], function(){
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/sidebar', 'tryController@image');
 
@@ -34,8 +38,9 @@ Route::post('/items','ItemsController@insert');
 Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
 Route::post('items/insert', 'Items@insert')->name('items.insert');
 
-//categories routes
-Route::get('/categories', 'CategoriesController@getData');
+//categoies routes
+// Route::get('/categories', 'CategoriesController@getData');
+Route::resource('/categories', 'CategoriesController');
 Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@destroy')->name('catSoftDelete');
 Route::post('/categories','CategoriesController@insert');
@@ -45,6 +50,15 @@ Route::get('/users', 'UsersController@getData');
 Route::resource('/users_page', 'UsersController');
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
+Route::post('/items','ItemsController@insert');
+Route::post('/categories','CategoriesController@insert');
+
 //profile routes
 Route::resource('/profile_page', 'ProfileController');
 Route::get('/profile', 'ProfileController@getData');
+
+
+
+});
+
+
