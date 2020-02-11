@@ -45,3 +45,6 @@ Route::post('/categories','CategoriesController@insert');
 
 Route::get('/profile', 'ProfileController@getData');
 Route::resource('/profile_page', 'ProfileController');
+
+Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
+Route::post('items/insert', 'Items@insert')->name('items.insert');

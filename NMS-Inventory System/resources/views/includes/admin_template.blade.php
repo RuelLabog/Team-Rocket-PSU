@@ -73,6 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <!-- jQuery -->
 <script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
