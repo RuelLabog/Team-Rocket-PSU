@@ -22,6 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 
 //dashboard route
+
+Route::group(['middleware'=>'auth'], function(){
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 //items routes
@@ -31,7 +35,8 @@ Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 Route::post('/getItem', 'ItemsController@edit')->name('itemGetDataToEdit');
 
 //categoies routes
-Route::get('/categories', 'CategoriesController@getData');
+// Route::get('/categories', 'CategoriesController@getData');
+Route::resource('/categories', 'CategoriesController');
 Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@destroy')->name('catSoftDelete');
 
@@ -42,3 +47,8 @@ Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
 Route::post('/items','ItemsController@insert');
 Route::post('/categories','CategoriesController@insert');
+
+
+});
+
+

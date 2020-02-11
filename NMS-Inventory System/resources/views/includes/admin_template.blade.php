@@ -278,5 +278,35 @@ table td { word-wrap: break-word; }
 
 </script>
 
+<script>
+        $(document).ready(function(){
+            $('#categories_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('categories.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catdesc'
+                    },
+                    {
+                        data: 'catdesc',
+                        name: 'catdesc'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+        });
+    </script>
 </body>
 </html>

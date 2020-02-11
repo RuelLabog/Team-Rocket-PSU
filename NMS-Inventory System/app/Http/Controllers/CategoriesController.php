@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\category;
 use DB;
-
-
+use Yajra\DataTables\DataTables;
 
 class CategoriesController extends Controller
 {
@@ -38,9 +37,24 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $data = category::latest()->get();
+            return DataTables::of($data)
+                                ->addColumn('action', function($data){
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-catname="'.$data->catname.'"
+                                    data-catid="'.$data->id.'"
+                                    data-toggle="modal" data-target="#modal-delete-category">Delete</button>';
+                                    return $button;
+                                })
+                                // ->rawColums(['action'])
+                                ->make(true);
+
+        }
+        return view('pages/categories_page');
     }
 
     /**

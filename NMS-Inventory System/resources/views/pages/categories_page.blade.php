@@ -34,7 +34,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="items_table" class="table table-bordered table-striped">
+          <table id="categories_table" class="table table-bordered table-striped">
             <thead>
              <tr>
                   <th width="10%">#</th>
@@ -44,36 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($data as $value)
-                <tr>
-                  <td width="10%">{{$value->id}}</td>
-                  <td width="25%">{{$value->catname}}</td>
-                  <td width="55%">{{$value->catdesc}}</td>
-                  <td width="10%" class="text-center">
-                    <span class="table-button cursor-pointer mr-3"
-                    data-catid="{{$value->id}}"
-                    data-catname="{{$value->catname}}"
-                    data-catdesc="{{$value->catdesc}}"
-                    data-toggle="modal" data-target="#modal-edit-category">
-                    <a>
-                        <i class="fas fa-edit text-danger"></i>
-                      </a>
-                    </span>
 
-
-
-                    <span class="table-button cursor-pointer"
-                    data-catid="{{$value->id}}"
-                    data-catname="{{$value->catname}}"
-                     data-toggle="modal" data-target="#modal-delete-category">
-                      <a>
-                        <i class="fas fa-trash text-danger"></i>
-                      </a>
-                    </span>
-
-                  </td>
-                </tr>
-                @endforeach
 
           </table>
         </div>
@@ -163,14 +134,14 @@
               <h4 class="modal-title">Delete Category</h4>
             </div>
             <form action="{{route('catSoftDelete')}}" method="POST">
-            {{ csrf_field() }}
+             {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
             <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
             </div>
             </form>
           </div>
@@ -181,19 +152,29 @@
       <!-- /.delete item modal -->
 
     <script type="text/javascript">
-        // function itemsDel(){
-        //     var id = $('#dCatID').val();
-        //     alert(id);
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: 'softDelCat',
-        //         data: {'_token': $('input[name=_token').val(),
-        //                 'dCatID': $('input[name=dCatID').val()},
-        //         success: function (response){
-        //             alert('deleted!');
-        //         }
-        //     });
-        // }
+        function categoryDel(){
+            var id = $('#dCatID').val();
+              $.ajax({
+                type: 'POST',
+                url: 'softDelCat',
+                data: {'_token': $('input[name=_token').val(),
+                        'dCatID': $('input[name=dCatID').val()},
+                beforeSend:function(){
+                    $('#categoryDelBtn').text('Deleting...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-delete-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryDelBtn').text('Delete');
+                    }, 2000);
+                }
+            });
+        }
     </script>
+
+
+
+
 
  @endsection
