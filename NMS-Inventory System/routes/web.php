@@ -27,18 +27,23 @@ Route::group(['middleware'=>'auth'], function(){
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/sidebar', 'tryController@image');
 
 //items routes
 Route::resource('items_page', 'ItemsController');
 Route::get('/items', 'ItemsController@getData');
 Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 Route::post('/getItem', 'ItemsController@edit')->name('itemGetDataToEdit');
+Route::post('/items','ItemsController@insert');
+Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
+Route::post('items/insert', 'Items@insert')->name('items.insert');
 
 //categoies routes
 // Route::get('/categories', 'CategoriesController@getData');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@destroy')->name('catSoftDelete');
+Route::post('/categories','CategoriesController@insert');
 
 //users routes
 Route::get('/users', 'UsersController@getData');
@@ -47,6 +52,11 @@ Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
 Route::post('/items','ItemsController@insert');
 Route::post('/categories','CategoriesController@insert');
+
+//profile routes
+Route::resource('/profile_page', 'ProfileController');
+Route::get('/profile', 'ProfileController@getData');
+
 
 
 });
