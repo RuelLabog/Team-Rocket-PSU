@@ -123,14 +123,6 @@
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
-
-
-                    {{-- @foreach ($data as $item)
-                    <option value="{{$item->id}}"  {{ $item['categories.id'] == $item->catid ?
-                    'selected="selected"' : '' }}>{{$item->catname}}</option>
-                    @endforeach --}}
-
-
                   </select>
                 </div>
 
@@ -234,7 +226,6 @@
 
  <!-- /.ajax -->
       <script type="text/javascript">
-        
             $('#add_data').click(function(){
                 $('#modal-default').modal('show');
                 $('#item_form')[0].reset();
@@ -250,6 +241,7 @@
                     method:"POST",
                     data:form_data,
                     dataType:"json", 
+
                     }
                 })
             });
