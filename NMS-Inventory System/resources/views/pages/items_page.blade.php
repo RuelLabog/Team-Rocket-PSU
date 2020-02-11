@@ -22,9 +22,6 @@
     </div>
     <!-- /.content-header -->
 
-
-
-
           <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -88,11 +85,6 @@
           </div>
           <!-- /.card -->
 
-
-
-
-
-
 <!-- add items modal -->
       <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
@@ -155,12 +147,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add items modal -->
-
-
-
-
-
-
 
       <!-- edit item modal -->
       <div class="modal fade" id="modal-edit-items">
