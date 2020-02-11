@@ -57,6 +57,10 @@ Route::post('/categories','CategoriesController@insert');
 Route::resource('/profile_page', 'ProfileController');
 Route::get('/profile', 'ProfileController@getData');
 
+//profile routes
+Route::resource('/receipt_page', 'ReceiptController');
+Route::get('/receipt', 'ReceiptController@getData');
+
 
 
 });

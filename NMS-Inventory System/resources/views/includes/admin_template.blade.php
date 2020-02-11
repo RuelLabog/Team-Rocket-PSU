@@ -20,6 +20,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+   <!-- Date picker problems 
+  <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  -->
+    <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bower_components/admin-lte/dist/css/bootstrap-datepicker.min.css">
 
       <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
@@ -88,13 +93,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
-
+<!-- bootstrap datepicker -->
+<script src="bower_components/admin-lte/dist/js/bootstrap-datepicker.min.js"></script>
 
 
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
+
+       //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
   });
 </script>
 
@@ -317,6 +328,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
 });
  </script>
+
+
 
 </body>
 </html>
