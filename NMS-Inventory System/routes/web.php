@@ -42,3 +42,6 @@ Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
 Route::post('/items','ItemsController@insert');
 Route::post('/categories','CategoriesController@insert');
+
+Route::get('/profile', 'ProfileController@getData');
+Route::resource('/profile_page', 'ProfileController');
