@@ -23,6 +23,7 @@ Auth::routes();
 
 //dashboard route
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/sidebar', 'tryController@image');
 
 //items routes
 Route::resource('items_page', 'ItemsController');

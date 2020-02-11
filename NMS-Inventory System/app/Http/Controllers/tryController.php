@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class tryController extends Controller
 {
+
+    function image(){
+        $data['data'] = DB::table('users')->get()
+                        ->where('id', '=', auth()->user()->id);
+
+
+        if(count($datas) > 0){
+            return view('pages/profile_page', $datas);
+        }
+        else{
+            return view('pages/profile_page');
+        }
+    }
     /**
      * Display a listing of the resource.
      *
