@@ -59,7 +59,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title"><i class="fas fa-plus mr-2"></i>Add New Receipt</h4>
+              <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i>Add New Receipt</h4>
             </div>
             <form action="" method="POST">
             <div class="modal-body">
@@ -103,7 +103,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title"><i class="fas fa-edit text-danger"></i> Edit Receipt</h4>
+              <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i> Edit Receipt</h4>
             </div>
             <form action="{{route('categories_page.update', 'test')}}" method="POST">
                 {{ csrf_field() }}

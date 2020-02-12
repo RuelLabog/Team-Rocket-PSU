@@ -9,6 +9,7 @@ use App\item;
 use App\category;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 class UsersController extends Controller
 {
 
@@ -41,9 +42,29 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if($request->ajax()){
+            $data = User::latest()->get();
+            return DataTables::of($data)
+                                ->addColumn('action', function($data){
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    data-userid="'.$data->id.'"
+                                    data-username="'.$data->username.'"
+                                    data-fname="'.$data->fname.'"
+                                    data-toggle="modal" data-target="#modal-edit-category">Edit</button>';
+                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-username="'.$data->catname.'"
+                                    data-userid="'.$data->id.'"
+                                    data-toggle="modal" data-target="#modal-delete-category">Delete</button>';
+                                    return $button;
+                                })
+                                // ->rawColums(['action'])
+                                ->make(true);
+
+        }
+        return view('pages/users_page');
     }
 
     /**

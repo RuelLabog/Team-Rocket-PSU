@@ -34,17 +34,18 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="items_table" class="table table-bordered table-striped">
+          <table id="users_table" class="table table-bordered table-striped">
             <thead>
              <tr>
-                  <th width="30%">Username</th>
-                  <th width="30%">Email</th>
-                  <th width="30%">Name</th>
-                  <th width="10%"></th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Date Added</th>
+                  <th></th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($data as $value)
+            <!-- @foreach($data as $value)
               <tr>
                 <td>{{$value->username}}</td>
                 <td>{{$value->email}}</td>
@@ -76,7 +77,7 @@
 
                 </td>
               </tr>
-            @endforeach
+            @endforeach -->
 
           </table>
         </div>

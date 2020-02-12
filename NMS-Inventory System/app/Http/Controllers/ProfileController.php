@@ -34,6 +34,10 @@ class ProfileController extends Controller
         }
     }
 
+    function upload(Request $request)
+    {
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -88,31 +92,51 @@ class ProfileController extends Controller
     {
         //
 
+
          //
         $updateprofile = user::findOrFail(auth()->user()->id);
+
 
         $updateprofile->username =  $request['username'];
         $updateprofile->email = $request['email'];
         $updateprofile->fname = $request['fname'];
         $updateprofile->lname = $request['lname'];
-        $updateprofile->password = Hash::make($request['password']);
+        $updateprofile->password = Hash::make($request['newpassword']);
+
+        if($image = $request->file('image') != NULL){
+            $this->validate($request, [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+            $image = $request->file('image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(\public_path("images"), $new_name);
+
+            $updateprofile->image = $new_name;
+        }
+
+
+
+
 
         $password = DB::table('users')->where('id', auth()->user()->id)->value('password');
-        
-        if(Hash::make($request['password']) != $password){
-            $notification = array(
-                'message'=> 'Invalid Password!'.Hash::make($request['password']).' is not equal to '.  $password,
-                'alert-type' => 'error'
-            );
-        }elseif ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL) {
+        $inputpass = Hash::make($request['curpassword']);
+
+
+        if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL || $request['newpassword'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-            
+        }
+        elseif(!Hash::check($request['curpassword'], $password)){
+                $notification = array(
+                    'message'=> $inputpass . ' ' . $password,
+                    'alert-type' => 'error'
+                );
         }else{
             $updateprofile->save();
             $notification = array(
+
                 'message'=> 'Profile updated successfully!',
                 'alert-type' => 'success'
             );
@@ -122,7 +146,15 @@ class ProfileController extends Controller
         return back()->with($notification);
 
 
+
     }
+
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

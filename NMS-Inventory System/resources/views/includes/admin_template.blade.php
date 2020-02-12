@@ -20,6 +20,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+   <!-- Date picker problems 
+  <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  -->
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bower_components/admin-lte/dist/css/bootstrap-datepicker.min.css">
 
       <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
@@ -73,6 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <!-- jQuery -->
 <script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -89,11 +97,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
 
-
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
+
   });
 </script>
 
@@ -175,14 +183,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
-  $(function () {
-    $("#items_table").DataTable();
-
-  });
-</script>
-
-
 
 <script>
   @if(Session::has('message'))
@@ -198,12 +198,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   @endif
 </script>
-
-
-
-
-
-
 
     <script>
     //retrieve name of items in delete items modal
@@ -259,12 +253,109 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-
-
-
  <script type="text/javascript">
-   $(document).ready(function() {
-  
+
+        $(document).ready(function(){
+            // retrieve data to category table
+            $('#categories_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('categories.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catname'
+                    },
+                    {
+                        data: 'catdesc',
+                        name: 'catdesc'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+
+            $('#users_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('users_page.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'fname',
+                        name: 'fname'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catid',
+                        name: 'catid'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+        
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -284,8 +375,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
-});
+  });
  </script>
+
 
 </body>
 </html>
