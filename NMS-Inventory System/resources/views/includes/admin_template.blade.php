@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-   <!-- Date picker problems 
+   <!-- Date picker problems
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -143,7 +143,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $('#eItemID').val(itemid);
             $('#eItemname').val(data.result.itemname);
             $('#eItemDesc').val(data.result.itemdesc);
-            $('#ePrice').val(data.result.price);
             $('#eQuantity').val(data.result.quantity);
             $('#eCatName').val(data.result.catid);
 
@@ -183,12 +182,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
+{{-- <script>
   $(function () {
     $("#items_table").DataTable();
 
   });
-</script>
+</script> --}}
 
 
 
@@ -289,6 +288,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {
                         data: 'catdesc',
                         name: 'catdesc'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+            // retrieve data to items table
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemname'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catname'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
                     },
                     {
                         data: 'action',
