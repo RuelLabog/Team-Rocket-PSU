@@ -143,7 +143,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $('#eItemID').val(itemid);
             $('#eItemname').val(data.result.itemname);
             $('#eItemDesc').val(data.result.itemdesc);
-            $('#ePrice').val(data.result.price);
             $('#eQuantity').val(data.result.quantity);
             $('#eCatName').val(data.result.catid);
 
@@ -339,10 +338,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {
                         data: 'catid',
                         name: 'catid'
-                    },
-                    {
-                        data: 'price',
-                        name: 'price'
                     },
                     {
                         data: 'quantity',

@@ -36,10 +36,9 @@
                     <th width="8%">Item ID</th>
                     <th width="20%">Name</th>
                     <th width="30%">Description</th>
-                    <th width="12%">Category</th>
-                    <th width="10%">Price</th>
-                    <th width="12%">Quantity</th>
-                    <th width="8%">Actions</th>
+                    <th width="17%">Category</th>
+                    <th width="15%">Quantity</th>
+                    <th width="10%">Actions</th>
                   </tr>
                 </thead>
               </table>
@@ -73,12 +72,6 @@
                   <label>Quantity:</label>
                   <input type="number" class="form-control" name="quantity" placeholder="Item Quantity" required>
                 </div>
-
-                <div class="form-group">
-                  <label>Price:</label>
-                  <input type="text" class="form-control" name="price" placeholder="Item Price" required>
-                </div>
-
 
                 <div class="form-group">
                   <label>Category:</label>
@@ -130,12 +123,6 @@
                   <label>Quantity:</label>
                   <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
                 </div>
-
-                <div class="form-group">
-                  <label>Price (₱):</label>
-                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price" required>
-                </div>
-
 
                 <div class="form-group">
                   <label>Category:</label>
