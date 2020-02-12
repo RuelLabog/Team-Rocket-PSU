@@ -36,6 +36,7 @@ Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
 Route::post('/getItem', 'ItemsController@edit')->name('itemGetDataToEdit');
 Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
 Route::post('items/insert', 'Items@insert')->name('items.insert');
+Route::post('/items','ItemsController@insert');
 
 //categoies routes
 Route::resource('/categories', 'CategoriesController');
@@ -43,14 +44,12 @@ Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@delete')->name('catSoftDelete');
 Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 Route::post('/categories','CategoriesController@insert');
+Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
 
 //users routes
 Route::get('/users', 'UsersController@getData');
 Route::resource('/users_page', 'UsersController');
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
-
-Route::post('/items','ItemsController@insert');
-Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
 
 //profile routes
 Route::resource('/profile_page', 'ProfileController');
@@ -59,6 +58,10 @@ Route::get('/profile', 'ProfileController@getData');
 //receipt routes
 Route::resource('/receipt', 'ReceiptController');
 Route::resource('/receipts_page', 'ReceiptController');
+Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
+Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
+Route::post('/receipt','ReceiptController@insert');
+Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
 
 
 // });

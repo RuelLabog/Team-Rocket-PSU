@@ -89,7 +89,7 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Edit Category</h4>
             </div>
-            <form action="{{route('categories_page.update', 'test')}}" method="POST">
+            <form action="" method="POST">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
@@ -162,7 +162,6 @@
             });
         }
 
-
         function categoryEdit(){
             var url =  "editCat";
             var eCatDesc = $('#eCatDesc').val();
@@ -190,8 +189,7 @@
 
 
         function categoryAdd(){
-            var catDesc = $('#catDesc').val();
-            alert(catDesc);
+            var catDesc = $('#catDesc').val();s       
             $.ajax({
                 type: 'POST',
                 url: "{{ route('categoryInsert') }}",
@@ -208,14 +206,11 @@
                         $('#modal-default').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryAddBtn').text('Save Changes');
+                        alert('Success');
                     }, 2000);
                 }
             });
         }
     </script>
-
-
-
-
 
  @endsection

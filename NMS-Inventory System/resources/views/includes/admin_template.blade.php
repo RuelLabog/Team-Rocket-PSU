@@ -156,6 +156,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
+{{-- edit receipt --}}
+<script>
+    $('#modal-edit-receipt').on('show.bs.modal', function (event) {
+
+     var button = $(event.relatedTarget)
+     var recid = button.data('recid')
+     var ornum = button.data('ornum')
+     var pdate = button.data('pdate')
+     var supplier = button.data('supplier')
+     var total = button.data('total')  // Extract info from data-* attributes
+     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+     var modal = $(this)
+
+     modal.find('.modal-body #eRecID').val(recid)
+     modal.find('.modal-body #eOrnum').val(ornum)
+     modal.find('.modal-body #ePdate').val(pdate)
+     modal.find('.modal-body #eSupplier').val(supplier)
+     modal.find('.modal-body #eTotal').val(total)
+
+   })
+
+</script>
 
 {{-- edit user --}}
 <script>
@@ -228,6 +251,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
       modal.find('.modal-body #dCatName').html(catname)
 
     })
+
+</script>
+
+<script>
+    // retrieve name of category in delete category modal
+ $('#modal-delete-receipt').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var recid = button.data('recid')
+  var ornum = button.data('ornum')
+  var modal = $(this)
+
+  modal.find('.modal-body #dRecID').val(recid)
+  modal.find('.modal-body #dOrnum').html(ornum)
+
+})
 
 </script>
 
