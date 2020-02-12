@@ -54,7 +54,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Add New Category</h4>
+              <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Add New Category</h4>
             </div>
             <form action="" method="POST">
             <div class="modal-body">
@@ -87,7 +87,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title">Edit Category</h4>
+              <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Edit Category</h4>
             </div>
             <form action="{{route('categories_page.update', 'test')}}" method="POST">
                 {{ csrf_field() }}
@@ -121,7 +121,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Delete Category</h4>
+              <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Delete Category</h4>
             </div>
             <!-- <form action="{{route('catSoftDelete')}}" method="POST"> -->
              {{ csrf_field() }}
