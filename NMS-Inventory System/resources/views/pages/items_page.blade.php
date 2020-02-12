@@ -54,7 +54,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
-              <h4 class="modal-title">Add New Item</h4>
+              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Add New Item</h4>
             </div>
             <form action="" method="POST" id="item_form">
             <div class="modal-body">
@@ -108,7 +108,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title">Edit Item</h4>
+              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Edit Item</h4>
             </div>
             <form action="{{route('items_page.update', 'test')}}" method="POST">
                 {{method_field('patch')}}
@@ -165,7 +165,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Delete Item</h4>
+              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Delete Item</h4>
             </div>
             <form action="{{route('itemSoftDelete')}}" method="get">
             {{ csrf_field() }}

@@ -29,7 +29,7 @@
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-receipt">
-            <i class="fas fa-plus mr-2"></i>Add New Receipt
+            <i class="fas fa-plus mr-2"></i>Add Receipt
           </button>
         </div>
         <!-- /.card-header -->
