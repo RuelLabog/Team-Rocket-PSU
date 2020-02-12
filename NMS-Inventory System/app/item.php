@@ -9,7 +9,8 @@ use View;
 class item extends Model
 {
     use SoftDeletes;
+    protected $fillable =['items'];
     protected $table ='items';
     protected $dates = ['deleted_at'];
-    protected $fillable =['items'];
+
 }

@@ -32,11 +32,17 @@ Route::get('/sidebar', 'tryController@image');
 //items routes
 Route::resource('/items', 'ItemsController');
 Route::resource('/items_page', 'ItemsController');
-Route::get('/softdelitem', 'ItemsController@destroy')->name('itemSoftDelete');
+Route::post('/editItem', 'ItemsController@update')->name('itemEdit');
+// Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
+// Route::get('/items', 'ItemsController@getData');
+Route::post('/softdelitem', 'ItemsController@delete')->name('itemSoftDelete');
 Route::post('/getItem', 'ItemsController@edit')->name('itemGetDataToEdit');
+Route::post('/addItem','ItemsController@insert')->name('itemAdd');
 Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
+//Route::post('/items','ItemsController@insert')->name('itemInsert');
 Route::post('items/insert', 'Items@insert')->name('items.insert');
 Route::post('/items','ItemsController@insert');
+
 
 //categoies routes
 Route::resource('/categories', 'CategoriesController');
