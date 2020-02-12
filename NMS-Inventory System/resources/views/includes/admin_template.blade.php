@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-   <!-- Date picker problems 
+   <!-- Date picker problems
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -283,6 +283,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 ]
             });
 
+            // retrieve data to items table
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemname'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catname'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
 
             $('#users_table').DataTable({
                 processing: true,
@@ -316,40 +352,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
 
 
-            $('#items_table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{route('items.index')}}",
-                },
-                columns: [
-                    {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'itemname',
-                        name: 'itemdesc'
-                    },
-                    {
-                        data: 'itemdesc',
-                        name: 'itemdesc'
-                    },
-                    {
-                        data: 'catid',
-                        name: 'catid'
-                    },
-                    {
-                        data: 'quantity',
-                        name: 'quantity'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false
-                    }
-                ]
-            });
+            // $('#items_table').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     ajax: {
+            //         url: "{{route('items.index')}}",
+            //     },
+            //     columns: [
+            //         {
+            //             data: 'id',
+            //             name: 'id'
+            //         },
+            //         {
+            //             data: 'itemname',
+            //             name: 'itemdesc'
+            //         },
+            //         {
+            //             data: 'itemdesc',
+            //             name: 'itemdesc'
+            //         },
+            //         {
+            //             data: 'catid',
+            //             name: 'catid'
+            //         },
+            //         {
+            //             data: 'quantity',
+            //             name: 'quantity'
+            //         },
+            //         {
+            //             data: 'action',
+            //             name: 'action',
+            //             orderable: false
+            //         }
+            //     ]
+            // });
 
             $('#receipts_table').DataTable({
                 processing: true,
@@ -386,7 +422,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 ]
             });
 
-        
+
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -394,15 +430,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
             }
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }
-   
+
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-    
+
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
