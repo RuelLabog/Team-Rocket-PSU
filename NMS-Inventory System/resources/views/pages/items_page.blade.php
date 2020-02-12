@@ -1,7 +1,5 @@
   @extends('includes/admin_template')
 
-
-
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -24,7 +22,7 @@
 
           <div class="card">
             <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="add_data" name="add_data">
                   <i class="fas fa-plus mr-2"></i>Add Item
                 </button>
             </div>
@@ -37,13 +35,13 @@
                     <th width="20%">Name</th>
                     <th width="30%">Description</th>
                     <th width="12%">Category</th>
-                    <th width="10%">Price</th>
                     <th width="12%">Quantity</th>
-                    <th width="8%"></th>
+                    <th width="8%">Actions</th>
                   </tr>
                 </thead>
+<<<<<<< HEAD
                 <tbody>
-                @foreach($data as $value)
+                {{-- @foreach($data as $value)
                   <tr>
                     <td width="8%">{{$value->id}}</td>
                     <td width="20%">{{$value->itemname}}</td>
@@ -85,14 +83,11 @@
 
                     </td>
                   </tr>
-                @endforeach
+                @endforeach --}}
 
+=======
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
               </table>
-
-
-
-
-
 
             </div>
             <!-- /.card-body -->
@@ -111,29 +106,27 @@
                 <div class="form-group">
               {{csrf_field()}}
                   <label>Item:</label>
-                  <input type="text" class="form-control" name="itemname" placeholder="Item Name" required>
+                  <input type="password" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" placeholder="Item Description" name="itemdesc" maxlength="200" required></textarea>
+                <textarea class="form-control" placeholder="Item Description" id="itemdesc" name="itemdesc" maxlength="200" required></textarea>
                 </div>
 
                 <div class="form-group">
                   <label>Quantity:</label>
-                  <input type="number" class="form-control" name="quantity" placeholder="Item Quantity" required>
+                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity" required>
                 </div>
-
-                <div class="form-group">
-                  <label>Price:</label>
-                  <input type="text" class="form-control" name="price" placeholder="Item Price" required>
-                </div>
-
 
                 <div class="form-group">
                   <label>Category:</label>
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
+<<<<<<< HEAD
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
 
+=======
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
@@ -142,10 +135,16 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" name="submit" id='itemAddBtn' onclick="itemAdd()">Save changes</button>
+              </div>
+=======
               <input type="hidden" name="button_action" id="button_action" value="insert" />
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit" id="action">Save changes</button>
+              <button type="submit" class="btn btn-success" name="submit" id="action" onclick="insert()">Save changes</button>
             </div>
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
           </form>
           </div>
           <!-- /.modal-content -->
@@ -165,7 +164,7 @@
                 {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" class="form-control"  id="eItemID" name="editid" value="" placeholder="Item ID">
+            <input type="hidden" class="form-control"  id="eItemID" name="eItemID" value="" placeholder="Item ID">
 
                 <div class="form-group">
                   <label>Item:</label>
@@ -183,12 +182,6 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Price (₱):</label>
-                  <input type="text" class="form-control" id="ePrice" name="ePrice" placeholder="Item Price" required>
-                </div>
-
-
-                <div class="form-group">
                   <label>Category:</label>
 
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
@@ -201,7 +194,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-success" id='itemEditBtn' onclick='itemEdit()'>Save changes</button>
             </div>
             </form>
           </div>
@@ -227,7 +220,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-danger" id="itemDelBtn" onclick="itemDelete()">Delete</button>
             </div>
             </form>
           </div>
@@ -236,8 +229,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
-
-
 
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
@@ -267,8 +258,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add quantity modal -->
-
-
 
             <!-- add quantity modal -->
       <div class="modal fade" id="modal-reduce-quantity">
@@ -303,36 +292,112 @@
       </div>
       <!-- /.add quantity modal -->
 
-
-
-
-
-
-
-
-
  <!-- /.ajax -->
       <script type="text/javascript">
-            $('#add_data').click(function(){
-                $('#modal-default').modal('show');
-                $('#item_form')[0].reset();
-                $('#button_action').val('insert');
-                $('#action').val('Add');
+            // $('#add_data').click(function(){
+            //     $('#modal-default').modal('show');
+            //     $('#item_form')[0].reset();
+            //     $('#button_action').val('insert');
+            //     $('#action').val('Add');
+            // });
+
+            // $('#item_form').on('submit', function(event){
+            //     event.preventDefault();
+            //     var form_data = $(this).serialize();
+            //     $.ajax({
+            //         url:"{{ route('items.insert') }}",
+            //         method:"POST",
+            //         data:form_data,
+            //         dataType:"json",
+
+            //     });
+            // });
+
+
+
+
+            function itemEdit(){
+            var url =  "editItem";
+            var eItemDesc = $('#eItemDesc').val();
+            var catid= $('#eCatName').val();
+              $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'eItemID':$('input[name=eItemID').val(),
+                        'eItemname':$('input[name=eItemname').val(),
+                        'eItemDesc': eItemDesc,
+                        'eQuantity':$('input[name=eQuantity').val(),
+                        'catid':catid
+                        },
+                beforeSend:function(){
+                    $('#itemEditBtn').text('Updating...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-edit-items').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                        $('#itemEditBtn').text('Save Changes');
+                    }, 2000);
+                }
             });
+        }
 
-            $('#item_form').on('submit', function(event){
-                event.preventDefault();
-                var form_data = $(this).serialize();
-                $.ajax({
-                    url:"{{ route('items.insert') }}",
-                    method:"POST",
-                    data:form_data,
-                    dataType:"json",
 
-                });
+
+
+
+        function itemAdd(){
+            var url =  "addItem";
+            var itemdesc = $('#itemdesc').val();
+            var catid=$('#catid').val();
+            alert(catid);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'itemname':$('input[name=itemname').val(),
+                        'quantity':$('input[name=quantity').val(),
+                        'catid':catid,
+                        'itemdesc': itemdesc
+                        },
+                beforeSend:function(){
+                    $('#itemAddBtn').text('Inserting...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-default').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                        $('#itemAddBtn').text('Save Changes');
+                    }, 2000);
+                }
             });
+        }
 
 
+        function itemDelete(){
+            var id = $('#dItemID').val();
+            alert(id)
+              $.ajax({
+                type: 'POST',
+                url: 'softdelitem',
+                data: {'_token': $('input[name=_token').val(),
+                        'dItemID': id
+                    },
+                beforeSend:function(){
+                    $('#itemDelBtn').text('Deleting...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-delete-items').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                        $('#itemDelBtn').text('Delete');
+                    }, 2000);
+                }
+            });
+        }
         </script>
 
 

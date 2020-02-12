@@ -4,31 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\receipt;
 use DB;
 use Yajra\DataTables\DataTables;
 
 class ReceiptController extends Controller
 {
-
-        //for authentication
+    //for authentication
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    //
-    function getData(){
-        $data['data'] = DB::table('receipts')
-                    ->where('deleted_at', '=', null)
-                    ->get();
-
-
-        if(count($data) > 0){
-            return view('pages/receipts_page', $data);
-        }
-        else{
-            return view('pages/receipts_page');
-        }
     }
 
     /**
@@ -36,9 +21,27 @@ class ReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $data = receipt::latest()->get();
+            return DataTables::of($data)
+                                ->addColumn('action', function($data){
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    data-id="'.$data->id.'"
+                                    data-ornum="'.$data->ornum.'"
+                                    data-toggle="modal" data-target="#modal-edit-category">Edit</button>';
+                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-id="'.$data->id.'"
+                                    data-ornum="'.$data->ornum.'"
+                                    data-toggle="modal" data-target="#modal-delete-category">Delete</button>';
+                                    return $button;
+                                })
+                                // ->rawColums(['action'])
+                                ->make(true);
+
+        }
+        return view('pages/receipts_page');
     }
 
     /**
@@ -91,10 +94,11 @@ class ReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+
+    public function update(Request $request){
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -102,8 +106,11 @@ class ReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        
+    }
+
+    function insert(Request $req){
     }
 }

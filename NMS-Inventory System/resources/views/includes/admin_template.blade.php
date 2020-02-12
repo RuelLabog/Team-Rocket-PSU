@@ -143,7 +143,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $('#eItemID').val(itemid);
             $('#eItemname').val(data.result.itemname);
             $('#eItemDesc').val(data.result.itemdesc);
-            $('#ePrice').val(data.result.price);
             $('#eQuantity').val(data.result.quantity);
             $('#eCatName').val(data.result.catid);
 
@@ -183,12 +182,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
+{{-- <script>
   $(function () {
     $("#items_table").DataTable();
 
   });
-</script>
+</script> --}}
 
 
 
@@ -206,12 +205,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   @endif
 </script>
-
-
-
-
-
-
 
     <script>
     //retrieve name of items in delete items modal
@@ -267,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
+ <script type="text/javascript">
 
         $(document).ready(function(){
             // retrieve data to category table
@@ -289,6 +282,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+            // retrieve data to items table
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemname'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catname'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
                     },
                     {
                         data: 'action',
@@ -329,15 +358,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 ]
             });
-        });
 
 
-</script>
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catid',
+                        name: 'catid'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
 
+            $('#receipts_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('receipt.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'ornum',
+                        name: 'ornum'
+                    },
+                    {
+                        data: 'pdate',
+                        name: 'pdate'
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier'
+                    },
+                    {
+                        data: 'total',
+                        name: 'total'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
 
-
- <script type="text/javascript">
-   $(document).ready(function() {
 
     var readURL = function(input) {
         if (input.files && input.files[0]) {
@@ -358,7 +454,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
-});
+  });
  </script>
 
 

@@ -161,11 +161,7 @@ class CategoriesController extends Controller
                 'alert-type' => 'error'
             );
         }
-
         return back()->with($notification);
-
-
-
     }
 
     function insert(Request $req){
@@ -194,7 +190,5 @@ class CategoriesController extends Controller
             );
         }
         return back()->with($notification);
-
     }
-
 }
