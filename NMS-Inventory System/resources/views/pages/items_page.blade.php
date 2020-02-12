@@ -1,7 +1,5 @@
   @extends('includes/admin_template')
 
-
-
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -24,7 +22,7 @@
 
           <div class="card">
             <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="add_data" name="add_data">
                   <i class="fas fa-plus mr-2"></i>Add Item
                 </button>
             </div>
@@ -38,9 +36,10 @@
                     <th width="30%">Description</th>
                     <th width="12%">Category</th>
                     <th width="12%">Quantity</th>
-                    <th width="8%"></th>
+                    <th width="8%">Actions</th>
                   </tr>
                 </thead>
+<<<<<<< HEAD
                 <tbody>
                 {{-- @foreach($data as $value)
                   <tr>
@@ -86,12 +85,9 @@
                   </tr>
                 @endforeach --}}
 
+=======
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
               </table>
-
-
-
-
-
 
             </div>
             <!-- /.card-body -->
@@ -125,8 +121,12 @@
 
                 <div class="form-group">
                   <label>Category:</label>
+<<<<<<< HEAD
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
 
+=======
+                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
@@ -135,9 +135,16 @@
 
             </div>
             <div class="modal-footer">
+<<<<<<< HEAD
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-success" name="submit" id='itemAddBtn' onclick="itemAdd()">Save changes</button>
               </div>
+=======
+              <input type="hidden" name="button_action" id="button_action" value="insert" />
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success" name="submit" id="action" onclick="insert()">Save changes</button>
+            </div>
+>>>>>>> 9531c84a48db3b1736c3eb2dce69da5cfef3bdae
           </form>
           </div>
           <!-- /.modal-content -->
@@ -223,8 +230,6 @@
       </div>
       <!-- /.delete item modal -->
 
-
-
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
         <div class="modal-dialog">
@@ -253,8 +258,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add quantity modal -->
-
-
 
             <!-- add quantity modal -->
       <div class="modal fade" id="modal-reduce-quantity">
@@ -288,14 +291,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add quantity modal -->
-
-
-
-
-
-
-
-
 
  <!-- /.ajax -->
       <script type="text/javascript">

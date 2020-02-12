@@ -78,7 +78,6 @@ class ItemsController extends Controller
                                 })
                                 // ->rawColums(['action'])
                                 ->make(true);
-
         }
         return view('pages/items_page');
     }

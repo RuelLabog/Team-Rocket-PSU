@@ -44,7 +44,6 @@ Route::post('items/insert', 'Items@insert')->name('items.insert');
 
 
 //categoies routes
-// Route::get('/categories', 'CategoriesController@getData');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@delete')->name('catSoftDelete');
@@ -63,10 +62,9 @@ Route::post('/categories','CategoriesController@insert')->name('categoryInsert')
 Route::resource('/profile_page', 'ProfileController');
 Route::get('/profile', 'ProfileController@getData');
 
-//profile routes
-Route::resource('/receipt_page', 'ReceiptController');
-Route::get('/receipt', 'ReceiptController@getData');
-
+//receipt routes
+Route::resource('/receipt', 'ReceiptController');
+Route::resource('/receipts_page', 'ReceiptController');
 
 
 // });
