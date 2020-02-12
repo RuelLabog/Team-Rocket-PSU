@@ -53,11 +53,11 @@
                     <td width="12%" class="text-center">
                       <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity">
                       <i class="fas fa-plus-square text-success mr-2"></i>
-                      </a> 
+                      </a>
                       {{$value->quantity}}
                       <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity">
                       <i class="fas fa-minus-square text-danger ml-2"></i>
-                      </a> 
+                      </a>
                     </td>
                     <td width="8%" class="text-center">
 
@@ -93,7 +93,7 @@
 
 
 
-              
+
             </div>
             <!-- /.card-body -->
           </div>
@@ -321,14 +321,14 @@
 
  <!-- /.ajax -->
       <script type="text/javascript">
-        
+
             $('#add_data').click(function(){
                 $('#modal-default').modal('show');
                 $('#item_form')[0].reset();
                 $('#button_action').val('insert');
                 $('#action').val('Add');
             });
-        
+
             $('#item_form').on('submit', function(event){
                 event.preventDefault();
                 var form_data = $(this).serialize();
@@ -336,12 +336,12 @@
                     url:"{{ route('items.insert') }}",
                     method:"POST",
                     data:form_data,
-                    dataType:"json", 
-                    }
-                })
+                    dataType:"json",
+
+                });
             });
-        
-        });
+
+
         </script>
 
 

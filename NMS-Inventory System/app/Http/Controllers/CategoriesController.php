@@ -18,19 +18,19 @@ class CategoriesController extends Controller
 
 
     //
-    function getData(){
-        $data['data'] = DB::table('categories')
-                    ->where('deleted_at', '=', null)
-                    ->get();
+    // function getData(){
+    //     $data['data'] = DB::table('categories')
+    //                 ->where('deleted_at', '=', null)
+    //                 ->get();
 
 
-        if(count($data) > 0){
-            return view('pages/categories_page', $data);
-        }
-        else{
-            return view('pages/categories_page');
-        }
-    }
+    //     if(count($data) > 0){
+    //         return view('pages/categories_page', $data);
+    //     }
+    //     else{
+    //         return view('pages/categories_page');
+    //     }
+    // }
 
     /**
      * Display a listing of the resource.
@@ -43,7 +43,11 @@ class CategoriesController extends Controller
             $data = category::latest()->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    data-catid="'.$data->id.'"
+                                    data-catname="'.$data->catname.'"
+                                    data-catdesc="'.$data->catdesc.'"
+                                    data-toggle="modal" data-target="#modal-edit-category">Edit</button>';
                                     $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
                                     data-catname="'.$data->catname.'"
                                     data-catid="'.$data->id.'"
@@ -107,15 +111,13 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
-        //
-        $updatecat = category::findOrFail($request->catid);
 
-        $updatecat->catname =  $request['eCatName'];
-        $updatecat->catdesc = $request['eCatDesc'];
-
-
+    public function update(Request $request){
+        $id = $request->input('eCatID');
+        $updatecat = category::findOrFail($id);
+        $updatecat->catname = $request->input('eCatName');
+        $updatecat->catdesc = $request->input('eCatDesc');
+        $updatecat->save();
 
         if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
             $notification = array(
@@ -136,13 +138,14 @@ class CategoriesController extends Controller
 
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $deleteCat = $request->input('dCatID');
 
@@ -166,8 +169,8 @@ class CategoriesController extends Controller
     }
 
     function insert(Request $req){
-        $catname = $req->input('catname');
-        $catdesc = $req->input('catdesc');
+        $catname = $req->input('catName');
+        $catdesc = $req->input('catDesc');
         $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
         if(DB::table('categories')->where('catname', '=', $catname)->exists()){

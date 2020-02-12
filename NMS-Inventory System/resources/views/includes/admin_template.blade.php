@@ -261,7 +261,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 <script>
+
         $(document).ready(function(){
+            // retrieve data to category table
             $('#categories_table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -275,7 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     },
                     {
                         data: 'catname',
-                        name: 'catdesc'
+                        name: 'catname'
                     },
                     {
                         data: 'catdesc',
@@ -288,8 +290,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 ]
             });
+
+
+            $('#users_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('users_page.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'fname',
+                        name: 'fname'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
         });
-    </script>
+
+
+</script>
 
 
 
