@@ -1,7 +1,5 @@
   @extends('includes/admin_template')
 
-
-
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">

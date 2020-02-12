@@ -355,6 +355,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 ]
             });
+
+            $('#receipts_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('receipt.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'ornum',
+                        name: 'ornum'
+                    },
+                    {
+                        data: 'pdate',
+                        name: 'pdate'
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier'
+                    },
+                    {
+                        data: 'total',
+                        name: 'total'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
         
     var readURL = function(input) {
         if (input.files && input.files[0]) {
