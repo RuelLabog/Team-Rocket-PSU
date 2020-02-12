@@ -152,13 +152,13 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Delete Category</h4>
+              <h4 class="modal-title">Delete Receipt</h4>
             </div>
             <form action="{{route('catSoftDelete')}}" method="POST">
              {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
-            <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
+            <h6 style="text-align:center">Are you sure you want to delete receipt <label id="dCatName"></label>?</h6>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
