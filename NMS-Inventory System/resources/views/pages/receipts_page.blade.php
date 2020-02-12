@@ -59,7 +59,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title"><i class="fas fa-plus mr-2"></i>Add New Reciept</h4>
+              <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i>Add New Receipt</h4>
             </div>
             <form action="" method="POST">
             <div class="modal-body">
@@ -75,18 +75,6 @@
               <div class="form-group">
                 <label>Date of Purchase:</label>
                 <input type="date" class="form-control" name=""  required>
-              </div>
-                            <!-- Date -->
-              <div class="form-group">
-                <label>Date:</label>
-
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
-                </div>
-                <!-- /.input group -->
               </div>
               <!-- /.form group -->
               
@@ -111,11 +99,11 @@
 
 
        <!-- edit item modal -->
-       <div class="modal fade" id="modal-edit-category">
+       <div class="modal fade" id="modal-edit-receipt">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title">Edit Category</h4>
+              <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i> Edit Receipt</h4>
             </div>
             <form action="{{route('categories_page.update', 'test')}}" method="POST">
                 {{ csrf_field() }}
@@ -123,12 +111,22 @@
             <div class="modal-body">
                 <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name" required>
                 <div class="form-group">
-                <label>Category:</label>
-                <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name" required>
+                <label>OR Number:</label>
+                <input type="text" class="form-control" name="" placeholder="Official Reciept Number" required>
               </div>
               <div class="form-group">
-                <label>Description:</label>
-                <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc" required></textarea>
+                <label>Supplier:</label>
+                <input type="text" class="form-control" name="" placeholder="Enter Supplier Name." required>
+              </div>
+              <div class="form-group">
+                <label>Date of Purchase:</label>
+                <input type="date" class="form-control" name=""  required>
+              </div>
+              <!-- /.form group -->
+              
+              <div class="form-group">
+                <label>Total:</label>
+                <input type="text" class="form-control" name="" placeholder="Total Amount" required>
               </div>
 
             </div>
