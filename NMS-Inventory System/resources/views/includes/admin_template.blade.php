@@ -20,6 +20,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+   <!-- Date picker problems 
+  <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  -->
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bower_components/admin-lte/dist/css/bootstrap-datepicker.min.css">
 
       <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
@@ -90,11 +97,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
 
-
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
+
   });
 </script>
 
@@ -353,6 +360,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
 });
  </script>
+
 
 </body>
 </html>
