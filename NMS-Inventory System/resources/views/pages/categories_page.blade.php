@@ -13,8 +13,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="{{url('home')}}">Home</a></li>
+              <li class="breadcrumb-item active">Categories Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,7 +56,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Add New Category</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" id="add-form">
             <div class="modal-body">
               <div class="form-group">
                 {{ csrf_field() }}
@@ -89,7 +89,7 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Edit Category</h4>
             </div>
-            <form action="{{route('categories_page.update', 'test')}}" method="POST">
+            <form action="{{route('categories_page.update', 'test')}}" method="POST" id="edit-form">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
@@ -121,9 +121,9 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Delete Category</h4>
+              <h5 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Delete Category</h5>
             </div>
-            <!-- <form action="{{route('catSoftDelete')}}" method="POST"> -->
+             <form action="{{route('catSoftDelete')}}" method="POST" id="delete-form">
              {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
@@ -153,11 +153,12 @@
                     $('#categoryDelBtn').text('Deleting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+
+                        toastr.success('Successfully Deleted.');
+                        $('#delete-form')[0].reset();
                         $('#modal-delete-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryDelBtn').text('Delete');
-                    }, 2000);
                 }
             });
         }
@@ -179,11 +180,13 @@
                     $('#categoryEditBtn').text('Updating...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+
+                        toastr.success('Successfully Updated.');
+                        $('#edit-form')[0].reset();
                         $('#modal-edit-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryEditBtn').text('Save Changes');
-                    }, 2000);
+
                 }
             });
         }
@@ -191,7 +194,6 @@
 
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
-            alert(catDesc);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('categoryInsert') }}",
@@ -204,11 +206,12 @@
                     $('#categoryAddBtn').text('Inserting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
-                        $('#modal-default').modal('hide');
-                        $('#categories_table').DataTable().ajax.reload();
-                        $('#categoryAddBtn').text('Save Changes');
-                    }, 2000);
+                  toastr.success('Successfully Added.');
+                  $('#add-form')[0].reset();
+                  $('#modal-default').modal('hide');
+                  $('#categories_table').DataTable().ajax.reload();
+                  $('#categoryAddBtn').text('Save Changes');
+
                 }
             });
         }

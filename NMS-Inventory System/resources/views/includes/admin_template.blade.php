@@ -23,10 +23,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <!-- Date picker problems 
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
-  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="bower_components/admin-lte/dist/css/bootstrap-datepicker.min.css">
+
 
       <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
@@ -95,14 +94,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
-
+<!-- AdminLTE for demo purposes -->
+<script src="bower_components/admin-lte/dist/js/demo.js"></script>
+  <!-- ChartJS -->
+<script src="bower_components/admin-lte/plugins/chart.js/Chart.min.js"></script>
 
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
 
+
+
+
+
+
   });
+</script>
+
+<script>
+
+
+$(document).ready(function() {
+
+          //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+
+    var pieData        = {
+      labels: [
+          'Chrome', 
+          'IE',
+          'FireFox', 
+          'Safari', 
+          'Opera', 
+          'Navigator', 
+      ],
+      datasets: [
+        {
+          data: [700,500,400,600,300,100],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+    var pieOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    var pieChart = new Chart(pieChartCanvas, {
+      type: 'pie',
+      data: pieData,
+      options: pieOptions      
+    })
+
+});
+
+
+  
 </script>
 
 
