@@ -15,6 +15,7 @@ use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
 use Illuminate\Support\Facades\Redirect;
 use Validator, Input; 
+use Yajra\DataTables\DataTables;
 
 class ItemsController extends Controller
 {
@@ -51,9 +52,23 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $data = item::latest()->get();
+            return DataTables::of($data)
+                                ->addColumn('action', function($data){
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-itemname="'.$data->itemname.'"
+                                    data-itemid="'.$data->id.'"
+                                    data-toggle="modal" data-target="#modal-delete-item">Delete</button>';
+                                    return $button;
+                                })
+                                // ->rawColums(['action'])
+                                ->make(true);
+        }
+        return view('pages/items_page');
     }
 
     /**
@@ -139,9 +154,6 @@ class ItemsController extends Controller
         }
 
         return back()->with($notification);
-
-
-
     }
 
     /**
@@ -161,22 +173,17 @@ class ItemsController extends Controller
                 'message'=> 'Item deleted successfully!',
                 'alert-type' => 'success'
             );
-
-
         }else{
             $notification = array(
                 'message'=> 'An error occured while deleting the item!',
                 'alert-type' => 'error'
             );
         }
-
-        return back()->with($notification);
+    return back()->with($notification);
     }
 
     function insert(Request $req)
-    {
-            if($req->get('button_action') == "insert")
-            {
+    {          
                 $itemname = $req->input('itemname');
                 $itemdesc = $req->input('itemdesc');
                 $price = $req->input('price');
@@ -198,8 +205,7 @@ class ItemsController extends Controller
                         'alert-type' => 'success'
                     );
                 }
-            }
-            return back()->with($notification);
+                return back()-> with($notification);
     }
 }
 

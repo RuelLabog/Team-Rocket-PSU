@@ -24,7 +24,7 @@
 
           <div class="card">
             <div class="card-header">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="add_data" name="add_data">
                   <i class="fas fa-plus mr-2"></i>Add Item
                 </button>
             </div>
@@ -39,61 +39,11 @@
                     <th width="12%">Category</th>
                     <th width="10%">Price</th>
                     <th width="12%">Quantity</th>
-                    <th width="8%"></th>
+                    <th width="8%">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                @foreach($data as $value)
-                  <tr>
-                    <td width="8%">{{$value->id}}</td>
-                    <td width="20%">{{$value->itemname}}</td>
-                    <td width="30%">{{$value->itemdesc}}</td>
-                    <td width="12%">{{$value->catname}}</td>
-                    <td width="10%">{{'₱'.$value->price}}</td>
-                    <td width="12%" class="text-center">
-                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity">
-                      <i class="fas fa-plus-square text-success mr-2"></i>
-                      </a> 
-                      {{$value->quantity}}
-                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity">
-                      <i class="fas fa-minus-square text-danger ml-2"></i>
-                      </a> 
-                    </td>
-                    <td width="8%" class="text-center">
-
-                      <span class="table-button cursor-pointer mr-3"
-                      data-itemname="{{$value->itemname}}"
-                      data-itemdesc="{{$value->itemdesc}}"
-                      data-price="{{$value->price}}"
-                      data-quantity="{{$value->quantity}}"
-                      data-itemid="{{$value->id}}"
-                      data-catid="{{$value->catid}}"
-                      data-toggle="modal" data-target="#modal-edit-items">
-                        <a>
-                          <i class="fas fa-edit text-danger"></i>
-                        </a>
-                      </span>
-
-                       <span class="table-button cursor-pointer"
-                       data-itemname="{{$value->itemname}}"
-                       data-itemid="{{$value->id}}"
-                       data-toggle="modal" data-target="#modal-delete-items">
-                        <a>
-                          <i class="fas fa-trash text-danger"></i>
-                        </a>
-                      </span>
-
-                    </td>
-                  </tr>
-                @endforeach
-
               </table>
 
-
-
-
-
-              
             </div>
             <!-- /.card-body -->
           </div>
@@ -133,7 +83,6 @@
                 <div class="form-group">
                   <label>Category:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" required>
-
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
@@ -144,7 +93,7 @@
             <div class="modal-footer">
               <input type="hidden" name="button_action" id="button_action" value="insert" />
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit" id="action">Save changes</button>
+              <button type="submit" class="btn btn-success" name="submit" id="action" onclick="insert()">Save changes</button>
             </div>
           </form>
           </div>
@@ -237,8 +186,6 @@
       </div>
       <!-- /.delete item modal -->
 
-
-
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
         <div class="modal-dialog">
@@ -267,8 +214,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.add quantity modal -->
-
-
 
             <!-- add quantity modal -->
       <div class="modal fade" id="modal-reduce-quantity">
@@ -303,16 +248,9 @@
       </div>
       <!-- /.add quantity modal -->
 
-
-
-
-
-
-
-
-
  <!-- /.ajax -->
       <script type="text/javascript">
+$(document).ready(function() {
             $('#add_data').click(function(){
                 $('#modal-default').modal('show');
                 $('#item_form')[0].reset();
@@ -320,20 +258,22 @@
                 $('#action').val('Add');
             });
         
-            $('#item_form').on('submit', function(event){
-                event.preventDefault();
-                var form_data = $(this).serialize();
-                $.ajax({
-                    url:"{{ route('items.insert') }}",
-                    method:"POST",
-                    data:form_data,
-                    dataType:"json", 
-
-                    }
-                })
+            function insert(){
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        $.ajax({
+                type: 'POST',
+                url:"{{ route('items.insert') }}",
+                data: form_data,
+                dataType:"json",
+                success: function (response){
+                        $('#modal-default').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                }
             });
-        
-        });
+    });
+          });
+
         </script>
 
 

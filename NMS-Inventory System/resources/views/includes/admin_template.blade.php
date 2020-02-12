@@ -176,14 +176,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
-  $(function () {
-    $("#items_table").DataTable();
-
-  });
-</script>
-
-
 
 <script>
   @if(Session::has('message'))
@@ -199,12 +191,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
   @endif
 </script>
-
-
-
-
-
-
 
     <script>
     //retrieve name of items in delete items modal
@@ -260,7 +246,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-<script>
+ <script type="text/javascript">
+
         $(document).ready(function(){
             $('#categories_table').DataTable({
                 processing: true,
@@ -275,7 +262,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     },
                     {
                         data: 'catname',
-                        name: 'catdesc'
+                        name: 'catname'
                     },
                     {
                         data: 'catdesc',
@@ -288,14 +275,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 ]
             });
-        });
-    </script>
 
-
-
- <script type="text/javascript">
-   $(document).ready(function() {
-
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catid',
+                        name: 'catid'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+        
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -303,19 +322,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
             }
-
+    
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+   
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-
+    
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
-});
+  });
  </script>
 
 </body>

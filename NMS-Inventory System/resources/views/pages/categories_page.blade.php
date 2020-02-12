@@ -43,16 +43,11 @@
                   <th width="10%"></th>
                 </tr>
             </thead>
-            <tbody>
-
-
           </table>
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
-
 
 <!-- add items modal -->
       <div class="modal fade" id="modal-default">
@@ -120,11 +115,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.edit item modal -->
-
-
-
-
-
 
             <!-- delete categories modal -->
       <div class="modal fade" id="modal-delete-category">
