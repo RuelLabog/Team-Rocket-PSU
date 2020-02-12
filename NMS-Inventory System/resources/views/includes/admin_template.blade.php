@@ -195,7 +195,6 @@ $(document).ready(function() {
             $('#eItemID').val(itemid);
             $('#eItemname').val(data.result.itemname);
             $('#eItemDesc').val(data.result.itemdesc);
-            $('#ePrice').val(data.result.price);
             $('#eQuantity').val(data.result.quantity);
             $('#eCatName').val(data.result.catid);
 
@@ -393,10 +392,6 @@ $(document).ready(function() {
                         name: 'catid'
                     },
                     {
-                        data: 'price',
-                        name: 'price'
-                    },
-                    {
                         data: 'quantity',
                         name: 'quantity'
                     },
@@ -407,6 +402,42 @@ $(document).ready(function() {
                     }
                 ]
             });
+
+            $('#receipts_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('receipt.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'ornum',
+                        name: 'ornum'
+                    },
+                    {
+                        data: 'pdate',
+                        name: 'pdate'
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier'
+                    },
+                    {
+                        data: 'total',
+                        name: 'total'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
         
     var readURL = function(input) {
         if (input.files && input.files[0]) {

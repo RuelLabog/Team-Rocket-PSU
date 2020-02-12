@@ -34,13 +34,15 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="categories_table" class="table table-bordered table-striped">
+          <table id="receipts_table" class="table table-bordered table-striped">
             <thead>
              <tr>
-                  <th width="10%">#</th>
-                  <th width="25%">Name</th>
-                  <th width="55">Description</th>
-                  <th width="10%"></th>
+                  <th width="5%">#</th>
+                  <th width="15%">Ornum</th>
+                  <th width="25%">pdate</th>
+                  <th width="20%">supplier</th>
+                  <th width="10">Total</th>
+                  <th width="15%"></th>
                 </tr>
             </thead>
             <tbody>

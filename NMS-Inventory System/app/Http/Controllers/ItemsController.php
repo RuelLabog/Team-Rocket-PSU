@@ -29,7 +29,7 @@ class ItemsController extends Controller
     //Retreiving of Data.
     function getData(){
         $data['data'] = DB::table('items')
-                        ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
+                        ->select('items.id', 'itemname', 'itemdesc', 'quantity', 'items.deleted_at', 'catname', 'catid')
                         ->join('categories', 'categories.id', '=', 'items.catid')
                         ->where('items.deleted_at', '=', null)
                         ->get();
@@ -43,10 +43,7 @@ class ItemsController extends Controller
         }
        // return Datatables::of($students)->make(true);
     }
-
-
-
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -58,10 +55,16 @@ class ItemsController extends Controller
             $data = item::latest()->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
-                                    data-itemname="'.$data->itemname.'"
+                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
                                     data-itemid="'.$data->id.'"
+                                    data-itemname="'.$data->itemname.'"
+                                    data-itemdesc="'.$data->itemdesc.'"
+                                    data-quantity="'.$data->quantity.'"
+                                    data-catid="'.$data->catid.'"
+                                    data-toggle="modal" data-target="#modal-edit-item">Edit</button>';
+                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-itemid="'.$data->id.'"
+                                    data-itemname="'.$data->itemname.'"
                                     data-toggle="modal" data-target="#modal-delete-item">Delete</button>';
                                     return $button;
                                 })
@@ -132,13 +135,12 @@ class ItemsController extends Controller
 
         $updateitem->itemname =  $request['eItemname'];
         $updateitem->itemdesc = $request['eItemDesc'];
-        $updateitem->price = $request['ePrice'];
         $updateitem->quantity = $request['eQuantity'];
         $updateitem->catid = $request['catid'];
 
 
 
-        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['ePrice'] == NULL || $request['eQuantity'] == NULL) {
+        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
@@ -186,10 +188,9 @@ class ItemsController extends Controller
     {          
                 $itemname = $req->input('itemname');
                 $itemdesc = $req->input('itemdesc');
-                $price = $req->input('price');
                 $quantity = $req->input('quantity');
                 $catid = $req->input('catid');
-                $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'price'=>$price,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+                $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
                 if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
                     DB::table('items')->where('itemname', '=', $itemname)->delete();
