@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-   <!-- Date picker problems 
+   <!-- Date picker problems
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -172,8 +172,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #eID').val(userid)
-      modal.find('.modal-body #eUsername').val(username)
+      modal.find('.modal-body #eUserID').val(userid)
+      modal.find('.modal-body #eUserName').val(username)
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
@@ -259,7 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #dID').val(userid)
+      modal.find('.modal-body #dUserID').val(userid)
       modal.find('.modal-body #dFullName').html(fname + ' ' + lname)
 
 
@@ -279,16 +279,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 },
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'catname',
                         name: 'catname'
                     },
                     {
                         data: 'catdesc',
                         name: 'catdesc'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',
@@ -315,8 +315,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         name: 'email'
                     },
                     {
-                        data: 'fname',
-                        name: 'fname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'created_at',

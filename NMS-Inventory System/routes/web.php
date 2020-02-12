@@ -47,8 +47,10 @@ Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 Route::post('/categories','CategoriesController@insert');
 
 //users routes
-Route::get('/users', 'UsersController@getData');
+// Route::get('/users', 'UsersController@getData');
 Route::resource('/users_page', 'UsersController');
+Route::post('/editUser', 'UsersController@update');
+Route::post('/addUser', 'UsersController@insert')->name('addUser');
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 
 Route::post('/items','ItemsController@insert');
