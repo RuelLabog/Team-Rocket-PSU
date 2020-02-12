@@ -61,17 +61,17 @@
               <div class="form-group">
                 {{ csrf_field() }}
                 <label>Category:</label>
-                <input type="text" class="form-control" name="catname" placeholder="Category Name" required>
+                <input type="text" class="form-control" name="catName" id="catName" placeholder="Category Name" required>
               </div>
               <div class="form-group">
                 <label>Description:</label>
-                <textarea class="form-control" name="catdesc" placeholder="Category Description" required></textarea>
+                <textarea class="form-control" id="catDesc" name="catDesc" placeholder="Category Description" required></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit">Save changes</button>
+              <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
             </div>
           </form>
           </div>
@@ -93,7 +93,7 @@
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
-                <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name" required>
+                <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Category Name" required>
                 <div class="form-group">
                 <label>Category:</label>
                 <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name" required>
@@ -106,7 +106,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save changes</button>
+              <button type="button" class="btn btn-success" id="categoryEditBtn" onclick="categoryEdit()">Save changes</button>
             </div>
             </form>
           </div>
@@ -123,7 +123,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Delete Category</h4>
             </div>
-            <form action="{{route('catSoftDelete')}}" method="POST">
+            <!-- <form action="{{route('catSoftDelete')}}" method="POST"> -->
              {{ csrf_field() }}
             <div class="modal-body">
             <input type="hidden" id="dCatID" name="dCatID" class="form-control">
@@ -133,7 +133,7 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
             </div>
-            </form>
+            <!-- </form> -->
           </div>
           <!-- /.modal-content -->
         </div>
@@ -157,6 +157,57 @@
                         $('#modal-delete-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryDelBtn').text('Delete');
+                    }, 2000);
+                }
+            });
+        }
+
+
+        function categoryEdit(){
+            var url =  "editCat";
+            var eCatDesc = $('#eCatDesc').val();
+              $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'eCatID':$('input[name=eCatID').val(),
+                        'eCatName':$('input[name=eCatName').val(),
+                        'eCatDesc': eCatDesc
+                        },
+                beforeSend:function(){
+                    $('#categoryEditBtn').text('Updating...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-edit-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryEditBtn').text('Save Changes');
+                    }, 2000);
+                }
+            });
+        }
+
+
+        function categoryAdd(){
+            var catDesc = $('#catDesc').val();
+            alert(catDesc);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('categoryInsert') }}",
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'catName':$('input[name=catName').val(),
+                        'catDesc': catDesc
+                        },
+                beforeSend:function(){
+                    $('#categoryAddBtn').text('Inserting...');
+                },
+                success: function (response){
+                    setTimeout(function(){
+                        $('#modal-default').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryAddBtn').text('Save Changes');
                     }, 2000);
                 }
             });

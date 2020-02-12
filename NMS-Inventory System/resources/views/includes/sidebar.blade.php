@@ -1,4 +1,4 @@
- <!-- Main Sidebar Container -->
+<!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -47,6 +47,15 @@
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Categories
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url('receipt')}}" class="nav-link">
+              <i class="nav-icon fas fa-receipt"></i>
+              <p>
+                Receipt
               </p>
             </a>
           </li>
