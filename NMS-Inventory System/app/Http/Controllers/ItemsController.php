@@ -219,6 +219,7 @@ class ItemsController extends Controller
         $deleteitem = $request->input('dItemID');
 
 
+
         if (item::find($deleteitem)->delete()) {
             $notification = array(
                 'message'=> 'Item deleted successfully!',

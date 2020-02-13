@@ -54,26 +54,27 @@
             <div class="modal-header btn-danger ">
               <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Add New Item</h4>
             </div>
-            <form action="" method="POST" id="item_form">
+            <form action="" method="POST" id="item-form">
             <div class="modal-body">
                 <div class="form-group">
                 {{csrf_field()}}
-                  <label>Item:</label>
+                  <label>Item: <span class="required">*</span></label>
+
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
-                <label>Description:</label>
+                <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Item Description" id="itemdesc" name="itemdesc" maxlength="200" required></textarea>
                 </div>
 
                 <div class="form-group">
-                  <label>Quantity:</label>
+                  <label>Quantity: <span class="required">*</span></label>
                   <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity" required>
                 </div>
 
                 <div class="form-group">
-                  <label>Category:</label>
+                  <label>Category: <span class="required">*</span></label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
 
                     @foreach($category as $data)
@@ -237,32 +238,68 @@
  <!-- /.ajax -->
       <script type="text/javascript">
 
-            function itemEdit(){
+        function itemEdit(){
             var url =  "editItem";
             var eItemDesc = $('#eItemDesc').val();
-            var catid= $('#eCatName').val();
-              $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                        '_token': $('input[name=_token').val(),
-                        'eItemID':$('input[name=eItemID').val(),
-                        'eItemname':$('input[name=eItemname').val(),
-                        'eItemDesc': eItemDesc,
-                        'eQuantity':$('input[name=eQuantity').val(),
-                        'catid':catid
-                        },
-                beforeSend:function(){
-                    $('#itemEditBtn').text('Updating...');
-                },
-                success: function (response){
-                    setTimeout(function(){
+            var catid = $('#eCatName').val();
+            var eItemname = $('#eItemname').val();
+            var eQuantity = $('#eQuantity').val();
+            if(eItemDesc == "" || eQuantity == "" || eItemname == ""){
+                toastr.error('All fields are required!');
+                if(eItemDesc == ""){
+                    $('#eItemDesc').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eItemDesc').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(eQuantity == ""){
+                    $('#eQuantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eQuantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(eItemname == ""){
+                    $('#eItemname').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eItemname').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                            '_token': $('input[name=_token').val(),
+                            'eItemID':$('input[name=eItemID').val(),
+                            'eItemname':$('input[name=eItemname').val(),
+                            'eItemDesc': eItemDesc,
+                            'eQuantity':$('input[name=eQuantity').val(),
+                            'catid':catid
+                            },
+                    beforeSend:function(){
+                        $('#itemEditBtn').text('Updating...');
+                    },
+                    success: function (response){
+                        toastr.success('Successfully Updated.');
                         $('#modal-edit-items').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
                         $('#itemEditBtn').text('Save Changes');
-                    }, 2000);
-                }
-            });
+
+                    }
+                });
+            }
         }
 
 
@@ -270,7 +307,42 @@
             var url =  "addItem";
             var itemdesc = $('#itemdesc').val();
             var catid=$('#catid').val();
-            $.ajax({
+            var quantity =$('#quantity').val();
+            var itemname =$('#itemname').val();
+            if(itemdesc == "" || quantity == "" || itemname == ""){
+                toastr.error('All fields are required!');
+                if(itemdesc == ""){
+                    $('#itemdesc').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#itemdesc').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(quantity == ""){
+                    $('#quantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#quantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(itemname == ""){
+                    $('#itemname').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#itemname').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
                 type: 'POST',
                 url: url,
                 data: {
@@ -284,21 +356,22 @@
                     $('#itemAddBtn').text('Inserting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
-                        $('#modal-default').modal('hide');
-                        $('#items_table').DataTable().ajax.reload();
-                        $('#itemAddBtn').text('Save Changes');
-                        $('#itemname').val("");
-                        $('#quantity').val("");
-                        $('#itemdesc').val("");
-                    }, 2000);
-                }
-            });
+                    toastr.success('Successfully Added.');
+                    $('#item-form')[0].reset();
+                    $('#modal-default').modal('hide');
+                    $('#items_table').DataTable().ajax.reload();
+                    $('#itemAddBtn').text('Save Changes');
+
+                    }
+                });
+            }
+
         }
 
 
         function itemDelete(){
             var id = $('#dItemID').val();
+            var dItemname = $('#dItemName').html();
               $.ajax({
                 type: 'POST',
                 url: 'softdelitem',
@@ -309,16 +382,22 @@
                     $('#itemDelBtn').text('Deleting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
-                        $('#modal-delete-items').modal('hide');
-                        $('#items_table').DataTable().ajax.reload();
-                        $('#itemDelBtn').text('Delete');
-                    }, 2000);
+                    toastr.success('Successfully '+ dItemname + ' Deleted.');
+                    $('#modal-delete-items').modal('hide');
+                    $('#items_table').DataTable().ajax.reload();
+                    $('#itemDelBtn').text('Delete');
                 }
             });
         }
         </script>
 {{-- panget si jerry --}}
+
+
+<style>
+.required{
+    color: red;
+}
+</style>
 
  @endsection
 
