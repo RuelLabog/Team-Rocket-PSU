@@ -41,6 +41,7 @@ Route::post('/addItem','ItemsController@insert')->name('itemAdd');
 Route::get('items/getdata', 'ItemsController@getdata')->name('items.getdata');
 //Route::post('/items','ItemsController@insert')->name('itemInsert');
 Route::post('items/insert', 'Items@insert')->name('items.insert');
+Route::post('/items','ItemsController@insert');
 
 
 //categoies routes
@@ -49,6 +50,7 @@ Route::resource('/categories_page', 'CategoriesController');
 Route::post('/softDelCat', 'CategoriesController@delete')->name('catSoftDelete');
 Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 Route::post('/categories','CategoriesController@insert');
+Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
 
 //users routes
 // Route::get('/users', 'UsersController@getData');
@@ -57,9 +59,6 @@ Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 Route::post('/editUser', 'UsersController@update')->name('userUpdate');
 Route::post('/addUser', 'UsersController@insert')->name('userAdd');
 
-Route::post('/items','ItemsController@insert');
-Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
-
 //profile routes
 Route::resource('/profile_page', 'ProfileController');
 Route::get('/profile', 'ProfileController@getData');
@@ -67,6 +66,9 @@ Route::get('/profile', 'ProfileController@getData');
 //receipt routes
 Route::resource('/receipt', 'ReceiptController');
 Route::resource('/receipts_page', 'ReceiptController');
+Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
+Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
+Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
 
 
 // });

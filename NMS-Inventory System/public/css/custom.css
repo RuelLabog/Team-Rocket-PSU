@@ -1,4 +1,4 @@
- 
+
 
 /* For tables */
  table.table tr td .table-button { display:none !important;}
@@ -77,5 +77,11 @@ table td { word-wrap: break-word; }
 .avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
   opacity: 0.9;
 }
+
+.required
+{
+    color: red;
+}
+
 
 /* End of profile picture upload */

@@ -60,23 +60,39 @@ class ItemsController extends Controller
                         ->get();
 
             return DataTables::of($data)
-                                ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+            ->addColumn('quantity', function($data){
+                                    $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity" style="margin-left:10%; margin-right:10%;">
+                      <i class="fas fa-plus-square text-success"></i>
+                      </a>
+                      '.$data->quantity.'
+                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity" style="margin-left:10%; margin-right:10%;">
+                      <i class="fas fa-minus-square text-danger"></i>
+                      </a>';
 
-                                    data-itemname="'.$data->itemname.'"
-                                    data-itemdesc="'.$data->itemdesc.'"
-                                    data-quantity="'.$data->quantity.'"
-                                    data-itemid="'.$data->id.'"
-                                    data-catid="'.$data->catid.'"
-                                    data-toggle="modal" data-target="#modal-edit-items">Edit</button>';
-
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
-                                    data-itemid="'.$data->id.'"
-                                    data-itemname="'.$data->itemname.'"
-                                    data-toggle="modal" data-target="#modal-delete-items">Delete</button>';
-                                    return $button;
+                                    
+                                    return $button2;
                                 })
-                                // ->rawColums(['action'])
+                                ->addColumn('action', function($data){
+                            $button = '<span class="table-button cursor-pointer mr-3" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                            <span class="table-button cursor-pointer mr-3"
+                            data-itemname="'.$data->itemname.'"
+                            data-itemdesc="'.$data->itemdesc.'"
+                            data-quantity="'.$data->quantity.'"
+                            data-itemid="'.$data->id.'"
+                            data-catid="'.$data->catid.'"
+                            data-toggle="modal" data-target="#modal-edit-items"><a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a></span>';
+
+                            $button .= '<span class="table-button cursor-pointer delete" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                            data-itemid="'.$data->id.'"
+                            data-itemname="'.$data->itemname.'"
+                            data-toggle="modal" data-target="#modal-delete-items"><a><i class="fas fa-trash text-danger"></i></a></span>';
+
+
+                            return $button;
+                        })
+                                ->rawColumns(['quantity','action'])
                                 ->make(true);
         }
         return view('pages/items_page');
@@ -217,6 +233,7 @@ class ItemsController extends Controller
     public function delete(Request $request) {
 
         $deleteitem = $request->input('dItemID');
+
 
 
         if (item::find($deleteitem)->delete()) {

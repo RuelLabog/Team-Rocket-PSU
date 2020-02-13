@@ -89,7 +89,7 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Edit Category</h4>
             </div>
-            <form action="{{route('categories_page.update', 'test')}}" method="POST" id="edit-form">
+            <form action="" method="POST">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
@@ -165,7 +165,6 @@
             });
         }
 
-
         function categoryEdit(){
             var url =  "editCat";
             var eCatDesc = $('#eCatDesc').val();
@@ -227,9 +226,5 @@
         }
     }
     </script>
-
-
-
-
 
  @endsection
