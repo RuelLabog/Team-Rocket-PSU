@@ -235,7 +235,7 @@ class ItemsController extends Controller
 
     }
 
-    function insert(Request $req)
+    public function insert(Request $req)
     {
 
                 $itemname = $req->input('itemname');

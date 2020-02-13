@@ -337,7 +337,7 @@
         function itemAdd(){
             var url =  "addItem";
             var itemdesc = $('#itemdesc').val();
-            var catid=$('#catid').val();
+            var catid = $('#catid').val();
             alert(catid);
             $.ajax({
                 type: 'POST',
