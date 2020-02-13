@@ -151,6 +151,7 @@
                         'dCatID': $('input[name=dCatID').val()},
                 beforeSend:function(){
                     $('#categoryDelBtn').text('Deleting...');
+                    $('#categoryDelBtn').attr('disabled', true);
                 },
                 success: function (response){
 
@@ -158,6 +159,7 @@
                         $('#delete-form')[0].reset();
                         $('#modal-delete-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryDelBtn').attr('disabled', false);
                         $('#categoryDelBtn').text('Delete');
                 }
             });
@@ -178,6 +180,7 @@
                         },
                 beforeSend:function(){
                     $('#categoryEditBtn').text('Updating...');
+                    $('#categoryEditBtn').attr('disabled', true);
                 },
                 success: function (response){
 
@@ -185,6 +188,7 @@
                         $('#edit-form')[0].reset();
                         $('#modal-edit-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryEditBtn').attr('disabled', false);
                         $('#categoryEditBtn').text('Save Changes');
 
                 }
@@ -194,6 +198,10 @@
 
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
+            if(catDesc == "" || $('#catName').val()==""){
+                toastr.error('All fields are required!');
+                $('#catName').focus();
+            }else{
             $.ajax({
                 type: 'POST',
                 url: "{{ route('categoryInsert') }}",
@@ -204,6 +212,7 @@
                         },
                 beforeSend:function(){
                     $('#categoryAddBtn').text('Inserting...');
+                    $('#categoryAddBtn').attr('disabled', true);
                 },
                 success: function (response){
                   toastr.success('Successfully Added.');
@@ -211,10 +220,12 @@
                   $('#modal-default').modal('hide');
                   $('#categories_table').DataTable().ajax.reload();
                   $('#categoryAddBtn').text('Save Changes');
+                  $('#categoryAddBtn').attr('disabled', false);
 
                 }
             });
         }
+    }
     </script>
 
 

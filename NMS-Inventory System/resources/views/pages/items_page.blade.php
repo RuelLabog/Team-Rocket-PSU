@@ -103,7 +103,7 @@
                 <div class="form-group">
               {{csrf_field()}}
                   <label>Item:</label>
-                  <input type="password" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
+                  <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
@@ -338,7 +338,7 @@
             var url =  "addItem";
             var itemdesc = $('#itemdesc').val();
             var catid=$('#catid').val();
-            alert(catid);
+            // alert(catid);
             $.ajax({
                 type: 'POST',
                 url: url,

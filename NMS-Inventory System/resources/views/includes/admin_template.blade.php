@@ -125,12 +125,12 @@ $(document).ready(function() {
 
     var pieData        = {
       labels: [
-          'Chrome', 
+          'Chrome',
           'IE',
-          'FireFox', 
-          'Safari', 
-          'Opera', 
-          'Navigator', 
+          'FireFox',
+          'Safari',
+          'Opera',
+          'Navigator',
       ],
       datasets: [
         {
@@ -148,13 +148,13 @@ $(document).ready(function() {
     var pieChart = new Chart(pieChartCanvas, {
       type: 'pie',
       data: pieData,
-      options: pieOptions      
+      options: pieOptions
     })
 
 });
 
 
-  
+
 </script>
 
 
@@ -213,7 +213,7 @@ $(document).ready(function() {
 <script>
     $('#modal-edit-user').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
-      var userid = button.data('id')
+      var userid = button.data('userid')
       var username = button.data('username')
       var email = button.data('email')
       var firstname = button.data('fname')
@@ -229,6 +229,7 @@ $(document).ready(function() {
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
       modal.find('.modal-body #ePassword').val(password)
+      modal.find('.modal-body #eConfPassword').val(password)
 
     })
 
@@ -288,7 +289,7 @@ $(document).ready(function() {
 <script>
     $('#modal-delete-user').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
-      var userid = button.data('id')
+      var userid = button.data('userid')
       var fname = button.data('fname')
       var lname = button.data('lname')
       // Extract info from data-* attributes
