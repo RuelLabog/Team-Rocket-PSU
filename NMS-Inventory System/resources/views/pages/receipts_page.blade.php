@@ -13,8 +13,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Receipt Page</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +29,7 @@
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-receipt">
-            <i class="fas fa-plus mr-2"></i>Add Receipt
+            <i class="fas fa-plus mr-2"></i>Add New Receipt
           </button>
         </div>
         <!-- /.card-header -->
@@ -38,13 +38,16 @@
             <thead>
              <tr>
                   <th width="5%">#</th>
-                  <th width="20%">Ornum</th>
-                  <th width="20%">Purchase Date</th>
-                  <th width="20%">Supplier</th>
-                  <th width="12%">Total</th>
-                  <th width="13%">Action</th>
+                  <th width="15%">Ornum</th>
+                  <th width="25%">pdate</th>
+                  <th width="20%">supplier</th>
+                  <th width="10">Total</th>
+                  <th width="15%"></th>
                 </tr>
             </thead>
+            <tbody>
+
+
           </table>
         </div>
         <!-- /.card-body -->
@@ -52,7 +55,8 @@
       <!-- /.card -->
 
 
-<!-- add receipts modal -->
+
+<!-- add items modal -->
       <div class="modal fade" id="modal-add-receipt">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -64,33 +68,28 @@
               <div class="form-group">
                 {{ csrf_field() }}
                 <label>OR Number:</label>
-                <input type="text" class="form-control" name="ornum" placeholder="Official Receipt Number" required>
+                <input type="text" class="form-control" name="" placeholder="Official Reciept Number" required>
               </div>
               <div class="form-group">
                 <label>Supplier:</label>
-                <input type="text" class="form-control" name="supplier" placeholder="Enter Supplier Name." required>
+                <input type="text" class="form-control" name="" placeholder="Enter Supplier Name." required>
               </div>
               <div class="form-group">
                 <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="pdate"  required>
+                <input type="date" class="form-control" name=""  required>
               </div>
-            <div class="form-group">
-              <label>Total:</label>
-              <div class="input-group mb-3">
-                
-                <div class="input-group-prepend">
-                  <span class="input-group-text">₱</span>
-                </div>
+              <!-- /.form group -->
+              
+              <div class="form-group">
+                <label>Total:</label>
                 <input type="text" class="form-control" name="" placeholder="Total Amount" required>
-
               </div>
-            </div>
 
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit" id='receiptAddBtn' onclick="receiptAdd()">Save</button>
+              <button type="submit" class="btn btn-success" name="submit">Save</button>
             </div>
           </form>
           </div>
@@ -98,44 +97,44 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.add receipt modal -->
+      <!-- /.add items modal -->
 
 
-       <!-- edit receipt modal -->
+       <!-- edit item modal -->
        <div class="modal fade" id="modal-edit-receipt">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
               <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i> Edit Receipt</h4>
             </div>
-            <form action="" method="POST">
+            <form action="{{route('categories_page.update', 'test')}}" method="POST">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
-                <input type="hidden" class="form-control" id="eRecID" name="eRecID" value="" required>
+                <input type="hidden" class="form-control" id="eCatID" name="catid" value="" placeholder="Category Name" required>
                 <div class="form-group">
                 <label>OR Number:</label>
-                <input type="text" class="form-control" name="eOrnum" id="eOrnum" placeholder="Official Receipt Number" required>
+                <input type="text" class="form-control" name="" placeholder="Official Reciept Number" required>
               </div>
               <div class="form-group">
                 <label>Supplier:</label>
-                <input type="text" class="form-control" name="eSupplier" id="eSupplier" placeholder="Enter Supplier Name." required>
+                <input type="text" class="form-control" name="" placeholder="Enter Supplier Name." required>
               </div>
               <div class="form-group">
                 <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="ePdate"  id="ePdate" required>
+                <input type="date" class="form-control" name=""  required>
               </div>
               <!-- /.form group -->
               
               <div class="form-group">
                 <label>Total:</label>
-                <input type="text" class="form-control" name="eTotal" id="eTotal" placeholder="Total Amount" required>
+                <input type="text" class="form-control" name="" placeholder="Total Amount" required>
               </div>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success" id="receiptEditBtn" onclick="receiptEdit()">Save</button>
+              <button type="submit" class="btn btn-success">Save</button>
             </div>
             </form>
           </div>
@@ -143,24 +142,29 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.edit receipt modal -->
+      <!-- /.edit item modal -->
 
-            <!-- delete receipt modal -->
-      <div class="modal fade" id="modal-delete-receipt">
+
+
+
+
+
+            <!-- delete categories modal -->
+      <div class="modal fade" id="modal-delete-category">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title">Delete Receipt</h4>
+              <h4 class="modal-title">Delete Category</h4>
             </div>
-            <form action="{{route('recSoftDelete')}}" method="POST">
+            <form action="{{route('catSoftDelete')}}" method="POST">
              {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" id="dRecID" name="dRecID" class="form-control">
-            <h6 style="text-align:center">Are you sure you want to delete receipt <label id="dOrnum"></label>?</h6>
+            <input type="hidden" id="dCatID" name="dCatID" class="form-control">
+            <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-danger" id='receiptDelBtn' onclick='receiptDel()'>Delete</button>
+              <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
             </div>
             </form>
           </div>
@@ -168,78 +172,32 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.delete receipt modal -->
+      <!-- /.delete item modal -->
 
     <script type="text/javascript">
-       function receiptDel(){
-            var id = $('#dRecID').val();
+        function categoryDel(){
+            var id = $('#dCatID').val();
               $.ajax({
                 type: 'POST',
-                url: 'softDelRec',
+                url: 'softDelCat',
                 data: {'_token': $('input[name=_token').val(),
-                        'dRecID': $('input[name=dRecID').val()},
+                        'dCatID': $('input[name=dCatID').val()},
                 beforeSend:function(){
-                    $('#receiptDelBtn').text('Deleting...');
+                    $('#categoryDelBtn').text('Deleting...');
                 },
                 success: function (response){
                     setTimeout(function(){
-                        $('#modal-delete-receipt').modal('hide');
-                        $('#receipts_table').DataTable().ajax.reload();
-                        $('#receiptDelBtn').text('Delete');
-                    }, 2000);
-                }
-            });
-        }
-
-        function receiptEdit(){
-            var url =  "editRec";
-            alert(pdate);
-              $.ajax({
-                type: 'POST',
-                url: url,
-                data: {'_token': $('input[name=_token').val(),
-                        'eRecID':$('input[name=eRecID').val(),
-                        'eOrnum':$('input[name=eOrnum').val(),
-                        'eSupplier':$('input[name=eSupplier').val(),
-                        'ePdate': $('input[name=ePdate').val(),
-                        'eTotal':$('input[name=eTotal').val()
-                        },
-                beforeSend:function(){
-                    $('#receiptEditBtn').text('Updating...');
-                },
-                success: function (response){
-                    setTimeout(function(){
-                        $('#modal-edit-receipt').modal('hide');
-                        $('#receipts_table').DataTable().ajax.reload();
-                        $('#receiptEditBtn').text('Save Changes');
-                    }, 2000);
-                }
-            });
-        }
-
-        function receiptAdd(){
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('receiptInsert') }}",
-                data: {
-                        'ornum':$('input[name=ornum').val(),
-                        'supplier':$('input[name=supplier').val(),
-                        'pdate': $('input[name=pdate').val(),
-                        'total':$('input[name=total').val()
-                        },
-                beforeSend:function(){
-                    $('#receiptAddBtn').text('Inserting...');
-                },
-                success: function (response){
-                    setTimeout(function(){
-                        $('#modal-default').modal('hide');
-                        $('#receipts_table').DataTable().ajax.reload();
-                        $('#receiptAddBtn').text('Save Changes');
+                        $('#modal-delete-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryDelBtn').text('Delete');
                     }, 2000);
                 }
             });
         }
     </script>
+
+
+
 
 
  @endsection

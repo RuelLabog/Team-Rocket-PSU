@@ -11,8 +11,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Items Page</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -34,12 +34,13 @@
                     <th width="8%">Item ID</th>
                     <th width="20%">Name</th>
                     <th width="30%">Description</th>
-                    <th width="17%">Category</th>
-                    <th width="15%">Quantity</th>
-                    <th width="10%">Actions</th>
+                    <th width="12%">Category</th>
+                    <th width="12%">Quantity</th>
+                    <th width="8%" class="text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+
+                <tbody id="tcenter">
                 {{-- @foreach($data as $value)
                   <tr>
                     <td width="8%">{{$value->id}}</td>
@@ -84,6 +85,7 @@
                   </tr>
                 @endforeach --}}
 
+
               </table>
 
             </div>
@@ -96,7 +98,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
-              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Add New Item</h4>
+              <h4 class="modal-title">Add New Item</h4>
             </div>
             <form action="" method="POST" id="item_form">
             <div class="modal-body">
@@ -120,6 +122,7 @@
                   <label>Category:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
 
+
                     @foreach($category as $data)
                   <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
@@ -128,9 +131,11 @@
 
             </div>
             <div class="modal-footer">
+
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-success" name="submit" id='itemAddBtn' onclick="itemAdd()">Save changes</button>
-              </div>
+            </div>
+
           </form>
           </div>
           <!-- /.modal-content -->
@@ -144,7 +149,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
-              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Edit Item</h4>
+              <h4 class="modal-title">Edit Item</h4>
             </div>
             <form action="{{route('items_page.update', 'test')}}" method="POST">
                 {{method_field('patch')}}
@@ -195,7 +200,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
-              <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Delete Item</h4>
+              <h4 class="modal-title">Delete Item</h4>
             </div>
             <form action="{{route('itemSoftDelete')}}" method="get">
             {{ csrf_field() }}
@@ -331,12 +336,14 @@
         }
 
 
+
+
+
         function itemAdd(){
             var url =  "addItem";
             var itemdesc = $('#itemdesc').val();
-
             var catid=$('#catid').val();
-
+            alert(catid);
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -383,7 +390,7 @@
             });
         }
         </script>
-{{-- panget si jerry --}}
+
 
  @endsection
 

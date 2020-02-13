@@ -23,9 +23,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <!-- Date picker problems
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="bower_components/admin-lte/dist/css/bootstrap-datepicker.min.css">
-
 
       <!-- Toastr -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
@@ -94,67 +95,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="bower_components/admin-lte/dist/js/demo.js"></script>
-  <!-- ChartJS -->
-<script src="bower_components/admin-lte/plugins/chart.js/Chart.min.js"></script>
+
 
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
 
-
-
-
-
-
   });
-</script>
-
-<script>
-
-
-$(document).ready(function() {
-
-          //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-
-    var pieData        = {
-      labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-
-});
-
-
-
 </script>
 
 
@@ -208,29 +156,6 @@ $(document).ready(function() {
 
 </script>
 
-{{-- edit receipt --}}
-<script>
-    $('#modal-edit-receipt').on('show.bs.modal', function (event) {
-
-     var button = $(event.relatedTarget)
-     var recid = button.data('recid')
-     var ornum = button.data('ornum')
-     var pdate = button.data('pdate')
-     var supplier = button.data('supplier')
-     var total = button.data('total')  // Extract info from data-* attributes
-     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-     var modal = $(this)
-
-     modal.find('.modal-body #eRecID').val(recid)
-     modal.find('.modal-body #eOrnum').val(ornum)
-     modal.find('.modal-body #ePdate').val(pdate)
-     modal.find('.modal-body #eSupplier').val(supplier)
-     modal.find('.modal-body #eTotal').val(total)
-
-   })
-
-</script>
 
 {{-- edit user --}}
 <script>
@@ -246,8 +171,8 @@ $(document).ready(function() {
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #eID').val(userid)
-      modal.find('.modal-body #eUsername').val(username)
+      modal.find('.modal-body #eUserID').val(userid)
+      modal.find('.modal-body #eUserName').val(username)
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
@@ -256,6 +181,14 @@ $(document).ready(function() {
     })
 
 </script>
+
+{{-- <script>
+  $(function () {
+    $("#items_table").DataTable();
+
+  });
+</script> --}}
+
 
 
 <script>
@@ -306,21 +239,6 @@ $(document).ready(function() {
 
 </script>
 
-<script>
-    // retrieve name of category in delete category modal
- $('#modal-delete-receipt').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
-  var recid = button.data('recid')
-  var ornum = button.data('ornum')
-  var modal = $(this)
-
-  modal.find('.modal-body #dRecID').val(recid)
-  modal.find('.modal-body #dOrnum').html(ornum)
-
-})
-
-</script>
-
 
 {{-- delete user --}}
 <script>
@@ -334,7 +252,7 @@ $(document).ready(function() {
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #dID').val(userid)
+      modal.find('.modal-body #dUserID').val(userid)
       modal.find('.modal-body #dFullName').html(fname + ' ' + lname)
 
 
@@ -354,16 +272,16 @@ $(document).ready(function() {
                 },
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'catname',
                         name: 'catname'
                     },
                     {
                         data: 'catdesc',
                         name: 'catdesc'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',
@@ -409,6 +327,14 @@ $(document).ready(function() {
                 ]
             });
 
+            //<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity">
+                      //<i class="fas fa-plus-square text-success mr-2"></i>
+                      //</a>
+                     
+                     // <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity">
+                      //<i class="fas fa-minus-square text-danger ml-2"></i>
+                      //</a>
+
 
             $('#users_table').DataTable({
                 processing: true,
@@ -426,8 +352,8 @@ $(document).ready(function() {
                         name: 'email'
                     },
                     {
-                        data: 'fname',
-                        name: 'fname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'created_at',
@@ -440,6 +366,8 @@ $(document).ready(function() {
                     }
                 ]
             });
+
+
 
 
             $('#receipts_table').DataTable({

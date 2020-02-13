@@ -79,3 +79,9 @@ table td { word-wrap: break-word; }
 }
 
 /* End of profile picture upload */
+
+th.dt-center, td.dt-center { text-align: center; }
+
+#tcenter{
+  text-align: center;
+}

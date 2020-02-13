@@ -1,10 +1,10 @@
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url('home')}}" class="brand-link" style="padding-top: 8px !important;">
-      <img src="images/trlogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8; margin-top: 3px;">
-      <span class="brand-text font-weight-bold" style="font-variant: small-caps; font-size: 25px; text-shadow: 2px 2px 4px maroon;">nms inventory</span>
+    <a href="index3.html" class="brand-link">
+      <img src="bower_components/admin-lte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">NMS Inventory System</span>
     </a>
 
     <!-- Sidebar -->
@@ -61,7 +61,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{url('users')}}" class="nav-link">
+            <a href="{{url('users_page')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Users

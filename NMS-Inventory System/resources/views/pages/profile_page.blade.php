@@ -13,8 +13,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{url('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Profile Page</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -79,11 +79,11 @@
                   <div class="row">
                     <div class="col-6">
                       <label>Current Password:</label>
-                      <input type="password" class="form-control" id="curpassword" name="curpassword" placeholder="Current Password">
+                      <input type="text" class="form-control" id="curpassword" name="curpassword" placeholder="Current Password">
                     </div>
                     <div class="col-6">
                       <label>New Password:</label>
-                      <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New Password">
+                      <input type="text" class="form-control" id="newpassword" name="newpassword" placeholder="New Password">
                     </div>
                   </div>
                 </div>

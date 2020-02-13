@@ -16,6 +16,22 @@ class CategoriesController extends Controller
         $this->middleware('auth');
     }
 
+
+    //
+    // function getData(){
+    //     $data['data'] = DB::table('categories')
+    //                 ->where('deleted_at', '=', null)
+    //                 ->get();
+
+
+    //     if(count($data) > 0){
+    //         return view('pages/categories_page', $data);
+    //     }
+    //     else{
+    //         return view('pages/categories_page');
+    //     }
+    // }
+
     /**
      * Display a listing of the resource.
      *
