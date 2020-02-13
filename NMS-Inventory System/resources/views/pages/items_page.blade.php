@@ -47,7 +47,7 @@
           <!-- /.card -->
 
       <!-- add items modal -->
-      <div class="modal fade" id="modal-default">
+      <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
@@ -83,7 +83,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
                 <button type="button" class="btn btn-success" name="submit" id='itemAddBtn' onclick="itemAdd()">Save changes</button>
               </div>
           </form>
@@ -95,7 +95,7 @@
       <!-- /.add items modal -->
 
       <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-items">
+      <div class="modal fade" id="modal-edit-items" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -134,7 +134,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id='itemEditBtn' onclick='itemEdit()'>Save changes</button>
             </div>
             </form>
@@ -203,7 +203,7 @@
       <!-- /.add quantity modal -->
 
       <!-- reduce quantity modal -->
-      <div class="modal fade" id="modal-reduce-quantity">
+      <div class="modal fade" id="modal-reduce-quantity" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -223,7 +223,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="itemRedBtn" onclick="itemReduce()">Save</button>
             </div>
             </form>
@@ -236,6 +236,12 @@
 
  <!-- /.ajax -->
       <script type="text/javascript">
+
+        function resetBoxes(){
+            $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
+                'border': '1px solid grey'
+            });
+        }
 
         function itemEdit(){
             var url =  "editItem";
@@ -360,7 +366,7 @@
                     $('#modal-default').modal('hide');
                     $('#items_table').DataTable().ajax.reload();
                     $('#itemAddBtn').text('Save Changes');
-
+                    resetBoxes();
                     }
                 });
             }
