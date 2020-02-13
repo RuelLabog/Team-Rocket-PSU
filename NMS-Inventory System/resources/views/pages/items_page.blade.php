@@ -41,13 +41,12 @@
                 </thead>
                 <tbody>
               </table>
-
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
 
-<!-- add items modal -->
+      <!-- add items modal -->
       <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -59,7 +58,6 @@
                 <div class="form-group">
                 {{csrf_field()}}
                   <label>Item: <span class="required">*</span></label>
-
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
@@ -110,27 +108,27 @@
             <input type="hidden" class="form-control"  id="eItemID" name="eItemID" value="" placeholder="Item ID">
 
                 <div class="form-group">
-                  <label>Item:</label>
+                  <label>Item: <span class="required">*</span></label>
                   <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
-                <label>Description:</label>
+                <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
 
                 <div class="form-group">
-                  <label>Quantity:</label>
+                  <label>Quantity: <span class="required">*</span></label>
                   <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
                 </div>
 
                 <div class="form-group">
-                  <label>Category:</label>
+                  <label>Category: <span class="required">*</span></label>
 
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>
-                      @endforeach
+                    @endforeach
                   </select>
                 </div>
 
@@ -147,7 +145,8 @@
       </div>
       <!-- /.edit item modal -->
 
-            <!-- delete item modal -->
+
+      <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -172,6 +171,7 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
 
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
@@ -202,7 +202,7 @@
       </div>
       <!-- /.add quantity modal -->
 
-            <!-- add quantity modal -->
+      <!-- add quantity modal -->
       <div class="modal fade" id="modal-reduce-quantity">
         <div class="modal-dialog">
           <div class="modal-content">
