@@ -217,7 +217,7 @@ $(document).ready(function() {
      var ornum = button.data('ornum')
      var pdate = button.data('pdate')
      var supplier = button.data('supplier')
-     var total = button.data('total')  // Extract info from data-* attributes
+      // Extract info from data-* attributes
      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
      var modal = $(this)
@@ -226,7 +226,6 @@ $(document).ready(function() {
      modal.find('.modal-body #eOrnum').val(ornum)
      modal.find('.modal-body #ePdate').val(pdate)
      modal.find('.modal-body #eSupplier').val(supplier)
-     modal.find('.modal-body #eTotal').val(total)
 
    })
 
@@ -464,10 +463,6 @@ $(document).ready(function() {
                     {
                         data: 'supplier',
                         name: 'supplier'
-                    },
-                    {
-                        data: 'total',
-                        name: 'total'
                     },
                     {
                         data: 'action',

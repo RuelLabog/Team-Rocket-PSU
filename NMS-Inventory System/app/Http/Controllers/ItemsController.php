@@ -25,27 +25,6 @@ class ItemsController extends Controller
         $this->middleware('auth');
     }
 
-    //Retreiving of Data.
-    // function getData(){
-    //     $data['data'] = DB::table('items')
-    //                     ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
-    //                     ->join('categories', 'categories.id', '=', 'items.catid')
-    //                     ->where('items.deleted_at', '=', null)
-    //                     ->get();
-
-
-    //     if(count($data) > 0){
-    //         return view('pages/items_page', $data);
-    //     }
-    //     else{
-    //         return view('pages/items_page');
-    //     }
-    //    // return Datatables::of($students)->make(true);
-    // }
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -189,37 +168,6 @@ class ItemsController extends Controller
             );
 
         }
-
-        // return back()->with($notification);
-
-        // $id = $request->input('eItemID');
-        // $updateitem = item::findOrFail($id);
-
-        // $updateitem->itemname =  $request->input('eItemname');
-        // $updateitem->itemdesc = $request->input('eItemDesc');
-        // $updateitem->price = $request->input('ePrice');
-        // $updateitem->quantity = $request->input('eQuantity');
-        // $updateitem->catid = $request->input('catid');
-
-
-
-        // if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
-        //     $notification = array(
-        //         'message'=> 'Please fill up required fields!',
-        //         'alert-type' => 'error'
-        //     );
-
-        // }else{
-        //     $updateitem->save();
-        //     $notification = array(
-        //         'message'=> 'Item updated successfully!',
-        //         'alert-type' => 'success'
-        //     );
-
-        // }
-
-        // return back()->with($notification);
-
     }
 
     /**
