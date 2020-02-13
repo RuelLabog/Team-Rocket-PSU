@@ -166,7 +166,6 @@ class CategoriesController extends Controller
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
             );
-
         }else{
             $notification = array(
                 'message'=> 'An error occured while adding category.',

@@ -66,7 +66,6 @@ Route::resource('/receipt', 'ReceiptController');
 Route::resource('/receipts_page', 'ReceiptController');
 Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
 Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
-Route::post('/receipt','ReceiptController@insert');
 Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
 
 

@@ -4,6 +4,9 @@
 
 @section('content')
     <!-- Content Header (Page header) -->
+    @php
+    $today = date("Y-m-d");
+    @endphp
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -21,10 +24,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-
-
-
 
       <div class="card">
         <div class="card-header">
@@ -51,7 +50,6 @@
       </div>
       <!-- /.card -->
 
-
 <!-- add receipts modal -->
       <div class="modal fade" id="modal-add-receipt">
         <div class="modal-dialog">
@@ -59,7 +57,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i>Add New Receipt</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" id="add-form">
             <div class="modal-body">
               <div class="form-group">
                 {{ csrf_field() }}
@@ -72,7 +70,7 @@
               </div>
               <div class="form-group">
                 <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="pdate"  required>
+                <input type="date" class="form-control" name="pdate" id="pdate" max="{{$today}}" required>
               </div>
             <div class="form-group">
               <label>Total:</label>
@@ -81,16 +79,15 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">₱</span>
                 </div>
-                <input type="text" class="form-control" name="" placeholder="Total Amount" required>
+                <input type="text" class="form-control" name="total" placeholder="Total Amount" required>
 
               </div>
             </div>
 
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit" id='receiptAddBtn' onclick="receiptAdd()">Save</button>
+              <button type="button" class="btn btn-success" name="submit" id='receiptAddBtn' onclick="receiptAdd()">Save</button>
             </div>
           </form>
           </div>
@@ -123,7 +120,7 @@
               </div>
               <div class="form-group">
                 <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="ePdate"  id="ePdate" required>
+                <input type="date" class="form-control" name="ePdate"  id="ePdate" max="{{$today}}" required>
               </div>
               <!-- /.form group -->
               
@@ -182,18 +179,16 @@
                     $('#receiptDelBtn').text('Deleting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                  toastr.success('Successfully Deleted.');
                         $('#modal-delete-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptDelBtn').text('Delete');
-                    }, 2000);
                 }
             });
         }
 
         function receiptEdit(){
             var url =  "editRec";
-            alert(pdate);
               $.ajax({
                 type: 'POST',
                 url: url,
@@ -208,20 +203,20 @@
                     $('#receiptEditBtn').text('Updating...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                        toastr.success('Successfully Updated.');
                         $('#modal-edit-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptEditBtn').text('Save Changes');
-                    }, 2000);
                 }
             });
         }
 
         function receiptAdd(){
-            $.ajax({
+
+        $.ajax({
                 type: 'POST',
                 url: "{{ route('receiptInsert') }}",
-                data: {
+                data: {'_token': $('input[name=_token').val(),
                         'ornum':$('input[name=ornum').val(),
                         'supplier':$('input[name=supplier').val(),
                         'pdate': $('input[name=pdate').val(),
@@ -231,14 +226,17 @@
                     $('#receiptAddBtn').text('Inserting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                  toastr.success('Successfully Added.');
+                  $('#add-form')[0].reset();
                         $('#modal-default').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptAddBtn').text('Save Changes');
-                    }, 2000);
                 }
             });
-        }
+          }
+
+
+
     </script>
 
 

@@ -111,14 +111,13 @@ class ReceiptController extends Controller
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-
         }else{
             $updaterec->save();
             $notification = array(
                 'message'=> 'Item updated successfully!',
                 'alert-type' => 'success'
             );}
-            return back()->with($notification);
+            
     }
 
 
@@ -131,8 +130,6 @@ class ReceiptController extends Controller
     public function delete(Request $request)
     {
         $deleteRec = $request->input('dRecID');
-
-
         if (receipt::find($deleteRec)->delete()) {
             $notification = array(
                 'message'=> 'Receipt deleted successfully!',
@@ -162,12 +159,10 @@ class ReceiptController extends Controller
                 'alert-type' => 'success'
             );
         }elseif(DB::table('receipts')->insert($data)){
-
             $notification = array(
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
             );
-
         }else{
             $notification = array(
                 'message'=> 'An error occured while adding category.',

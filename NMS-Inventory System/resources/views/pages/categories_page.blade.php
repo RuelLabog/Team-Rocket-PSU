@@ -210,7 +210,6 @@
                   $('#modal-default').modal('hide');
                   $('#categories_table').DataTable().ajax.reload();
                   $('#categoryAddBtn').text('Save Changes');
-
                 }
             });
         }
