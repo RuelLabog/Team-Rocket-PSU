@@ -427,8 +427,8 @@ $(document).ready(function() {
                         name: 'email'
                     },
                     {
-                        data: 'fname',
-                        name: 'fname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'created_at',

@@ -57,14 +57,8 @@
             <form action="" method="POST" id="item-form">
             <div class="modal-body">
                 <div class="form-group">
-<<<<<<< HEAD
-              {{csrf_field()}}
-                  <label>Item:</label>
-=======
                 {{csrf_field()}}
                   <label>Item: <span class="required">*</span></label>
-
->>>>>>> 9a6c9704a20050b59d524ac04fb61d4489cf73fd
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
