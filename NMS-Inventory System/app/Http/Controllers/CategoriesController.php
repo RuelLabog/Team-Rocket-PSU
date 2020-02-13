@@ -27,15 +27,17 @@ class CategoriesController extends Controller
             $data = category::latest()->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
                                     data-catid="'.$data->id.'"
                                     data-catname="'.$data->catname.'"
                                     data-catdesc="'.$data->catdesc.'"
-                                    data-toggle="modal" data-target="#modal-edit-category">Edit</button>';
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-edit-category"><a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a></span>';
+                                    $button .= '<span name="delete" id="'.$data->id.'" class="delete table-button cursor-pointer delete"
                                     data-catname="'.$data->catname.'"
                                     data-catid="'.$data->id.'"
-                                    data-toggle="modal" data-target="#modal-delete-category">Delete</button>';
+                                    data-toggle="modal" data-target="#modal-delete-category"><a><i class="fas fa-trash text-danger"></i></a></span>';
                                     return $button;
                                 })
                                 // ->rawColums(['action'])
