@@ -233,9 +233,7 @@
                         $('#modal-edit-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptEditBtn').text('Save Changes');
-                        $('#eOrnum').css({
-                        'border': '1px solid grey'
-                    });
+                        resetBoxes();
                 }
             });
         }
@@ -297,6 +295,7 @@
                         $('#modal-add-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptAddBtn').text('Save Changes');
+                        resetBoxes();
                 }
             });
           }
