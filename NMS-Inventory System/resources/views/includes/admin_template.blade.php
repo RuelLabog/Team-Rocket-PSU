@@ -442,41 +442,6 @@ $(document).ready(function() {
             });
 
 
-            // $('#items_table').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: {
-            //         url: "{{route('items.index')}}",
-            //     },
-            //     columns: [
-            //         {
-            //             data: 'id',
-            //             name: 'id'
-            //         },
-            //         {
-            //             data: 'itemname',
-            //             name: 'itemdesc'
-            //         },
-            //         {
-            //             data: 'itemdesc',
-            //             name: 'itemdesc'
-            //         },
-            //         {
-            //             data: 'catid',
-            //             name: 'catid'
-            //         },
-            //         {
-            //             data: 'quantity',
-            //             name: 'quantity'
-            //         },
-            //         {
-            //             data: 'action',
-            //             name: 'action',
-            //             orderable: false
-            //         }
-            //     ]
-            // });
-
             $('#receipts_table').DataTable({
                 processing: true,
                 serverSide: true,
