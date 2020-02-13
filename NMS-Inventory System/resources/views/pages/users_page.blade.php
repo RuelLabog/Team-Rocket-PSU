@@ -45,39 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- @foreach($data as $value)
-              <tr>
-                <td>{{$value->username}}</td>
-                <td>{{$value->email}}</td>
-                <td>{{$value->fname.' '.$value->lname}}</td>
-                <td class="text-center">
-                  <span class="table-button cursor-pointer mr-3"
-                  data-id="{{$value->id}}"
-                  data-username="{{$value->username}}"
-                  data-email="{{$value->email}}"
-                  data-fname="{{$value->fname}}"
-                  data-lname="{{$value->lname}}"
-                  data-password="{{$value->password}}"
 
-                  data-toggle="modal" data-target="#modal-edit-user">
-                    <a>
-                      <i class="fas fa-edit text-danger"></i>
-                    </a>
-                  </span>
-
-                   <span class="table-button cursor-pointer"
-                    data-id="{{$value->id}}"
-                    data-fname="{{$value->fname}}"
-                    data-lname="{{$value->lname}}"
-                    data-toggle="modal" data-target="#modal-delete-user">
-                    <a>
-                      <i class="fas fa-trash text-danger"></i>
-                    </a>
-                  </span>
-
-                </td>
-              </tr>
-            @endforeach -->
 
           </table>
         </div>
@@ -96,17 +64,17 @@
             <div class="modal-header btn-danger ">
               <h4 class="modal-title">Add New User</h4>
             </div>
+            <form id="itemsAdd_form">
             <div class="modal-body">
                 <div class="form-group">
                   <div class="row">
-                    <input type="hidden" class="form-control" id="id" name="userid" placeholder="Username">
                     <div class="col-6">
                       <label>Username:</label>
                       <input type="text" class="form-control" id="username" name="username" placeholder="Username">
                     </div>
                     <div class="col-6">
                       <label>Email:</label>
-                      <input type="email" class="form-control" id="username" name="username" placeholder="user@example.com">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com">
                     </div>
                   </div>
                 </div>
@@ -115,11 +83,11 @@
                   <div class="row">
                     <div class="col-6">
                       <label>First Name:</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Given Name">
+                      <input type="text" class="form-control" id="fname" name="fname" placeholder="Given Name">
                     </div>
                     <div class="col-6">
                       <label>Last Name:</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Familiy Name">
+                      <input type="text" class="form-control" id="lname" name="lname" placeholder="Family Name">
                     </div>
                   </div>
                 </div>
@@ -128,32 +96,29 @@
                   <div class="row">
                     <div class="col-6">
                       <label>Password:</label>
-                      <input type="password" class="form-control" id="username" name="username" placeholder="Password">
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                     <div class="col-6">
                       <label>Confirm Password:</label>
-                      <input type="password" class="form-control" id="username" name="username" placeholder="Confirm Password">
+                      <input type="password" class="form-control" id="confPassword" name="confPassword" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
 
-
-
-
-
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label>Account Type:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
                     <option selected="selected">Admin</option>
                     <option>User</option>
                   </select>
-                </div>
+                </div> -->
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save</button>
+              <button type="button" class="btn btn-success" id="userAddBtn" onclick="userAdd()">Save</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -180,7 +145,7 @@
             <div class="modal-body">
                 <div class="form-group">
                   <div class="row">
-                    <input type="hidden" class="form-control"  id="eID" name="eID" value="" placeholder="Username">
+                    <input type="hidden" class="form-control"  id="eID" name="eID" placeholder="Username">
                     <div class="col-6">
                       <label>Username:</label>
                       <input type="text" class="form-control"  id="eUsername" name="eUsername" placeholder="Username">
@@ -213,27 +178,23 @@
                     </div>
                     <div class="col-6">
                       <label>Confirm Password:</label>
-                      <input type="password" class="form-control" id="ePassword" name="ePassword" placeholder="Confirm Password">
+                      <input type="password" class="form-control" id="eConfPassword" name="eConfPassword" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
 
-
-
-
-
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label>Account Type:</label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
                     <option selected="selected">Admin</option>
                     <option>User</option>
                   </select>
-                </div>
+                </div> -->
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save Changes</button>
+              <button type="button" class="btn btn-success" id="userEditBtn" onclick="userEdit()">Save Changes</button>
             </div>
             </form>
           </div>
@@ -257,12 +218,12 @@
 
             <div class="modal-body">
                 <input type="hidden" id="dID" name="dID" value="" class="form-control">
-              <h6 style="text-align:center">Are you sure you want to delete <label id='dFullName' name="dFullName"></label>?</h6>
+              <h6 style="text-align:center">Are you sure you want to delete user <label id='dFullName' name="dFullName"></label>?</h6>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-danger" onclick="userDel()" id="userDelBtn">Delete</button>
             </div>
             </form>
           </div>
@@ -271,6 +232,194 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
+      <script type="text/javascript">
+        function userDel(){
+              $.ajax({
+                type: 'POST',
+                url: 'softDelUser',
+                data: {'_token': $('input[name=_token').val(),
+                        'dID': $('input[name=dID').val()},
+                beforeSend:function(){
+                    $('#userDelBtn').text('Deleting...');
+                    $('#userDelBtn').attr('disabled', true);
+                },
+                success: function (response){
+
+                        toastr.success('Successfully Deleted.');
+                        // $('#delete-form')[0].reset();
+                        $('#modal-delete-user').modal('hide');
+                        $('#users_table').DataTable().ajax.reload();
+                        $('#userDelBtn').attr('disabled', false);
+                        $('#userDelBtn').text('Delete');
+                }
+            });
+        }
+
+
+        function userEdit(){
+              $.ajax({
+                type: 'POST',
+                url: "{{ route('userUpdate')}}",
+                data: {'_token': $('input[name=_token').val(),
+                        'eID': $('input[name=eID').val(),
+                        'eUsername': $('input[name=eUsername').val(),
+                        'eEmail': $('input[name=eEmail').val(),
+                        'eFirstName': $('input[name=eFirstName').val(),
+                        'eLastName': $('input[name=eLastName').val(),
+                        'ePassword': $('input[name=ePassword').val(),
+                        'eConfPassword': $('input[name=eConfPassword').val(),
+                    },
+                beforeSend:function(){
+                    $('#userEditBtn').text('Updating...');
+                    $('#userEditBtn').attr('disabled', true);
+                },
+                success: function (response){
+                    $('#userEditBtn').attr('disabled', false);
+                    $('#userEditBtn').text('Save Changes');
+
+                    if(response.success){
+                        toastr.success('Successfully Updated.');
+                        // $('#delete-form')[0].reset();
+                        $('#modal-edit-user').modal('hide');
+                        $('#users_table').DataTable().ajax.reload();
+                    }else{
+                        if(response.errEmail){
+                            toastr.error(response.errEmail);
+                            $('#eEmail').css({'border':'1px solid red'});
+                            $('#eEmail').focus();
+                        }
+
+                        if(response.errPass){
+                            toastr.error(response.errPass);
+                            $('#eConfPassword').css({'border':'1px solid red'});
+                            $('#eConfPassword').val();
+                            $('#eConfPassword').focus();
+                        }
+
+                        if(response.errPassWeak){
+                            toastr.error(response.errPassWeak);
+                            $('#eConfPassword').css({'border': 'red 2px solid'});
+                            $('#ePassword').css({'border': 'red 2px solid'});
+                            $('#eConfPassword').val("");
+                            $('#ePassword').focus();
+                        }else{
+                            $('#eConfPassword').css({'border': 'red 2px grey'});
+                            $('#ePassword').css({'border': 'red 2px grey'});
+                        }
+                    }
+
+
+                }
+            });
+        }
+
+        function userAdd(){
+            var username=$('#username').val();
+            var fname=$('#fname').val();
+            var lname=$('#lname').val();
+            var email=$('#email').val();
+            var password=$('#password').val();
+            var confPassword=$('#confPassword').val();
+            if(username == "" || fname == "" || lname == "" || email == "" || password == "" || confPassword == ""){
+                toastr.error('All fields are required!');
+                if(username == ""){
+                    $('#username').css({'border': '1px solid red'});
+                }else{
+                    $('#username').css({'border': '1px solid grey'});
+                }
+
+                if(fname == ""){
+                    $('#fname').css({'border': '1px solid red'});
+                }else{
+                    $('#fname').css({'border': '1px solid grey'});
+                }
+
+                if(lname == ""){
+                    $('#lname').css({'border': '1px solid red'});
+                }else{
+                    $('#lname').css({'border': '1px solid grey'});
+                }
+
+                if(email == ""){
+                    $('#email').css({'border': '1px solid red'});
+                }else{
+                    $('#email').css({'border': '1px solid grey'});
+                }
+
+                if(password == ""){
+                    $('#password').css({'border': '1px solid red'});
+                }else{
+                    $('#password').css({'border': '1px solid grey'});
+                }
+
+                if(confPassword == ""){
+                    $('#confPassword').css({'border': '1px solid red'});
+                }else{
+                    $('#confPassword').css({'border': '1px solid grey'});
+                }
+            }else{
+                $('input').css({'border': '1px solid grey'});
+              $.ajax({
+                type: 'POST',
+                url: "{{ route('userAdd')}}",
+                data: {'_token': $('input[name=_token').val(),
+                        'username': $('input[name=username').val(),
+                        'email': $('input[name=email').val(),
+                        'fname': $('input[name=fname').val(),
+                        'lname': $('input[name=lname').val(),
+                        'password': $('input[name=password').val(),
+                        'confPassword': $('input[name=confPassword').val(),
+                    },
+                beforeSend:function(){
+                    $('#userAddBtn').text('Inserting...');
+                    $('#userAddBtn').attr('disabled', true);
+                },
+                success: function (response){
+                    $('#userAddBtn').attr('disabled', false);
+                    $('#userAddBtn').text('Save');
+                    if(response.success){
+                        toastr.success('Successfully Inserted.');
+                        $('#itemsAdd_form')[0].reset();
+                        $('#modal-default').modal('hide');
+                        $('#users_table').DataTable().ajax.reload();
+                    }else{
+
+                        if(response.errEmail){
+                            toastr.error(response.errEmail);
+                            $('#email').css({'border': 'red 2px solid'});
+                            $('#email').focus();
+                        }else{
+                            $('#email').css({'border': 'red 2px grey'});
+                        }
+
+                        if(response.errPass){
+                            toastr.error(response.errPass);
+                            $('#confPassword').css({'border': 'red 2px solid'});
+                            $('#confPassword').val("");
+                            $('#confPassword').focus();
+                        }else{
+                            $('#confPassword').css({'border': 'red 2px grey'});
+                        }
+
+                        if(response.errPassWeak){
+                            toastr.error(response.errPassWeak);
+                            $('#confPassword').css({'border': 'red 2px solid'});
+                            $('#password').css({'border': 'red 2px solid'});
+                            $('#confPassword').val("");
+                            $('#password').focus();
+                        }else{
+                            $('#confPassword').css({'border': 'red 2px grey'});
+                            $('#password').css({'border': 'red 2px grey'});
+                        }
+                    }
+
+                }
+            });
+        }
+
+    }
+    </script>
 
 
  @endsection
