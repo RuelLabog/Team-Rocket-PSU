@@ -1,4 +1,4 @@
- 
+
 
 /* For tables */
  table.table tr td .table-button { display:none !important;}
@@ -78,10 +78,10 @@ table td { word-wrap: break-word; }
   opacity: 0.9;
 }
 
-/* End of profile picture upload */
-
-th.dt-center, td.dt-center { text-align: center; }
-
-#tcenter{
-  text-align: center;
+.required
+{
+    color: red;
 }
+
+
+/* End of profile picture upload */

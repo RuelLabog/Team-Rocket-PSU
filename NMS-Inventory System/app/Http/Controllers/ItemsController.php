@@ -60,19 +60,19 @@ class ItemsController extends Controller
                         ->get();
 
             return DataTables::of($data)
-                        ->addColumn('quantity', function($data){
-                                    $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity">
-                      <i class="fas fa-plus-square text-success mr-2"></i>
+            ->addColumn('quantity', function($data){
+                                    $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity" style="margin-left:10%; margin-right:10%;">
+                      <i class="fas fa-plus-square text-success"></i>
                       </a>
                       '.$data->quantity.'
-                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity">
-                      <i class="fas fa-minus-square text-danger ml-2"></i>
+                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity" style="margin-left:10%; margin-right:10%;">
+                      <i class="fas fa-minus-square text-danger"></i>
                       </a>';
 
                                     
                                     return $button2;
                                 })
-                        ->addColumn('action', function($data){
+                                ->addColumn('action', function($data){
                             $button = '<span class="table-button cursor-pointer mr-3" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
                             <span class="table-button cursor-pointer mr-3"
                             data-itemname="'.$data->itemname.'"
@@ -90,20 +90,10 @@ class ItemsController extends Controller
                             data-toggle="modal" data-target="#modal-delete-items"><a><i class="fas fa-trash text-danger"></i></a></span>';
 
 
-                        
-                          
-                        
-                      
-
-
-                        
-                      
-
-                       
                             return $button;
                         })
-                        ->rawColumns(['quantity','action'])
-                        ->make(true);
+                                ->rawColumns(['quantity','action'])
+                                ->make(true);
         }
         return view('pages/items_page');
     }
@@ -243,6 +233,7 @@ class ItemsController extends Controller
     public function delete(Request $request) {
 
         $deleteitem = $request->input('dItemID');
+
 
 
         if (item::find($deleteitem)->delete()) {
