@@ -50,7 +50,7 @@
       <!-- /.card -->
 
 <!-- add items modal -->
-      <div class="modal fade" id="modal-default">
+      <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -60,17 +60,17 @@
             <div class="modal-body">
               <div class="form-group">
                 {{ csrf_field() }}
-                <label>Category:</label>
+                <label>Category: <span class="required">*</span></label>
                 <input type="text" class="form-control" name="catName" id="catName" placeholder="Category Name" required>
               </div>
               <div class="form-group">
-                <label>Description:</label>
+                <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" id="catDesc" name="catDesc" placeholder="Category Description" required></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
             </div>
           </form>
@@ -83,7 +83,7 @@
 
 
        <!-- edit item modal -->
-       <div class="modal fade" id="modal-edit-category">
+       <div class="modal fade" id="modal-edit-category" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -95,17 +95,17 @@
             <div class="modal-body">
                 <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Category Name" required>
                 <div class="form-group">
-                <label>Category:</label>
+                <label>Category: <span class="required">*</span></label>
                 <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name" required>
               </div>
               <div class="form-group">
-                <label>Description:</label>
+                <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc" required></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="categoryEditBtn" onclick="categoryEdit()">Save changes</button>
             </div>
             </form>
@@ -142,6 +142,13 @@
       <!-- /.delete item modal -->
 
     <script type="text/javascript">
+
+        function resetBoxes(){
+            $('#catName, #catDesc, #eCatName, #eCatDesc').css({
+                'border': '1px solid grey'
+            });
+        }
+
         function categoryDel(){
             var id = $('#dCatID').val();
               $.ajax({
@@ -168,7 +175,30 @@
         function categoryEdit(){
             var url =  "editCat";
             var eCatDesc = $('#eCatDesc').val();
-              $.ajax({
+            var eCatName = $('#eCatName').val();
+            if(eCatDesc == "" || eCatName == "" ){
+                toastr.error('All fields are required!');
+                if(eCatDesc == ""){
+                    $('#eCatDesc').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eCatDesc').css({
+                        'border': '1px solid grey'
+                    });
+                }
+                if(eCatName == ""){
+                    $('#eCatName').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eCatName').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
                 type: 'POST',
                 url: url,
                 data: {
@@ -182,49 +212,72 @@
                     $('#categoryEditBtn').attr('disabled', true);
                 },
                 success: function (response){
-
-                        toastr.success('Successfully Updated.');
-                        $('#edit-form')[0].reset();
-                        $('#modal-edit-category').modal('hide');
-                        $('#categories_table').DataTable().ajax.reload();
-                        $('#categoryEditBtn').attr('disabled', false);
-                        $('#categoryEditBtn').text('Save Changes');
-
+                    resetBoxes();
+                    toastr.success('Successfully Updated.');
+                    $('#categories_table').DataTable().ajax.reload();
+                    $('#categoryEditBtn').attr('disabled', false);
+                    $('#categoryEditBtn').text('Save Changes');
+                    $('#modal-edit-category').modal('hide');
                 }
             });
+            }
+
         }
 
 
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
-            if(catDesc == "" || $('#catName').val()==""){
+            var catName = $('#catName').val();
+            if( catDesc == "" || catName == "" ){
                 toastr.error('All fields are required!');
-                $('#catName').focus();
-            }else{
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('categoryInsert') }}",
-                data: {
+                if(catDesc == ""){
+                    $('#catDesc').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#catDesc').css({
+                        'border': '1px solid grey'
+                    });
+                }
+                if(catName == ""){
+                    $('#catName').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#catName').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('categoryInsert') }}",
+                    data: {
                         '_token': $('input[name=_token').val(),
                         'catName':$('input[name=catName').val(),
                         'catDesc': catDesc
                         },
-                beforeSend:function(){
-                    $('#categoryAddBtn').text('Inserting...');
-                    $('#categoryAddBtn').attr('disabled', true);
-                },
-                success: function (response){
-                  toastr.success('Successfully Added.');
-                  $('#add-form')[0].reset();
-                  $('#modal-default').modal('hide');
-                  $('#categories_table').DataTable().ajax.reload();
-                  $('#categoryAddBtn').text('Save Changes');
-                  $('#categoryAddBtn').attr('disabled', false);
+                    beforeSend:function(){
+                        $('#categoryAddBtn').text('Inserting...');
+                        $('#categoryAddBtn').attr('disabled', true);
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        toastr.success('Successfully Added.');
+                        $('#add-form')[0].reset();
+                        $('#modal-default').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryAddBtn').text('Save Changes');
+                        $('#categoryAddBtn').attr('disabled', false);
+                    }
+                });
+            }
 
-                }
-            });
         }
-    }
+
+
     </script>
+
 
  @endsection

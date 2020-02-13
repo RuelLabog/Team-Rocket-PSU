@@ -450,12 +450,6 @@
 {{-- panget si jerry --}}
 
 
-<style>
-.required{
-    color: red;
-}
-</style>
-
  @endsection
 
 
