@@ -217,7 +217,7 @@ $(document).ready(function() {
      var ornum = button.data('ornum')
      var pdate = button.data('pdate')
      var supplier = button.data('supplier')
-     var total = button.data('total')  // Extract info from data-* attributes
+      // Extract info from data-* attributes
      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
      var modal = $(this)
@@ -226,7 +226,6 @@ $(document).ready(function() {
      modal.find('.modal-body #eOrnum').val(ornum)
      modal.find('.modal-body #ePdate').val(pdate)
      modal.find('.modal-body #eSupplier').val(supplier)
-     modal.find('.modal-body #eTotal').val(total)
 
    })
 
@@ -236,7 +235,7 @@ $(document).ready(function() {
 <script>
     $('#modal-edit-user').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
-      var userid = button.data('id')
+      var userid = button.data('userid')
       var username = button.data('username')
       var email = button.data('email')
       var firstname = button.data('fname')
@@ -252,6 +251,7 @@ $(document).ready(function() {
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
       modal.find('.modal-body #ePassword').val(password)
+      modal.find('.modal-body #eConfPassword').val(password)
 
     })
 
@@ -273,34 +273,32 @@ $(document).ready(function() {
   @endif
 </script>
 
-    <script>
+<script>
     //retrieve name of items in delete items modal
-      $('#modal-delete-items').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var itemName = button.data('itemname');
-        var id= button.data('itemid');
+    $('#modal-delete-items').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var itemName = button.data('itemname');
+    var id= button.data('itemid');
 
-        var modal = $(this);
+    var modal = $(this);
 
-        modal.find('.modal-body #dItemID').val(id);
-        modal.find('.modal-body #dItemName').html(itemName);
+    modal.find('.modal-body #dItemID').val(id);
+    modal.find('.modal-body #dItemName').html(itemName);
 
-        })
-
-
-    </script>
+    })
+</script>
 
 
-    <script>
-        // retrieve name of category in delete category modal
-     $('#modal-delete-category').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      var catid = button.data('catid')
-      var catname = button.data('catname')
-      var modal = $(this)
+<script>
+    // retrieve name of category in delete category modal
+    $('#modal-delete-category').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var catid = button.data('catid')
+    var catname = button.data('catname')
+    var modal = $(this)
 
-      modal.find('.modal-body #dCatID').val(catid)
-      modal.find('.modal-body #dCatName').html(catname)
+    modal.find('.modal-body #dCatID').val(catid)
+    modal.find('.modal-body #dCatName').html(catname)
 
     })
 
@@ -308,16 +306,16 @@ $(document).ready(function() {
 
 <script>
     // retrieve name of category in delete category modal
- $('#modal-delete-receipt').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
-  var recid = button.data('recid')
-  var ornum = button.data('ornum')
-  var modal = $(this)
+    $('#modal-delete-receipt').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var recid = button.data('recid')
+    var ornum = button.data('ornum')
+    var modal = $(this)
 
-  modal.find('.modal-body #dRecID').val(recid)
-  modal.find('.modal-body #dOrnum').html(ornum)
+    modal.find('.modal-body #dRecID').val(recid)
+    modal.find('.modal-body #dOrnum').html(ornum)
 
-})
+    })
 
 </script>
 
@@ -326,7 +324,7 @@ $(document).ready(function() {
 <script>
     $('#modal-delete-user').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
-      var userid = button.data('id')
+      var userid = button.data('userid')
       var fname = button.data('fname')
       var lname = button.data('lname')
       // Extract info from data-* attributes
@@ -466,10 +464,6 @@ $(document).ready(function() {
                         name: 'supplier'
                     },
                     {
-                        data: 'total',
-                        name: 'total'
-                    },
-                    {
                         data: 'action',
                         name: 'action',
                         orderable: false
@@ -500,6 +494,28 @@ $(document).ready(function() {
   });
  </script>
 
+{{-- reduce quantity --}}
+<script>
+    $('#modal-reduce-quantity').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var itemid = button.data('itemid')
+      var quantity = button.data('quantity')
+    $("#rQuantity")
+            .attr("min", 1)
+            .attr("max", quantity)
+            .val(quantity)
+      // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+
+      modal.find('.modal-body #rItemID').val(itemid)
+      modal.find('.modal-body #rQuantity').val(quantity)
+
+
+    })
+
+</script>
 
 </body>
 </html>

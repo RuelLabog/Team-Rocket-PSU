@@ -41,14 +41,13 @@
                 </thead>
                 <tbody>
               </table>
-
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
 
-<!-- add items modal -->
-      <div class="modal fade" id="modal-default">
+      <!-- add items modal -->
+      <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
@@ -59,7 +58,6 @@
                 <div class="form-group">
                 {{csrf_field()}}
                   <label>Item: <span class="required">*</span></label>
-
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
@@ -85,7 +83,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
                 <button type="button" class="btn btn-success" name="submit" id='itemAddBtn' onclick="itemAdd()">Save changes</button>
               </div>
           </form>
@@ -97,7 +95,7 @@
       <!-- /.add items modal -->
 
       <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-items">
+      <div class="modal fade" id="modal-edit-items" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -110,33 +108,33 @@
             <input type="hidden" class="form-control"  id="eItemID" name="eItemID" value="" placeholder="Item ID">
 
                 <div class="form-group">
-                  <label>Item:</label>
+                  <label>Item: <span class="required">*</span></label>
                   <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name" required>
                 </div>
 
                 <div class="form-group">
-                <label>Description:</label>
+                <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
 
                 <div class="form-group">
-                  <label>Quantity:</label>
+                  <label>Quantity: <span class="required">*</span></label>
                   <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
                 </div>
 
                 <div class="form-group">
-                  <label>Category:</label>
+                  <label>Category: <span class="required">*</span></label>
 
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>
-                      @endforeach
+                    @endforeach
                   </select>
                 </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id='itemEditBtn' onclick='itemEdit()'>Save changes</button>
             </div>
             </form>
@@ -147,7 +145,8 @@
       </div>
       <!-- /.edit item modal -->
 
-            <!-- delete item modal -->
+
+      <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -172,6 +171,7 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
 
       <!-- add quantity modal -->
       <div class="modal fade" id="modal-add-quantity">
@@ -247,8 +247,8 @@
       </div>
       <!-- /.add quantity modal -->
 
-            <!-- add quantity modal -->
-      <div class="modal fade" id="modal-reduce-quantity">
+      <!-- reduce quantity modal -->
+      <div class="modal fade" id="modal-reduce-quantity" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -257,20 +257,19 @@
             <form action="" method="get">
             {{ csrf_field() }}
             <div class="modal-body">
-
               <div class="form-group mt-3">
+                <input type="hidden" name="rItemID" id="rItemID" class="form-control">
                 <label>Quantity: </label>
-                <input type="number" name="add_quantity" class="form-control" min="1" value="1">
+              <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="">
               </div>
               <div class="form-group mt-3">
                 <label>Status Report: </label>
-                <textarea class="form-control" minlength="255" placeholder="Please enter reason for reducing quantity."></textarea>
+                <textarea class="form-control" minlength="255" name="statReport" id="statReport" placeholder="Please enter reason for reducing quantity."></textarea>
               </div>
-
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
+              <button type="button" class="btn btn-success" id="itemRedBtn" onclick="itemReduce()">Save</button>
             </div>
             </form>
           </div>
@@ -282,6 +281,12 @@
 
  <!-- /.ajax -->
       <script type="text/javascript">
+
+        function resetBoxes(){
+            $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
+                'border': '1px solid grey'
+            });
+        }
 
         function itemEdit(){
             var url =  "editItem";
@@ -406,7 +411,7 @@
                     $('#modal-default').modal('hide');
                     $('#items_table').DataTable().ajax.reload();
                     $('#itemAddBtn').text('Save Changes');
-
+                    resetBoxes();
                     }
                 });
             }
@@ -434,6 +439,58 @@
                 }
             });
         }
+
+        function itemReduce(){
+            var url =  "reduceItem";
+            var statReport = $('#statReport').val();
+            var rItemID = $('#rItemID').val();
+            var rQuantity = $('#rQuantity').val();
+            if(rQuantity == "" || statReport == ""){
+                toastr.error('All fields are required!');
+                if(rQuantity == ""){
+                    $('#rQuantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#rQuantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(statReport == ""){
+                    $('#statReport').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#statReport').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                            '_token': $('input[name=_token').val(),
+                            'rItemID':rItemID,
+                            'statReport':statReport,
+                            'rQuantity': rQuantity
+                            },
+                    beforeSend:function(){
+                        $('#itemRedBtn').text('Updating...');
+                    },
+                    success: function (response){
+                        toastr.success('Successfully Updated.');
+                        $('#modal-reduce-quantity').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                        $('#itemRedBtn').text('Save Changes');
+
+                    }
+                });
+            }
+        }
+
         </script>
 {{-- panget si jerry --}}
 

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\item;
 use App\category;
+use App\reducehistory;
 use Illuminate\Http\Request;
 use DB;
 use View;
@@ -25,27 +26,6 @@ class ItemsController extends Controller
         $this->middleware('auth');
     }
 
-    //Retreiving of Data.
-    // function getData(){
-    //     $data['data'] = DB::table('items')
-    //                     ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
-    //                     ->join('categories', 'categories.id', '=', 'items.catid')
-    //                     ->where('items.deleted_at', '=', null)
-    //                     ->get();
-
-
-    //     if(count($data) > 0){
-    //         return view('pages/items_page', $data);
-    //     }
-    //     else{
-    //         return view('pages/items_page');
-    //     }
-    //    // return Datatables::of($students)->make(true);
-    // }
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -61,15 +41,19 @@ class ItemsController extends Controller
 
             return DataTables::of($data)
             ->addColumn('quantity', function($data){
-                                    $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity" style="margin-left:10%; margin-right:10%;">
-                      <i class="fas fa-plus-square text-success"></i>
-                      </a>
-                      '.$data->quantity.'
-                      <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity" style="margin-left:10%; margin-right:10%;">
-                      <i class="fas fa-minus-square text-danger"></i>
-                      </a>';
-
-                                    
+                                        $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity"
+                                        id="'.$data->id.'"
+                                        style="margin-left:10%; margin-right:10%;">
+                                        <i class="fas fa-plus-square text-success"></i>
+                                        </a>
+                                        '.$data->quantity.'
+                                        <a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-reduce-quantity"
+                                        id="'.$data->id.'"
+                                        data-itemid="'.$data->id.'"
+                                        data-quantity="'.$data->quantity.'"
+                                        style="margin-left:10%; margin-right:10%;">
+                                        <i class="fas fa-minus-square text-danger"></i>
+                                        </a>';
                                     return $button2;
                                 })
                                 ->addColumn('action', function($data){
@@ -189,37 +173,6 @@ class ItemsController extends Controller
             );
 
         }
-
-        // return back()->with($notification);
-
-        // $id = $request->input('eItemID');
-        // $updateitem = item::findOrFail($id);
-
-        // $updateitem->itemname =  $request->input('eItemname');
-        // $updateitem->itemdesc = $request->input('eItemDesc');
-        // $updateitem->price = $request->input('ePrice');
-        // $updateitem->quantity = $request->input('eQuantity');
-        // $updateitem->catid = $request->input('catid');
-
-
-
-        // if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
-        //     $notification = array(
-        //         'message'=> 'Please fill up required fields!',
-        //         'alert-type' => 'error'
-        //     );
-
-        // }else{
-        //     $updateitem->save();
-        //     $notification = array(
-        //         'message'=> 'Item updated successfully!',
-        //         'alert-type' => 'success'
-        //     );
-
-        // }
-
-        // return back()->with($notification);
-
     }
 
     /**
@@ -230,6 +183,32 @@ class ItemsController extends Controller
      */
 
 
+
+    public function updateQuantity(Request $request)
+    {
+        $itemid = $request->input('rItemID');
+        $quantitydec = $request->input('rQuantity');
+        $datedec = now();
+        $statusreport = $request->input('statReport');
+        $userid = auth()->user()->id;
+        $item =  array('itemid'=>$itemid,'quantitydec'=>$quantitydec,'datedec'=>$datedec,'statusreport'=>$statusreport,'userid'=>$userid);
+
+        DB::table('dechistory')->insert($item);
+
+        $id = $request->input('rItemID');
+        $updateitem = item::findOrFail($id);
+        $updateitem->quantity = $request->input('rQuantity');
+        $updateitem->save();
+
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete(Request $request) {
 
         $deleteitem = $request->input('dItemID');

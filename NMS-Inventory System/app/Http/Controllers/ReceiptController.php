@@ -32,7 +32,6 @@ class ReceiptController extends Controller
                                     data-ornum="'.$data->ornum.'"
                                     data-pdate="'.$data->pdate.'"
                                     data-supplier="'.$data->supplier.'"
-                                    data-total="'.$data->total.'"
                                     data-toggle="modal" data-target="#modal-edit-receipt">Edit</button>';
                                     $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
                                     data-recid="'.$data->id.'"
@@ -103,22 +102,20 @@ class ReceiptController extends Controller
         $updaterec->ornum =  $request->input('eOrnum');
         $updaterec->supplier = $request->input('eSupplier');
         $updaterec->pdate = $request->input('ePdate');
-        $updaterec->total = $request->input('eTotal');
         $updaterec->save();
 
-        if ($request['eOrnum'] == NULL || $request['eSupplier'] == NULL || $request['ePdate'] == NULL || $request['eTotal'] == NULL) {
+        if ($request['eOrnum'] == NULL || $request['eSupplier'] == NULL || $request['ePdate'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
-
         }else{
             $updaterec->save();
             $notification = array(
                 'message'=> 'Item updated successfully!',
                 'alert-type' => 'success'
             );}
-            return back()->with($notification);
+            
     }
 
 
@@ -131,8 +128,6 @@ class ReceiptController extends Controller
     public function delete(Request $request)
     {
         $deleteRec = $request->input('dRecID');
-
-
         if (receipt::find($deleteRec)->delete()) {
             $notification = array(
                 'message'=> 'Receipt deleted successfully!',
@@ -151,8 +146,7 @@ class ReceiptController extends Controller
         $ornum = $req->input('ornum');
         $supplier = $req->input('supplier');
         $pdate = $req->input('pdate');
-        $total = $req->input('total');
-        $data = array('ornum'=>$ornum,'supplier'=>$supplier, 'pdate'=>$pdate,'total'=>$total,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+        $data = array('ornum'=>$ornum,'supplier'=>$supplier, 'pdate'=>$pdate,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
         if(DB::table('receipts')->where('ornum', '=', $ornum)->exists()){
             DB::table('receipts')->where('ornum', '=', $ornum)->delete();
@@ -162,12 +156,10 @@ class ReceiptController extends Controller
                 'alert-type' => 'success'
             );
         }elseif(DB::table('receipts')->insert($data)){
-
             $notification = array(
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
             );
-
         }else{
             $notification = array(
                 'message'=> 'An error occured while adding category.',

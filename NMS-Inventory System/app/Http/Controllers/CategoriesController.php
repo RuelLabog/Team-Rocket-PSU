@@ -24,7 +24,7 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $data = category::latest()->get();
+            $data = category::orderBy('created_at', 'DESC')->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
                                     $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
@@ -168,7 +168,6 @@ class CategoriesController extends Controller
                 'message'=> 'A new category is inserted!',
                 'alert-type' => 'success'
             );
-
         }else{
             $notification = array(
                 'message'=> 'An error occured while adding category.',

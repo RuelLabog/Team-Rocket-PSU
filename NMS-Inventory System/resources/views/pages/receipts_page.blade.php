@@ -4,6 +4,9 @@
 
 @section('content')
     <!-- Content Header (Page header) -->
+    @php
+    $today = date("Y-m-d");
+    @endphp
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -22,10 +25,6 @@
     </div>
     <!-- /.content-header -->
 
-
-
-
-
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-receipt">
@@ -38,11 +37,10 @@
             <thead>
              <tr>
                   <th width="5%">#</th>
-                  <th width="20%">Ornum</th>
-                  <th width="20%">Purchase Date</th>
-                  <th width="20%">Supplier</th>
-                  <th width="12%">Total</th>
-                  <th width="13%">Action</th>
+                  <th width="23%">Ornum</th>
+                  <th width="23%">Purchase Date</th>
+                  <th width="23%">Supplier</th>
+                  <th width="16%">Action</th>
                 </tr>
             </thead>
           </table>
@@ -51,46 +49,34 @@
       </div>
       <!-- /.card -->
 
-
 <!-- add receipts modal -->
-      <div class="modal fade" id="modal-add-receipt">
+      <div class="modal fade" id="modal-add-receipt" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
               <h4 class="modal-title"><i class="fas fa-receipt mr-2"></i>Add New Receipt</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" id="add-form">
             <div class="modal-body">
-              <div class="form-group">
+              <div class="form-group mt-3">
                 {{ csrf_field() }}
-                <label>OR Number:</label>
-                <input type="text" class="form-control" name="ornum" placeholder="Official Receipt Number" required>
+                <label>OR Number: <span class="required">*</span></label>
+                <input type="text" class="form-control" name="ornum" id="ornum" placeholder="Official Receipt Number" required>
               </div>
-              <div class="form-group">
-                <label>Supplier:</label>
-                <input type="text" class="form-control" name="supplier" placeholder="Enter Supplier Name." required>
+              <div class="form-group mt-3">
+                <label>Supplier: <span class="required">*</span></label>
+                <input type="text" class="form-control" name="supplier" id="supplier" placeholder="Enter Supplier Name" required>
               </div>
-              <div class="form-group">
-                <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="pdate"  required>
-              </div>
-            <div class="form-group">
-              <label>Total:</label>
-              <div class="input-group mb-3">
-                
-                <div class="input-group-prepend">
-                  <span class="input-group-text">₱</span>
-                </div>
-                <input type="text" class="form-control" name="" placeholder="Total Amount" required>
-
+              <div class="form-group mt-3">
+                <label>Date of Purchase: <span class="required">*</span></label>
+                <input type="date" class="form-control" name="pdate" id="pdate" max="{{$today}}" required>
               </div>
             </div>
 
-
-            </div>
+          
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success" name="submit" id='receiptAddBtn' onclick="receiptAdd()">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
+              <button type="button" class="btn btn-success" name="submit" id='receiptAddBtn' onclick="receiptAdd()">Save</button>
             </div>
           </form>
           </div>
@@ -102,7 +88,7 @@
 
 
        <!-- edit receipt modal -->
-       <div class="modal fade" id="modal-edit-receipt">
+       <div class="modal fade" id="modal-edit-receipt" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -113,28 +99,22 @@
                 {{method_field('PATCH')}}
             <div class="modal-body">
                 <input type="hidden" class="form-control" id="eRecID" name="eRecID" value="" required>
-                <div class="form-group">
-                <label>OR Number:</label>
+                <div class="form-group mt-3">
+                <label>OR Number: <span class="required">*</span></label>
                 <input type="text" class="form-control" name="eOrnum" id="eOrnum" placeholder="Official Receipt Number" required>
               </div>
-              <div class="form-group">
-                <label>Supplier:</label>
+              <div class="form-group mt-3">
+                <label>Supplier: <span class="required">*</span></label>
                 <input type="text" class="form-control" name="eSupplier" id="eSupplier" placeholder="Enter Supplier Name." required>
               </div>
-              <div class="form-group">
-                <label>Date of Purchase:</label>
-                <input type="date" class="form-control" name="ePdate"  id="ePdate" required>
+              <div class="form-group mt-3">
+                <label>Date of Purchase: <span class="required">*</span></label>
+                <input type="date" class="form-control" name="ePdate"  id="ePdate" max="{{$today}}" required>
               </div>
               <!-- /.form group -->
-              
-              <div class="form-group">
-                <label>Total:</label>
-                <input type="text" class="form-control" name="eTotal" id="eTotal" placeholder="Total Amount" required>
-              </div>
-
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="receiptEditBtn" onclick="receiptEdit()">Save</button>
             </div>
             </form>
@@ -146,7 +126,7 @@
       <!-- /.edit receipt modal -->
 
             <!-- delete receipt modal -->
-      <div class="modal fade" id="modal-delete-receipt">
+      <div class="modal fade" id="modal-delete-receipt" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -171,6 +151,12 @@
       <!-- /.delete receipt modal -->
 
     <script type="text/javascript">
+
+       function resetBoxes(){
+        $('#ornum, #supplier, #pdate, #eOrnum, #eSupplier, #ePdate').css({
+              'border': '1px solid grey'
+                    });
+       }
        function receiptDel(){
             var id = $('#dRecID').val();
               $.ajax({
@@ -182,64 +168,144 @@
                     $('#receiptDelBtn').text('Deleting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                  toastr.success('Successfully Deleted.');
                         $('#modal-delete-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptDelBtn').text('Delete');
-                    }, 2000);
                 }
             });
         }
 
         function receiptEdit(){
             var url =  "editRec";
-            alert(pdate);
+            var eRecID = $('#eRecID').val();
+            var eOrnum = $('#eOrnum').val();
+            var eSupplier = $('#eSupplier').val();
+            var ePdate = $('#ePdate').val();
+            if(eRecID == "" || eOrnum == "" || eSupplier == "" || ePdate == ""){
+                toastr.error('All fields are required!');
+
+                if(eOrnum == ""){
+                    $('#eOrnum').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eOrnum').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(eSupplier == ""){
+                    $('#eSupplier').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#eSupplier').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(ePdate == ""){
+                    $('#ePdate').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#ePdate').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
               $.ajax({
                 type: 'POST',
                 url: url,
                 data: {'_token': $('input[name=_token').val(),
-                        'eRecID':$('input[name=eRecID').val(),
-                        'eOrnum':$('input[name=eOrnum').val(),
-                        'eSupplier':$('input[name=eSupplier').val(),
-                        'ePdate': $('input[name=ePdate').val(),
-                        'eTotal':$('input[name=eTotal').val()
+                        'eRecID': eRecID,
+                        'eOrnum':eOrnum,
+                        'eSupplier':eSupplier,
+                        'ePdate': ePdate
                         },
                 beforeSend:function(){
                     $('#receiptEditBtn').text('Updating...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                        toastr.success('Successfully Updated.');
                         $('#modal-edit-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptEditBtn').text('Save Changes');
-                    }, 2000);
+                        resetBoxes();
                 }
             });
         }
+      }
+      
 
         function receiptAdd(){
-            $.ajax({
+            var ornum = $('#ornum').val();
+            var supplier = $('#supplier').val();
+            var pdate = $('#pdate').val();
+            if(ornum == "" || supplier == "" || pdate == ""){
+                toastr.error('All fields are required!');
+
+                if(ornum == ""){
+                    $('#ornum').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#ornum').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(supplier == ""){
+                    $('#supplier').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#supplier').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(pdate == ""){
+                    $('#pdate').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#pdate').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+        $.ajax({
                 type: 'POST',
                 url: "{{ route('receiptInsert') }}",
-                data: {
-                        'ornum':$('input[name=ornum').val(),
-                        'supplier':$('input[name=supplier').val(),
-                        'pdate': $('input[name=pdate').val(),
-                        'total':$('input[name=total').val()
+                data: {'_token': $('input[name=_token').val(),
+                        'ornum':ornum,
+                        'supplier':supplier,
+                        'pdate':pdate
                         },
                 beforeSend:function(){
                     $('#receiptAddBtn').text('Inserting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
-                        $('#modal-default').modal('hide');
+                  toastr.success('Successfully Added.');
+                  $('#add-form')[0].reset();
+                        $('#modal-add-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
                         $('#receiptAddBtn').text('Save Changes');
-                    }, 2000);
+                        resetBoxes();
                 }
             });
+          }
         }
     </script>
 
+<style>
+  .required{
+      color: red;
+  }
+  </style>
 
  @endsection
