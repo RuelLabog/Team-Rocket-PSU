@@ -56,17 +56,8 @@
             <form action="" method="POST" id="item-form">
             <div class="modal-body">
                 <div class="form-group">
-<<<<<<< HEAD
-              {{csrf_field()}}
-                  <label>Item:</label>
-=======
                 {{csrf_field()}}
                   <label>Item: <span class="required">*</span></label>
-<<<<<<< HEAD
-=======
-
->>>>>>> 9a6c9704a20050b59d524ac04fb61d4489cf73fd
->>>>>>> 8ebac98c3c5480a5b8cb97654df69f4e8bd303d0
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
 
@@ -211,7 +202,7 @@
       </div>
       <!-- /.add quantity modal -->
 
-      <!-- add quantity modal -->
+      <!-- reduce quantity modal -->
       <div class="modal fade" id="modal-reduce-quantity">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -221,20 +212,19 @@
             <form action="" method="get">
             {{ csrf_field() }}
             <div class="modal-body">
-
               <div class="form-group mt-3">
+                <input type="hidden" name="rItemID" id="rItemID" class="form-control">
                 <label>Quantity: </label>
-                <input type="number" name="add_quantity" class="form-control" min="1" value="1">
+              <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="">
               </div>
               <div class="form-group mt-3">
                 <label>Status Report: </label>
-                <textarea class="form-control" minlength="255" placeholder="Please enter reason for reducing quantity."></textarea>
+                <textarea class="form-control" minlength="255" name="statReport" id="statReport" placeholder="Please enter reason for reducing quantity."></textarea>
               </div>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="button" class="btn btn-success" id="itemRedBtn" onclick="itemReduce()">Save</button>
             </div>
             </form>
           </div>
@@ -398,6 +388,58 @@
                 }
             });
         }
+
+        function itemReduce(){
+            var url =  "reduceItem";
+            var statReport = $('#statReport').val();
+            var rItemID = $('#rItemID').val();
+            var rQuantity = $('#rQuantity').val();
+            if(rQuantity == "" || statReport == ""){
+                toastr.error('All fields are required!');
+                if(rQuantity == ""){
+                    $('#rQuantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#rQuantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(statReport == ""){
+                    $('#statReport').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#statReport').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                            '_token': $('input[name=_token').val(),
+                            'rItemID':rItemID,
+                            'statReport':statReport,
+                            'rQuantity': rQuantity
+                            },
+                    beforeSend:function(){
+                        $('#itemRedBtn').text('Updating...');
+                    },
+                    success: function (response){
+                        toastr.success('Successfully Updated.');
+                        $('#modal-reduce-quantity').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                        $('#itemRedBtn').text('Save Changes');
+
+                    }
+                });
+            }
+        }
+
         </script>
 {{-- panget si jerry --}}
 
