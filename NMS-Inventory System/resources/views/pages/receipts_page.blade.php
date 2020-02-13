@@ -39,8 +39,8 @@
                   <th width="5%">#</th>
                   <th width="23%">Ornum</th>
                   <th width="23%">Purchase Date</th>
-                  <th width="23%">Supplier</th>
-                  <th width="16%">Action</th>
+                  <th width="35%">Supplier</th>
+                  <th width="7%"></th>
                 </tr>
             </thead>
           </table>

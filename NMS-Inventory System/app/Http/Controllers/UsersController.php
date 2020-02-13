@@ -49,19 +49,21 @@ class UsersController extends Controller
             $data = User::latest()->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
                                     data-userid="'.$data->id.'"
                                     data-username="'.$data->username.'"
                                     data-fname="'.$data->fname.'"
                                     data-lname="'.$data->lname.'"
                                     data-email="'.$data->email.'"
                                     data-password="'.$data->password.'"
-                                    data-toggle="modal" data-target="#modal-edit-user">Edit</button>';
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-edit-user"><a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a></span>';
+                                    $button .= '<span class="table-button cursor-pointer delete" name="delete" id="'.$data->id.'"
                                     data-fname="'.$data->fname.'"
                                     data-lname="'.$data->lname.'"
                                     data-userid="'.$data->id.'"
-                                    data-toggle="modal" data-target="#modal-delete-user">Delete</button>';
+                                    data-toggle="modal" data-target="#modal-delete-user"><a><i class="fas fa-trash text-danger"></i></a></span>';
                                     return $button;
                                 })
                                 // ->rawColums(['action'])

@@ -37,11 +37,11 @@
           <table id="users_table" class="table table-bordered table-striped">
             <thead>
              <tr>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Name</th>
-                  <th>Date Added</th>
-                  <th></th>
+                  <th width="20%">Username</th>
+                  <th width="20%">Email</th>
+                  <th width="25%">Name</th>
+                  <th width="25%">Date Registered</th>
+                  <th width="7%"></th>
                 </tr>
             </thead>
             <tbody>
