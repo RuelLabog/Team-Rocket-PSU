@@ -45,9 +45,9 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         //
-        $email = auth()->user()->email;
+
         if($request->ajax()){
-            $data = User::latest()->where('email', '!=', $email)->get();
+            $data = User::latest()->where('usertype', '=', 'admin')->get();
             return DataTables::of($data)
                                 ->addColumn('name', function($data){
                                     $name= $data->fname." ".$data->lname;
@@ -204,7 +204,7 @@ class UsersController extends Controller
 
 
 
-        $user = array('username'=>$username, 'email'=>$email, 'fname'=>$fname, 'lname'=>$lname, 'password'=>Hash::make($password), 'usertype'=>'user', 'image'=>'default.png', 'created_at'=> NOW());
+        $user = array('username'=>$username, 'email'=>$email, 'fname'=>$fname, 'lname'=>$lname, 'password'=>Hash::make($password), 'usertype'=>'admin', 'image'=>'default.png', 'created_at'=> NOW());
         if(DB::table('users')->where('email', '=', $email)->exists()){
             return response()->json(['errEmail'=>'Email Exists!']);
         }else{
