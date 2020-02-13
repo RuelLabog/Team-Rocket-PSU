@@ -37,10 +37,10 @@
           <table id="categories_table" class="table table-bordered table-striped">
             <thead>
              <tr>
-                  <th width="10%">#</th>
+                  <th width="5%">#</th>
                   <th width="25%">Name</th>
-                  <th width="55">Description</th>
-                  <th width="10%"></th>
+                  <th width="55%">Description</th>
+                  <th width="7%"></th>
                 </tr>
             </thead>
           </table>
