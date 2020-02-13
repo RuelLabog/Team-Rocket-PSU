@@ -31,12 +31,12 @@
               <table id="items_table" class="table table-bordered table-striped">
                 <thead>
                  <tr>
-                    <th width="8%">Item ID</th>
+                    <th width="5%">#</th>
                     <th width="20%">Name</th>
-                    <th width="30%">Description</th>
+                    <th width="36%">Description</th>
                     <th width="17%">Category</th>
                     <th width="15%">Quantity</th>
-                    <th width="10%">Actions</th>
+                    <th width="7%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -185,8 +185,53 @@
             <div class="modal-body">
 
               <div class="form-group mt-3">
-                <label>Quantity: </label>
+                <label>Quantity:<span class="required"> *</span> </label>
                 <input type="number" name="add_quantity" class="form-control" min="1">
+              </div>
+              <div class="form-group">
+                <label>Receipt:<span class="required"> *</span></label>
+                <select class="form-control">
+                  <option value=""></option>
+                  <option value=""></option>
+                  <option value=""></option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Department:<span class="required"> *</span></label>
+                <select class="form-control">
+                  <option value="Admin and Finance Department">Admin and Finance Department</option>
+                  <option value="Corporate Image & Branding">Corporate Image & Branding</option>
+                  <option value="Digital Content">Digital Content</option>
+                  <option value="Disney Productions Department">Disney Productions Department</option>
+                  <option value="Employee Engagement and Retention">Employee Engagement and Retention</option>
+                  <option value="External Affairs and Production Department">External Affairs and Production Department</option>
+                  <option value="FL Production Department Management">FL Production Department Management</option>
+                  <option value="Human Resources and Development">Human Resources and Development</option>
+                  <option value="Information Technology & Development">Information Technology & Development</option>
+                  <option value="Jeemo PJ">Jeemo PJ</option>
+                  <option value="Live Services Department">Live Services Department</option>
+                  <option value="Messaging">Messaging</option>
+                  <option value="Messaging Support Team">Messaging Support Team</option>
+                  <option value="NMS Cares">NMS Cares</option>
+                  <option value="Offline Services Department">Offline Services Department</option>
+                  <option value="Online Management Personnel">Online Management Personnel</option>
+                  <option value="Online Support">Online Support</option>
+                  <option value="OSD Billing">OSD Billing</option>
+                  <option value="OSD Management Team">OSD Management Team</option>
+                  <option value="OSD Moderation">OSD Moderation</option>
+                  <option value="OSD SEO">OSD SEO</option>
+                  <option value="OSD SEO Beta">OSD SEO Beta</option>
+                  <option value="OSD Support">OSD Support</option>
+                  <option value="Outbound Support">Outbound Support</option>
+                  <option value="Product Development Department">Product Development Department</option>
+                  <option value="Production Department Support">Production Department Support</option>
+                  <option value="Production Recruitment Department">Production Recruitment Department</option>
+                  <option value="Sales and Marketing">Sales and Marketing</option>
+                  <option value="Training & Quality Assurance Department">Training & Quality Assurance Department</option>
+                </select>
+                
               </div>
 
             </div>
