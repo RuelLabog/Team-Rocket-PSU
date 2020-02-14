@@ -98,15 +98,31 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function restore(Request $request){
+        $catname = $request['catName'];
+       DB::table('categories')->where('catname', '=', $catname)->update(['deleted_at' => null]);
+
+
+    }
+
+    public function forceDelete(Request $request){
+        $catname = $request->input('catName');
+        DB::table('categories')->where('catname', '=', $catname)->delete();
+    }
+
     public function update(Request $request){
         $id = $request->input('eCatID');
         $updatecat = category::findOrFail($id);
         $updatecat->catname = $request->input('eCatName');
         $updatecat->catdesc = $request->input('eCatDesc');
 
-        if(DB::table('categories')->where('catname', '=', $request->input('eCatName'))->where('id', '!=',  $request->input('eCatID'))->exists()) {
-            return response()->json(['err'=>'Category name already exists!']);
-
+        if(DB::table('categories')->where('catname', '=', $request->input('eCatName'))->where('deleted_at', '!=', null)->exists()) {
+            $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eCatName').'" onclick="restore()">Restore</button>';
+            $button2 = '<button class="btn-danger btn-xs" id="forcedDelBtn" value="'.$request->input('eCatName').'" onclick="forceDel()">Force Delete</button>';
+            return response()->json(['err'=>'Category name already exists but was soft deleted! Do you want to restore or force delete category name '.$request->input('eCatName').' ? &nbsp;&nbsp;&nbsp;'.$button.$button2]);
+            // return response()->json(['err'=>'Category name already exists']);
+        }elseif(DB::table('categories')->where('catname', '=', $request->input('eCatName'))->where('id', '!=', $id)->exists()) {
+            return response()->json(['err'=>'Category name already exists']);
         }else{
             $updatecat->save();
             return response()->json(['success'=>'Successfully Updated']);
@@ -134,18 +150,6 @@ class CategoriesController extends Controller
             category::find($deleteCat)->delete();
             return response()->json(['success'=>'Category deleted successfully!']);
         }
-        // if (category::find($deleteCat)->delete()) {
-        //     $notification = array(
-        //         'message'=> 'Category deleted successfully!',
-        //         'alert-type' => 'success'
-        //     );
-        // }else{
-        //     $notification = array(
-        //         'message'=> 'An error occured while deleting the category!',
-        //         'alert-type' => 'error'
-        //     );
-        // }
-        // return back()->with($notification);
     }
 
     function insert(Request $req){

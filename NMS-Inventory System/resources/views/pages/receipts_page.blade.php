@@ -157,7 +157,14 @@
               'border': '1px solid grey'
                     });
                     $('#add-form')[0].reset();
+                    $('#receiptAddBtn').attr('disabled', false);
+                    $('#receiptAddBtn').text('Save');
+                    $('#receiptDelBtn').attr('disabled', false);
+                    $('#receiptDelBtn').text('Delete');
+                    $('#receiptEditBtn').attr('disabled', false);
+                    $('#receiptEditBtn').text('Save Changes');
        }
+
        function receiptDel(){
             var id = $('#dRecID').val();
               $.ajax({
@@ -233,12 +240,15 @@
                     $('#receiptEditBtn').attr('disabled', true);
                 },
                 success: function (response){
+                    if(response.success){
                         toastr.success('Successfully Updated.');
                         $('#modal-edit-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
+                    }else{
+                        toastr.error(response.err);
+                    }
                         $('#receiptEditBtn').attr('disabled', false);
                         $('#receiptEditBtn').text('Save Changes');
-                        resetBoxes();
                 }
             });
         }
@@ -306,6 +316,51 @@
                 }
             });
           }
+        }
+
+        function restore(){
+            var ornum = $('#restoreBtn').val();
+            var url = "restoreRec";
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'ornum':ornum
+                        },
+                    beforeSend:function(){
+
+                        toastr.warning(ornum+' Restoring...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        toastr.success('Successfully Restored.');
+                        $('#modal-edit-receipt').modal('hide');
+                        $('#receipts_table').DataTable().ajax.reload();
+                    }
+                });
+        }
+
+        function forceDel(){
+            var ornum = $('#forcedDelBtn').val();
+            var url = "forceDelRec";
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'ornum':ornum
+                        },
+                    beforeSend:function(){
+                        toastr.warning(ornum+' Deleting...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        receiptEdit();
+                        toastr.success('Successfully Deleted.');
+                        $('#receipts_table').DataTable().ajax.reload();
+                    }
+                });
         }
     </script>
 
