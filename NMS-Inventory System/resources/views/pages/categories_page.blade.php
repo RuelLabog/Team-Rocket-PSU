@@ -282,7 +282,6 @@
         function restore(){
             var catname = $('#restoreBtn').val();
             var url = "restoreCat";
-            alert(catname);
             $.ajax({
                     type: 'POST',
                     url: url,
@@ -291,8 +290,7 @@
                         'catName':catname
                         },
                     beforeSend:function(){
-                        // $('#categoryAddBtn').text('Inserting...');
-                        // $('#categoryAddBtn').attr('disabled', true);
+
                         toastr.warning(catname+' Restoring...');
                     },
                     success: function (response){
@@ -307,7 +305,6 @@
         function forceDel(){
             var catname = $('#forcedDelBtn').val();
             var url = "forceDelCat";
-            alert(catname);
             $.ajax({
                     type: 'POST',
                     url: url,
