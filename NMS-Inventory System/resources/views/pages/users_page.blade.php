@@ -58,7 +58,7 @@
 
 
 <!-- add items modal -->
-      <div class="modal fade" id="modal-default">
+      <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
@@ -115,7 +115,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="userAddBtn" onclick="userAdd()">Save</button>
             </div>
             </form>
@@ -133,7 +133,7 @@
 
 
       <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-user">
+      <div class="modal fade" id="modal-edit-user"  data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -193,7 +193,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="userEditBtn" onclick="userEdit()">Save Changes</button>
             </div>
             </form>
@@ -234,6 +234,13 @@
       <!-- /.delete item modal -->
 
       <script type="text/javascript">
+
+        function resetBoxes(){
+            $('input').css({
+                'border': '1px solid grey'
+            });
+        }
+
         function userDel(){
               $.ajax({
                 type: 'POST',
@@ -245,7 +252,6 @@
                     $('#userDelBtn').attr('disabled', true);
                 },
                 success: function (response){
-
                         toastr.success('Successfully Deleted.');
                         // $('#delete-form')[0].reset();
                         $('#modal-delete-user').modal('hide');
@@ -258,6 +264,44 @@
 
 
         function userEdit(){
+            if($('#eUsername').val() == "" || $('#eEmail').val() == "" || $('#eFirstName').val() == "" || $('#eLastName').val() == "" || $('#ePassword').val() == "" || $('#eConfPassword').val() == "" ){
+                toastr.error('All fields are required!');
+                if($('#eUsername').val() == ""){
+                    $('#eUsername').css({'border': '1px solid red'});
+                }else{
+                    $('#eUsername').css({'border': '1px solid grey'});
+                }
+
+                if($('#eFirstName') == ""){
+                    $('#eFirstName').css({'border': '1px solid red'});
+                }else{
+                    $('#eFirstName').css({'border': '1px solid grey'});
+                }
+
+                if($('#eLastName') == ""){
+                    $('#eLastName').css({'border': '1px solid red'});
+                }else{
+                    $('#eLastName').css({'border': '1px solid grey'});
+                }
+
+                if($('#eEmail').val() == ""){
+                    $('#eEmail').css({'border': '1px solid red'});
+                }else{
+                    $('#eEmail').css({'border': '1px solid grey'});
+                }
+
+                if($('#ePassword').val() == ""){
+                    $('#ePassword').css({'border': '1px solid red'});
+                }else{
+                    $('#ePassword').css({'border': '1px solid grey'});
+                }
+
+                if($('#eConfPassword').val() == ""){
+                    $('#eConfPassword').css({'border': '1px solid red'});
+                }else{
+                    $('#eConfPassword').css({'border': '1px solid grey'});
+                }
+            }else{
               $.ajax({
                 type: 'POST',
                 url: "{{ route('userUpdate')}}",
@@ -279,6 +323,7 @@
                     $('#userEditBtn').text('Save Changes');
 
                     if(response.success){
+                        resetBoxes();
                         toastr.success('Successfully Updated.');
                         // $('#delete-form')[0].reset();
                         $('#modal-edit-user').modal('hide');
@@ -312,6 +357,7 @@
 
                 }
             });
+            }
         }
 
         function userAdd(){
@@ -379,6 +425,7 @@
                     $('#userAddBtn').attr('disabled', false);
                     $('#userAddBtn').text('Save');
                     if(response.success){
+                        resetBoxes();
                         toastr.success('Successfully Inserted.');
                         $('#itemsAdd_form')[0].reset();
                         $('#modal-default').modal('hide');

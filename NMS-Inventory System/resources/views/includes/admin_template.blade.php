@@ -250,8 +250,8 @@ $(document).ready(function() {
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
-      modal.find('.modal-body #ePassword').val(password)
-      modal.find('.modal-body #eConfPassword').val(password)
+    //   modal.find('.modal-body #ePassword').val(password)
+    //   modal.find('.modal-body #eConfPassword').val(password)
 
     })
 
@@ -523,7 +523,7 @@ $(document).ready(function() {
     var quantity = button.data('quantity')
   $("#iQuantity")
           .attr("min", quantity)
-          
+
           .val(quantity)
     // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
