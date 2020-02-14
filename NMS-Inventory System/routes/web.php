@@ -34,6 +34,7 @@ Route::resource('/items', 'ItemsController');
 Route::resource('/items_page', 'ItemsController');
 Route::post('/editItem', 'ItemsController@update')->name('itemEdit');
 Route::post('/reduceItem', 'ItemsController@updateQuantity')->name('itemReduce');
+Route::post('/increaseItem', 'ItemsController@increaseQuantity')->name('itemIncrease');
 // Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 // Route::get('/items', 'ItemsController@getData');
 Route::post('/softdelitem', 'ItemsController@delete')->name('itemSoftDelete');

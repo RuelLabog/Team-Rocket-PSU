@@ -511,11 +511,27 @@ $(document).ready(function() {
 
       modal.find('.modal-body #rItemID').val(itemid)
       modal.find('.modal-body #rQuantity').val(quantity)
-
-
     })
 
 </script>
 
+{{-- increase quantity --}}
+<script>
+  $('#modal-increase-quantity').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var itemid = button.data('itemid')
+    var quantity = button.data('quantity')
+  $("#iQuantity")
+          .attr("min", quantity)
+          
+          .val(quantity)
+    // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-body #iItemID').val(itemid)
+    modal.find('.modal-body #iQuantity').val(quantity)
+  })
+</script>
 </body>
 </html>

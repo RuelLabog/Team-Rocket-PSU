@@ -166,11 +166,13 @@
                         'dRecID': $('input[name=dRecID').val()},
                 beforeSend:function(){
                     $('#receiptDelBtn').text('Deleting...');
+                    $('#receiptDelBtn').attr('disabled', true);
                 },
                 success: function (response){
                   toastr.success('Successfully Deleted.');
                         $('#modal-delete-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
+                        $('#receiptDelBtn').attr('disabled', false);
                         $('#receiptDelBtn').text('Delete');
                 }
             });
@@ -227,11 +229,13 @@
                         },
                 beforeSend:function(){
                     $('#receiptEditBtn').text('Updating...');
+                    $('#receiptEditBtn').attr('disabled', true);
                 },
                 success: function (response){
                         toastr.success('Successfully Updated.');
                         $('#modal-edit-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
+                        $('#receiptEditBtn').attr('disabled', false);
                         $('#receiptEditBtn').text('Save Changes');
                         resetBoxes();
                 }
@@ -288,13 +292,15 @@
                         },
                 beforeSend:function(){
                     $('#receiptAddBtn').text('Inserting...');
+                    $('#receiptAddBtn').attr('disabled', true);
                 },
                 success: function (response){
                   toastr.success('Successfully Added.');
                   $('#add-form')[0].reset();
                         $('#modal-add-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
-                        $('#receiptAddBtn').text('Save Changes');
+                        $('#receiptAddBtn').attr('disabled', false);
+                        $('#receiptAddBtn').text('Save');
                         resetBoxes();
                 }
             });
