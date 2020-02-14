@@ -20,6 +20,7 @@
     </div>
     <!-- /.content-header -->
 
+          <!-- /.card -->
           <div class="card">
             <div class="card-header">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="add_data" name="add_data">
@@ -60,27 +61,22 @@
                   <label>Item: <span class="required">*</span></label>
                   <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
                 </div>
-
                 <div class="form-group">
                 <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Item Description" id="itemdesc" name="itemdesc" maxlength="200" required></textarea>
                 </div>
-
                 <div class="form-group">
                   <label>Quantity: <span class="required">*</span></label>
                   <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity" required>
                 </div>
-
                 <div class="form-group">
                   <label>Category: <span class="required">*</span></label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
-
                     @foreach($category as $data)
-                  <option value="{{$data->id}}"> {{$data->catname}}</option>
+                    <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
                   </select>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
@@ -105,26 +101,21 @@
                 {{method_field('patch')}}
                 {{ csrf_field() }}
             <div class="modal-body">
-            <input type="hidden" class="form-control"  id="eItemID" name="eItemID" value="" placeholder="Item ID">
-
+                <input type="hidden" class="form-control"  id="eItemID" name="eItemID" value="" placeholder="Item ID">
                 <div class="form-group">
                   <label>Item: <span class="required">*</span></label>
                   <input type="text" class="form-control" id="eItemname" name="eItemname" placeholder="Item Name" required>
                 </div>
-
                 <div class="form-group">
                 <label>Description: <span class="required">*</span></label>
                 <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
-
                 <div class="form-group">
                   <label>Quantity: <span class="required">*</span></label>
                   <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
                 </div>
-
                 <div class="form-group">
                   <label>Category: <span class="required">*</span></label>
-
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="catid" id="eCatName" required>
                     @foreach($category as $data)
                     <option value="{{$data->id}}" > {{$data->catname}}</option>
@@ -158,7 +149,6 @@
             <div class="modal-body">
                 <input type="hidden" id="dItemID" name="dItemID"/>
                 <h6 style="text-align:center">Are you sure you want to delete item <label id='dItemName'></label> ?</h6>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -206,9 +196,7 @@
                   <option value="Production Recruitment Department">Production Recruitment Department</option>
                   <option value="Sales and Marketing">Sales and Marketing</option>
                 </select>
-
               </div>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
@@ -261,6 +249,8 @@
             $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
                 'border': '1px solid grey'
             });
+            $('#item-form')[0].reset();
+            $('#item-reduce')[0].reset();
         }
 
         function itemEdit(){
@@ -534,10 +524,6 @@
         </script>
 {{-- panget at malapit nang bitayin si jerry --}}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fb0792360592ba560646891b3a536e8be02ed43e
  @endsection
 
 

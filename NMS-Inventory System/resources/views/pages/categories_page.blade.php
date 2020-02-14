@@ -1,4 +1,4 @@
-  @extends('includes/admin_template')
+@extends('includes/admin_template')
 
 
 
@@ -22,6 +22,7 @@
     </div>
     <!-- /.content-header -->
 
+    <!-- /.card -->
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -45,8 +46,8 @@
       </div>
       <!-- /.card -->
 
-<!-- add items modal -->
-      <div class="modal fade" id="modal-default" data-backdrop="static">
+       <!-- add items modal -->
+       <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -74,8 +75,8 @@
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>
-      <!-- /.add items modal -->
+       </div>
+       <!-- /.add items modal -->
 
        <!-- edit item modal -->
        <div class="modal fade" id="modal-edit-category" data-backdrop="static">
@@ -111,7 +112,7 @@
       </div>
       <!-- /.edit item modal -->
 
-            <!-- delete categories modal -->
+      <!-- delete categories modal -->
       <div class="modal fade" id="modal-delete-category">
         <div class="modal-dialog">
           <div class="modal-content">
