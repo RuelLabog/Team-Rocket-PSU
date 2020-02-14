@@ -305,11 +305,15 @@
                     $('#receiptAddBtn').text('Inserting...');
                     $('#receiptAddBtn').attr('disabled', true);
                 },
-                success: function (response){
-                  toastr.success('Successfully Added.');
-                  $('#add-form')[0].reset();
+            success: function (response){
+                    if(response.success){
+                      toastr.success('Successfully Added.');
+                        $('#add-form')[0].reset();
                         $('#modal-add-receipt').modal('hide');
                         $('#receipts_table').DataTable().ajax.reload();
+                    }else{
+                        toastr.error(response.err);
+                    }
                         $('#receiptAddBtn').attr('disabled', false);
                         $('#receiptAddBtn').text('Save');
                         resetBoxes();
@@ -360,7 +364,7 @@
                         toastr.success('Successfully Deleted.');
                         $('#receipts_table').DataTable().ajax.reload();
                     }
-                });
+                });             
         }
     </script>
 
