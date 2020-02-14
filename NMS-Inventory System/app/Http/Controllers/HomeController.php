@@ -54,25 +54,30 @@ class HomeController extends Controller
                         ->where('deleted_at', '=', null)->count();
         $users['users'] = DB::table('users')->get()
                         ->where('deleted_at', '=', null)->count();
+        $receipts['receipts'] = DB::table('receipts')->get()
+                        ->where('deleted_at', '=', null)->count();
+        $departments = array(
+            'Admin and Finance Department',
+            'Human Resources and Development',
+            'Information Technology & Development',
+            'Messaging Support Team',
+            'Sales and Marketing',
+            'Production Recruitment Department'
+        );
 
-        if(count($items) > 0){
-            return view('pages.dashboard',  ['items' => $items, 'categories' => $categories, 'users' => $users]);
-        }
-        else{
-            return view('pages.dashboard');
-        }
-    }
+        $transactions['transactions'] = DB::table('transactions')->get()
+                        ->where('department', '=', 'Admin and Finance Department')->count();
 
-    function totalCategories(){
         
 
-        if(count($categories) > 0){
-            return view('pages.dashboard',  $categories);
+        if(count($items) > 0){
+            return view('pages.dashboard',  ['items' => $items, 'categories' => $categories, 'users' => $users, 'receipts' => $receipts, 'transactions' => $transactions]);
         }
         else{
             return view('pages.dashboard');
         }
     }
+
 
 
 

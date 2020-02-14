@@ -32,11 +32,12 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                @foreach($users as $value)
-                <h3>{{$value}}</h3>
-                @endforeach 
 
-                <p>Users</p>
+                @foreach($categories as $value)
+                <h3>{{$value}}</h3>
+                @endforeach
+                
+                <p>Categories</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -47,11 +48,19 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-warning">
               <div class="inner">
-                <h3>53</h3>
+                @foreach($items as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
 
-                <p>...</p>
+
+                @foreach($transactions as $value)
+                <h3>{{$value}}</h3>
+                @endforeach
+
+                
+                <p>Items</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -62,12 +71,12 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-success">
               <div class="inner">
-                @foreach($items as $value)
+                @foreach($receipts as $value)
                 <h3>{{$value}}</h3>
                 @endforeach 
-                <p>Items</p>
+                <p>Receipts</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -80,11 +89,12 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                @foreach($categories as $value)
-                <h3>{{$value}}</h3>
-                @endforeach
 
-                <p>Categories</p>
+                @foreach($users as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
+
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
