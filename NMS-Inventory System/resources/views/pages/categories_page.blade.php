@@ -161,11 +161,14 @@
                     $('#categoryDelBtn').attr('disabled', true);
                 },
                 success: function (response){
-
-                        toastr.success('Successfully Deleted.');
-                        $('#delete-form')[0].reset();
+                    if(response.success){
+                        toastr.success('Successfully deleted.');
                         $('#modal-delete-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
+                    }else{
+                        toastr.error(response.err);
+                        $('#modal-delete-category').modal('hide');
+                    }
                         $('#categoryDelBtn').attr('disabled', false);
                         $('#categoryDelBtn').text('Delete');
                 }
@@ -212,12 +215,15 @@
                     $('#categoryEditBtn').attr('disabled', true);
                 },
                 success: function (response){
-                    resetBoxes();
-                    toastr.success('Successfully Updated.');
-                    $('#categories_table').DataTable().ajax.reload();
-                    $('#categoryEditBtn').attr('disabled', false);
-                    $('#categoryEditBtn').text('Save Changes');
-                    $('#modal-edit-category').modal('hide');
+                    if(response.success){
+                        toastr.success('Successfully Updated.');
+                        $('#modal-edit-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                    }else{
+                        toastr.error(response.err);
+                    }
+                        $('#categoryEditBtn').attr('disabled', false);
+                        $('#categoryEditBtn').text('Save Changes');
                 }
             });
             }

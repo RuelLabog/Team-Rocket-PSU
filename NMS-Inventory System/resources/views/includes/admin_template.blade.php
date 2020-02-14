@@ -501,7 +501,7 @@ $(document).ready(function() {
       var itemid = button.data('itemid')
       var quantity = button.data('quantity')
     $("#rQuantity")
-            .attr("min", 1)
+            .attr("min", 0)
             .attr("max", quantity)
             .val(quantity)
       // Extract info from data-* attributes

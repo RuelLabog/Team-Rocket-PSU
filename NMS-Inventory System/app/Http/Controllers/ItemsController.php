@@ -191,11 +191,14 @@ class ItemsController extends Controller
     {
         $itemid = $request->input('rItemID');
         $quantitydec = $request->input('rQuantity');
+
+        $quantity = DB::table('items')->where('id',$itemid)->value('quantity');
+        $total = $quantity-$quantitydec;
         $datedec = now();
         $statusreport = $request->input('statReport');
         $userid = auth()->user()->id;
-        $item =  array('itemid'=>$itemid,'quantitydec'=>$quantitydec,'datedec'=>$datedec,'statusreport'=>$statusreport,'userid'=>$userid);
-
+        $item =  array('itemid'=>$itemid,'quantitydec'=>$total ,'datedec'=>$datedec,'statusreport'=>$statusreport,'userid'=>$userid);
+        // dd($item);
         DB::table('dechistory')->insert($item);
 
         $id = $request->input('rItemID');
