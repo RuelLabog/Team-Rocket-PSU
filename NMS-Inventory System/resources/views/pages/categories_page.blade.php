@@ -283,6 +283,54 @@
 
         }
 
+        function restore(){
+            var catname = $('#restoreBtn').val();
+            var url = "restoreCat";
+            alert(catname);
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'catName':catname
+                        },
+                    beforeSend:function(){
+                        // $('#categoryAddBtn').text('Inserting...');
+                        // $('#categoryAddBtn').attr('disabled', true);
+                        toastr.warning(catname+' Restoring...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        toastr.success('Successfully Restored.');
+                        $('#modal-edit-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                    }
+                });
+        }
+
+        function forceDel(){
+            var catname = $('#forcedDelBtn').val();
+            var url = "forceDelCat";
+            alert(catname);
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'catName':catname
+                        },
+                    beforeSend:function(){
+                        toastr.warning(catname+' Deleting...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        categoryEdit();
+                        toastr.success('Successfully Deleted.');
+                        $('#categories_table').DataTable().ajax.reload();
+                    }
+                });
+        }
+
 
     </script>
 
