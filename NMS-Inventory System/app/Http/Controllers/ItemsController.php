@@ -212,7 +212,7 @@ class ItemsController extends Controller
         $ornum = $request->input('iOrnum');
         $quantityinc = $request->input('iQuantity');
         $quantity = DB::table('items')->where('id',$itemid)->value('quantity');
-        $total = $quantity-$quantityinc;
+        $total = $quantityinc-$quantity;
         $dept = $request->input('iDept');
         $itemInc =  array('itemid'=>$itemid,'transid'=>$ornum,'quantity'=>$total,'department'=>$dept);
 

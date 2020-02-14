@@ -1,4 +1,4 @@
-  @extends('includes/admin_template')
+@extends('includes/admin_template')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -146,6 +146,7 @@
       <!-- /.edit item modal -->
 
 
+
       <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
@@ -174,70 +175,48 @@
 
 
       <!-- add quantity modal -->
-      <div class="modal fade" id="modal-add-quantity">
+      <div class="modal fade" id="modal-increase-quantity">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Add Quantity</h4>
             </div>
-            <form action="" method="get">
+            <form action="" method="post" id="increase-item-form">
             {{ csrf_field() }}
             <div class="modal-body">
-
+              <input type="hidden" class="form-control"  id="iItemID" name="iItemID" value="" placeholder="Item ID">
               <div class="form-group mt-3">
                 <label>Quantity:<span class="required"> *</span> </label>
-                <input type="number" name="add_quantity" class="form-control" min="1">
+                <input type="number" name="iQuantity" id="iQuantity" class="form-control" min="1">
               </div>
               <div class="form-group">
                 <label>Receipt:<span class="required"> *</span></label>
-                <select class="form-control">
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
+                <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iOrnum" id="iOrnum" required>
+                  @foreach($receipt as $data)
+                  <option value="{{$data->id}}"> {{$data->ornum}}</option>
+                    @endforeach
                 </select>
               </div>
               <div class="form-group">
                 <label>Department:<span class="required"> *</span></label>
-                <select class="form-control">
+                <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iDept" id="iDept" required>
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
-                  <option value="Corporate Image & Branding">Corporate Image & Branding</option>
-                  <option value="Digital Content">Digital Content</option>
-                  <option value="Disney Productions Department">Disney Productions Department</option>
-                  <option value="Employee Engagement and Retention">Employee Engagement and Retention</option>
-                  <option value="External Affairs and Production Department">External Affairs and Production Department</option>
-                  <option value="FL Production Department Management">FL Production Department Management</option>
+
                   <option value="Human Resources and Development">Human Resources and Development</option>
                   <option value="Information Technology & Development">Information Technology & Development</option>
-                  <option value="Jeemo PJ">Jeemo PJ</option>
-                  <option value="Live Services Department">Live Services Department</option>
-                  <option value="Messaging">Messaging</option>
                   <option value="Messaging Support Team">Messaging Support Team</option>
-                  <option value="NMS Cares">NMS Cares</option>
-                  <option value="Offline Services Department">Offline Services Department</option>
                   <option value="Online Management Personnel">Online Management Personnel</option>
-                  <option value="Online Support">Online Support</option>
-                  <option value="OSD Billing">OSD Billing</option>
-                  <option value="OSD Management Team">OSD Management Team</option>
-                  <option value="OSD Moderation">OSD Moderation</option>
-                  <option value="OSD SEO">OSD SEO</option>
-                  <option value="OSD SEO Beta">OSD SEO Beta</option>
-                  <option value="OSD Support">OSD Support</option>
-                  <option value="Outbound Support">Outbound Support</option>
-                  <option value="Product Development Department">Product Development Department</option>
-                  <option value="Production Department Support">Production Department Support</option>
                   <option value="Production Recruitment Department">Production Recruitment Department</option>
                   <option value="Sales and Marketing">Sales and Marketing</option>
                   <option value="Training & Quality Assurance Department">Training & Quality Assurance Department</option>
                 </select>
-                
+
               </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
+              <button type="button" class="btn btn-success" id="itemIncBtn" onclick="itemIncrease()">Save</button>
             </div>
             </form>
           </div>
@@ -254,12 +233,12 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Reduce Quantity</h4>
             </div>
-            <form action="" method="get">
+            <form action="" method="get" id="item-reduce">
             {{ csrf_field() }}
             <div class="modal-body">
               <div class="form-group mt-3">
                 <input type="hidden" name="rItemID" id="rItemID" class="form-control">
-                <label>Quantity: </label>
+                <label>Total Quantity: </label>
               <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="">
               </div>
               <div class="form-group mt-3">
@@ -349,6 +328,7 @@
                         $('#modal-edit-items').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
                         $('#itemEditBtn').text('Save Changes');
+                        resetBoxes();
 
                     }
                 });
@@ -413,14 +393,76 @@
                     $('#item-form')[0].reset();
                     $('#modal-default').modal('hide');
                     $('#items_table').DataTable().ajax.reload();
-                    $('#itemAddBtn').text('Save Changes');
+                    $('#itemAddBtn').text('Save');
                     resetBoxes();
                     }
                 });
             }
-
         }
 
+        function itemIncrease(){
+            var url =  "increaseItem";
+            var iItemID = $('#iItemID').val();
+            var iOrnum = $('#iOrnum').val();
+            var iQuantity =$('#iQuantity').val();
+            var iDept =$('#iDept').val();
+            if(iOrnum == "" || iQuantity == "" || iDept == ""){
+                toastr.error('All fields are required!');
+                if(iOrnum == ""){
+                    $('#iOrnum').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iOrnum').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(iQuantity == ""){
+                    $('#iQuantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iQuantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(iDept == ""){
+                    $('#iDept').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iDept').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'iItemID':iItemID,
+                        'iOrnum':iOrnum,
+                        'iQuantity':iQuantity,
+                        'iDept': iDept
+                        },
+                beforeSend:function(){
+                    $('#itemIncBtn').text('Inserting...');
+                },
+                success: function (response){
+                    toastr.success('Successfully Added.');
+                    $('#item-form')[0].reset();
+                    $('#modal-increase-quantity').modal('hide');
+                    $('#items_table').DataTable().ajax.reload();
+                    $('#itemIncBtn').text('Save');
+                    resetBoxes();
+                    }
+                });
+            }
+        }
 
         function itemDelete(){
             var id = $('#dItemID').val();
@@ -484,10 +526,12 @@
                         $('#itemRedBtn').text('Updating...');
                     },
                     success: function (response){
-                        toastr.success('Successfully Updated.');
+                        toastr.success('Quantity reduced by ' + rQuantity);
+                        $('#item-reduce')[0].reset();
                         $('#modal-reduce-quantity').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
                         $('#itemRedBtn').text('Save Changes');
+                        resetBoxes();
 
                     }
                 });
@@ -495,14 +539,8 @@
         }
 
         </script>
-{{-- panget si jerry --}}
+{{-- panget at malapit nang bitayin si jerry --}}
 
-
-<style>
-.required{
-    color: red;
-}
-</style>
 
  @endsection
 
