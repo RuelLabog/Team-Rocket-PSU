@@ -58,7 +58,7 @@
 
 
 <!-- add items modal -->
-      <div class="modal fade" id="modal-default">
+      <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
@@ -115,7 +115,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="userAddBtn" onclick="userAdd()">Save</button>
             </div>
             </form>
@@ -133,7 +133,7 @@
 
 
       <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-user">
+      <div class="modal fade" id="modal-edit-user"  data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -193,7 +193,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="userEditBtn" onclick="userEdit()">Save Changes</button>
             </div>
             </form>
@@ -234,6 +234,13 @@
       <!-- /.delete item modal -->
 
       <script type="text/javascript">
+
+        function resetBoxes(){
+            $('input').css({
+                'border': '1px solid grey'
+            });
+        }
+
         function userDel(){
               $.ajax({
                 type: 'POST',

@@ -523,7 +523,7 @@ $(document).ready(function() {
     var quantity = button.data('quantity')
   $("#iQuantity")
           .attr("min", quantity)
-          
+
           .val(quantity)
     // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
