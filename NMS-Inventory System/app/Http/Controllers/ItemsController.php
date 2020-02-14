@@ -191,7 +191,6 @@ class ItemsController extends Controller
     {
         $itemid = $request->input('rItemID');
         $quantitydec = $request->input('rQuantity');
-
         $quantity = DB::table('items')->where('id',$itemid)->value('quantity');
         $total = $quantity-$quantitydec;
         $datedec = now();
