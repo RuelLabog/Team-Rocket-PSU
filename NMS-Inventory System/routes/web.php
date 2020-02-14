@@ -71,7 +71,8 @@ Route::resource('/receipts_page', 'ReceiptController');
 Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
 Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
 Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
-
+Route::post('/restoreRec', 'ReceiptController@restore')->name('receiptRestore');
+Route::post('/forceDelRec', 'ReceiptController@forceDelete')->name('receiptForceDel');
 
 // });
 
