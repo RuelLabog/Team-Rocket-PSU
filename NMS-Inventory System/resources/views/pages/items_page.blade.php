@@ -146,6 +146,7 @@
       <!-- /.edit item modal -->
 
 
+
       <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
