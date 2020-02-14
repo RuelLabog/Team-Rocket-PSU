@@ -32,7 +32,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150 </h3>
+                @foreach($users as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
 
                 <p>Users</p>
               </div>
@@ -49,7 +51,7 @@
               <div class="inner">
                 <h3>53</h3>
 
-                <p>Stocks Remaining</p>
+                <p>...</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -62,8 +64,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
-
+                @foreach($items as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
                 <p>Items</p>
               </div>
               <div class="icon">
@@ -77,7 +80,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                @foreach($categories as $value)
+                <h3>{{$value}}</h3>
+                @endforeach
 
                 <p>Categories</p>
               </div>

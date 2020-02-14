@@ -1,4 +1,4 @@
-  @extends('includes/admin_template')
+@extends('includes/admin_template')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -146,6 +146,7 @@
       <!-- /.edit item modal -->
 
 
+
       <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
@@ -264,6 +265,9 @@
             $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
                 'border': '1px solid grey'
             });
+            $('#item-form')[0].reset();
+            $('#increase-item-form')[0].reset();
+            $('#item-reduce')[0].reset();
         }
 
         function itemEdit(){

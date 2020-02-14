@@ -22,10 +22,6 @@
     </div>
     <!-- /.content-header -->
 
-
-
-
-
       <div class="card">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -147,6 +143,7 @@
             $('#catName, #catDesc, #eCatName, #eCatDesc').css({
                 'border': '1px solid grey'
             });
+            $('#add-form')[0].reset();
         }
 
         function categoryDel(){
