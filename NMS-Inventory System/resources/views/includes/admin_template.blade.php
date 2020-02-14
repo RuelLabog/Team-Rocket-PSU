@@ -100,63 +100,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- ChartJS -->
 <script src="bower_components/admin-lte/plugins/chart.js/Chart.min.js"></script>
 
+
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
 
-
-
-
-
-
   });
 </script>
 
-<script>
 
-
-$(document).ready(function() {
-
-          //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-
-    var pieData        = {
-      labels: [
-          'Admin and Finance Department',
-          'Human Resources and Development',
-          'Information Technology & Development',
-          'Messaging Support Team',
-          'Sales and Marketing',
-          'Production Recruitment Department',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-
-});
-
-
-
-</script>
 
 
 {{-- edit category --}}
@@ -178,7 +131,6 @@ $(document).ready(function() {
     })
 
 </script>
-
 
 {{-- edit items --}}
 <script>
@@ -258,7 +210,7 @@ $(document).ready(function() {
 
 </script>
 
-
+{{-- toastr message prompt --}}
 <script>
   @if(Session::has('message'))
     var type="{{Session::get('alert-type', 'success')}}";
@@ -274,8 +226,8 @@ $(document).ready(function() {
   @endif
 </script>
 
+{{-- delete items --}}
 <script>
-    //retrieve name of items in delete items modal
     $('#modal-delete-items').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var itemName = button.data('itemname');
@@ -289,7 +241,7 @@ $(document).ready(function() {
     })
 </script>
 
-
+{{-- delete category --}}
 <script>
     // retrieve name of category in delete category modal
     $('#modal-delete-category').on('show.bs.modal', function (event) {
@@ -305,8 +257,9 @@ $(document).ready(function() {
 
 </script>
 
+{{-- delete receipt --}}
 <script>
-    // retrieve name of category in delete category modal
+
     $('#modal-delete-receipt').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var recid = button.data('recid')
@@ -319,7 +272,6 @@ $(document).ready(function() {
     })
 
 </script>
-
 
 {{-- delete user --}}
 <script>
@@ -341,6 +293,7 @@ $(document).ready(function() {
 
 </script>
 
+{{-- displaying of data in te tables --}}
  <script type="text/javascript">
 
         $(document).ready(function(){
@@ -406,6 +359,7 @@ $(document).ready(function() {
                         orderable: false
                     }
                 ]
+
             });
 
 
@@ -534,5 +488,8 @@ $(document).ready(function() {
     modal.find('.modal-body #iQuantity').val(quantity)
   })
 </script>
+
+
+
 </body>
 </html>

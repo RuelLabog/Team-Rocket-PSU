@@ -122,7 +122,7 @@ class ProfileController extends Controller
         $inputpass = Hash::make($request['curpassword']);
 
 
-        if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL || $request['newpassword'] == NULL) {
+        if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
@@ -130,7 +130,7 @@ class ProfileController extends Controller
         }
         elseif(!Hash::check($request['curpassword'], $password)){
                 $notification = array(
-                    'message'=> $inputpass . ' ' . $password,
+                    'message'=> 'Incorrect Password! Please Contact your Administrator!',
                     'alert-type' => 'error'
                 );
         }else{
