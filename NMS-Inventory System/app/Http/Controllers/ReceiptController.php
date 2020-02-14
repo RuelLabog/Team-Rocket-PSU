@@ -98,25 +98,35 @@ class ReceiptController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function restore(Request $request){
+        $ornum = $request['ornum'];
+       DB::table('receipts')->where('ornum', '=', $ornum)->update(['deleted_at' => null]);
+    }
+
+    public function forceDelete(Request $request){
+        $ornum = $request->input('ornum');
+        DB::table('receipts')->where('ornum', '=', $ornum)->delete();
+    }
+
     public function update(Request $request){
         $id = $request->input('eRecID');
         $updaterec = receipt::findOrFail($id);
         $updaterec->ornum =  $request->input('eOrnum');
         $updaterec->supplier = $request->input('eSupplier');
         $updaterec->pdate = $request->input('ePdate');
-        $updaterec->save();
+        
 
-        if ($request['eOrnum'] == NULL || $request['eSupplier'] == NULL || $request['ePdate'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
+        if(DB::table('receipts')->where('ornum', '=', $request->input('eOrnum'))->where('deleted_at', '!=', null)->exists()) {
+            $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eOrnum').'" onclick="restore()">Restore</button>';
+            $button2 = '<button class="btn-danger btn-xs" id="forcedDelBtn" value="'.$request->input('eOrnum').'" onclick="forceDel()">Force Delete</button>';
+            return response()->json(['err'=>'Receipt name already exists but was soft deleted! Do you want to restore or force delete receipt '.$request->input('eOrnum').' ? &nbsp;&nbsp;&nbsp;'.$button.$button2]);
+            // return response()->json(['err'=>'Category name already exists']);
+        }elseif(DB::table('receipts')->where('ornum', '=', $request->input('eOrnum'))->where('id', '!=', $id)->exists()) {
+            return response()->json(['err'=>'Receipt name already exists']);
         }else{
             $updaterec->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );}
+            return response()->json(['success'=>'Successfully Updated']);
+        }    
             
     }
 
@@ -167,6 +177,7 @@ class ReceiptController extends Controller
                 'alert-type' => 'error'
             );
         }
+        
         return back()->with($notification);
     }
 }

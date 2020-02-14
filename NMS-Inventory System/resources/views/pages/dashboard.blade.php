@@ -32,45 +32,13 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                @foreach($users as $value)
-                <h3>{{$value}}</h3>
-                @endforeach 
-
-                <p>Users</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="{{url('users')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53</h3>
-
-                <p>...</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
                 @foreach($items as $value)
                 <h3>{{$value}}</h3>
                 @endforeach 
                 <p>Items</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-bag"></i>
               </div>
               <a href="{{url('items')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -78,18 +46,51 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-warning">
               <div class="inner">
                 @foreach($categories as $value)
                 <h3>{{$value}}</h3>
                 @endforeach
-
                 <p>Categories</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{{url('categories')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                @foreach($receipts as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
+                <p>Receipts</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="{{url('receipt')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+
+                @foreach($users as $value)
+                <h3>{{$value}}</h3>
+                @endforeach 
+
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="{{url('categories')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{url('users_page')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -101,7 +102,7 @@
                     <!-- PIE CHART -->
             <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Pie Chart</h3>
+                <h3 class="card-title">Supplies Per Department</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -127,6 +128,61 @@
 
 
 
+<!-- jQuery -->
+<script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
+
+<script>
+
+
+$(document).ready(function() {
+
+          //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+
+    var pieData        = {
+      labels: [
+          'Admin and Finance Department',
+          'Human Resources and Development',
+          'Information Technology & Development',
+          'Messaging Support Team',
+          'Sales and Marketing',
+          'Production Recruitment Department',
+      ],
+      datasets: [
+        {
+             
+          data: [
+          @foreach($datas as $value) 
+          {{$value.','}}
+          @endforeach
+          ]
+          ,
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+    var pieOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    var pieChart = new Chart(pieChartCanvas, {
+      type: 'pie',
+      data: pieData,
+      options: pieOptions
+    })
+
+});
+
+
+
+</script>
+
+
 
 
 
@@ -135,6 +191,8 @@
 
 
   @endsection
+
+
 
 
 

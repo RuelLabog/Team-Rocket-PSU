@@ -113,50 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<script>
 
-
-$(document).ready(function() {
-
-          //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-
-    var pieData        = {
-      labels: [
-          'Admin and Finance Department',
-          'Human Resources and Development',
-          'Information Technology & Development',
-          'Messaging Support Team',
-          'Sales and Marketing',
-          'Production Recruitment Department',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-
-});
-
-
-
-</script>
 
 
 {{-- edit category --}}
@@ -251,8 +208,8 @@ $(document).ready(function() {
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
-      modal.find('.modal-body #ePassword').val(password)
-      modal.find('.modal-body #eConfPassword').val(password)
+    //   modal.find('.modal-body #ePassword').val(password)
+    //   modal.find('.modal-body #eConfPassword').val(password)
 
     })
 
@@ -524,7 +481,7 @@ $(document).ready(function() {
     var quantity = button.data('quantity')
   $("#iQuantity")
           .attr("min", quantity)
-          
+
           .val(quantity)
     // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).

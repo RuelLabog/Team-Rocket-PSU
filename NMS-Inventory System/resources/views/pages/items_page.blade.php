@@ -146,7 +146,6 @@
       <!-- /.edit item modal -->
 
 
-
       <!-- delete item modal -->
       <div class="modal fade" id="modal-delete-items">
         <div class="modal-dialog">
@@ -262,9 +261,6 @@
             $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
                 'border': '1px solid grey'
             });
-            $('#item-form')[0].reset();
-            $('#increase-item-form')[0].reset();
-            $('#item-reduce')[0].reset();
         }
 
         function itemEdit(){
@@ -538,7 +534,10 @@
         </script>
 {{-- panget at malapit nang bitayin si jerry --}}
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> fb0792360592ba560646891b3a536e8be02ed43e
  @endsection
 
 

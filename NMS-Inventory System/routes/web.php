@@ -53,7 +53,8 @@ Route::post('/softDelCat', 'CategoriesController@delete')->name('catSoftDelete')
 Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 Route::post('/categories','CategoriesController@insert');
 Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
-
+Route::post('/restoreCat', 'CategoriesController@restore')->name('categoryRestore');
+Route::post('/forceDelCat', 'CategoriesController@forceDelete')->name('categoryForceDel');
 //users routes
 Route::resource('/users_page', 'UsersController')->middleware('superAdmin');
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
@@ -70,7 +71,8 @@ Route::resource('/receipts_page', 'ReceiptController');
 Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
 Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
 Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
-
+Route::post('/restoreRec', 'ReceiptController@restore')->name('receiptRestore');
+Route::post('/forceDelRec', 'ReceiptController@forceDelete')->name('receiptForceDel');
 
 // });
 
