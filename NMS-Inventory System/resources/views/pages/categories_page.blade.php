@@ -77,7 +77,6 @@
       </div>
       <!-- /.add items modal -->
 
-
        <!-- edit item modal -->
        <div class="modal fade" id="modal-edit-category" data-backdrop="static">
         <div class="modal-dialog">
@@ -227,7 +226,6 @@
 
         }
 
-
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
             var catName = $('#catName').val();
@@ -320,7 +318,7 @@
                         toastr.success('Successfully Deleted.');
                         $('#categories_table').DataTable().ajax.reload();
                     }
-                });
+            });
         }
 
 
