@@ -202,36 +202,11 @@
                 <label>Department:<span class="required"> *</span></label>
                 <select class="form-control">
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
-                  <option value="Corporate Image & Branding">Corporate Image & Branding</option>
-                  <option value="Digital Content">Digital Content</option>
-                  <option value="Disney Productions Department">Disney Productions Department</option>
-                  <option value="Employee Engagement and Retention">Employee Engagement and Retention</option>
-                  <option value="External Affairs and Production Department">External Affairs and Production Department</option>
-                  <option value="FL Production Department Management">FL Production Department Management</option>
                   <option value="Human Resources and Development">Human Resources and Development</option>
                   <option value="Information Technology & Development">Information Technology & Development</option>
-                  <option value="Jeemo PJ">Jeemo PJ</option>
-                  <option value="Live Services Department">Live Services Department</option>
-                  <option value="Messaging">Messaging</option>
                   <option value="Messaging Support Team">Messaging Support Team</option>
-                  <option value="NMS Cares">NMS Cares</option>
-                  <option value="Offline Services Department">Offline Services Department</option>
-                  <option value="Online Management Personnel">Online Management Personnel</option>
-                  <option value="Online Support">Online Support</option>
-                  <option value="OSD Billing">OSD Billing</option>
-                  <option value="OSD Management Team">OSD Management Team</option>
-                  <option value="OSD Moderation">OSD Moderation</option>
-                  <option value="OSD SEO">OSD SEO</option>
-                  <option value="OSD SEO Beta">OSD SEO Beta</option>
-                  <option value="OSD Support">OSD Support</option>
-                  <option value="Outbound Support">Outbound Support</option>
-                  <option value="Product Development Department">Product Development Department</option>
-                  <option value="Production Department Support">Production Department Support</option>
-                  <option value="Production Recruitment Department">Production Recruitment Department</option>
                   <option value="Sales and Marketing">Sales and Marketing</option>
-                  <option value="Training & Quality Assurance Department">Training & Quality Assurance Department</option>
-                </select>
-                
+                  <option value="Production Recruitment Department">Production Recruitment Department</option>
               </div>
 
             </div>

@@ -27,6 +27,7 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@totalItems')->name('totalItems');
 Route::get('/sidebar', 'tryController@image');
 
 //items routes
