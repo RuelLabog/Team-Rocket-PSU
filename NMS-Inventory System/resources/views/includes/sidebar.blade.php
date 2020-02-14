@@ -61,7 +61,7 @@
               </p>
             </a>
           </li>
-
+          @if(auth()->user()->usertype == "superAdmin")
           <li class="nav-item">
             <a href="{{url('users_page')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -70,7 +70,7 @@
               </p>
             </a>
           </li>
-
+          @endif
           <li class="nav-item">
             <a class="nav-link"  href="{{ route('logout') }}"
                 onclick="event.preventDefault();

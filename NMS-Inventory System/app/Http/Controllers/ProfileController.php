@@ -20,7 +20,7 @@ class ProfileController extends Controller
         //
     }
 
-        //Retreiving of Data.
+    //Retreiving of Data.
     function getData(){
         $data['data'] = DB::table('users')->get()
                         ->where('id', '=', auth()->user()->id);

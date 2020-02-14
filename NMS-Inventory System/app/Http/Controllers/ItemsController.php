@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\item;
 use App\category;
 use App\reducehistory;
+use App\transaction;
 use Illuminate\Http\Request;
 use DB;
 use View;
@@ -41,8 +42,10 @@ class ItemsController extends Controller
 
             return DataTables::of($data)
             ->addColumn('quantity', function($data){
-                                        $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-add-quantity"
+                                        $button2 = '<a href="" class="font-weight-bold" data-toggle="modal" data-target="#modal-increase-quantity"
                                         id="'.$data->id.'"
+                                        data-itemid="'.$data->id.'"
+                                        data-quantity="'.$data->quantity.'"
                                         style="margin-left:10%; margin-right:10%;">
                                         <i class="fas fa-plus-square text-success"></i>
                                         </a>
@@ -188,19 +191,36 @@ class ItemsController extends Controller
     {
         $itemid = $request->input('rItemID');
         $quantitydec = $request->input('rQuantity');
+
+        $quantity = DB::table('items')->where('id',$itemid)->value('quantity');
+        $total = $quantity-$quantitydec;
         $datedec = now();
         $statusreport = $request->input('statReport');
         $userid = auth()->user()->id;
-        $item =  array('itemid'=>$itemid,'quantitydec'=>$quantitydec,'datedec'=>$datedec,'statusreport'=>$statusreport,'userid'=>$userid);
-
+        $item =  array('itemid'=>$itemid,'quantitydec'=>$total ,'datedec'=>$datedec,'statusreport'=>$statusreport,'userid'=>$userid);
+        // dd($item);
         DB::table('dechistory')->insert($item);
 
         $id = $request->input('rItemID');
         $updateitem = item::findOrFail($id);
         $updateitem->quantity = $request->input('rQuantity');
         $updateitem->save();
+    }
 
+    public function increaseQuantity(Request $request)
+    {   
+        $itemid = $request->input('iItemID');
+        $ornum = $request->input('iOrnum');
+        $quantityinc = $request->input('iQuantity');
+        $dept = $request->input('iDept');
+        $itemInc =  array('itemid'=>$itemid,'transid'=>$ornum,'quantity'=>$quantityinc,'department'=>$dept);
 
+        DB::table('transactions')->insert($itemInc);
+
+        $id = $request->input('iItemID');
+        $updateitem = item::findOrFail($id);
+        $updateitem->quantity = $request->input('iQuantity');
+        $updateitem->save();
     }
 
     /**
@@ -254,7 +274,6 @@ class ItemsController extends Controller
                         'alert-type' => 'success'
                     );
                 }
-
             return back()->with($notification);
     }
 }

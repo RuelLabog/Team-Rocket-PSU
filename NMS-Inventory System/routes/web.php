@@ -33,6 +33,7 @@ Route::get('/sidebar', 'tryController@image');
 //items routes
 Route::resource('/items', 'ItemsController');
 Route::resource('/items_page', 'ItemsController');
+Route::post('/increaseItem', 'ItemsController@increaseQuantity')->name('itemIncrease');
 Route::post('/editItem', 'ItemsController@update')->name('itemEdit');
 Route::post('/reduceItem', 'ItemsController@updateQuantity')->name('itemReduce');
 // Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
@@ -54,8 +55,7 @@ Route::post('/categories','CategoriesController@insert');
 Route::post('/categories','CategoriesController@insert')->name('categoryInsert');
 
 //users routes
-// Route::get('/users', 'UsersController@getData');
-Route::resource('/users_page', 'UsersController');
+Route::resource('/users_page', 'UsersController')->middleware('superAdmin');
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 Route::post('/editUser', 'UsersController@update')->name('userUpdate');
 Route::post('/addUser', 'UsersController@insert')->name('userAdd');
