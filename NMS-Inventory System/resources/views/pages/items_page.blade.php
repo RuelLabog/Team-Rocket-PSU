@@ -286,6 +286,9 @@
             $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
                 'border': '1px solid grey'
             });
+            $('#item-form')[0].reset();
+            $('#increase-item-form')[0].reset();
+            $('#item-reduce')[0].reset();
         }
 
         function itemEdit(){
