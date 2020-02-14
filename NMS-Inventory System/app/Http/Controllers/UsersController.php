@@ -21,17 +21,17 @@ class UsersController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        $data['data'] = DB::table('users')
-                     ->where('deleted_at', '=', null)
-                     ->get();
+        // $data['data'] = DB::table('users')
+        //              ->where('deleted_at', '=', null)
+        //              ->get();
 
 
-        if(count($data) > 0){
-            return view('pages/users_page', $data);
-        }
-        else{
-            return view('pages/users_page');
-        }
+        // if(count($data) > 0){
+        //     return view('pages/users_page', $data);
+        // }
+        // else{
+            // return view('pages/users_page');
+        // }
     }
 
 

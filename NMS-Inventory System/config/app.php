@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\DynamicClassName::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\DynamicReceiptProvider::class,
+
 
     ],
 

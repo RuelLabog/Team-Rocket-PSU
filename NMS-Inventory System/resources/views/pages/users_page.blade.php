@@ -139,7 +139,7 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title">Edit User</h4>
             </div>
-            <form action="{{route('users_page.update', 'test')}}" method="POST">
+            <form action="" method="POST">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
