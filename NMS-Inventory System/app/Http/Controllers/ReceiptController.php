@@ -159,23 +159,16 @@ class ReceiptController extends Controller
         $pdate = $req->input('pdate');
         $data = array('ornum'=>$ornum,'supplier'=>$supplier, 'pdate'=>$pdate,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
-        if(DB::table('receipts')->where('ornum', '=', $ornum)->exists()){
-            DB::table('receipts')->where('ornum', '=', $ornum)->delete();
+        if(DB::table('receipts')->where('ornum', '=', $ornum)->where('deleted_at', '!=', null)->exists()){
+            DB::table('receipts')->where('ornum', '=', $ornum)->where('deleted_at', '!=', null)->delete();
             DB::table('receipts')->insert($data);
-            $notification = array(
-                'message'=> 'A new category is inserted!',
-                'alert-type' => 'success'
-            );
-        }elseif(DB::table('receipts')->insert($data)){
-            $notification = array(
-                'message'=> 'A new category is inserted!',
-                'alert-type' => 'success'
-            );
+            return response()->json(['success'=>'Successfully Added']);
+        }
+        if(DB::table('receipts')->where('ornum', '=', $ornum)->where('deleted_at', '=', null)->exists()){
+            return response()->json(['err'=>'Receipt name already exists']);
         }else{
-            $notification = array(
-                'message'=> 'An error occured while adding category.',
-                'alert-type' => 'error'
-            );
+            DB::table('receipts')->insert($data);
+            return response()->json(['success'=>'Successfully Added']);
         }
         
         return back()->with($notification);
