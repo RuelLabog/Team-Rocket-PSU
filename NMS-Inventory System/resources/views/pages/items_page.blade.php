@@ -535,7 +535,7 @@
         }
 
         </script>
-{{-- panget si jerry --}}
+{{-- panget at malapit nang bitayin si jerry --}}
 
 
  @endsection
