@@ -534,10 +534,6 @@
         </script>
 {{-- panget at malapit nang bitayin si jerry --}}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fb0792360592ba560646891b3a536e8be02ed43e
  @endsection
 
 
