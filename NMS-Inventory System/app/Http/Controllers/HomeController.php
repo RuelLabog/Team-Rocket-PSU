@@ -65,13 +65,20 @@ class HomeController extends Controller
             'Production Recruitment Department'
         );
 
-        $transactions['transactions'] = DB::table('transactions')->get()
-                        ->where('department', '=', 'Admin and Finance Department')->count();
+
+            $datas = array();
+            for ($i=0; $i < count($departments) ; $i++) { 
+                //$transactions['transactions'] = DB::table('transactions')->get()
+                        //->where('department', '=', $departments)->count();
+                array_push($datas, DB::table('transactions')->get()
+                        ->where('department', '=', $departments[$i])->sum('quantity'));
+            }
+            
 
         
 
         if(count($items) > 0){
-            return view('pages.dashboard',  ['items' => $items, 'categories' => $categories, 'users' => $users, 'receipts' => $receipts, 'transactions' => $transactions]);
+            return view('pages.dashboard',  ['items' => $items, 'categories' => $categories, 'users' => $users, 'receipts' => $receipts, 'datas' => $datas]);
         }
         else{
             return view('pages.dashboard');
