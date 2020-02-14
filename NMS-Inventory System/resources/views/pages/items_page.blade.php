@@ -174,33 +174,31 @@
 
 
       <!-- add quantity modal -->
-      <div class="modal fade" id="modal-add-quantity">
+      <div class="modal fade" id="modal-increase-quantity">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Add Quantity</h4>
             </div>
-            <form action="" method="get">
+            <form action="" method="post" id="increase-item-form">
             {{ csrf_field() }}
             <div class="modal-body">
-
+              <input type="hidden" class="form-control"  id="iItemID" name="iItemID" value="" placeholder="Item ID">
               <div class="form-group mt-3">
                 <label>Quantity:<span class="required"> *</span> </label>
-                <input type="number" name="add_quantity" class="form-control" min="1">
+                <input type="number" name="iQuantity" id="iQuantity" class="form-control" min="1">
               </div>
               <div class="form-group">
                 <label>Receipt:<span class="required"> *</span></label>
-                <select class="form-control">
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
+                <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iOrnum" id="iOrnum" required>
+                  @foreach($receipt as $data)
+                  <option value="{{$data->id}}"> {{$data->ornum}}</option>
+                    @endforeach
                 </select>
               </div>
               <div class="form-group">
                 <label>Department:<span class="required"> *</span></label>
-                <select class="form-control">
+                <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iDept" id="iDept" required>
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
                   <option value="Corporate Image & Branding">Corporate Image & Branding</option>
                   <option value="Digital Content">Digital Content</option>
@@ -236,8 +234,8 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
+              <button type="submit" class="btn btn-success" id="itemIncBtn" onclick="itemIncrease()">Save</button>
             </div>
             </form>
           </div>
@@ -410,14 +408,76 @@
                     $('#item-form')[0].reset();
                     $('#modal-default').modal('hide');
                     $('#items_table').DataTable().ajax.reload();
-                    $('#itemAddBtn').text('Save Changes');
+                    $('#itemAddBtn').text('Save');
                     resetBoxes();
                     }
                 });
             }
-
         }
 
+        function itemIncrease(){
+            var url =  "increaseItem";
+            var iItemID = $('#iItemID').val();
+            var iOrnum = $('#iOrnum').val();
+            var iQuantity =$('#iQuantity').val();
+            var iDept =$('#iDept').val();
+            if(iOrnum == "" || iQuantity == "" || iDept == ""){
+                toastr.error('All fields are required!');
+                if(iOrnum == ""){
+                    $('#iOrnum').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iOrnum').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(iQuantity == ""){
+                    $('#iQuantity').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iQuantity').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(iDept == ""){
+                    $('#iDept').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#iDept').css({
+                        'border': '1px solid grey'
+                    });
+                }
+            }
+            else{
+                $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                        '_token': $('input[name=_token').val(),
+                        'iItemID':iItemID,
+                        'iOrnum':iOrnum,
+                        'iQuantity':iQuantity,
+                        'iDept': iDept
+                        },
+                beforeSend:function(){
+                    $('#itemIncBtn').text('Inserting...');
+                },
+                success: function (response){
+                    toastr.success('Successfully Added.');
+                    $('#item-form')[0].reset();
+                    $('#modal-increase-quantity').modal('hide');
+                    $('#items_table').DataTable().ajax.reload();
+                    $('#itemIncBtn').text('Save');
+                    resetBoxes();
+                    }
+                });
+            }
+        }
 
         function itemDelete(){
             var id = $('#dItemID').val();
