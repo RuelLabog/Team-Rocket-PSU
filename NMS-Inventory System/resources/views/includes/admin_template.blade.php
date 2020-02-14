@@ -100,15 +100,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- ChartJS -->
 <script src="bower_components/admin-lte/plugins/chart.js/Chart.min.js"></script>
 
+
 <script>
   $(function () {
     //Initialize Select2 Elements
     $('#select2').select2();
-
-
-
-
-
 
   });
 </script>
@@ -135,7 +131,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     })
 
 </script>
-
 
 {{-- edit items --}}
 <script>
@@ -215,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
-
+{{-- toastr message prompt --}}
 <script>
   @if(Session::has('message'))
     var type="{{Session::get('alert-type', 'success')}}";
@@ -231,8 +226,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @endif
 </script>
 
+{{-- delete items --}}
 <script>
-    //retrieve name of items in delete items modal
     $('#modal-delete-items').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var itemName = button.data('itemname');
@@ -246,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     })
 </script>
 
-
+{{-- delete category --}}
 <script>
     // retrieve name of category in delete category modal
     $('#modal-delete-category').on('show.bs.modal', function (event) {
@@ -262,8 +257,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
+{{-- delete receipt --}}
 <script>
-    // retrieve name of category in delete category modal
+
     $('#modal-delete-receipt').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var recid = button.data('recid')
@@ -276,7 +272,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     })
 
 </script>
-
 
 {{-- delete user --}}
 <script>
@@ -298,6 +293,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 
+{{-- displaying of data in te tables --}}
  <script type="text/javascript">
 
         $(document).ready(function(){
@@ -363,6 +359,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         orderable: false
                     }
                 ]
+
             });
 
 
@@ -491,5 +488,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     modal.find('.modal-body #iQuantity').val(quantity)
   })
 </script>
+
+
+
 </body>
 </html>
