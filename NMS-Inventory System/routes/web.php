@@ -27,14 +27,15 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@totalItems')->name('totalItems');
 Route::get('/sidebar', 'tryController@image');
 
 //items routes
 Route::resource('/items', 'ItemsController');
 Route::resource('/items_page', 'ItemsController');
+Route::post('/increaseItem', 'ItemsController@increaseQuantity')->name('itemIncrease');
 Route::post('/editItem', 'ItemsController@update')->name('itemEdit');
 Route::post('/reduceItem', 'ItemsController@updateQuantity')->name('itemReduce');
-Route::post('/increaseItem', 'ItemsController@increaseQuantity')->name('itemIncrease');
 // Route::post('/editCat', 'CategoriesController@update')->name('catEdit');
 // Route::get('/items', 'ItemsController@getData');
 Route::post('/softdelitem', 'ItemsController@delete')->name('itemSoftDelete');

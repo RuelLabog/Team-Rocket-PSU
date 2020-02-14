@@ -125,12 +125,12 @@ $(document).ready(function() {
 
     var pieData        = {
       labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
+          'Admin and Finance Department',
+          'Human Resources and Development',
+          'Information Technology & Development',
+          'Messaging Support Team',
+          'Sales and Marketing',
+          'Production Recruitment Department',
       ],
       datasets: [
         {
