@@ -201,14 +201,11 @@
                 <label>Department:<span class="required"> *</span></label>
                 <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iDept" id="iDept" required>
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
-
                   <option value="Human Resources and Development">Human Resources and Development</option>
                   <option value="Information Technology & Development">Information Technology & Development</option>
                   <option value="Messaging Support Team">Messaging Support Team</option>
-                  <option value="Online Management Personnel">Online Management Personnel</option>
                   <option value="Production Recruitment Department">Production Recruitment Department</option>
                   <option value="Sales and Marketing">Sales and Marketing</option>
-                  <option value="Training & Quality Assurance Department">Training & Quality Assurance Department</option>
                 </select>
 
               </div>
@@ -526,7 +523,7 @@
                         $('#itemRedBtn').text('Updating...');
                     },
                     success: function (response){
-                        toastr.success('Quantity reduced by ' + rQuantity);
+                        toastr.success('Quantity reduced to ' + rQuantity);
                         $('#item-reduce')[0].reset();
                         $('#modal-reduce-quantity').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
