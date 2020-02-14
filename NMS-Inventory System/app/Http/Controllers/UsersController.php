@@ -53,6 +53,10 @@ class UsersController extends Controller
                                     $name= $data->fname." ".$data->lname;
                                     return $name;
                                 })
+                                ->addColumn('created_at', function($data){
+                                    $date = '<span style="cursor:context-menu" title="'.date_format($data->created_at,"l, F d, Y H:i:s A").'">'.$data->created_at.'</span>';
+                                    return $date;
+                                })
                                 ->addColumn('action', function($data){
                                     $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
                                     data-userid="'.$data->id.'"
@@ -71,7 +75,7 @@ class UsersController extends Controller
                                     data-toggle="modal" data-target="#modal-delete-user"><a><i class="fas fa-trash text-danger"></i></a></span>';
                                     return $button;
                                 })
-                                // ->rawColums(['action'])
+                                ->rawColumns(['action', 'created_at'])
                                 ->make(true);
 
         }
