@@ -103,24 +103,16 @@ class CategoriesController extends Controller
         $updatecat = category::findOrFail($id);
         $updatecat->catname = $request->input('eCatName');
         $updatecat->catdesc = $request->input('eCatDesc');
-        $updatecat->save();
 
-        if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
+        if(DB::table('categories')->where('catname', '=', $request->input('eCatName'))->where('id', '!=',  $request->input('eCatID'))->exists()) {
+            return response()->json(['err'=>'Category name already exists!']);
 
         }else{
             $updatecat->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );
+            return response()->json(['success'=>'Successfully Updated']);
 
         }
 
-        return back()->with($notification);
 
     }
 
@@ -135,19 +127,25 @@ class CategoriesController extends Controller
     {
         $deleteCat = $request->input('dCatID');
 
-
-        if (category::find($deleteCat)->delete()) {
-            $notification = array(
-                'message'=> 'Category deleted successfully!',
-                'alert-type' => 'success'
-            );
+        if(DB::table('items')->where('catid', '=', $deleteCat)->exists()){
+            return response()->json(['err'=>'Sorry, the category cannot be deleted.
+            An item exists under this category.']);
         }else{
-            $notification = array(
-                'message'=> 'An error occured while deleting the category!',
-                'alert-type' => 'error'
-            );
+            category::find($deleteCat)->delete();
+            return response()->json(['success'=>'Category deleted successfully!']);
         }
-        return back()->with($notification);
+        // if (category::find($deleteCat)->delete()) {
+        //     $notification = array(
+        //         'message'=> 'Category deleted successfully!',
+        //         'alert-type' => 'success'
+        //     );
+        // }else{
+        //     $notification = array(
+        //         'message'=> 'An error occured while deleting the category!',
+        //         'alert-type' => 'error'
+        //     );
+        // }
+        // return back()->with($notification);
     }
 
     function insert(Request $req){

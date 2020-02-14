@@ -202,36 +202,16 @@
                 <label>Department:<span class="required"> *</span></label>
                 <select class="form-control">
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
-                  <option value="Corporate Image & Branding">Corporate Image & Branding</option>
-                  <option value="Digital Content">Digital Content</option>
-                  <option value="Disney Productions Department">Disney Productions Department</option>
-                  <option value="Employee Engagement and Retention">Employee Engagement and Retention</option>
-                  <option value="External Affairs and Production Department">External Affairs and Production Department</option>
-                  <option value="FL Production Department Management">FL Production Department Management</option>
+
                   <option value="Human Resources and Development">Human Resources and Development</option>
                   <option value="Information Technology & Development">Information Technology & Development</option>
-                  <option value="Jeemo PJ">Jeemo PJ</option>
-                  <option value="Live Services Department">Live Services Department</option>
-                  <option value="Messaging">Messaging</option>
                   <option value="Messaging Support Team">Messaging Support Team</option>
-                  <option value="NMS Cares">NMS Cares</option>
-                  <option value="Offline Services Department">Offline Services Department</option>
                   <option value="Online Management Personnel">Online Management Personnel</option>
-                  <option value="Online Support">Online Support</option>
-                  <option value="OSD Billing">OSD Billing</option>
-                  <option value="OSD Management Team">OSD Management Team</option>
-                  <option value="OSD Moderation">OSD Moderation</option>
-                  <option value="OSD SEO">OSD SEO</option>
-                  <option value="OSD SEO Beta">OSD SEO Beta</option>
-                  <option value="OSD Support">OSD Support</option>
-                  <option value="Outbound Support">Outbound Support</option>
-                  <option value="Product Development Department">Product Development Department</option>
-                  <option value="Production Department Support">Production Department Support</option>
                   <option value="Production Recruitment Department">Production Recruitment Department</option>
                   <option value="Sales and Marketing">Sales and Marketing</option>
                   <option value="Training & Quality Assurance Department">Training & Quality Assurance Department</option>
                 </select>
-                
+
               </div>
 
             </div>
@@ -254,12 +234,12 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title">Reduce Quantity</h4>
             </div>
-            <form action="" method="get">
+            <form action="" method="get" id="item-reduce">
             {{ csrf_field() }}
             <div class="modal-body">
               <div class="form-group mt-3">
                 <input type="hidden" name="rItemID" id="rItemID" class="form-control">
-                <label>Quantity: </label>
+                <label>Total Quantity: </label>
               <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="">
               </div>
               <div class="form-group mt-3">
@@ -346,6 +326,7 @@
                         $('#modal-edit-items').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
                         $('#itemEditBtn').text('Save Changes');
+                        resetBoxes();
 
                     }
                 });
@@ -481,10 +462,12 @@
                         $('#itemRedBtn').text('Updating...');
                     },
                     success: function (response){
-                        toastr.success('Successfully Updated.');
+                        toastr.success('Quantity reduced by ' + rQuantity);
+                        $('#item-reduce')[0].reset();
                         $('#modal-reduce-quantity').modal('hide');
                         $('#items_table').DataTable().ajax.reload();
                         $('#itemRedBtn').text('Save Changes');
+                        resetBoxes();
 
                     }
                 });
