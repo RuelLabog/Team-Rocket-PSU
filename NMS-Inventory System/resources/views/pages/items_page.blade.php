@@ -235,7 +235,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
-              <button type="submit" class="btn btn-success" id="itemIncBtn" onclick="itemIncrease()">Save</button>
+              <button type="button" class="btn btn-success" id="itemIncBtn" onclick="itemIncrease()">Save</button>
             </div>
             </form>
           </div>

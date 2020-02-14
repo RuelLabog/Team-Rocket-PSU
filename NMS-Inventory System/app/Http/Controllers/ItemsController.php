@@ -205,15 +205,14 @@ class ItemsController extends Controller
     }
 
     public function increaseQuantity(Request $request)
-    {
+    {   
         $itemid = $request->input('iItemID');
         $ornum = $request->input('iOrnum');
-        $quantityInc = $request->input('iQuantity');
+        $quantityinc = $request->input('iQuantity');
         $dept = $request->input('iDept');
-        $userid = auth()->user()->id;
-        $item =  array('itemid'=>$itemid,'transid'=>$ornum,'quantity'=>$quantityInc,'department'=>$dept);
+        $itemInc =  array('itemid'=>$itemid,'transid'=>$ornum,'quantity'=>$quantityinc,'department'=>$dept);
 
-        DB::table('transactions')->insert($item);
+        DB::table('transactions')->insert($itemInc);
 
         $id = $request->input('iItemID');
         $updateitem = item::findOrFail($id);
@@ -272,7 +271,6 @@ class ItemsController extends Controller
                         'alert-type' => 'success'
                     );
                 }
-
             return back()->with($notification);
     }
 }
