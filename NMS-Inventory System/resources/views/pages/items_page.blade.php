@@ -31,12 +31,12 @@
               <table id="items_table" class="table table-bordered table-striped">
                 <thead>
                  <tr>
-                    <th width="8%">Item ID</th>
+                    <th width="5%">#</th>
                     <th width="20%">Name</th>
-                    <th width="30%">Description</th>
+                    <th width="36%">Description</th>
                     <th width="17%">Category</th>
                     <th width="15%">Quantity</th>
-                    <th width="10%">Actions</th>
+                    <th width="7%"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -554,12 +554,6 @@
         </script>
 {{-- panget si jerry --}}
 
-
-<style>
-.required{
-    color: red;
-}
-</style>
 
  @endsection
 

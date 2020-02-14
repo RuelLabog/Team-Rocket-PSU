@@ -27,16 +27,18 @@ class ReceiptController extends Controller
             $data = receipt::latest()->get();
             return DataTables::of($data)
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
                                     data-recid="'.$data->id.'"
                                     data-ornum="'.$data->ornum.'"
                                     data-pdate="'.$data->pdate.'"
                                     data-supplier="'.$data->supplier.'"
-                                    data-toggle="modal" data-target="#modal-edit-receipt">Edit</button>';
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-edit-receipt"><a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a></span>';
+                                    $button .= '<span class="table-button cursor-pointer delete" name="delete" id="'.$data->id.'"
                                     data-recid="'.$data->id.'"
                                     data-ornum="'.$data->ornum.'"
-                                    data-toggle="modal" data-target="#modal-delete-receipt">Delete</button>';
+                                    data-toggle="modal" data-target="#modal-delete-receipt"><a><i class="fas fa-trash text-danger"></i></a></span>';
                                     return $button;
                                 })
                                 // ->rawColums(['action'])

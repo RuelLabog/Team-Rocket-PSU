@@ -424,8 +424,8 @@ $(document).ready(function() {
                         name: 'email'
                     },
                     {
-                        data: 'fname',
-                        name: 'fname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'created_at',
@@ -533,6 +533,5 @@ $(document).ready(function() {
     modal.find('.modal-body #iQuantity').val(quantity)
   })
 </script>
-
 </body>
 </html>

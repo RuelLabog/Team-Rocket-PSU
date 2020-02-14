@@ -45,23 +45,30 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         //
+
         if($request->ajax()){
-            $data = User::latest()->get();
+            $data = User::latest()->where('usertype', '=', 'admin')->get();
             return DataTables::of($data)
+                                ->addColumn('name', function($data){
+                                    $name= $data->fname." ".$data->lname;
+                                    return $name;
+                                })
                                 ->addColumn('action', function($data){
-                                    $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
+                                    $button = '<span name="edit" id="'.$data->id.'" class="edit table-button cursor-pointer mr-3"
                                     data-userid="'.$data->id.'"
                                     data-username="'.$data->username.'"
                                     data-fname="'.$data->fname.'"
                                     data-lname="'.$data->lname.'"
                                     data-email="'.$data->email.'"
                                     data-password="'.$data->password.'"
-                                    data-toggle="modal" data-target="#modal-edit-user">Edit</button>';
-                                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-edit-user"><a>
+                          <i class="fas fa-edit text-danger"></i>
+                        </a></span>';
+                                    $button .= '<span class="table-button cursor-pointer delete" name="delete" id="'.$data->id.'"
                                     data-fname="'.$data->fname.'"
                                     data-lname="'.$data->lname.'"
                                     data-userid="'.$data->id.'"
-                                    data-toggle="modal" data-target="#modal-delete-user">Delete</button>';
+                                    data-toggle="modal" data-target="#modal-delete-user"><a><i class="fas fa-trash text-danger"></i></a></span>';
                                     return $button;
                                 })
                                 // ->rawColums(['action'])
@@ -199,7 +206,7 @@ class UsersController extends Controller
 
 
 
-        $user = array('username'=>$username, 'email'=>$email, 'fname'=>$fname, 'lname'=>$lname, 'password'=>$password, 'usertype'=>'Admin', 'image'=>'', 'created_at'=> NOW());
+        $user = array('username'=>$username, 'email'=>$email, 'fname'=>$fname, 'lname'=>$lname, 'password'=>Hash::make($password), 'usertype'=>'admin', 'image'=>'default.png', 'created_at'=> NOW());
         if(DB::table('users')->where('email', '=', $email)->exists()){
             return response()->json(['errEmail'=>'Email Exists!']);
         }else{
