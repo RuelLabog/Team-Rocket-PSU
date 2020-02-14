@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
-              <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
+              <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save</button>
             </div>
           </form>
           </div>
@@ -266,11 +266,17 @@
                         $('#categoryAddBtn').attr('disabled', true);
                     },
                     success: function (response){
-                        resetBoxes();
-                        toastr.success('Successfully Added.');
-                        $('#add-form')[0].reset();
-                        $('#modal-default').modal('hide');
-                        $('#categories_table').DataTable().ajax.reload();
+
+                        if(response.success){
+                            toastr.success('Successfully Added.');
+                            resetBoxes();
+                            $('#modal-default').modal('hide');
+                            $('#categories_table').DataTable().ajax.reload();
+                        }else{
+                            toastr.error(response.err);
+                            $('#catName').css({'border': '1px solid red'});
+                        }
+
                         $('#categoryAddBtn').text('Save Changes');
                         $('#categoryAddBtn').attr('disabled', false);
                     }
@@ -297,6 +303,7 @@
                         resetBoxes();
                         toastr.success('Successfully Restored.');
                         $('#modal-edit-category').modal('hide');
+                        $('#modal-default').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                     }
                 });
@@ -318,7 +325,7 @@
                     success: function (response){
                         resetBoxes();
                         categoryEdit();
-                        toastr.success('Successfully Deleted.');
+                        // toastr.success('Successfully Deleted.');
                         $('#categories_table').DataTable().ajax.reload();
                     }
                 });

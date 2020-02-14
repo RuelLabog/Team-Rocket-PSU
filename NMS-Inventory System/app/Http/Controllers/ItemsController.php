@@ -160,22 +160,29 @@ class ItemsController extends Controller
         $updateitem->quantity = $request->input('eQuantity');
         $updateitem->catid = $request->input('catid');
 
-
-
-        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
-
+        if(DB::table('items')->where('itemname', '=', $request->input('eItemname'))->where('deleted_at','!=', null)->exists()){
+            $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eItemname').'" onclick="restore()">Restore</button>';
+            return response()->json(['err'=>'Itemname name already exists but was soft deleted. Do you want to restore item name '.$request->input('eItemname').' ? &nbsp;&nbsp;&nbsp;'.$button]);
+        }elseif(DB::table('items')->where('itemname', '=', $request->input('eItemname'))->where('id', '!=', $id)->exists()) {
+            return response()->json(['err'=>$request->input('eItemname').' already exists!']);
         }else{
             $updateitem->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );
-
+            return response()->json(['success'=>'Successfully updated!']);
         }
+        // if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
+        //     $notification = array(
+        //         'message'=> 'Please fill up required fields!',
+        //         'alert-type' => 'error'
+        //     );
+
+        // }else{
+        //     $updateitem->save();
+        //     $notification = array(
+        //         'message'=> 'Item updated successfully!',
+        //         'alert-type' => 'success'
+        //     );
+
+        // }
     }
 
     /**
@@ -185,7 +192,12 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function restore(Request $request)
+    {
+        $itemname = $request['itemname'];
+        DB::table('items')->where('itemname', '=', $itemname)->update(['deleted_at' => null]);
 
+    }
 
     public function updateQuantity(Request $request)
     {
@@ -207,7 +219,7 @@ class ItemsController extends Controller
     }
 
     public function increaseQuantity(Request $request)
-    {   
+    {
         $itemid = $request->input('iItemID');
         $ornum = $request->input('iOrnum');
         $quantityinc = $request->input('iQuantity');
@@ -261,21 +273,26 @@ class ItemsController extends Controller
                 $catid = $req->input('catid');
                 $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
-                if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
-                    DB::table('items')->where('itemname', '=', $itemname)->delete();
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
+                if (DB::table('items')->where('itemname', '=', $itemname)->where('deleted_at','=', null)->exists()) {
+                    return response()->json(['err'=>$itemname.' already exists!']);
+                    // DB::table('items')->where('itemname', '=', $itemname)->delete();
+                    // DB::table('items')->insert($item);
+                    // $notification = array(
+                    //     'message'=> 'A New Item is Inserted!',
+                    //     'alert-type' => 'success'
+                    // );
+                }  if (DB::table('items')->where('itemname', '=', $itemname)->where('deleted_at','!=', null)->exists()) {
+                    $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$itemname.'" onclick="restore()">Restore</button>';
+                    return response()->json(['err'=>'Item name already exists but was soft deleted. Do you want to restore item name '.$itemname.'?&nbsp;&nbsp;&nbsp;'.$button]);
                 }else{
                     DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
+                    return response()->json(['success'=>'Successfully Added']);
+                    // $notification = array(
+                    //     'message'=> 'A New Item is Inserted!',
+                    //     'alert-type' => 'success'
+                    // );
                 }
-            return back()->with($notification);
+            // return back()->with($notification);
     }
 }
 

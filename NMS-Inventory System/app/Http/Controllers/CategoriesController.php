@@ -157,25 +157,28 @@ class CategoriesController extends Controller
         $catdesc = $req->input('catDesc');
         $data = array('catname'=>$catname,'catdesc'=>$catdesc,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
-        if(DB::table('categories')->where('catname', '=', $catname)->exists()){
-            DB::table('categories')->where('catname', '=', $catname)->delete();
-            DB::table('categories')->insert($data);
-            $notification = array(
-                'message'=> 'A new category is inserted!',
-                'alert-type' => 'success'
-            );
-        }elseif(DB::table('categories')->insert($data)){
-
-            $notification = array(
-                'message'=> 'A new category is inserted!',
-                'alert-type' => 'success'
-            );
+        if(DB::table('categories')->where('catname', '=', $catname)->where('deleted_at','=', null)->exists()){
+            return response()->json(['err'=>'Category name already exists!']);
+            // DB::table('categories')->where('catname', '=', $catname)->delete();
+            // DB::table('categories')->insert($data);
+            // $notification = array(
+            //     'message'=> 'A new category is inserted!',
+            //     'alert-type' => 'success'
+            // );
+        }elseif(DB::table('categories')->where('catname', '=', $catname)->where('deleted_at','!=', null)->exists()){
+            $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$catname.'" onclick="restore()">Restore</button>';
+            return response()->json(['err'=>'Category name already exists but was soft deleted. Do you want to restore category name '.$catname.'?&nbsp;&nbsp;&nbsp;'.$button]); // $notification = array(
+            //     'message'=> 'A new category is inserted!',
+            //     'alert-type' => 'success'
+            // );
         }else{
-            $notification = array(
-                'message'=> 'An error occured while adding category.',
-                'alert-type' => 'error'
-            );
+            DB::table('categories')->insert($data);
+            return response()->json(['success'=>'Successfully Added']);
+            // $notification = array(
+            //     'message'=> 'An error occured while adding category.',
+            //     'alert-type' => 'error'
+            // );
         }
-        return back()->with($notification);
+        // return back()->with($notification);
     }
 }

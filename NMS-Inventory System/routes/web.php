@@ -44,7 +44,7 @@ Route::post('/addItem','ItemsController@insert')->name('itemAdd');
 //Route::post('/items','ItemsController@insert')->name('itemInsert');
 Route::post('items/insert', 'Items@insert')->name('items.insert');
 Route::post('/items','ItemsController@insert');
-
+Route::post('/restoreItem', 'ItemsController@restore')->name('itemRestore');
 
 //categoies routes
 Route::resource('/categories', 'CategoriesController');

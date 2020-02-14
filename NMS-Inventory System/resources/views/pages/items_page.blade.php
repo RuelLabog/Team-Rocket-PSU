@@ -322,13 +322,21 @@
                             },
                     beforeSend:function(){
                         $('#itemEditBtn').text('Updating...');
+                        $('#itemEditBtn').attr('disabled', true);
                     },
                     success: function (response){
-                        toastr.success('Successfully Updated.');
-                        $('#modal-edit-items').modal('hide');
-                        $('#items_table').DataTable().ajax.reload();
+                        if(response.success){
+                            toastr.success('Successfully Updated.');
+                            $('#modal-edit-items').modal('hide');
+                            $('#items_table').DataTable().ajax.reload();
+                            resetBoxes();
+                        }else{
+                            toastr.error(response.err);
+                        }
+
                         $('#itemEditBtn').text('Save Changes');
-                        resetBoxes();
+                        $('#itemEditBtn').attr('disabled', false);
+
 
                     }
                 });
@@ -387,14 +395,21 @@
                         },
                 beforeSend:function(){
                     $('#itemAddBtn').text('Inserting...');
+                    $('#itemAddBtn').attr('disabled', true);
                 },
                 success: function (response){
-                    toastr.success('Successfully Added.');
-                    $('#item-form')[0].reset();
-                    $('#modal-default').modal('hide');
-                    $('#items_table').DataTable().ajax.reload();
+                    if(response.success){
+                        toastr.success('Successfully Added.');
+                        $('#item-form')[0].reset();
+                        resetBoxes();
+                        $('#modal-default').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                    }else{
+                        toastr.error(response.err);
+                    }
+                    $('#itemAddBtn').attr('disabled', false);
                     $('#itemAddBtn').text('Save');
-                    resetBoxes();
+
                     }
                 });
             }
@@ -536,6 +551,30 @@
                     }
                 });
             }
+        }
+
+        function restore(){
+            var itemname = $('#restoreBtn').val();
+            var url = "restoreItem";
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'itemname':itemname
+                        },
+                    beforeSend:function(){
+
+                        toastr.warning(itemname +' Restoring...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        toastr.success(itemname+' Successfully Restored.');
+                        $('#modal-edit-items').modal('hide');
+                        $('#modal-default').modal('hide');
+                        $('#items_table').DataTable().ajax.reload();
+                    }
+                });
         }
 
         </script>
