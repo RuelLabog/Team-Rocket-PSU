@@ -72,6 +72,7 @@
                 <div class="form-group">
                   <label>Category: <span class="required">*</span></label>
                   <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" id="catid" name="catid" required>
+                   <option value=""> Select a Category </option>
                     @foreach($category as $data)
                     <option value="{{$data->id}}"> {{$data->catname}}</option>
                     @endforeach
@@ -164,7 +165,7 @@
 
 
       <!-- add quantity modal -->
-      <div class="modal fade" id="modal-increase-quantity">
+      <div class="modal fade" id="modal-increase-quantity" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -176,11 +177,12 @@
               <input type="hidden" class="form-control"  id="iItemID" name="iItemID" value="" placeholder="Item ID">
               <div class="form-group mt-3">
                 <label>Quantity:<span class="required"> *</span> </label>
-                <input type="number" name="iQuantity" id="iQuantity" class="form-control" min="1">
+                <input type="number" name="iQuantity" id="iQuantity" class="form-control" min="0" onKeyDown="return false">
               </div>
               <div class="form-group">
                 <label>Receipt:<span class="required"> *</span></label>
                 <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iOrnum" id="iOrnum" required>
+                  <option value=""> Select a Receipt </option>
                   @foreach($receipt as $data)
                   <option value="{{$data->id}}"> {{$data->ornum}}</option>
                     @endforeach
@@ -189,6 +191,7 @@
               <div class="form-group">
                 <label>Department:<span class="required"> *</span></label>
                 <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" name="iDept" id="iDept" required>
+                  <option value = ""> Select a Department </option>
                   <option value="Admin and Finance Department">Admin and Finance Department</option>
                   <option value="Human Resources and Development">Human Resources and Development</option>
                   <option value="Information Technology & Development">Information Technology & Development</option>
@@ -199,7 +202,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancel</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
               <button type="button" class="btn btn-success" id="itemIncBtn" onclick="itemIncrease()">Save</button>
             </div>
             </form>
@@ -223,7 +226,7 @@
               <div class="form-group mt-3">
                 <input type="hidden" name="rItemID" id="rItemID" class="form-control">
                 <label>Total Quantity: </label>
-              <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="">
+              <input type="number" name="rQuantity" id="rQuantity" max="" class="form-control" min="" value="" onKeyDown="return false">
               </div>
               <div class="form-group mt-3">
                 <label>Status Report: </label>
@@ -246,11 +249,12 @@
       <script type="text/javascript">
 
         function resetBoxes(){
-            $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport').css({
+            $('#itemname, #itemdesc, #quantity, #eItemname, #eItemDesc, #eQuantity, #statReport, #catid, #iOrnum, #iDept').css({
                 'border': '1px solid grey'
             });
             $('#item-form')[0].reset();
             $('#item-reduce')[0].reset();
+            $('#increase-item-form')[0].reset();
         }
 
         function itemEdit(){
@@ -333,7 +337,7 @@
             var catid=$('#catid').val();
             var quantity =$('#quantity').val();
             var itemname =$('#itemname').val();
-            if(itemdesc == "" || quantity == "" || itemname == ""){
+            if(itemdesc == "" || quantity == "" || itemname == "" || catid == ""){
                 toastr.error('All fields are required!');
                 if(itemdesc == ""){
                     $('#itemdesc').css({
@@ -361,6 +365,16 @@
                     });
                 }else{
                     $('#itemname').css({
+                        'border': '1px solid grey'
+                    });
+                }
+
+                if(catid == ""){
+                    $('#catid').css({
+                        'border': '1px solid red'
+                    });
+                }else{
+                    $('#catid').css({
                         'border': '1px solid grey'
                     });
                 }
