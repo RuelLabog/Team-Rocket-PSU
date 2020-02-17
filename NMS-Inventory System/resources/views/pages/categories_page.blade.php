@@ -53,7 +53,7 @@
             <div class="modal-header bg-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Add New Category</h4>
             </div>
-            <form action="" method="POST" id="add-form">
+            <form action="" method="POST" id="add-form" autocomplete="off">
             <div class="modal-body">
               <div class="form-group">
                 {{ csrf_field() }}
@@ -85,7 +85,7 @@
             <div class="modal-header btn-danger">
               <h4 class="modal-title"><i class="fas fa-sitemap mr-2"></i>Edit Category</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
