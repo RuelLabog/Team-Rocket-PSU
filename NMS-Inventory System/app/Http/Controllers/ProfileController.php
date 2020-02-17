@@ -11,21 +11,11 @@ date_default_timezone_set('Asia/Manila');
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     //Retreiving of Data.
     function getData(){
         $data['data'] = DB::table('users')->get()
                         ->where('id', '=', auth()->user()->id);
-
 
         if(count($data) > 0){
             return view('pages/profile_page', $data);
@@ -35,69 +25,9 @@ class ProfileController extends Controller
         }
     }
 
-    function upload(Request $request)
-    {
-
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
-
-
-         //
         $updateprofile = user::findOrFail(auth()->user()->id);
-
-
         $updateprofile->username =  $request['username'];
         $updateprofile->email = $request['email'];
         $updateprofile->fname = $request['fname'];
@@ -115,13 +45,8 @@ class ProfileController extends Controller
             $updateprofile->image = $new_name;
         }
 
-
-
-
-
         $password = DB::table('users')->where('id', auth()->user()->id)->value('password');
         $inputpass = Hash::make($request['curpassword']);
-
 
         if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL) {
             $notification = array(
@@ -146,25 +71,6 @@ class ProfileController extends Controller
 
         return back()->with($notification);
 
-
-
     }
 
-
-
-
-
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

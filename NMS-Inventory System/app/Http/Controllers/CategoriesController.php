@@ -18,11 +18,7 @@ class CategoriesController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -49,57 +45,6 @@ class CategoriesController extends Controller
         return view('pages/categories_page');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function restore(Request $request){
         $catname = $request['catName'];
        DB::table('categories')->where('catname', '=', $catname)->update(['deleted_at' => null]);
@@ -122,25 +67,15 @@ class CategoriesController extends Controller
             $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eCatName').'" onclick="restore()">Restore</button>';
             $button2 = '<button class="btn-danger btn-xs" id="forcedDelBtn" value="'.$request->input('eCatName').'" onclick="forceDel()">Force Delete</button>';
             return response()->json(['err'=>'Category name already exists but was soft deleted! Do you want to restore or force delete category name '.$request->input('eCatName').' ? &nbsp;&nbsp;&nbsp;'.$button.$button2]);
-            // return response()->json(['err'=>'Category name already exists']);
         }elseif(DB::table('categories')->where('catname', '=', $request->input('eCatName'))->where('id', '!=', $id)->exists()) {
             return response()->json(['err'=>'Category name already exists']);
         }else{
             $updatecat->save();
             return response()->json(['success'=>'Successfully Updated']);
-
         }
-
 
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function delete(Request $request)
     {
         $deleteCat = $request->input('dCatID');
@@ -161,26 +96,12 @@ class CategoriesController extends Controller
 
         if(DB::table('categories')->where('catname', '=', $catname)->where('deleted_at','=', null)->exists()){
             return response()->json(['err'=>'Category name already exists!']);
-            // DB::table('categories')->where('catname', '=', $catname)->delete();
-            // DB::table('categories')->insert($data);
-            // $notification = array(
-            //     'message'=> 'A new category is inserted!',
-            //     'alert-type' => 'success'
-            // );
         }elseif(DB::table('categories')->where('catname', '=', $catname)->where('deleted_at','!=', null)->exists()){
             $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$catname.'" onclick="restore()">Restore</button>';
-            return response()->json(['err'=>'Category name already exists but was soft deleted. Do you want to restore category name '.$catname.'?&nbsp;&nbsp;&nbsp;'.$button]); // $notification = array(
-            //     'message'=> 'A new category is inserted!',
-            //     'alert-type' => 'success'
-            // );
+            return response()->json(['err'=>'Category name already exists but was soft deleted. Do you want to restore category name '.$catname.'?&nbsp;&nbsp;&nbsp;'.$button]);
         }else{
             DB::table('categories')->insert($data);
             return response()->json(['success'=>'Successfully Added']);
-            // $notification = array(
-            //     'message'=> 'An error occured while adding category.',
-            //     'alert-type' => 'error'
-            // );
         }
-        // return back()->with($notification);
     }
 }
