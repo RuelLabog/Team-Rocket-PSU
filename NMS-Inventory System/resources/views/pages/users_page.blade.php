@@ -339,6 +339,13 @@
                             $('#eConfPassword').css({'border': 'red 2px grey'});
                             $('#ePassword').css({'border': 'red 2px grey'});
                         }
+                        if(response.errUsername){
+                            toastr.error(response.errUsername);
+                            $('#eUsername').css({'border': 'red 2px solid'});
+                            $('#eUsername').focus();
+                        }else{
+                            $('#eUsername').css({'border': 'red 2px grey'});
+                        }
                     }
 
 
@@ -444,6 +451,14 @@
                         }else{
                             $('#confPassword').css({'border': 'red 2px grey'});
                             $('#password').css({'border': 'red 2px grey'});
+                        }
+
+                        if(response.errUsername){
+                            toastr.error(response.errUsername);
+                            $('#username').css({'border': 'red 2px solid'});
+                            $('#username').focus();
+                        }else{
+                            $('#username').css({'border': 'red 2px grey'});
                         }
                     }
 

@@ -77,8 +77,11 @@ class UsersController extends Controller
         if(strlen($request->input('ePassword')) < 8){
             return response()->json(['errPassWeak'=>'Password is weak']);
         }
+
         if(DB::table('users')->where('email', '=', $request->input('eEmail'))->where('id', '!=', $request->input('eID'))->exists()){
             return response()->json(['errEmail'=>'Email exists']);
+        }elseif(DB::table('users')->where('username','=', $request->input('eUsername'))->where('id', '!=', $request->input('eID'))->exists()){
+            return response()->json(['errUsername'=>'Username already Exists!']);
         }else{
             $updateUser->save();
             return response()->json(['success'=>'Successfully updated']);
@@ -121,7 +124,9 @@ class UsersController extends Controller
 
         $user = array('username'=>$username, 'email'=>$email, 'fname'=>$fname, 'lname'=>$lname, 'password'=>Hash::make($password), 'usertype'=>'admin', 'image'=>'default.png', 'created_at'=> NOW());
         if(DB::table('users')->where('email', '=', $email)->exists()){
-            return response()->json(['errEmail'=>'Email Exists!']);
+            return response()->json(['errEmail'=>'Email already exists!']);
+        }elseif(DB::table('users')->where('username','=',$username)->exists()){
+            return response()->json(['errUsername'=>'Username already Exists!']);
         }else{
             User::insert($user);
             return response()->json(['success'=>'Successfully Inserted!']);

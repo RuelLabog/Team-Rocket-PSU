@@ -112,7 +112,7 @@
                 <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
                 <div class="form-group">
-                 
+
                   <input type="hidden" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required min=0>
                 </div>
                 <div class="form-group">
@@ -593,9 +593,10 @@
                         toastr.success('Successfully Deleted.');
                         $('#items_table').DataTable().ajax.reload();
                     }
-                });             
+                });
         }
         </script>
+
 {{-- panget at malapit nang bitayin si jerry --}}
 
  @endsection

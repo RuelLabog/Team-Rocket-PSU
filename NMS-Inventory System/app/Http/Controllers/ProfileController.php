@@ -32,7 +32,10 @@ class ProfileController extends Controller
         $updateprofile->email = $request['email'];
         $updateprofile->fname = $request['fname'];
         $updateprofile->lname = $request['lname'];
-        $updateprofile->password = Hash::make($request['newpassword']);
+        if($request['newpassword'] != NULL){
+            $updateprofile->password = Hash::make($request['newpassword']);
+        }
+
 
         if($image = $request->file('image') != NULL){
             $this->validate($request, [
@@ -59,6 +62,16 @@ class ProfileController extends Controller
                     'message'=> 'Incorrect Password! Please Contact your Administrator!',
                     'alert-type' => 'error'
                 );
+        }elseif(DB::table('users')->where('username','=',$request['username'])->where('id','!=', auth()->user()->id)->exists()){
+            $notification = array(
+                'message'=> 'Username already Exists!',
+                'alert-type' => 'error'
+            );
+        }elseif(DB::table('users')->where('email','=',$request['email'])->where('id','!=', auth()->user()->id)->exists()){
+            $notification = array(
+                'message'=> 'Email already Exists!',
+                'alert-type' => 'error'
+            );
         }else{
             $updateprofile->save();
             $notification = array(
