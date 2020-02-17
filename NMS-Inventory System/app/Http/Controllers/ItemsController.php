@@ -97,7 +97,8 @@ class ItemsController extends Controller
 
         if(DB::table('items')->where('itemname', '=', $request->input('eItemname'))->where('deleted_at','!=', null)->exists()){
             $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eItemname').'" onclick="restore()">Restore</button>';
-            return response()->json(['err'=>'Itemname name already exists but was soft deleted. Do you want to restore item name '.$request->input('eItemname').' ? &nbsp;&nbsp;&nbsp;'.$button]);
+            $button2 = '<button class="btn-danger btn-xs" id="forcedDelBtn" value="'.$request->input('eItemname').'" onclick="forceDel()">Force Delete</button>';
+            return response()->json(['err'=>'Itemname name already exists but was soft deleted. Do you want to restore item name '.$request->input('eItemname').' ? &nbsp;&nbsp;&nbsp;'.$button.$button2]);
         }elseif(DB::table('items')->where('itemname', '=', $request->input('eItemname'))->where('id', '!=', $id)->exists()) {
             return response()->json(['err'=>$request->input('eItemname').' already exists!']);
         }else{
@@ -110,7 +111,12 @@ class ItemsController extends Controller
     {
         $itemname = $request['itemname'];
         DB::table('items')->where('itemname', '=', $itemname)->update(['deleted_at' => null]);
+    }
 
+    public function forceDelete(Request $request)
+    {
+        $itemname = $request->input('itemname');
+        DB::table('items')->where('itemname', '=', $itemname)->delete();
     }
 
     public function updateQuantity(Request $request)

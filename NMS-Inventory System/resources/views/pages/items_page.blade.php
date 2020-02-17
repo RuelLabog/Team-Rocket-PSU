@@ -48,13 +48,13 @@
           <!-- /.card -->
 
       <!-- add items modal -->
-      <div class="modal fade" id="modal-default" data-backdrop="static">
+      <div class="modal fade" id="modal-default" data-backdrop="static" >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
               <h4 class="modal-title"><i class="fas fa-box mr-2"></i>Add New Item</h4>
             </div>
-            <form action="" method="POST" id="item-form">
+            <form action="" method="POST" id="item-form" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                 {{csrf_field()}}
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                   <label>Quantity: <span class="required">*</span></label>
-                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity" required>
+                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item Quantity" required min="0" onKeyDown="return false">
                 </div>
                 <div class="form-group">
                   <label>Category: <span class="required">*</span></label>
@@ -92,7 +92,7 @@
       <!-- /.add items modal -->
 
       <!-- edit item modal -->
-      <div class="modal fade" id="modal-edit-items" data-backdrop="static">
+      <div class="modal fade" id="modal-edit-items" data-backdrop="static" autocomplete="off">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header btn-danger">
@@ -112,8 +112,8 @@
                 <textarea class="form-control" placeholder="Item Description" id="eItemDesc" name="eItemDesc" required></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Quantity: <span class="required">*</span></label>
-                  <input type="number" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required>
+                 
+                  <input type="hidden" class="form-control" id="eQuantity" name="eQuantity" placeholder="Item Quantity" required min=0>
                 </div>
                 <div class="form-group">
                   <label>Category: <span class="required">*</span></label>
@@ -574,6 +574,27 @@
                 });
         }
 
+        function forceDel(){
+            var itemname = $('#forcedDelBtn').val();
+            var url = "forceDelItem";
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        '_token': $('input[name=_token').val(),
+                        'itemname':itemname
+                        },
+                    beforeSend:function(){
+                        toastr.warning(itemname+' Deleting...');
+                    },
+                    success: function (response){
+                        resetBoxes();
+                        itemEdit();
+                        toastr.success('Successfully Deleted.');
+                        $('#items_table').DataTable().ajax.reload();
+                    }
+                });             
+        }
         </script>
 {{-- panget at malapit nang bitayin si jerry --}}
 
