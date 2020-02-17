@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\receipt;
 use DB;
 use Yajra\DataTables\DataTables;
+date_default_timezone_set('Asia/Manila');
 
 class ReceiptController extends Controller
 {
@@ -114,7 +115,7 @@ class ReceiptController extends Controller
         $updaterec->ornum =  $request->input('eOrnum');
         $updaterec->supplier = $request->input('eSupplier');
         $updaterec->pdate = $request->input('ePdate');
-        
+
 
         if(DB::table('receipts')->where('ornum', '=', $request->input('eOrnum'))->where('deleted_at', '!=', null)->exists()) {
             $button = '<button class="btn-primary btn-xs" id="restoreBtn" value="'.$request->input('eOrnum').'" onclick="restore()">Restore</button>';
@@ -126,8 +127,8 @@ class ReceiptController extends Controller
         }else{
             $updaterec->save();
             return response()->json(['success'=>'Successfully Updated']);
-        }    
-            
+        }
+
     }
 
     /**
@@ -170,7 +171,7 @@ class ReceiptController extends Controller
             DB::table('receipts')->insert($data);
             return response()->json(['success'=>'Successfully Added']);
         }
-        
+
         return back()->with($notification);
     }
 }

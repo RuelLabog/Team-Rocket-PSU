@@ -17,6 +17,7 @@ use Illuminate\Foundation\Validation\AuthorizesRequests;
 use Illuminate\Support\Facades\Redirect;
 use Validator, Input;
 use Yajra\DataTables\DataTables;
+date_default_timezone_set('Asia/Manila');
 
 class ItemsController extends Controller
 {

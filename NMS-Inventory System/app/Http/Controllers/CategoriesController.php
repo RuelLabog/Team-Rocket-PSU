@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\category;
 use DB;
 use Yajra\DataTables\DataTables;
+date_default_timezone_set('Asia/Manila');
+
 
 class CategoriesController extends Controller
 {

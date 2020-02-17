@@ -57,23 +57,23 @@
 
 
 
-<!-- add items modal -->
+<!-- add user modal -->
       <div class="modal fade" id="modal-default" data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger ">
               <h4 class="modal-title">Add New User</h4>
             </div>
-            <form id="itemsAdd_form">
+            <form id="userAdd_form">
             <div class="modal-body">
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>Username:</label>
+                      <label>Username: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="username" name="username" placeholder="Username">
                     </div>
                     <div class="col-6">
-                      <label>Email:</label>
+                      <label>Email:<span class="required">*</span></label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com">
                     </div>
                   </div>
@@ -82,11 +82,11 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>First Name:</label>
+                      <label>First Name: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="fname" name="fname" placeholder="Given Name">
                     </div>
                     <div class="col-6">
-                      <label>Last Name:</label>
+                      <label>Last Name: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="lname" name="lname" placeholder="Family Name">
                     </div>
                   </div>
@@ -95,23 +95,15 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>Password:</label>
+                      <label>Password: <span class="required">*</span></label>
                       <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                     <div class="col-6">
-                      <label>Confirm Password:</label>
+                      <label>Confirm Password: <span class="required">*</span></label>
                       <input type="password" class="form-control" id="confPassword" name="confPassword" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
-
-                <!-- <div class="form-group">
-                  <label>Account Type:</label>
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Admin</option>
-                    <option>User</option>
-                  </select>
-                </div> -->
 
             </div>
             <div class="modal-footer">
@@ -124,7 +116,7 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.add items modal -->
+      <!-- /.add user modal -->
 
 
 
@@ -132,14 +124,14 @@
 
 
 
-      <!-- edit item modal -->
+      <!-- edit user modal -->
       <div class="modal fade" id="modal-edit-user"  data-backdrop="static">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header btn-danger">
               <h4 class="modal-title">Edit User</h4>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" id="edit-form">
                 {{ csrf_field() }}
                 {{method_field('PATCH')}}
             <div class="modal-body">
@@ -183,14 +175,6 @@
                   </div>
                 </div>
 
-                <!-- <div class="form-group">
-                  <label>Account Type:</label>
-                  <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Admin</option>
-                    <option>User</option>
-                  </select>
-                </div> -->
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetBoxes()">Cancel</button>
@@ -202,11 +186,11 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.edit item modal -->
+      <!-- /.edit user modal -->
 
 
 
-            <!-- delete item modal -->
+      <!-- delete user modal -->
       <div class="modal fade" id="modal-delete-user">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -231,7 +215,7 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-      <!-- /.delete item modal -->
+      <!-- /.delete user modal -->
 
       <script type="text/javascript">
 
@@ -239,6 +223,9 @@
             $('input').css({
                 'border': '1px solid grey'
             });
+            $('#edit-form')[0].reset();
+            $('#userAdd_form')[0].reset();
+
         }
 
         function userDel(){
@@ -427,7 +414,6 @@
                     if(response.success){
                         resetBoxes();
                         toastr.success('Successfully Inserted.');
-                        $('#itemsAdd_form')[0].reset();
                         $('#modal-default').modal('hide');
                         $('#users_table').DataTable().ajax.reload();
                     }else{
