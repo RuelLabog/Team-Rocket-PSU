@@ -34,7 +34,7 @@
               <div class="inner">
                 @foreach($items as $value)
                 <h3>{{$value}}</h3>
-                @endforeach 
+                @endforeach
                 <p>Items</p>
               </div>
               <div class="icon">
@@ -66,7 +66,7 @@
               <div class="inner">
                 @foreach($receipts as $value)
                 <h3>{{$value}}</h3>
-                @endforeach 
+                @endforeach
                 <p>Receipts</p>
               </div>
               <div class="icon">
@@ -83,7 +83,7 @@
 
                 @foreach($users as $value)
                 <h3>{{$value}}</h3>
-                @endforeach 
+                @endforeach
 
                 <p>Users</p>
               </div>
@@ -99,7 +99,7 @@
 
 
 
-                    <!-- PIE CHART -->
+            <!-- PIE CHART -->
             <div class="card card-danger">
               <div class="card-header">
                 <h3 class="card-title">Supplies Per Department</h3>
@@ -153,9 +153,9 @@ $(document).ready(function() {
       ],
       datasets: [
         {
-             
+
           data: [
-          @foreach($datas as $value) 
+          @foreach($datas as $value)
           {{$value.','}}
           @endforeach
           ]
