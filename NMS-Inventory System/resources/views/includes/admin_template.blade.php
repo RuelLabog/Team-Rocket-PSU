@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css">
     <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-   <!-- Date picker problems 
+   <!-- Date picker problems
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   -->
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -143,7 +143,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $('#eItemID').val(itemid);
             $('#eItemname').val(data.result.itemname);
             $('#eItemDesc').val(data.result.itemdesc);
-            $('#ePrice').val(data.result.price);
             $('#eQuantity').val(data.result.quantity);
             $('#eCatName').val(data.result.catid);
 
@@ -172,8 +171,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #eID').val(userid)
-      modal.find('.modal-body #eUsername').val(username)
+      modal.find('.modal-body #eUserID').val(userid)
+      modal.find('.modal-body #eUserName').val(username)
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
@@ -182,6 +181,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     })
 
 </script>
+
+{{-- <script>
+  $(function () {
+    $("#items_table").DataTable();
+
+  });
+</script> --}}
+
 
 
 <script>
@@ -245,7 +252,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #dID').val(userid)
+      modal.find('.modal-body #dUserID').val(userid)
       modal.find('.modal-body #dFullName').html(fname + ' ' + lname)
 
 
@@ -265,16 +272,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 },
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'catname',
                         name: 'catname'
                     },
                     {
                         data: 'catdesc',
                         name: 'catdesc'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+            // retrieve data to items table
+            $('#items_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('items.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'itemname',
+                        name: 'itemname'
+                    },
+                    {
+                        data: 'itemdesc',
+                        name: 'itemdesc'
+                    },
+                    {
+                        data: 'catname',
+                        name: 'catname'
+                    },
+                    {
+                        data: 'quantity',
+                        name: 'quantity'
                     },
                     {
                         data: 'action',
@@ -301,8 +344,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         name: 'email'
                     },
                     {
-                        data: 'fname',
-                        name: 'fname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
                         data: 'created_at',
@@ -355,7 +398,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 ]
             });
-        
+
+            $('#receipts_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{route('receipt.index')}}",
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'ornum',
+                        name: 'ornum'
+                    },
+                    {
+                        data: 'pdate',
+                        name: 'pdate'
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier'
+                    },
+                    {
+                        data: 'total',
+                        name: 'total'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+
+
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -363,15 +442,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
             }
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }
-   
+
     $(".file-upload").on('change', function(){
         readURL(this);
     });
-    
+
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });

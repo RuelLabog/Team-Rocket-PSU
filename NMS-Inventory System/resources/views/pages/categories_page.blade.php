@@ -37,9 +37,9 @@
           <table id="categories_table" class="table table-bordered table-striped">
             <thead>
              <tr>
-                  <th width="10%">#</th>
                   <th width="25%">Name</th>
                   <th width="55">Description</th>
+                  <th width="55">Date Created</th>
                   <th width="10%"></th>
                 </tr>
             </thead>
@@ -61,7 +61,7 @@
               <div class="form-group">
                 {{ csrf_field() }}
                 <label>Category:</label>
-                <input type="text" class="form-control" name="catName" id="catName" placeholder="Category Name" required>
+                <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Category Name" required>
               </div>
               <div class="form-group">
                 <label>Description:</label>
@@ -150,14 +150,26 @@
                 data: {'_token': $('input[name=_token').val(),
                         'dCatID': $('input[name=dCatID').val()},
                 beforeSend:function(){
+                    $("#categoryDelBtn").attr("disabled", true);
                     $('#categoryDelBtn').text('Deleting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                    // setTimeout(function(){
                         $('#modal-delete-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
+                        $("#categoryDelBtn").attr("disabled", false);
                         $('#categoryDelBtn').text('Delete');
-                    }, 2000);
+
+                        if(response.ok == "Error"){
+                            alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
+                        }else{
+                            alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
+                        }
+                    // }, 2000);
+                },
+
+                error: function(err){
+                    alert('Error! Deletion is not successful.');
                 }
             });
         }
@@ -166,32 +178,44 @@
         function categoryEdit(){
             var url =  "editCat";
             var eCatDesc = $('#eCatDesc').val();
+            var eCatName =$('#eCatName').val();
+            if(eCatName == "" || eCatDesc==""){
+                alert('All fields are required!');
+
+            }else{
               $.ajax({
                 type: 'POST',
                 url: url,
                 data: {
                         '_token': $('input[name=_token').val(),
                         'eCatID':$('input[name=eCatID').val(),
-                        'eCatName':$('input[name=eCatName').val(),
+                        'eCatName': eCatName,
                         'eCatDesc': eCatDesc
                         },
                 beforeSend:function(){
                     $('#categoryEditBtn').text('Updating...');
                 },
-                success: function (response){
-                    setTimeout(function(){
+                success: function (data){
+                    // setTimeout(function(){
                         $('#modal-edit-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryEditBtn').text('Save Changes');
-                    }, 2000);
+                        alert('Category updated successfully');
+                    // }, 2000);
+                },
+                error: function(err){
+                    alert('Error! Update unsuccessful');
                 }
             });
+        }
         }
 
 
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
-            alert(catDesc);
+            if(catDesc == "" || $('#catName').val()==""){
+                alert('All Fields are required!');
+            }else{
             $.ajax({
                 type: 'POST',
                 url: "{{ route('categoryInsert') }}",
@@ -204,13 +228,17 @@
                     $('#categoryAddBtn').text('Inserting...');
                 },
                 success: function (response){
-                    setTimeout(function(){
+                    // setTimeout(function(){
                         $('#modal-default').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                         $('#categoryAddBtn').text('Save Changes');
-                    }, 2000);
+                    // }, 2000);
+                },
+                error: function(err){
+                    alert('Error! Category Name Exists!')
                 }
             });
+        }
         }
     </script>
 

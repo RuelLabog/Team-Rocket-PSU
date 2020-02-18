@@ -45,39 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- @foreach($data as $value)
-              <tr>
-                <td>{{$value->username}}</td>
-                <td>{{$value->email}}</td>
-                <td>{{$value->fname.' '.$value->lname}}</td>
-                <td class="text-center">
-                  <span class="table-button cursor-pointer mr-3"
-                  data-id="{{$value->id}}"
-                  data-username="{{$value->username}}"
-                  data-email="{{$value->email}}"
-                  data-fname="{{$value->fname}}"
-                  data-lname="{{$value->lname}}"
-                  data-password="{{$value->password}}"
 
-                  data-toggle="modal" data-target="#modal-edit-user">
-                    <a>
-                      <i class="fas fa-edit text-danger"></i>
-                    </a>
-                  </span>
-
-                   <span class="table-button cursor-pointer"
-                    data-id="{{$value->id}}"
-                    data-fname="{{$value->fname}}"
-                    data-lname="{{$value->lname}}"
-                    data-toggle="modal" data-target="#modal-delete-user">
-                    <a>
-                      <i class="fas fa-trash text-danger"></i>
-                    </a>
-                  </span>
-
-                </td>
-              </tr>
-            @endforeach -->
 
           </table>
         </div>
@@ -96,17 +64,18 @@
             <div class="modal-header btn-danger ">
               <h4 class="modal-title">Add New User</h4>
             </div>
+            <form action="{{route('addUser')}}" method="POST">
+            {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group">
                   <div class="row">
-                    <input type="hidden" class="form-control" id="id" name="userid" placeholder="Username">
                     <div class="col-6">
                       <label>Username:</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                      <input type="text" class="form-control" id="userName" name="userName" placeholder="Username">
                     </div>
                     <div class="col-6">
                       <label>Email:</label>
-                      <input type="email" class="form-control" id="username" name="username" placeholder="user@example.com">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com">
                     </div>
                   </div>
                 </div>
@@ -115,11 +84,11 @@
                   <div class="row">
                     <div class="col-6">
                       <label>First Name:</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Given Name">
+                      <input type="text" class="form-control" id="fname" name="fname" placeholder="Given Name">
                     </div>
                     <div class="col-6">
                       <label>Last Name:</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Familiy Name">
+                      <input type="text" class="form-control" id="lname" name="lname" placeholder="Family Name">
                     </div>
                   </div>
                 </div>
@@ -128,11 +97,11 @@
                   <div class="row">
                     <div class="col-6">
                       <label>Password:</label>
-                      <input type="password" class="form-control" id="username" name="username" placeholder="Password">
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                     <div class="col-6">
                       <label>Confirm Password:</label>
-                      <input type="password" class="form-control" id="username" name="username" placeholder="Confirm Password">
+                      <input type="password" class="form-control" id="confPassword" name="confPassword" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
@@ -152,8 +121,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-success">Save</button>
+              <button type="submit" class="btn btn-success" >Save</button>
             </div>
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
@@ -180,10 +150,10 @@
             <div class="modal-body">
                 <div class="form-group">
                   <div class="row">
-                    <input type="hidden" class="form-control"  id="eID" name="eID" value="" placeholder="Username">
+                    <input type="hidden" class="form-control"  id="eUserID" name="eUserID" value="" placeholder="Username">
                     <div class="col-6">
                       <label>Username:</label>
-                      <input type="text" class="form-control"  id="eUsername" name="eUsername" placeholder="Username">
+                      <input type="text" class="form-control"  id="eUserName" name="eUserName" placeholder="Username">
                     </div>
                     <div class="col-6">
                       <label>Email:</label>
@@ -213,7 +183,7 @@
                     </div>
                     <div class="col-6">
                       <label>Confirm Password:</label>
-                      <input type="password" class="form-control" id="ePassword" name="ePassword" placeholder="Confirm Password">
+                      <input type="password" class="form-control" id="eConfPassword" name="eConfPassword" placeholder="Confirm Password">
                     </div>
                   </div>
                 </div>
@@ -233,7 +203,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Save Changes</button>
+              <button type="submit" class="btn btn-success" >Save Changes</button>
             </div>
             </form>
           </div>
@@ -256,13 +226,13 @@
                 {{ csrf_field() }}
 
             <div class="modal-body">
-                <input type="hidden" id="dID" name="dID" value="" class="form-control">
+                <input type="hidden" id="dUserID" name="dUserID" value="" class="form-control">
               <h6 style="text-align:center">Are you sure you want to delete <label id='dFullName' name="dFullName"></label>?</h6>
 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-danger" id="userDelBtn" onclick="userDel()">Delete</button>
             </div>
             </form>
           </div>
@@ -271,6 +241,90 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.delete item modal -->
+
+
+      <script type="text/javascript">
+        function userDel(){
+            var id = $('#dUserID').val();
+              $.ajax({
+                type: 'POST',
+                url: "{{route('userSoftDelete')}}",
+                data: {'_token': $('input[name=_token').val(),
+                        'dUserID': id},
+                beforeSend:function(){
+                    $("#userDelBtn").attr("disabled", true);
+                    $('#userDelBtn').text('Deleting...');
+                },
+                success: function (response){
+                    // setTimeout(function(){
+                        $('#modal-delete-user').modal('hide');
+                        $('#users_table').DataTable().ajax.reload();
+                        $("#userDelBtn").attr("disabled", false);
+                        $('#userDelBtn').text('Delete');
+
+
+                        // if(response.ok == "Error"){
+                        //     alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
+                        // }else{
+                        //     alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
+                        // }
+                    // }, 2000);
+                },
+
+                error: function(error){
+
+                    // alert('Error! Deletion is not successful.');
+                    $("#userDelBtn").attr("disabled", false);
+                    $('#userDelBtn').text('Delete');
+                }
+            });
+        }
+
+        function userEdit(){
+            // var id = $('#dUserID').val();
+            if($('#eUserID').val() == "" || $('#eUserName').val() == "" || $('#eFirstName').val() == "" || $('#eLastName').val() == "" || $('#eEmail').val() == "" || $('#ePassword').val() == "" || $('#eConfPassword').val() == ""){
+                alert('All Fields are required!');
+            }else{
+              $.ajax({
+                type: 'POST',
+                url: 'editUser',
+                data: {'_token': $('input[name=_token').val(),
+                        'eUserID': $('input[name=eUserID').val(),
+                        'eUserName': $('input[name=eUserName').val(),
+                        'eFirstName': $('input[name=eFirstName').val(),
+                        'eLastName': $('input[name=eLastName').val(),
+                        'eEmail': $('input[name=eEmail').val(),
+                        'ePassword': $('input[name=ePassword').val(),
+                        'eConfPassword': $('input[name=eConfPassword').val()
+                    },
+                beforeSend:function(){
+                    $("#userEditBtn").attr("disabled", true);
+                    $('#userEditBtn').text('Updating...');
+                },
+                success: function (response){
+                    // setTimeout(function(){
+                        $('#modal-edit-user').modal('hide');
+                        $('#users_table').DataTable().ajax.reload();
+                        $("#userEditBtn").attr("disabled", false);
+                        $('#userEditBtn').text('Save Changes');
+
+                        // if(response.ok == "Error"){
+                        //     alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
+                        // }else{
+                        //     alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
+                        // }
+                    // }, 2000);
+                },
+
+                error: function(err){
+                    alert('Error! Update is not successful.');
+                }
+            });
+        }
+    }
+
+    </script>
+
 
 
  @endsection
