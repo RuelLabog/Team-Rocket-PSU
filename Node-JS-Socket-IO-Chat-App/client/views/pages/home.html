@@ -3,19 +3,16 @@
 
 
     <nav>
-    <div class="nav-wrapper red darken-4">
-      <a href="#!" class="brand-logo ml-3">TEAM ROCKET</a>
+    <div class="nav-wrapper deep-purple lighten-3">
+      <a href="#!" class="col s3">Welcome {{ data.username }}</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-        <li class="mr-3">
-            Welcome {{ data.username }}
-        </li>
-        <li class="mr-3 mt-1">
+        <li><a href="sass.html"><i class="material-icons col s3">search</i></a></li>
+        <li><a href="badges.html"><i class="material-icons col s3">view_module</i></a></li>
+        <li><a href="collapsible.html"><i class="material-icons col s3">refresh</i></a></li>
+        <li><a href="mobile.html"><i class="material-icons col s3">more_vert</i></a></li>
+        <li class="col s4">
             <span class="logout-user" ng-click="logout()">
-            <i class="fa fa-power-off" aria-hidden="true"></i>
+            <i class="material-icons" aria-hidden="true">power_settings_new</i>
         </span>
         </li>
       </ul>
@@ -26,8 +23,37 @@
     <!-- Home page body start -->
     <div class="home-body">
         <div class="row">
+            
+            <!-- Chat list Markup starts -->
+            <div class="col s4">
+                <div class="chat-list-container">
+                    <p class="chat-list-heading"><i class="fa fa-list" aria-hidden="true"></i> <span >Chat list</span> </p>
+                    <div class="chat-list">
+                        <ul class="collection with-header" ng-if="data.chatlist.length > 0">
+                            
+                                
+                            <li class="left collection-item col s6 hoverable active center-align">
+                                Chats<i class="material-icons" aria-hidden="true">chat</i></li>
+                            <li class="right collection-item col s6 hoverable active center-align">
+                                Services<i class="material-icons" aria-hidden="true">local_library</i></li>
+                              
+                            <li class="collection-item"
+                                ng-repeat="friend in data.chatlist"
+                                ng-click="selectFriendToChat(friend.id)"
+                                ng-class="{'active waves-effect waves-light':friend.id == data.selectedFriendId}"
+                            >{{friend.username}}</li>
+                        </ul>
+                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
+                            <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
+                            <strong>No conversation available.</strong>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <!-- Chat List Markup ends -->
+
             <!-- Message Area Markup starts -->
-            <div class="col-md-8">
+            <div class="col s8">
                 <div class="message-container">
                     <p ng-show="data.selectedFriendId !== null" ? true : false >
                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -42,38 +68,39 @@
                         </ul>
                     </div>
                     <div class="message-text">
-                        <textarea id="message" 
-                            class="message form-control" 
-                            placeholder="Type and hit Enter" 
-                            ng-keydown="sendMessage($event)"
-                        ></textarea>
+                        
+                        <input type="text" id="message" 
+                        class="col s11" 
+                        placeholder="Type and hit Enter" 
+                        ng-keydown="sendMessage($event)">
+                        
+                        <button id="submit" class="waves-effect waves-light btn-small" type="submit" name="submit">
+                        <!-- <a class="waves-effect waves-light btn-small"><i class="material-icons right">cloud</i>button</a> -->
+                        <i class="material-icons">send</i>
+                        
+                    </div>
                     </div>
                 </div>
             </div>
             <!-- Message Area Markup ends -->
 
-            <!-- Chat list Markup starts -->
-            <div class="col-md-4">
-                <div class="chat-list-container">
-                    <p class="chat-list-heading"><i class="fa fa-list" aria-hidden="true"></i> <span >Chat list</span> </p>
-                    <div class="chat-list">
-                        <ul class="list-group" ng-if="data.chatlist.length > 0">
-                            <li class="list-group-item"
-                                ng-repeat="friend in data.chatlist"
-                                ng-click="selectFriendToChat(friend.id)"
-                                ng-class="{'active':friend.id == data.selectedFriendId}"
-                            >{{friend.username}}</li>
-                        </ul>
-                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
-                            <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <strong>No conversation available.</strong>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-            <!-- Chat List Markup ends -->
 
         </div>
     </div>
     <!-- Home page body start -->
 </div>
+
+<style>
+    #message {
+    border-radius: 25px;
+    border: 2px solid #609;
+    padding: 20px; 
+    height: 20px;
+    resize: none;
+    overflow:hidden;
+}
+#submit {
+    border-radius: 50%  ;
+    height: 50px;
+}
+</style>
