@@ -1,0 +1,79 @@
+<div class="home-page">
+    <!-- Home page header starts -->
+
+
+    <nav>
+    <div class="nav-wrapper red darken-4">
+      <a href="#!" class="brand-logo ml-3">TEAM ROCKET</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+        <li class="mr-3">
+            Welcome {{ data.username }}
+        </li>
+        <li class="mr-3 mt-1">
+            <span class="logout-user" ng-click="logout()">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+        </span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <!-- Home page header ends -->
+
+    <!-- Home page body start -->
+    <div class="home-body">
+        <div class="row">
+            <!-- Message Area Markup starts -->
+            <div class="col-md-8">
+                <div class="message-container">
+                    <p ng-show="data.selectedFriendId !== null" ? true : false >
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span class="message-heading"> Chat History With {{data.selectedFriendName}}</span>
+                    </p>
+                    <div class="message-list">
+                        <ul class="message-thread">
+                            <li ng-repeat="messagePacket in data.messages"
+                                ng-class="{ 'align-right' : alignMessage(messagePacket.fromUserId) } ">
+                                {{messagePacket.message}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="message-text">
+                        <textarea id="message" 
+                            class="message form-control" 
+                            placeholder="Type and hit Enter" 
+                            ng-keydown="sendMessage($event)"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Message Area Markup ends -->
+
+            <!-- Chat list Markup starts -->
+            <div class="col-md-4">
+                <div class="chat-list-container">
+                    <p class="chat-list-heading"><i class="fa fa-list" aria-hidden="true"></i> <span >Chat list</span> </p>
+                    <div class="chat-list">
+                        <ul class="list-group" ng-if="data.chatlist.length > 0">
+                            <li class="list-group-item"
+                                ng-repeat="friend in data.chatlist"
+                                ng-click="selectFriendToChat(friend.id)"
+                                ng-class="{'active':friend.id == data.selectedFriendId}"
+                            >{{friend.username}}</li>
+                        </ul>
+                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
+                            <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
+                            <strong>No conversation available.</strong>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <!-- Chat List Markup ends -->
+
+        </div>
+    </div>
+    <!-- Home page body start -->
+</div>
