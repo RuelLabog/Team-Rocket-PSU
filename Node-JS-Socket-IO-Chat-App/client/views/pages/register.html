@@ -1,6 +1,4 @@
 
-
-
 <div class="container h-100">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card">
@@ -17,32 +15,40 @@
                         </div>
                         <input type="text"
                         id="username" 
-                        placeholder="Enter username" 
-                        ng-model="data.loginUsername"
-                        class="form-control input_user"
-                        placeholder="username">
+                        placeholder="Enter username"
+                        autocomplete="off"
+                        ng-model="data.regUsername" 
+                        ng-keyup="initiateCheckUserName()" 
+                        ng-keydown="clearCheckUserName()"
+                        class="form-control input_user"/>
+                    </div>
+                    <div ng-show='data.usernameAvailable'>
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                            <strong>{{ data.regUsername }}</strong> Username is already taken.
+                        </div>
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
                         <input type="password" name="" class="form-control input_pass"
-                        id="login-password" 
-                        placeholder="Enter password" 
-                        ng-model="data.loginPassword"
-                        placeholder="password">
+                        id="reg-password" 
+                        placeholder="Enter password"
+                        ng-model="data.regPassword">
                     </div>
                     
                         <div class="d-flex justify-content-center mt-3 login_container">
-                 <button type="button" name="button" class="btn login_btn" ng-click="loginUser()">Login</button>
+                 <button type="button" name="button" class="btn login_btn" ng-click="registerUser()">Register</button>
                </div>
                 </form>
             </div>
     
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
-                    Don't have an account? <a href="register.html" class="ml-2">Sign Up</a>
+                    Back to <a href="/" class="ml-2">Login</a>
                 </div>
+                
             </div>
         </div>
     </div>
