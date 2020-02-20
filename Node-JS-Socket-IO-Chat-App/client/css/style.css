@@ -1,5 +1,6 @@
 body{
 	overflow-x: hidden;
+	height: 100%;;
 }
 
 /* Auth page CSS starts */
@@ -40,7 +41,7 @@ html {
 	width: 350px;
 	margin-top: auto;
 	margin-bottom: auto;
-	background: #f39c12;
+	background: #90caf9;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -73,7 +74,7 @@ html {
 }
 .login_btn {
 	width: 100%;
-	background: #c0392b !important;
+	background: #1565c0 !important;
 	color: white !important;
 }
 .login_btn:focus {
@@ -84,7 +85,7 @@ html {
 	padding: 0 2rem;
 }
 .input-group-text {
-	background: #c0392b !important;
+	background: #1565c0 !important;
 	color: white !important;
 	border: 0 !important;
 	border-radius: 0.25rem 0 0 0.25rem !important;
@@ -95,7 +96,7 @@ html {
 	outline: 0px !important;
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-	background-color: #c0392b !important;
+	background-color: #1565c0 !important;
 }
 /* Auth page CSS ends */
 
@@ -123,18 +124,18 @@ html {
 	padding: 20px 0px 20px 20px;
 	background-color: rgba(255, 255, 255, 0.80);
 	margin: 10px 0px 10px 10px;
-	border-radius: 5px;
 	height: 100%;
 }
 
 .message-thread {
 	overflow-y: scroll;
 	list-style-type: none;
-	height: 400px;
+	height: 100%;
 	width: 100%;
 	border: solid 1px #BDBDBD;
 	margin: 0px !important;
 	padding: 5px !important;
+	border-radius: 25px;
 }
 
 .message-thread li {
@@ -152,11 +153,12 @@ html {
 	max-width: 350px;
 	border-radius: 5px;
 	border:solid 1px #0000001f;
-	background-color: rgba(255, 255, 255, 0.80);
+	background-color: eeeeee;
 	line-height: 1.4;
 	word-wrap: break-word;
 	color: #444444;
 	text-align: left;
+	border-radius: 25px;
 }
 
 .align-left {
@@ -167,7 +169,7 @@ html {
 }
 
 .message-text{
-	margin-top: 1%;
+	margin-top: 0.5%;
 }
 
 

@@ -1,14 +1,14 @@
-<div class="home-page">
+<div class="home-page ">
     <!-- Home page header starts -->
     <nav>
-    <div class="nav-wrapper deep-purple lighten-3 col s12">
-      <a href="#!" class="col s3">Welcome {{ data.username }}</a>
+    <div class="nav-wrapper blue lighten-3 col s12">
+      <a href="#!" class="col s4">Welcome {{ data.username }}</a>
       <ul class="right hide-on-med-and-down">
         <!-- <li><a href="sass.html"><i class="material-icons col s3">search</i></a></li>
         <li><a href="badges.html"><i class="material-icons col s3">view_module</i></a></li>
         <li><a href="collapsible.html"><i class="material-icons col s3">refresh</i></a></li>
         <li><a href="mobile.html"><i class="material-icons col s3">more_vert</i></a></li> -->
-        <li>
+        <li class="col s3 left-align">
             <span class="logout-user" ng-click="logout()">
             <i class="material-icons col s3" aria-hidden="true">power_settings_new</i>
             </span>
@@ -19,9 +19,8 @@
     <!-- Home page header ends -->
 
     <!-- Home page body start -->
-    <div class="home-body col s12">
-        <div class="row">
-            
+    <div class="home-body">
+        <div class="row" style="height: 100% !important;">
             <!-- Chat list Markup starts -->
             <div class="col s3">
                 <div class="chat-list-container">
@@ -30,18 +29,17 @@
                         <div class="row">
                             <div class="col s12">
                               <ul class="tabs">
-                                <li class="tab col s3"><a href="#test1">Test 1</a></li>
-                                <li class="tab col s3"><a href="#test2">Test 2</a></li>
-                                <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                                <li class="tab col s6"><a href="#test1">Test 1</a></li>
+                                <li class="tab col s6"><a href="#test2">Test 2</a></li>
                               </ul>
                             </div>
                         </div>
-                        <ul class="collection with-header" ng-if="data.chatlist.length > 0">
+                        <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0">
 
-                            <li class="collection-item"
+                            <li class="collection-item truncate"
                                 ng-repeat="friend in data.chatlist"
                                 ng-click="selectFriendToChat(friend.id)"
-                                ng-class="{'active waves-effect waves-light':friend.id == data.selectedFriendId}"
+                                ng-class="{'active':friend.id == data.selectedFriendId}"
                             >{{friend.username}}</li>
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
@@ -54,12 +52,9 @@
             <!-- Chat List Markup ends -->
 
             <!-- Message Area Markup starts -->
-            <div class="col s9" id="messagecont">
-                <div class="message-container" style="height: 100%;">
-                    <p ng-show="data.selectedFriendId !== null" ? true : false >
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <span class="message-heading"> Chat History With {{data.selectedFriendName}}</span>
-                    </p>
+            <div class="col s9" >
+                <div class="message-container">
+                    
                     <div class="message-list">
                         <ul class="message-thread">
                             <li ng-repeat="messagePacket in data.messages"
@@ -70,19 +65,19 @@
                     </div>
                     
                     <div class="message-text">
-                        <div class="col s11" >
+                        <div class="col s11 align-left" >
                         <textarea id="message" 
                         
-                        placeholder="Type and hit Enter" 
+                        placeholder="Type a message" 
                         ng-keydown="sendMessage($event)"></textarea>
                         
                         </div>
                         
                         
-                        <div class="col s1" >
+                        <div class="col s1 align-left" >
                         <button id="submit" class="waves-effect waves-light btn-small" type="submit" name="submit">
                         <!-- <a class="waves-effect waves-light btn-small"><i class="material-icons right">cloud</i>button</a> -->
-                        <i class="material-icons">send</i>
+                        <i class="material-icons left-align">send</i>
                         </div>
                     </div>
                 </div>
@@ -98,16 +93,57 @@
 <style>
     #message {
     border-radius: 25px;
-    border: 2px solid #609;
+    background-color: eeeeee;
     padding: 20px; 
-    height: 20px;
+    /* height: 20px;
+    width: 1020px; */
     resize: none;
     overflow:hidden;
+    outline-width: 0;
+    display: inline;
+    
 }
 #submit {
-    border-radius: 50%  ;
-    height: 50px;
+    border-radius: 50%;
+    /* height: 20px; */
+    padding: 20px; 
+    margin-left: 15px;
+    display: inline;
+    background-color: bbdefb;
 }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<script>
+    function getCaret(el) { 
+    if (el.selectionStart) { 
+        return el.selectionStart; 
+    } else if (document.selection) { 
+        el.focus();
+        var r = document.selection.createRange(); 
+        if (r == null) { 
+            return 0;
+        }
+        var re = el.createTextRange(), rc = re.duplicate();
+        re.moveToBookmark(r.getBookmark());
+        rc.setEndPoint('EndToStart', re);
+        return rc.text.length;
+    }  
+    return 0; 
+}
+
+$('textarea').keyup(function (event) {
+    if (event.keyCode == 13) {
+        var content = this.value;  
+        var caret = getCaret(this);          
+        if(event.shiftKey){
+            this.value = content.substring(0, caret - 1) + "\n" + content.substring(caret, content.length);
+            event.stopPropagation();
+        } else {
+            this.value = content.substring(0, caret - 1) + content.substring(caret, content.length);
+            $('form').submit();
+        }
+    }
+});
+</script>
