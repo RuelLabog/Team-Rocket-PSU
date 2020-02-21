@@ -1,0 +1,180 @@
+<!-- 
+    Real Time chatting app
+    @author Shashank Tiwari 
+-->
+<div class="auth-page">
+    <div class="container auth-container">
+        <div class="auth">
+
+            <!-- Auth Page Header Tabs start -->
+            <div class="auth-header">
+                <button type="button" class="btn btn-primary auth-header-btn waves-effect waves-light btn" ng-click="active = 0">Login</button>
+                <button type="button" class="btn btn-primary auth-header-btn waves-effect waves-light btn" ng-click="active = 1">Register</button>
+            </div>
+            <!-- Auth Page Header Tabs ends -->
+
+            <div class="auth-content">
+                <uib-tabset active="active">
+                    <!-- Login Tab starts -->
+                    <uib-tab index="0">
+                        <div class="login">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="username" 
+                                    class="form-control" 
+                                    id="username" 
+                                    placeholder="Enter username" 
+                                    ng-model="data.loginUsername">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" 
+                                    class="form-control" 
+                                    id="login-password" 
+                                    placeholder="Enter password" 
+                                    ng-model="data.loginPassword">
+                            </div>
+                            <button class="btn btn-primary" ng-click="loginUser()">Login</button>
+                        </div>
+                    </uib-tab>
+                    <!-- Login Tab ends -->
+                    <!-- Register Tab starts -->
+                    <uib-tab index="1">
+                        <div class="register">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="username" 
+                                    class="form-control" 
+                                    id="username" 
+                                    placeholder="Enter username"
+                                    autocomplete="off"
+                                    ng-model="data.regUsername" 
+                                    ng-keyup="initiateCheckUserName()" 
+                                    ng-keydown="clearCheckUserName()" 
+                                />
+                                <div ng-show='data.usernameAvailable'>
+                                    <br>
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>{{ data.regUsername }}</strong> Username is already taken.
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" 
+                                    class="form-control" 
+                                    id="reg-password" 
+                                    placeholder="Enter password"
+                                    ng-model="data.regPassword">
+                            </div>
+                            <button class="btn btn-primary" ng-click="registerUser()">Register</button>
+                        </div>
+                    </uib-tab>
+                    <!-- Register Tab ends -->
+                </uib-tabset>
+            </div>        
+        </div>
+    </div>
+</div>
+
+
+
+---------------
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <div class="brand_logo_container">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text"
+                        id="username" 
+                        placeholder="Enter username"
+                        autocomplete="off"
+                        ng-model="data.regUsername" 
+                        ng-keyup="initiateCheckUserName()" 
+                        ng-keydown="clearCheckUserName()"/>
+
+                        <div ng-show='data.usernameAvailable'>
+                            <br>
+                            <div class="alert alert-danger" role="alert">
+                                <strong>{{ data.regUsername }}</strong> Username is already taken.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" name="" class="form-control input_pass"
+                        id="reg-password" 
+                        placeholder="Enter password"
+                        ng-model="data.regPassword">
+                    </div>
+                    
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                 <button type="button" name="button" class="btn login_btn" ng-click="registerUser()">Login</button>
+               </div>
+                </form>
+            </div>
+    
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    Don't have an account? <a href="register.html" class="ml-2">Sign Up</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+.auth-page{
+	background: #ffffff;
+	height: 100%;
+}
+
+.auth-container {
+	padding-top: 5%;
+	width: 50%;
+	margin: auto;
+}
+.auth{
+	width: 400px;
+	margin: auto;
+	padding: 5%;
+	border-radius: 5px;
+	border: solid 1px #0000003d;
+}
+
+.auth-header-btn{
+	width: 49%;
+}
+
+.login,
+.register {
+	padding: 1.5%;
+}

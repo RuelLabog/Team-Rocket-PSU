@@ -16,6 +16,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/pages/auth.html',
             controller: 'authController'
         })
+        .when('/register.html', {
+            templateUrl: '/views/pages/register.html',
+            controller: 'authController'
+        })
         .when('/home/:userId', {
             templateUrl: '/views/pages/home.html',
             controller: 'homeController'
