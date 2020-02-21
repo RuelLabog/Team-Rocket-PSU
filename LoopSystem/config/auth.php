@@ -16,6 +16,8 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        // 'guard' => 'subscriber',
+        // 'passwords' => 'subscribers'
     ],
 
     /*
@@ -46,6 +48,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'subscriber' => [
+            'driver' => 'session',
+            'provider' => 'subscribers',
+        ],
+
+        'api-subscriber' => [
+            'driver' => 'token',
+            'provider' => 'subscribers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +81,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'subscribers' => [
+            'driver' => 'eloquent',
+            'model' => App\Subscriber::class,
         ],
 
         // 'users' => [
@@ -95,6 +111,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'subscribers' => [
+            'provider' => 'subscribers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
