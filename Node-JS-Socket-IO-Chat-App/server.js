@@ -52,4 +52,5 @@ class Server{
 }
 
 const app = new Server();
+
 app.appExecute();
