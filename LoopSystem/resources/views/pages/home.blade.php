@@ -34,10 +34,10 @@
                     <div class="col s12 center-align">
                         <ul class="tabs">
                             <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
-                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Personas</a></li>        
+                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Personas</a></li>
                         </ul>
                     </div>
- 
+
                     <div class="chat-list">
                         <div class="row">
                             <!-- <div class="col s12">
@@ -58,14 +58,14 @@
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversation available.</strong>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <!-- Chat List Markup ends -->
 
             <!-- Message Area Markup starts -->
             <div class="col s9" >
-                <div class="message-container2" ng-if="data.messages.length == 0">                    
+                <div class="message-container2" ng-if="data.messages.length == 0">
                     <div class="message-list">
                         <ul class="message-thread center-align">
                             <div class="section"></div>
@@ -77,11 +77,11 @@
                             <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" style="bottom: 0px;left:750px;position: absolute;">
                         </ul>
                     </div>
-                    
+
                 </div>
 
 
-                
+
                 <div class="message-container" ng-if="data.messages.length > 0">
                     <span id="fixx">
                     <h5 class="collection-item truncate"
@@ -102,28 +102,28 @@
                             </li>
                         </ul>
                     </div>
-                    
+
 
                     <div class="message-text">
-                        
+
 
                         <!-- <div class="col s11 align-left" >
-                        <textarea id="message" name="message" 
-                        
-                        placeholder="Type a message" 
+                        <textarea id="message" name="message"
+
+                        placeholder="Type a message"
                         ng-keydown="sendMessage($event)"></textarea>
-                        
+
                         </div> -->
 
-                        
-                        
+
+
                         <div class="input-field col s11">
                             <i class="material-icons prefix">message</i>
                             <textarea id="message" name="message" type="text" class="materialize-textarea" ng-keydown="sendMessage($event)"></textarea>
                             <label for="message">Type a message</label>
                         </div>
-                        
-                        
+
+
                         <div class="col s1 align-left" >
                         <button id="submit" class="waves-effect waves-light btn-large" type="submit" name="submit">
                         <!-- <a class="waves-effect waves-light btn-small"><i class="material-icons right">cloud</i>button</a> -->
@@ -144,22 +144,22 @@
     /* #message {
     border-radius: 25px;
     background-color: eeeeee;
-    padding: 20px; 
+    padding: 20px;
      height: 20px;
-    width: 1020px; 
+    width: 1020px;
     resize: none;
     overflow:hidden;
     outline-width: 0;
     display: inline;
-    
+
 } */
 
 #submit {
     border-radius: 50%;
-    height: 50px; 
-    
+    height: 50px;
+
     margin-top: 5px;
-    
+
     display: inline;
 }
 #fixx{

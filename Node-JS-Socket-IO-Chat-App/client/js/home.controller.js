@@ -98,6 +98,7 @@ app.controller('homeController', function ($scope, $routeParams, $location, appS
         appService.getMessages(UserId, friendId).then( (response) => {
             $scope.$apply(() => {
                 $scope.data.messages = response.messages;
+                appService.scrollToBottom();
             });
         }).catch( (error) => {
             console.log(error);
@@ -123,7 +124,7 @@ app.controller('homeController', function ($scope, $routeParams, $location, appS
             /* Fetching the selected User from the chat list ends */
             
             /* Emmiting socket event to server with Message, starts */
-            if (friendData.length > 0) {
+            if (friendData.length > 0 &&  document.querySelector('#message').value != "") {
 
                 toUserId = friendData[0]['id'];
                 toSocketId = friendData[0]['socketid'];            
@@ -134,10 +135,12 @@ app.controller('homeController', function ($scope, $routeParams, $location, appS
                     toUserId: toUserId,
                     toSocketId: toSocketId
                 };
+                document.querySelector('#message').value = null;
                 $scope.data.messages.push(messagePacket);
                 appService.socketEmit(`add-message`, messagePacket);
 
-                document.querySelector('#message').value = '';
+                
+                
                 appService.scrollToBottom();
             }else {
                 alert('Unexpected Error Occured,Please contact Admin');
