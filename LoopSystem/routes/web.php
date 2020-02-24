@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('pages.dashboard');
+    return view('auth.login');
 });
+
 
 Auth::routes();
 
@@ -22,6 +23,7 @@ Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
 
 Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
+
 
 // Route::get('/subscriber', function(){
 //     return view('subscriber');
