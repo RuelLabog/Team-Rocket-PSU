@@ -18,10 +18,14 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+
+
+        if($guard == 'subscriber' && Auth::guard($guard)->check()){
+            return redirect('/subscriber');
+        }
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }
-
         return $next($request);
     }
 }

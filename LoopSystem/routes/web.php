@@ -19,3 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
+
+Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
+Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
+
+// Route::get('/subscriber', function(){
+//     return view('subscriber');
+// });

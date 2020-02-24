@@ -10,6 +10,8 @@ class Subscriber extends Authenticatable
 {
     use Notifiable;
 
+    // protected $table ='subscribers';
+
     protected $guard = 'subscriber';
 
     /**
