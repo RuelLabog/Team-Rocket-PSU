@@ -20,7 +20,14 @@ Route::get('/index', function () {
 Route::get('/zzz', function () {
     return view('pages.home');
 });
+Route::get('/xxx', function () {
+    return view('pages.subscribers');
+});
 
+Route::resource('/subscribers_page', 'Subscriber_AdminController');
+Route::resource('/personas_page', 'PersonaController');
+Route::resource('/operators_page', 'OperatorController');
+Route::resource('/services_page', 'ServicesController');
 
 Auth::routes();
 
@@ -29,6 +36,7 @@ Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
 
 Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
+
 
 
 // Route::get('/subscriber', function(){
