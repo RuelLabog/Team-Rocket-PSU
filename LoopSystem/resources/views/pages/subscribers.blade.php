@@ -6,7 +6,7 @@
       <div class="row mb-2">
         <div class="col-sm-6">
 
-          <h1 class="m-0 text-dark"><i class="nav-icon fas fa-sitemap"></i> Categories</h1>
+          <h1 class="m-0 text-dark"><i class="nav-icon fas fa fa-user"></i> Subscribers</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">

@@ -33,29 +33,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-</head>
-<body>
-    @include('includes.header')
-    @include('includes.sidebar')
-    @yield('content')
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<!-- jQuery -->
-<script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="bower_components/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="bower_components/admin-lte/dist/js/adminlte.min.js"></script>
-<!-- Select2 -->
-<script src="bower_components/admin-lte/plugins/select2/js/select2.full.min.js"></script>
-
-<!-- DataTables -->
-<script src="bower_components/admin-lte/plugins/datatables/jquery.dataTables.js"></script>
-<script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-
-<script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
-
-  <!-- Font Awesome Icons -->
+     <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css">
@@ -76,6 +55,35 @@
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/toastr/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+</head>
+<body class="hold-transition sidebar-mini">
+    @include('includes.header')
+    @include('includes.sidebar')
+
+    <div class="wrapper">
+        <div class="content-wrapper">
+    @yield('content')
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="bower_components/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="bower_components/admin-lte/dist/js/adminlte.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/admin-lte/plugins/select2/js/select2.full.min.js"></script>
+
+<!-- DataTables -->
+<script src="bower_components/admin-lte/plugins/datatables/jquery.dataTables.js"></script>
+<script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
+<script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
+
+
 
 
 </body>
