@@ -15,6 +15,7 @@
 		"dotenv": "^8.2.0",
 		"express": "^4.16.2",
 		"lodash": "^4.17.15",
+		"materialize-css": "^1.0.0-rc.2",
 		"moment": "^2.24.0",
 		"mysql": "^2.15.0",
 		"nodemon": "^2.0.2",
