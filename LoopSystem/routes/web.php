@@ -14,6 +14,12 @@
 Route::get('/', function () {
     return view('pages.dashboard');
 });
+Route::get('/index', function () {
+    return view('pages.index');
+});
+Route::get('/zzz', function () {
+    return view('pages.home');
+});
 
 Auth::routes();
 

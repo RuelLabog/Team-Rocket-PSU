@@ -4,7 +4,7 @@
 
 <div class="home-page ">
     <!-- Home page header starts -->
-    <nav>
+    <nav >
         <div class="nav-wrapper teal lighten-2 col s12">
           <a href="#!" class="brand-logo">Welcome</a>
           <ul class="right hide-on-med-and-down">
@@ -21,10 +21,10 @@
 
     <!-- Home page body start -->
     <div class="home-body">
-        <div class="row" style="height: 100% !important;">
+        <div class="row" style="height: 100% !important; margin-bottom:0px;">
             <!-- Chat list Markup starts -->
-            <div class="row" style="width:30%;">
-                <div class="chat-list-container">
+            <div class="row" style="width:30%; margin-bottom:0px;">
+                <div class="chat-list-container z-depth-2" style="height: 100% !important; ">
                     <p class="chat-list-heading"><h4 class="center-align">Chat list</h4> </p>
                     <div class="input-field col 3">
                         <i class="material-icons prefix">search</i>
@@ -35,7 +35,7 @@
                     <div class="center-align col 3 ">
                         <ul class="tabs">
                             <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
-                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Personas</a></li>
+                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4" styl>Services</a></li>
                         </ul>
                     </div>
 
@@ -48,17 +48,17 @@
                                 ng-class="{'active':friend.id == data.selectedFriendId}"
                             ></li>
                         </ul>
-                        {{-- <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
+                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversation available.</strong>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Chat List Markup ends -->
 
             <!-- Message Area Markup starts -->
-            <div class="" style="width:70%;">
+            <div class="" style="width:70%; height:100%; ">
                 <div class="message-container2" ng-if="data.messages.length == 0">
                     <div class="message-list">
                         <ul class="message-thread center-align">
@@ -99,9 +99,9 @@
 
 
                         <div class="col s1 align-left" >
-                            <button id="submit" class="waves-effect waves-light btn-large" type="submit" name="submit">
+                            <button id="submit" class="waves-effect waves-light btn-small" type="submit" name="submit">
 
-                            <i class="material-icons left-align">send</i>
+                            <i class="material-icons">send</i>
                         </div>
                     {{-- </div> --}}
                 </div>
@@ -129,10 +129,10 @@
 } */
 
 #submit {
-    border-radius: 50%;
+    border-radius: 20%;
     height: 50px;
 
-    margin-top: 5px;
+    margin-top: 10px;
 
     display: inline;
 }
@@ -143,6 +143,18 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+<script>
+     var instance = M.Tabs.init(el, options);
+     var instance = M.Tabs.getInstance(elem);
+     instance.select('tab_id');
+     instance.updateTabIndicator();
+
+// Or with jQuery
+
+$(document).ready(function(){
+  $('.tabs').tabs();
+});
+</script>
 
 
 @endsection
