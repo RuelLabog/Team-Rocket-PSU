@@ -19,7 +19,20 @@ Route::get('/', function () {
 // Route::get('/zzz', function () {
 //     return view('pages.home');
 // });
+Route::get('/index', function () {
+    return view('pages.index');
+});
+Route::get('/zzz', function () {
+    return view('pages.home');
+});
+Route::get('/xxx', function () {
+    return view('pages.subscribers');
+});
 
+Route::resource('/subscribers_page', 'Subscriber_AdminController');
+Route::resource('/personas_page', 'PersonaController');
+Route::resource('/operators_page', 'OperatorController');
+Route::resource('/services_page', 'ServicesController');
 
 Auth::routes();
 
@@ -44,15 +57,3 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
     });
 });
 
-
-// Route::get('/subscriber', function(){
-//     return view('subscriber');
-// });
-
-/*
-finished multi auth guards login
-created admin middleware to redirect the user(operator) and admin in different page after login
-discussed the system's process flow (w/ the team)
-
-
-*/
