@@ -6,12 +6,18 @@
     <!-- Home page header starts -->
     <nav >
         <div class="nav-wrapper teal lighten-2 col s12">
-          <a href="#!" class="brand-logo">Welcome</a>
+          <a href="" class="brand-logo">Welcome {{auth()->user()->username}}</a>
           <ul class="right hide-on-med-and-down">
             <li>
-                <span class="logout-user" ng-click="logout()">
+                <!-- <span class="logout-user" ng-click="logout()"> -->
+                <a class="logout-user" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
                 <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
-                </span>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+                </form>
+                </a>
             </li>
           </ul>
         </div>

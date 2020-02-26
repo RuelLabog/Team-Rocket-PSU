@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SubscriberController extends Controller
+class adminHomeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -13,7 +13,7 @@ class SubscriberController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:subscriber');
+        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +23,6 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        return view('pages.admin');
     }
 }

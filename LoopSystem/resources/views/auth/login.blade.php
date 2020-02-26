@@ -29,7 +29,7 @@
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         <input id="login" type="text"
-                                class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
+                                class="input_user form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
                                 name="login" value="{{ old('username') ?: old('email') }}"
                                 placeholder="Username or Email" required autofocus>
 
