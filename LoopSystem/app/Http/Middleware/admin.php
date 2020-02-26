@@ -24,13 +24,10 @@ class admin
         // }
         // return redirect()->route('admin.home');
 
-        if(Auth::user()->user_type == "admin"){
-            // return redirect()->route('admin.home');
-            return redirect()->guest('home');
+        if(!$request->user()->user_type == "admin"){
+          return redirect()->guest('home');
         }
-        // else{
-        //     return redirect('/home');
-        // }
+      
 
         // else{
         //     return redirect()->route('admin.home');
