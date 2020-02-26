@@ -21,7 +21,7 @@
                 @endisset
                 @csrf
                     <div class="" style="text-align: center;">
-                        <h1>Team Rocket</h1>
+                        <h1>TeamRocket</h1>
                     </div>
                     <Br>
                     <div class="input-group mb-3">
