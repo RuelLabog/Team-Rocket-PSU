@@ -28,6 +28,7 @@ Route::resource('/subscribers_page', 'Subscriber_AdminController');
 Route::resource('/personas_page', 'PersonaController');
 Route::resource('/operators_page', 'OperatorController');
 Route::resource('/services_page', 'ServicesController');
+Route::resource('/pairing_page', 'PairController');
 
 Auth::routes();
 

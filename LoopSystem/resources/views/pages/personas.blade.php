@@ -6,7 +6,7 @@
       <div class="row mb-2">
         <div class="col-sm-6">
 
-          <h1 class="m-0 text-dark"><i class="nav-icon fas fa-sitemap"></i> Categories</h1>
+          <h1 class="m-0 text-dark"><i class="nav-icon fas fa-comments"></i> Persona</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
     <div class="card">
       <div class="card-header">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus mr-2"></i>Add Category
+          <i class="fas fa-plus mr-2"></i>Add Persona
         </button>
       </div>
       <!-- /.card-header -->
@@ -34,9 +34,9 @@
         <table id="categories_table" class="table table-bordered table-striped">
           <thead>
            <tr>
-                <th width="25%">Name</th>
-                <th width="55">Description</th>
-                <th width="55">Date Created</th>
+                <th width="10%">ID</th>
+                <th width="40%">Name</th>
+                <th width="40%">Status</th>
                 <th width="10%"></th>
               </tr>
           </thead>
@@ -51,18 +51,14 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger">
-            <h4 class="modal-title">Add New Category</h4>
+            <h4 class="modal-title">Add New Persona</h4>
           </div>
           <form action="" method="POST">
           <div class="modal-body">
             <div class="form-group">
               {{ csrf_field() }}
-              <label>Category:</label>
+              <label>Name:</label>
               <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Category Name" required>
-            </div>
-            <div class="form-group">
-              <label>Description:</label>
-              <textarea class="form-control" id="catDesc" name="catDesc" placeholder="Category Description" required></textarea>
             </div>
 
           </div>
