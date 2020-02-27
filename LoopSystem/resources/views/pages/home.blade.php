@@ -45,7 +45,7 @@
                     <div class="center-align col 3 ">
                         <ul class="tabs">
                             <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
-                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4" styl>Services</a></li>
+                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Services</a></li>
                         </ul>
                     </div>
 
@@ -180,34 +180,10 @@ $(document).ready(function(){
     $(function(){
         //var socket = io.connect();
 
-
-
         var $username = $('#username');
-        
-
-
-
-
-
-
             socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-
             });
-
-
-
-
-
-
-
-
-
-
     });
-
-
-
-
 
 
 function logout(){
