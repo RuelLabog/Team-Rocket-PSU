@@ -42,8 +42,13 @@ socket.on('login user', function(data, callback){
 	callback(true);
 	socket.id = data[0];
 	socket.username = data[1];
-	users.push(socket.username);
-	
+	if(users.includes(socket.username)){
+		console.log('exists');
+	}else{
+		users.push(socket.username);
+	}
+
+
 
 
 
@@ -66,8 +71,6 @@ connection.query("SELECT username FROM users WHERE user_status='active'", functi
       	socket.emit('showrows', rows);
 	}
 });
-
-
 
 
 //User Logout
@@ -100,15 +103,51 @@ function updateUsernames(){
 
 
 
-
-  
-
 //Disconnect
   	socket.on('disconnect', function(data){
+  		users.splice(users.indexOf(socket.username), 1);
 		connected_users.splice(connected_users.indexOf(socket), 1);
+		updateUsernames();
 		console.log('Disconnected: %s sockets connected', connected_users.length);
 
 		updateUsernames();
+	});
+
+
+//admin pairing show online subs
+connection.query("SELECT username,id, service_id,subscriber_name FROM subscribers WHERE subscriber_status='active'", function(err, rows, fields){
+	if(err){
+		console.log('Error: ' + err.message);
+	}else{
+      	socket.emit('showSubscribers', rows);
+	}
+});
+
+//admin pairing show online ops
+connection.query("SELECT username,id, service_id,username FROM users WHERE user_status='active'", function(err, rows, fields){
+	if(err){
+		console.log('Error: ' + err.message);
+	}else{
+      	socket.emit('showOnOperators', rows);
+	}
+});
+
+//admin pairing show online operators w/ same service
+socket.on('selectOperators', (service_id)=>{
+    connection.query('SELECT username, id, username FROM users WHERE service_id="'+service_id+'" AND user_status="active"', (err, rows, fields)=>{
+        if(err){
+            console.log('Error: ' + err.message);
+        }else{
+            socket.emit('showOperators', rows);
+        }
+    });
+});
+
+
+
+	//Send Message
+	socket.on('send message', function(data){
+		io.sockets.emit('new message', {msg: data, user:socket.username});
 	});
 
 

@@ -15,8 +15,9 @@
                 document.getElementById('logout-form').submit();">
                 <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
                 </a>
+                {{-- <input type="submit"></button> --}}
                 <br><br><br>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none" >
                 @csrf
 
                 <input type="submit" value="Logout">
@@ -84,6 +85,16 @@
                             <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
                             <h5>Please wait for a user.</h5>
                             <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
+
+
+                            <div class="chat" id="chat"></div>
+
+
+
+
+
+
+
                         </ul>
                     </div>
 
@@ -109,6 +120,7 @@
 
 
                     <div class="message-text">
+                        <form id="messageForm">
                         <div class="input-field col s11">
                             <i class="material-icons prefix">message</i>
                             <textarea id="message" name="message" type="text" class="materialize-textarea" ng-keydown="sendMessage($event)"></textarea>
@@ -121,6 +133,7 @@
 
                             <i class="material-icons">send</i>
                         </div>
+                        </form>
                     {{-- </div> --}}
                 </div>
             </div>
@@ -180,22 +193,32 @@ $(document).ready(function(){
 
 <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script>
-  var socket = io('http://localhost:8000');
+  //var socket = io('http://localhost:8000');
 </script>
 
 
 <script type="text/javascript">
+ var socket = io('http://localhost:8000');
     $(function(){
-        var socket = io('http://localhost:8000');
-        //var socket = io.connect();
 
+        //var socket = io.connect();
+        var $chat = $('#chat');
         var $username = $('#username');
         var $users = $('#users');
+        var $message = $('#message');
+        var $messageForm = $('#messageForm');
 
 
 
+        $messageForm.submit(function(e){
+            e.preventDefault();
+            socket.emit('send message', $message.val());
+            $message.val('');
+        });
 
-
+        socket.on('new message', function(data){
+            $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+        });
 
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
@@ -205,7 +228,7 @@ $(document).ready(function(){
         socket.on('get users', function(data){
             var html = '';
             for(i =0 ; i <data.length;i++){
-                html += '<li>'+data[i]+'</li>';
+                html += '<li class="collection-item truncate active">'+data[i]+'</li>';
             }
             $users.html(html);
         });
@@ -218,15 +241,6 @@ $(document).ready(function(){
         }
          $users.html(html);
         });
-
-
-
-
-
-
-
-
-
 
 
 
