@@ -42,7 +42,12 @@ socket.on('login user', function(data, callback){
 	callback(true);
 	socket.id = data[0];
 	socket.username = data[1];
-	users.push(socket.username);
+	if(users.includes(socket.username)){
+		console.log('exists');
+	}else{
+		users.push(socket.username);
+	}
+	
 	
 
 
@@ -66,8 +71,6 @@ connection.query("SELECT username FROM users WHERE user_status='active'", functi
       	socket.emit('showrows', rows);
 	}
 });
-
-
 
 
 //User Logout
@@ -98,14 +101,13 @@ function updateUsernames(){
 
 
 
-
-
-
   
 
 //Disconnect
   	socket.on('disconnect', function(data){
+  		users.splice(users.indexOf(socket.username), 1);
 		connected_users.splice(connected_users.indexOf(socket), 1);
+		updateUsernames();
 		console.log('Disconnected: %s sockets connected', connected_users.length);
 
 		updateUsernames();
