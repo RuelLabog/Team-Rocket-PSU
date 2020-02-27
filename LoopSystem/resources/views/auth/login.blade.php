@@ -25,13 +25,13 @@
                     </div>
                     <Br>
                     <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <div class="input-group-append" >
+                            <span class="input-group-text" style="background-color: #42b6f5; color:white"><i class="fas fa-user"></i></span>
                         </div>
                         <input id="login" type="text"
                                 class="input_user form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
                                 name="login" value="{{ old('username') ?: old('email') }}"
-                                placeholder="Username or Email" required autofocus>
+                                placeholder="Email" required autofocus>
 
                         @if ($errors->has('username') || $errors->has('email'))
                         <span class="invalid-feedback">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            <span class="input-group-text" style="background-color: #42b6f5; color:white"><i class="fas fa-key"></i></span>
                         </div>
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                                 name="password" required autocomplete="current-password"
@@ -67,7 +67,11 @@
                     </div>
 
                         <div class="d-flex justify-content-center mt-3 login_container">
-                 <button type="submit" name="button" class="btn login_btn">Login</button>
+                @isset($url)
+                 <button type="submit" name="button" style="padding-top:5px; padding-bottom:5px;  background-color: #42b6f5; color:white; width:100%">Login</button>
+                 @else
+                <button type="submit" name="button" class="btn login_btn" style="width: 100%">Login</button>
+                @endisset
                </div>
                 </form>
             </div>
@@ -76,8 +80,5 @@
         </div>
     </div>
 </div>
-
-
-
 @endsection
 

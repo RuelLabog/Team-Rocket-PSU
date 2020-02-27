@@ -47,8 +47,8 @@ socket.on('login user', function(data, callback){
 	}else{
 		users.push(socket.username);
 	}
-	
-	
+
+
 
 
 
@@ -101,7 +101,7 @@ function updateUsernames(){
 
 
 
-  
+
 
 //Disconnect
   	socket.on('disconnect', function(data){
@@ -113,6 +113,35 @@ function updateUsernames(){
 		updateUsernames();
 	});
 
+
+//admin pairing show online subs
+connection.query("SELECT username,id, service_id,subscriber_name FROM subscribers WHERE subscriber_status='active'", function(err, rows, fields){
+	if(err){
+		console.log('Error: ' + err.message);
+	}else{
+      	socket.emit('showSubscribers', rows);
+	}
+});
+
+//admin pairing show online ops
+connection.query("SELECT username,id, service_id,username FROM users WHERE user_status='active'", function(err, rows, fields){
+	if(err){
+		console.log('Error: ' + err.message);
+	}else{
+      	socket.emit('showOnOperators', rows);
+	}
+});
+
+//admin pairing show online operators w/ same service
+socket.on('selectOperators', (service_id)=>{
+    connection.query('SELECT username, id, username FROM users WHERE service_id="'+service_id+'" AND user_status="active"', (err, rows, fields)=>{
+        if(err){
+            console.log('Error: ' + err.message);
+        }else{
+            socket.emit('showOperators', rows);
+        }
+    });
+});
 
 
 
