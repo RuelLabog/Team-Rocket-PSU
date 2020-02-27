@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
+            <li class="breadcrumb-item active">Pairing</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -23,14 +23,13 @@
   <div class="row">
     <div class="col s4 m4">
       <div class="card blue lighten-5">
-        <div class="card-content black-text">
-
+        <div class="card-content black-text" >
+            <div class="center-align"><h4>Subscribers</h4></div>
           <form action="#">
-            <p>
-                <label>
-                    <h4>Subscribers</h4>
-                </label>
-            </p>
+
+
+
+            <div class="contents" id="contents">
             <p>
               <label>
                 <input name="group1" type="radio" />
@@ -79,7 +78,7 @@
                 <span>Ayaa (service 2)</span>
               </label>
             </p>
-
+            </div>
           </form>
 
         </div>
@@ -89,14 +88,10 @@
 
     <div class="col s4 m4">
         <div class="card blue lighten-5">
-            <div class="card-content black-text">
-
+            <div class="card-content black-text" >
+                <div class="center-align"><h4>Operators</h4></div>
             <form action="#">
-              <p>
-                  <label>
-                      <h4>Personas</h4>
-                  </label>
-              </p>
+                <div class="contents" id="contents">
               <p>
                 <label>
                   <input name="group1" type="radio" />
@@ -133,38 +128,34 @@
                   <span>Ayaa (service 2)</span>
                 </label>
               </p>
+                </div>
             </form>
           </div>
         </div>
       </div>
 
     <div>
-        <p>
-      <button class="btn waves-effect waves-teal btn-large" type="submit" name="action" style="margin-top: 100px;">
-        <i class="material-icons right">arrow_forward</i>
-      </button>
-    </p>
 
     <p>
-        <button class="btn waves-effect waves-teal btn-large" type="submit" name="action" style="margin-top: 100px;">
+        <button class="btn waves-effect waves-light btn-large" type="button" name="action" style="margin-top: 150px;">
+            <i class="material-icons right">arrow_forward</i>
+        </button>
+
+    </p>
+    <p>
+        <button class="btn waves-effect waves-teal btn-large" type="button" name="action" style="margin-top: 100px;">
             <i class="material-icons right">arrow_back</i>
         </button>
     </p>
     </div>
-    <div>
 
-      </div>
 
       <div class="col s4 m4">
-        <div class="card blue lighten-5">
+        <div class="card blue lighten-5" >
             <div class="card-content black-text">
-
+                <div class="center-align"><h4>Paired</h4></div>
             <form action="#">
-              <p>
-                  <label>
-                      <h4>Paired</h4>
-                  </label>
-              </p>
+                <div class="contents" id="contents">
               <p>
                 <label>
                   <input name="group1" type="radio" />
@@ -177,7 +168,7 @@
                   <span>Ayaa and (service 1)</span>
                 </label>
               </p>
-
+            </div>
             </form>
 
           </div>
@@ -187,7 +178,12 @@
   </div>
 
 
-
+<style>
+#contents{
+    overflow-y: auto;
+    height: 400px;
+}
+</style>
 
  @endsection
 

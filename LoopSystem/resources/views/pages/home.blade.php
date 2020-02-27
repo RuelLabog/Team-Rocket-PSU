@@ -34,8 +34,8 @@
         <div class="row" style="height: 100% !important; margin-bottom:0px;">
             <!-- Chat list Markup starts -->
             <div class="row" style="width:30%; margin-bottom:0px;">
-                <div class="chat-list-container z-depth-2" style="height: 100% !important; ">
-                    <p class="chat-list-heading"><h4 class="center-align">Chat list</h4> </p>
+                <div class="chat-list-container z-depth-2 col 12" style="height: 100% !important; ">
+                    <p class="chat-list-heading"><h4 class="center-align"><b>Chat list</b></h4> </p>
                     {{-- <div class="input-field col 3">
                         <i class="material-icons prefix">search</i>
                         <input id="icon_prefix" type="text" class="validate">
@@ -52,13 +52,25 @@
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-
+                            <li class="collection-item truncate active"
+                            >User12345687</li>
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <strong>No conversation available.</strong>
+                            <strong>No conversations available.</strong>
                         </div>
                     </div>
+
+
+
+                    <div class="center-align" style="margin-top: 500px;">
+                        <button id="disconnect" class="waves-effect waves-light btn-small col 12" type="submit" name="submit" value="Disconnect" style="background-color: #546D74; height: 50px;">
+                            Disconnect
+
+                        <i class="material-icons">exit_to_app</i>
+                    </button>
+                    </div>
+
                 </div>
             </div>
             <!-- Chat List Markup ends -->
@@ -70,7 +82,7 @@
                         <ul class="message-thread center-align">
 
                             <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
-                            <h5>Please select a conversation</h5>
+                            <h5>Please wait for a user.</h5>
                             <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
                         </ul>
                     </div>
@@ -105,7 +117,7 @@
 
 
                         <div class="col s1 align-left" >
-                            <button id="submit" class="waves-effect waves-light btn-small" type="submit" name="submit">
+                            <button id="submitmessage" class="waves-effect waves-light btn-small" type="submit" name="submit">
 
                             <i class="material-icons">send</i>
                         </div>
@@ -134,7 +146,7 @@
 
 } */
 
-#submit {
+#submitmessage {
     border-radius: 20%;
     height: 50px;
 
