@@ -18,10 +18,10 @@
                 <br><br><br>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
-                
+
                 <input type="submit" value="Logout">
                 </form>
-                
+
             </li>
           </ul>
         </div>
@@ -52,7 +52,7 @@
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-                            
+
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
@@ -178,9 +178,8 @@ $(document).ready(function(){
         //var socket = io.connect();
 
         var $username = $('#username');
-<<<<<<< HEAD
         var $users = $('#users');
-        
+
 
 
 
@@ -188,7 +187,7 @@ $(document).ready(function(){
 
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-            
+
         });
 
         socket.on('get users', function(data){
@@ -204,7 +203,7 @@ $(document).ready(function(){
         for (var i=0; i<rows.length; i++) {
           html += '<li>'+rows[i].username+'</li>';
 
-        } 
+        }
          $users.html(html);
         });
 
@@ -220,10 +219,6 @@ $(document).ready(function(){
 
 
 
-=======
-            socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-            });
->>>>>>> 1697718a5069917859ac54531d5f81fa0f48dbe1
     });
 
 
