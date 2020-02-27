@@ -51,12 +51,8 @@
 
                     <div class="chat-list col 3">
 
-                        <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0">
-                            <li class="collection-item truncate"
-                                ng-repeat="friend in data.chatlist"
-                                ng-click="selectFriendToChat(friend.id)"
-                                ng-class="{'active':friend.id == data.selectedFriendId}"
-                            ></li>
+                        <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
+                            
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
@@ -178,11 +174,13 @@ $(document).ready(function(){
 
 <script type="text/javascript">
     $(function(){
+        var socket = io('http://localhost:8000');
         //var socket = io.connect();
 
 
 
         var $username = $('#username');
+        var $users = $('#users');
         
 
 
@@ -190,9 +188,29 @@ $(document).ready(function(){
 
 
 
-            socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+        socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+            
+        });
 
-            });
+        socket.on('get users', function(data){
+            var html = '';
+            for(i =0 ; i <data.length;i++){
+                html += '<li>'+data[i]+'</li>';
+            }
+            $users.html(html);
+        });
+
+        socket.on('showrows', function(rows) {
+        var html='';
+        for (var i=0; i<rows.length; i++) {
+          html += '<li>'+rows[i].username+'</li>';
+
+        } 
+         $users.html(html);
+        });
+
+
+
 
 
 

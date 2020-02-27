@@ -12,11 +12,6 @@ http.listen(8000, function(){
   console.log('listening on *: ' + port);
 });
 
-/*
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/resources/views/pages/home.blade.php');
-});
-*/
 
 
 const connection = mysql.createConnection({
@@ -34,14 +29,6 @@ connection.connect((err) => {
   console.log('Connection established');
 });
 
-/*
-app.get('/', function(req, res) {
-    // Do normal req and res here
-    // Forward to realtime route
-    res.sendFile(__dirname + '/index.html');
-});
-*/
-
 
 //Connection
 io.on('connection', function(socket){
@@ -55,6 +42,9 @@ socket.on('login user', function(data, callback){
 	callback(true);
 	socket.id = data[0];
 	socket.username = data[1];
+	users.push(socket.username);
+	
+
 
 
 
@@ -63,19 +53,21 @@ socket.on('login user', function(data, callback){
 			console.log('Error: ' + err.message);
 		}else{
 			console.log(socket.username+' is Online.\n');
+			updateUsernames();
 		}
 	});
 
 });
+
 connection.query("SELECT username FROM users WHERE user_status='active'", function(err, rows, fields){
 	if(err){
 		console.log('Error: ' + err.message);
 	}else{
-		//console.log('Data received from Db:\n');
-      	//console.log(rows);
       	socket.emit('showrows', rows);
 	}
 });
+
+
 
 
 //User Logout
@@ -95,6 +87,11 @@ socket.on('logout user', function(data, callback){
 });
 
 
+function updateUsernames(){
+	io.sockets.emit('get users', users);
+}
+
+
 
 
 
@@ -111,7 +108,7 @@ socket.on('logout user', function(data, callback){
 		connected_users.splice(connected_users.indexOf(socket), 1);
 		console.log('Disconnected: %s sockets connected', connected_users.length);
 
-
+		updateUsernames();
 	});
 
 
