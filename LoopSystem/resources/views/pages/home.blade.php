@@ -16,7 +16,7 @@
                 <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
                 </a>
                 <br><br><br>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                 @csrf
 
                 <input type="submit" value="Logout">
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
 <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script>
-  var socket = io('http://localhost:8000');
+  //var socket = io('http://localhost:8000');
 </script>
 
 
@@ -178,6 +178,10 @@ $(document).ready(function(){
         //var socket = io.connect();
 
         var $username = $('#username');
+<<<<<<< HEAD
+
+=======
+>>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
         var $users = $('#users');
 
 
@@ -210,6 +214,8 @@ $(document).ready(function(){
 
 
 
+<<<<<<< HEAD
+=======
 
 
 
@@ -219,6 +225,7 @@ $(document).ready(function(){
 
 
 
+>>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
     });
 
 
