@@ -56,7 +56,7 @@
                             <li class="collection-item truncate active"
                             >User12345687</li>
                         </ul>
-                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
+                        <div class="alert alert-info" ng-if="data.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversations available.</strong>
                         </div>
@@ -216,8 +216,23 @@ $(document).ready(function(){
             $message.val('');
         });
 
+        //message
         socket.on('new message', function(data){
-            $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+            // $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+            $chat.append('<div class="message-container">' +
+                    '<span id="fixx">'  +
+                    '<h5 class="collection-item truncate"'  +
+
+                    '></h5>'  +
+                    '</span>'  +
+                    '<div class="message-list">'  +
+                        '<ul class="message-thread">'  +
+
+                            '<li> <span class="align-right"><b>'+data.user+'</b></span>' + data.msg +
+
+                            '</li>'  +
+                        '</ul>'  +
+                   ' </div>');
         });
 
 
