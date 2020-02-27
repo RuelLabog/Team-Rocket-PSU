@@ -6,12 +6,22 @@
     <!-- Home page header starts -->
     <nav >
         <div class="nav-wrapper teal lighten-2 col s12">
-          <a href="#!" class="brand-logo">Welcome</a>
+          <a href="" class="brand-logo">Welcome {{auth()->user()->username}}</a>
           <ul class="right hide-on-med-and-down">
             <li>
-                <span class="logout-user" ng-click="logout()">
+                <!-- <span class="logout-user" ng-click="logout()"> -->
+                <a class="logout-user" id="logout-user" href="{{ route('logout') }}"
+                onclick="event.preventDefault();logout();
+                document.getElementById('logout-form').submit();">
                 <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
-                </span>
+                </a>
+                <br><br><br>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+                
+                <input type="submit" value="Logout">
+                </form>
+                
             </li>
           </ul>
         </div>
@@ -63,7 +73,7 @@
                     <div class="message-list">
                         <ul class="message-thread center-align">
 
-                            <h1><b>Welcome,.</b></h1>
+                            <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
                             <h5>Please select a conversation</h5>
                             <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
                         </ul>
@@ -155,7 +165,58 @@ $(document).ready(function(){
   $('.tabs').tabs();
 });
 </script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 
+<script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script>
+  var socket = io('http://localhost:8000');
+</script>
+
+
+<script type="text/javascript">
+    $(function(){
+        //var socket = io.connect();
+
+
+
+        var $username = $('#username');
+        
+
+
+
+
+
+
+            socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+
+            });
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+function logout(){
+     socket.emit('logout user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+        //...
+     });
+}
+
+</script>
 
 @endsection
 

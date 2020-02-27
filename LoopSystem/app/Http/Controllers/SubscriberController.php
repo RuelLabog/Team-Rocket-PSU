@@ -23,6 +23,6 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        return view('subscriber');
+        return view('pages.home');
     }
 }
