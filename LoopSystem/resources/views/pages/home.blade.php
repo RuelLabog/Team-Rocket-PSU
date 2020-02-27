@@ -72,6 +72,22 @@
                             <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
                             <h5>Please select a conversation</h5>
                             <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
+
+
+
+
+
+
+
+
+                            <div class="chat" id="chat"></div>
+
+
+
+
+
+
+
                         </ul>
                     </div>
 
@@ -97,6 +113,7 @@
 
 
                     <div class="message-text">
+                        <form id="messageForm">
                         <div class="input-field col s11">
                             <i class="material-icons prefix">message</i>
                             <textarea id="message" name="message" type="text" class="materialize-textarea" ng-keydown="sendMessage($event)"></textarea>
@@ -109,6 +126,7 @@
 
                             <i class="material-icons">send</i>
                         </div>
+                        </form>
                     {{-- </div> --}}
                 </div>
             </div>
@@ -176,13 +194,23 @@ $(document).ready(function(){
     $(function(){
         var socket = io('http://localhost:8000');
         //var socket = io.connect();
-
+        var $chat = $('#chat');
         var $username = $('#username');
-<<<<<<< HEAD
-
-=======
->>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
         var $users = $('#users');
+        var $message = $('#message');
+        var $messageForm = $('#messageForm');
+
+
+
+        $messageForm.submit(function(e){
+            e.preventDefault();
+            socket.emit('send message', $message.val());
+            $message.val('');
+        });
+
+        socket.on('new message', function(data){
+            $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+        });
 
 
 
@@ -214,18 +242,6 @@ $(document).ready(function(){
 
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
-
-
->>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
     });
 
 
