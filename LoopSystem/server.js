@@ -112,7 +112,7 @@ function updateUsernames(){
 
 
 //admin pairing show online subs
-connection.query("SELECT username,id, service_id,subscriber_name FROM subscribers WHERE connect_status='disconnected'", function(err, rows, fields){
+connection.query("SELECT username,id, service_id,subscriber_name FROM subscribers WHERE subscriber_status='active'", function(err, rows, fields){
 	if(err){
 		console.log('Error: ' + err.message);
 	}else{
@@ -121,7 +121,7 @@ connection.query("SELECT username,id, service_id,subscriber_name FROM subscriber
 });
 
 //admin pairing show online ops
-connection.query("SELECT username,id, service_id,username FROM users WHERE connect_status='disconnected'", function(err, rows, fields){
+connection.query("SELECT username,id, service_id,username FROM users WHERE user_status='active'", function(err, rows, fields){
 	if(err){
 		console.log('Error: ' + err.message);
 	}else{
@@ -131,7 +131,7 @@ connection.query("SELECT username,id, service_id,username FROM users WHERE conne
 
 //admin pairing show online operators w/ same service
 socket.on('selectOperators', (service_id)=>{
-    connection.query('SELECT username, id, username FROM users WHERE service_id="'+service_id+'"', (err, rows, fields)=>{
+    connection.query('SELECT username, id, username FROM users WHERE service_id="'+service_id+'" AND user_status="active"', (err, rows, fields)=>{
         if(err){
             console.log('Error: ' + err.message);
         }else{

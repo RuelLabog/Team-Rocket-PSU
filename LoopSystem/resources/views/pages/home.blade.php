@@ -36,7 +36,7 @@
             <div class="row" style="width:30%; margin-bottom:0px;">
                 <div class="chat-list-container z-depth-2" style="height: 100% !important; ">
                     <p class="chat-list-heading"><h4 class="center-align">Chat list</h4> </p>
-                    <div class="input-field col 3">
+                    {{-- <div class="input-field col 3">
                         <i class="material-icons prefix">search</i>
                         <input id="icon_prefix" type="text" class="validate">
                         <label for="icon_prefix">Search Conversation</label>
@@ -47,7 +47,7 @@
                             <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
                             <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Services</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                     <div class="chat-list col 3">
 

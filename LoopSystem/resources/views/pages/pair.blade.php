@@ -31,9 +31,61 @@
                     <h4>Subscribers</h4>
                 </label>
             </p>
+<<<<<<< HEAD
             <div id='subscribers_panel'>
            <!-- /show online subs not connected to any convo -->
             </div>
+=======
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Yengla (service 1)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Ayaa (service 1)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Yengla (service 1)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Ayaa (service 2)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Yengla (service 2)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Ayaa (service 2)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Yengla (service 2)</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" />
+                <span>Ayaa (service 2)</span>
+              </label>
+            </p>
+
+>>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
           </form>
 
         </div>
@@ -88,7 +140,7 @@
               </p>
               <p>
                 <label>
-                  <input name="group1" type="radio" checked />
+                  <input name="group1" type="radio" />
                   <span>Yengla and Ayaa (service 2)</span>
                 </label>
               </p>
