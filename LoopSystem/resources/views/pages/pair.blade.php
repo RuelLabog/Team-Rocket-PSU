@@ -33,7 +33,7 @@
             </p>
             <p>
               <label>
-                <input name="group1" type="radio" checked />
+                <input name="group1" type="radio" />
                 <span>Yengla (service 1)</span>
               </label>
             </p>
@@ -45,7 +45,7 @@
             </p>
             <p>
               <label>
-                <input name="group1" type="radio" checked />
+                <input name="group1" type="radio" />
                 <span>Yengla (service 1)</span>
               </label>
             </p>
@@ -57,7 +57,7 @@
             </p>
             <p>
               <label>
-                <input name="group1" type="radio" checked />
+                <input name="group1" type="radio" />
                 <span>Yengla (service 2)</span>
               </label>
             </p>
@@ -69,7 +69,7 @@
             </p>
             <p>
               <label>
-                <input name="group1" type="radio" checked />
+                <input name="group1" type="radio" />
                 <span>Yengla (service 2)</span>
               </label>
             </p>
@@ -99,7 +99,7 @@
               </p>
               <p>
                 <label>
-                  <input name="group1" type="radio" checked />
+                  <input name="group1" type="radio" />
                   <span>Yengla (service 1)</span>
                 </label>
               </p>
@@ -111,7 +111,7 @@
               </p>
               <p>
                 <label>
-                  <input name="group1" type="radio" checked />
+                  <input name="group1" type="radio" />
                   <span>Yengla (service 1)</span>
                 </label>
               </p>
@@ -123,7 +123,7 @@
               </p>
               <p>
                 <label>
-                  <input name="group1" type="radio" checked />
+                  <input name="group1" type="radio" />
                   <span>Yengla (service 2)</span>
                 </label>
               </p>
@@ -167,7 +167,7 @@
               </p>
               <p>
                 <label>
-                  <input name="group1" type="radio" checked />
+                  <input name="group1" type="radio" />
                   <span>Yengla and Ayaa (service 2)</span>
                 </label>
               </p>

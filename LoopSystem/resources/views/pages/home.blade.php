@@ -18,10 +18,10 @@
                 <br><br><br>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                 @csrf
-                
+
                 <input type="submit" value="Logout">
                 </form>
-                
+
             </li>
           </ul>
         </div>
@@ -36,7 +36,7 @@
             <div class="row" style="width:30%; margin-bottom:0px;">
                 <div class="chat-list-container z-depth-2" style="height: 100% !important; ">
                     <p class="chat-list-heading"><h4 class="center-align">Chat list</h4> </p>
-                    <div class="input-field col 3">
+                    {{-- <div class="input-field col 3">
                         <i class="material-icons prefix">search</i>
                         <input id="icon_prefix" type="text" class="validate">
                         <label for="icon_prefix">Search Conversation</label>
@@ -47,12 +47,12 @@
                             <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
                             <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Services</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-                            
+
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
@@ -178,9 +178,12 @@ $(document).ready(function(){
         //var socket = io.connect();
 
         var $username = $('#username');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
         var $users = $('#users');
-        
+
 
 
 
@@ -188,7 +191,7 @@ $(document).ready(function(){
 
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-            
+
         });
 
         socket.on('get users', function(data){
@@ -204,13 +207,25 @@ $(document).ready(function(){
         for (var i=0; i<rows.length; i++) {
           html += '<li>'+rows[i].username+'</li>';
 
-        } 
+        }
          $users.html(html);
         });
 
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+>>>>>>> 814f684b24694389381da0c4ed473dbf191f303b
     });
 
 
