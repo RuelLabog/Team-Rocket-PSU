@@ -115,7 +115,7 @@ function updateUsernames(){
 
 
 //admin pairing show online subs
-connection.query("SELECT username,id, service_id,subscriber_name FROM subscribers WHERE subscriber_status='active'", function(err, rows, fields){
+connection.query("SELECT username,subscriber_id, service_id,subscriber_name FROM subscribers WHERE subscriber_status='active'", function(err, rows, fields){
 	if(err){
 		console.log('Error: ' + err.message);
 	}else{
