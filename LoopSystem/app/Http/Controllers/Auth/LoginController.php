@@ -47,7 +47,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:subscriber')->except('logout');
+        // $this->middleware('guest:subscriber')->except('logout');
 
         $this->username = $this->findUsername();
     }
@@ -80,7 +80,7 @@ class LoginController extends Controller
 
     public function showSubscriberLoginForm()
     {
-        return view('auth.login', ['url' => 'subscriber']);
+        return view('auth.login2', ['url' => 'subscriber']);
     }
 
     public function subscriberLogin(Request $request)
@@ -108,6 +108,34 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
+    }
+
+     /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logoutSubs(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->loggedOutSubs($request) ?: redirect('/login/subscriber');
+    }
+
+    /**
+     * The user has logged out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function loggedOutSubs(Request $request)
+    {
+        //
     }
 
 }
