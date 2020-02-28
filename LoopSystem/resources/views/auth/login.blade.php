@@ -14,14 +14,13 @@
 
             </div>
             <div class="d-flex justify-content-center form_container">
-                @isset($url)
-                <form method="POST" action='{{ url("login/$url") }}' aria-label="{{ __('Login') }}">
-                @else
+
+
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                @endisset
+
                 @csrf
                     <div class="" style="text-align: center;">
-                        <h1>TeamRocket</h1>
+                        <h1>Team Rocket</h1>
                     </div>
                     <Br>
                     <div class="input-group mb-3">
@@ -67,11 +66,9 @@
                     </div>
 
                         <div class="d-flex justify-content-center mt-3 login_container">
-                @isset($url)
-                 <button type="submit" name="button" style="padding-top:5px; padding-bottom:5px;  background-color: #42b6f5; color:white; width:100%">Login</button>
-                 @else
+
                 <button type="submit" name="button" class="btn login_btn" style="width: 100%">Login</button>
-                @endisset
+
                </div>
                 </form>
             </div>
@@ -80,5 +77,6 @@
         </div>
     </div>
 </div>
+
 @endsection
 

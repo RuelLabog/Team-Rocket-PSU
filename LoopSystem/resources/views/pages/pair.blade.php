@@ -69,7 +69,8 @@
 
     </p>
     <p>
-        <button class="btn waves-effect waves-teal btn-large" type="button" name="action" id="unpairBtn" style="margin-top: 100px;" onclick="unpair()">
+        <button class="btn waves-effect waves-light btn-large" type="button" name="action" id="unpairBtn" style="margin-top: 100px;" onclick="unpair()">
+
             <i class="material-icons right">arrow_back</i>
         </button>
     </p>

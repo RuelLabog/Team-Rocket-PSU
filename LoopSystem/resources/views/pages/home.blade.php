@@ -1,23 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-
+<!-- Compiled and minified JavaScript -->
+      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 <div class="home-page ">
     <!-- Home page header starts -->
+
     <nav >
         <div class="nav-wrapper teal lighten-2 col s12">
-          <a href="" class="brand-logo">Welcome {{auth()->user()->username}}</a>
-          <ul class="right hide-on-med-and-down">
-            <li>
+          <a href="" class="brand-logo left">Welcome {{auth()->user()->username}}</a>
+          <ul class="right hide-on-med-and-down ">
+            <li class="right">
                 <!-- <span class="logout-user" ng-click="logout()"> -->
-                <a class="logout-user" id="logout-user" href="{{ route('logout') }}"
+                <a class="logout-user " id="logout-user" href="{{ route('logout') }}"
                 onclick="event.preventDefault();logout();
                 document.getElementById('logout-form').submit();">
-                <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
+                <i class="material-icons" aria-hidden="true">power_settings_new</i>
                 </a>
                 {{-- <input type="submit"></button> --}}
                 <br><br><br>
+                @if(auth()->user()->user_type == "operator")
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none" >
+                @else
+                <form id="logout-form" action="{{ route('logoutSubs') }}" method="POST" style="display: none" >
+                @endif
                 @csrf
 
                 <input type="submit" value="Logout">
@@ -56,7 +63,7 @@
                             <!-- <li class="collection-item truncate active"
                             >User12345687</li> -->
                         </ul>
-                        <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
+                        <div class="alert alert-info" ng-if="data.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversations available.</strong>
                         </div>
@@ -77,20 +84,27 @@
             <!-- Chat List Markup ends -->
 
             <!-- Message Area Markup starts -->
-            <div class="" style="width:70%; height:100%; ">
-                <div class="message-container2" ng-if="data.messages.length == 0">
+            <div class="" style="width:70%; height:100%;">
+                <div class="message-container2" ng-if="data.messages.length == 0" style="padding: 20px 0px 20px 20px;
+                background-color: rgb(255, 255, 255);
+                margin: 10px 0px 10px 10px;
+                height: 104%;">
                     <div class="message-list">
-                        <ul class="message-thread center-align">
+                        <ul class="message-thread center-align" style="overflow-y: auto;
+                        list-style-type: none;
+                        height: 95%;
+                        width: 100%;
+                        margin: 0px !important;
+                        padding: 5px !important;
+                        border-radius: 5px;
+                        border: #ffffff;">
 
-                            <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
-                            <h5>Please wait for a user.</h5>
-                            <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
 
+                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
+                                <h5>Please wait for a user.</h5>
+                                <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
 
-                            <div class="chat" id="chat"></div>
-
-
-
+    </div>
 
 
 
@@ -145,6 +159,18 @@
 </div>
 
 
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer" style="height: 30%">
+    <div class="modal-content">
+      <h4>Disconnected</h4>
+      <p>You are disconnected because you have exceed the maximum time limit. (60s)</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close btn-flat">Ok</a>
+    </div>
+  </div>
+
+
 <style>
     /* #message {
     border-radius: 25px;
@@ -170,6 +196,9 @@
 #fixx{
     margin-bottom: 1%;
 }
+#chat{
+    overflow-y: auto;
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -194,6 +223,10 @@ $(document).ready(function(){
 <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script>
   //var socket = io('http://localhost:8000');
+
+
+
+
 </script>
 
 
@@ -214,15 +247,20 @@ $(document).ready(function(){
             e.preventDefault();
             socket.emit('send message', $message.val());
             $message.val('');
+            $message.focus();
         });
 
+        //message
         socket.on('new message', function(data){
-            $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+            // $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
+            $chat.append('<li style="max-width: 300px;border-color: solid 0.5px rgba(0, 0, 0, 0.32);clear: both;text-decoration: none;list-style-type: none;margin: 20px 10px 0px 20px;float: left;margin-right: 20px;padding: 25px 34px;min-width: 160px;min-height: 10px;max-width: 350px;border:solid 1px #0000001f;background-color: eeeeee;line-height: 1.4;word-wrap: break-word;color: #444444;text-align: left;border-radius: 25px;"> <span class="align-right"><b>'+data.user+'</b></span>' + data.msg +'</li>');
+            scrollToBottom();
         });
 
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-
+            //Auto disconnect
+            setTimeout(function(){ $('.modal').modal(); }, 60000);
         });
 
         socket.on('get users', function(data){
@@ -247,6 +285,12 @@ $(document).ready(function(){
 
     });
 
+function scrollToBottom(){
+        const messageThread = document.querySelector('.chat');
+        setTimeout(() => {
+            messageThread.scrollTop = messageThread.scrollHeight + 500;
+        }, 10);
+    }
 
 function logout(){
      socket.emit('logout user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
@@ -255,6 +299,10 @@ function logout(){
 }
 
 </script>
+
+
+
+
 
 @endsection
 

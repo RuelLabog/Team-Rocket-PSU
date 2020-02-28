@@ -44,7 +44,7 @@ Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
 
 Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
-Route::post('/logout/subscriber', 'Auth\LoginController@subscriberLogout');
+Route::post('/logout/subscriber', 'Auth\LoginController@logoutSubs')->name('logoutSubs');
 
 // Route::group(['middleware' => ['admin', 'auth']], function(){
 //     // Route::get('/home', 'adminHomeController@index')->name('admin.home');
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){
          if(Auth::user()->user_type == "admin"){
             // Route::get('/home', 'adminHomeController@index')->name('admin.home');
-            return view('pages.operators');
+            return view('pages.pair');
         }else{
            return view('pages.home', ['url' => 'subscriber']);
         //    return redirect('/home');

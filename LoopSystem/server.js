@@ -159,9 +159,7 @@ function updateUsernames(){
 
 
     function loadData(){
-
         showpaired();
-
         socket.on('unpair', (data)=>{
             connection.query('UPDATE conversations SET status = "inactive" WHERE con_id="'+data+'"', (err)=>{
                 if(err){

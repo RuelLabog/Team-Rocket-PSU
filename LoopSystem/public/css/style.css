@@ -121,7 +121,7 @@ html {
 }
 .message-container2{
 	padding: 20px 0px 20px 20px;
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(49, 32, 202);
 	margin: 10px 0px 10px 10px;
 	height: 104%;
 
@@ -134,6 +134,16 @@ html {
 	height: 90%;
 }
 
+.message-thread {
+	overflow-y: auto;
+	list-style-type: none;
+	height: 95%;
+	width: 100%;
+	margin: 0px !important;
+	padding: 5px !important;
+	border-radius: 5px;
+	border: #ffffff;
+}
 .message-thread {
 	overflow-y: auto;
 	list-style-type: none;
