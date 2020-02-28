@@ -29,7 +29,7 @@ connection.connect((err) => {
   console.log('Connection established');
 });
 
-
+var roomno = 1;
 //Connection
 io.on('connection', function(socket){
   if(connected_users){
@@ -52,7 +52,6 @@ socket.on('login user', function(data, callback){
 
 
 
-
     connection.query("UPDATE users SET user_status='active' WHERE id="+socket.id+"", function(err){
 		if(err){
 			console.log('Error: ' + err.message);
@@ -64,6 +63,13 @@ socket.on('login user', function(data, callback){
 	});
 
 });
+
+//rooms
+if(io.sockets.adapter.rooms["room"+roomno] && io.sockets.adapter.rooms["room"+roomno].length > 1) roomno++;
+socket.join("room"+roomno);
+
+//Send this event to everyone in the room.
+io.sockets.in("room"+roomno).emit('connectToRoom', roomno);
 
 connection.query("SELECT username FROM users WHERE user_status='active'", function(err, rows, fields){
 	if(err){
@@ -216,12 +222,15 @@ function updateUsernames(){
 
     loadData();
 
+
+
+//CHAT
+
 	//Send Message
 	socket.on('send message', function(data){
-		io.sockets.emit('new message', {msg: data, user:socket.username});
+		console.log('send message', data.message, 'sending to ',data.roomno);			
+		io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
 	});
-
-
 
 });
 

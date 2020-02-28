@@ -120,7 +120,7 @@
 
                 }
             }else{
-                html += "<h6><label>No Online Subscribers</label></h6>";
+                html += "<h6><label>No Online / Available Subscribers</label></h6>";
             }
             $subscribers.html(html);
         });
@@ -135,7 +135,7 @@
 
                 }
             }else{
-                html += "<h6><label>No Online Operators</label></h6>";
+                html += "<h6><label>No Online / Available Operators</label></h6>";
             }
             $operators.html(html);
         });
@@ -150,7 +150,7 @@
 
                 }
             }else{
-                html += "<h6><label>No Online Operators</label></h6>";
+                html += "<h6><label>No Online / Available Operators</label></h6>";
             }
             $operators.html(html);
         });
@@ -163,7 +163,7 @@
 
                 }
             }else{
-                html += "<h6><label>No paired</label></h6>";
+                html += "<h6><label>No paired yet</label></h6>";
             }
             $paired.html(html);
         });
@@ -205,6 +205,7 @@ function pair(){
                 // alert(subs + " "+ ops);
                 socket.emit('pair', {subs: subs,
                     ops: ops,});
+                    M.toast({html: 'Successfully Paired!'})
                     $('#pairBtn').attr('disabled', true);
             }else{
                 alert();
@@ -216,6 +217,7 @@ function unpair(){
     if(pair){
         // alert(pair);
         socket.emit('unpair', pair);
+        M.toast({html: 'Successfully Unpaired!'})
         $('#unpairBtn').attr('disabled', true);
     }
 }
