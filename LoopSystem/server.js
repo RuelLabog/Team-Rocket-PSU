@@ -186,7 +186,7 @@ function updateUsernames(){
                         if(err1){
                             console.log('Error: ' + err1.message);
                         }else{
-                            if(rows.length > 0){
+                            if(row.length > 0){
                                 connection.query('UPDATE conversations SET user_id="'+data.ops+'", status="active" WHERE con_id = "'+row[0].con_id+'"', (err3)=>{
                                     if(err3){
                                         console.log('Error: ' + err3.message);
@@ -228,7 +228,7 @@ function updateUsernames(){
 
 	//Send Message
 	socket.on('send message', function(data){
-		console.log('send message', data.message, 'sending to ',data.roomno);			
+		console.log('send message', data.message, 'sending to ',data.roomno);
 		io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
 	});
 
