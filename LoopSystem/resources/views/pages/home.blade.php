@@ -67,6 +67,7 @@
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversations available.</strong>
                         </div>
+                        <h1 id='m'></h1>
                     </div>
 
 
@@ -240,13 +241,21 @@ $(document).ready(function(){
         var $users = $('#users');
         var $message = $('#message');
         var $messageForm = $('#messageForm');
+        var $m = $('#m');
 
+		
+      
+        socket.on('connectToRoom',function(data) {
+            var html = data;
+            $m.html(html);
+            $m.val(data);
+        });
 
 
         $messageForm.submit(function(e){
             e.preventDefault();
-            socket.emit('send message', $message.val());
-            $message.val('');
+            socket.emit('send message', {message:$message.val(), roomno: $m.val() });
+			$message.val("");
             $message.focus();
         });
 
@@ -279,9 +288,6 @@ $(document).ready(function(){
         }
          $users.html(html);
         });
-
-
-
 
     });
 
