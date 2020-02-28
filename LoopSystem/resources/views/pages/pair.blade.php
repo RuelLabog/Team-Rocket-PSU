@@ -63,7 +63,7 @@
     <div>
 
     <p>
-        <button class="btn waves-effect waves-light btn-large" type="button" name="action" style="margin-top: 150px;">
+        <button class="btn waves-effect waves-teal btn-large" type="button" name="action" style="margin-top: 150px;">
             <i class="material-icons right">arrow_forward</i>
         </button>
 

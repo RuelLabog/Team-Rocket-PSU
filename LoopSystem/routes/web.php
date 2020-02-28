@@ -63,7 +63,7 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){
          if(Auth::user()->user_type == "admin"){
             // Route::get('/home', 'adminHomeController@index')->name('admin.home');
-            return view('pages.operators');
+            return view('pages.pair');
         }else{
            return view('pages.home', ['url' => 'subscriber']);
         //    return redirect('/home');

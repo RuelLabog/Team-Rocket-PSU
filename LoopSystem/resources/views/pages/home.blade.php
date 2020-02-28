@@ -82,22 +82,27 @@
             <!-- Chat List Markup ends -->
 
             <!-- Message Area Markup starts -->
-            <div class="" style="width:70%; height:100%; ">
-                <div class="message-container2" ng-if="data.messages.length == 0">
+            <div class="" style="width:70%; height:100%;">
+                <div class="message-container2" ng-if="data.messages.length == 0" style="padding: 20px 0px 20px 20px;
+                background-color: rgb(255, 255, 255);
+                margin: 10px 0px 10px 10px;
+                height: 104%;">
                     <div class="message-list">
-                        <ul class="message-thread center-align">
-
-                            <h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
-                            <h5>Please wait for a user.</h5>
-                            <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
-
-
-                            <div class="chat" id="chat"></div>
-
-
+                        <ul class="message-thread center-align" style="overflow-y: auto;
+                        list-style-type: none;
+                        height: 95%;
+                        width: 100%;
+                        margin: 0px !important;
+                        padding: 5px !important;
+                        border-radius: 5px;
+                        border: #ffffff;">
 
 
+                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
+                                <h5>Please wait for a user.</h5>
+                                <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
 
+    </div>
 
 
                         </ul>
@@ -175,6 +180,9 @@
 #fixx{
     margin-bottom: 1%;
 }
+#chat{
+    overflow-y: auto;
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -219,25 +227,14 @@ $(document).ready(function(){
             e.preventDefault();
             socket.emit('send message', $message.val());
             $message.val('');
+            $message.focus();
         });
 
         //message
         socket.on('new message', function(data){
             // $chat.append('<div class="card card-body bg-light"><b>'+data.user+': </b>' + data.msg + '</div>');
-            $chat.append('<div class="message-container">' +
-                    '<span id="fixx">'  +
-                    '<h5 class="collection-item truncate"'  +
-
-                    '></h5>'  +
-                    '</span>'  +
-                    '<div class="message-list">'  +
-                        '<ul class="message-thread">'  +
-
-                            '<li> <span class="align-right"><b>'+data.user+'</b></span>' + data.msg +
-
-                            '</li>'  +
-                        '</ul>'  +
-                   ' </div>');
+            $chat.append('<li style="max-width: 300px;border-color: solid 0.5px rgba(0, 0, 0, 0.32);clear: both;text-decoration: none;list-style-type: none;margin: 20px 10px 0px 20px;float: left;margin-right: 20px;padding: 25px 34px;min-width: 160px;min-height: 10px;max-width: 350px;border:solid 1px #0000001f;background-color: eeeeee;line-height: 1.4;word-wrap: break-word;color: #444444;text-align: left;border-radius: 25px;"> <span class="align-right"><b>'+data.user+'</b></span>' + data.msg +'</li>');
+            scrollToBottom();
         });
 
 
@@ -267,6 +264,12 @@ $(document).ready(function(){
 
     });
 
+function scrollToBottom(){
+        const messageThread = document.querySelector('.chat');
+        setTimeout(() => {
+            messageThread.scrollTop = messageThread.scrollHeight + 500;
+        }, 10);
+    }
 
 function logout(){
      socket.emit('logout user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
