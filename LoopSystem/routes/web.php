@@ -44,7 +44,7 @@ Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
 
 Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
-Route::post('/logout/subscriber', 'Auth\LoginController@subscriberLogout');
+Route::post('/logout/subscriber', 'Auth\LoginController@logoutSubs')->name('logoutSubs');
 
 // Route::group(['middleware' => ['admin', 'auth']], function(){
 //     // Route::get('/home', 'adminHomeController@index')->name('admin.home');

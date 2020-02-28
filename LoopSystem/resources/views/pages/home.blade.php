@@ -6,20 +6,25 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <div class="home-page ">
     <!-- Home page header starts -->
+
     <nav >
         <div class="nav-wrapper teal lighten-2 col s12">
-          <a href="" class="brand-logo">Welcome {{auth()->user()->username}}</a>
-          <ul class="right hide-on-med-and-down">
-            <li>
+          <a href="" class="brand-logo left">Welcome {{auth()->user()->username}}</a>
+          <ul class="right hide-on-med-and-down ">
+            <li class="right">
                 <!-- <span class="logout-user" ng-click="logout()"> -->
-                <a class="logout-user" id="logout-user" href="{{ route('logout') }}"
+                <a class="logout-user " id="logout-user" href="{{ route('logout') }}"
                 onclick="event.preventDefault();logout();
                 document.getElementById('logout-form').submit();">
-                <i class="material-icons col 3" aria-hidden="true">power_settings_new</i>
+                <i class="material-icons" aria-hidden="true">power_settings_new</i>
                 </a>
                 {{-- <input type="submit"></button> --}}
                 <br><br><br>
+                @if(auth()->user()->user_type == "operator")
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none" >
+                @else
+                <form id="logout-form" action="{{ route('logoutSubs') }}" method="POST" style="display: none" >
+                @endif
                 @csrf
 
                 <input type="submit" value="Logout">
