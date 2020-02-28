@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
+<!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <div class="home-page ">
     <!-- Home page header starts -->
     <nav >
@@ -95,6 +97,8 @@
 
 
 
+
+
                         </ul>
                     </div>
 
@@ -143,6 +147,18 @@
 
     </div>
 </div>
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer" style="height: 30%">
+    <div class="modal-content">
+      <h4>Disconnected</h4>
+      <p>You are disconnected because you have exceed the maximum time limit. (60s)</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close btn-flat">Ok</a>
+    </div>
+  </div>
 
 
 <style>
@@ -194,6 +210,10 @@ $(document).ready(function(){
 <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script>
   //var socket = io('http://localhost:8000');
+
+
+    
+
 </script>
 
 
@@ -237,7 +257,8 @@ $(document).ready(function(){
 
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
-
+            //Auto disconnect
+            setTimeout(function(){ $('.modal').modal(); }, 60000);
         });
 
         socket.on('get users', function(data){
@@ -258,7 +279,7 @@ $(document).ready(function(){
         });
 
 
-
+    
 
     });
 
@@ -270,6 +291,10 @@ function logout(){
 }
 
 </script>
+
+
+
+
 
 @endsection
 
