@@ -53,8 +53,8 @@
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-                            <li class="collection-item truncate active"
-                            >User12345687</li>
+                            <!-- <li class="collection-item truncate active"
+                            >User12345687</li> -->
                         </ul>
                         <div class="alert alert-info" ng-if="data.chatlist.length !!= 0">
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->

@@ -63,13 +63,13 @@
     <div>
 
     <p>
-        <button class="btn waves-effect waves-light btn-large" type="button" name="action" style="margin-top: 150px;">
+        <button class="btn waves-effect waves-light btn-large" type="button" name="action" id="pairBtn" style="margin-top: 150px;" onclick="pair()">
             <i class="material-icons right">arrow_forward</i>
         </button>
 
     </p>
     <p>
-        <button class="btn waves-effect waves-teal btn-large" type="button" name="action" style="margin-top: 100px;">
+        <button class="btn waves-effect waves-teal btn-large" type="button" name="action" id="unpairBtn" style="margin-top: 100px;" onclick="unpair()">
             <i class="material-icons right">arrow_back</i>
         </button>
     </p>
@@ -82,18 +82,10 @@
                 <div class="center-align"><h4>Paired</h4></div>
             <form action="#">
                 <div class="contents" id="contents">
-              <p>
-                <label>
-                  <input name="group1" type="radio" />
-                  <span>Yengla and Ayaa (service 2)</span>
-                </label>
-              </p>
-              <p>
-                <label>
-                  <input name="group1" type="radio" />
-                  <span>Ayaa and (service 1)</span>
-                </label>
-              </p>
+                <div id="paired_panel">
+                <!-- show paired -->
+            </div>
+
             </div>
             </form>
 
@@ -114,46 +106,118 @@
 
         var $subscribers = $('#subscribers_panel');
         var $operators = $('#operators_panel');
+        var $paired = $('#paired_panel');
 
+        $('#pairBtn').attr('disabled', true);
+        $('#unpairBtn').attr('disabled', true);
         // show subs in subscribers_panel
         socket.on('showSubscribers', function(rows) {
-        var html='';
-        for (var i=0; i<rows.length; i++) {
-          html += '<p><label> <input name="subscribers_rad" type="radio" onclick="showOperators('+rows[i].service_id+')" value="'+rows[i].id+'"/> <span>'+rows[i].subscriber_name+'</span></label></p>';
+            var html='';
+            if(rows.length > 0){
+                for (var i=0; i<rows.length; i++) {
+                html += '<p><label> <input name="subscribers_rad" type="radio" onclick="showOperators('+rows[i].service_id+')" value="'+rows[i].id+'"/> <span>'+rows[i].subscriber_name+'</span></label></p>';
 
-        }
-         $subscribers.html(html);
+                }
+            }else{
+                html += "<h6><label>No Online Subscribers</label></h6>";
+            }
+            $subscribers.html(html);
         });
 
         // show operators in operator_panel when subs name is clicked
 
         socket.on('showOperators', function(rows) {
-        var html='';
-        for (var i=0; i<rows.length; i++) {
-          html += '<p><label> <input name="operators_rad" type="radio" value="'+rows[i].id+'"/> <span>'+rows[i].username+'</span></label></p>';
+            var html='';
+            if(rows.length > 0){
+                for (var i=0; i<rows.length; i++) {
+                html += '<p><label> <input name="operators_rad" type="radio" onclick="enablePairBtn()" value="'+rows[i].id+'"/> <span>'+rows[i].username+'</span></label></p>';
 
-        }
-         $operators.html(html);
+                }
+            }else{
+                html += "<h6><label>No Online Operators</label></h6>";
+            }
+            $operators.html(html);
         });
 
           // show operators in operator_panel
 
         socket.on('showOnOperators', function(rows) {
-        var html='';
-        for (var i=0; i<rows.length; i++) {
-          html += '<p><label style="font-size:15px;">'+rows[i].username+'</label></p>';
+            var html='';
+            if(rows.length > 0){
+                for (var i=0; i<rows.length; i++) {
+                html += '<p><label style="font-size:15px;">'+rows[i].username+'</label></p>';
 
-        }
-         $operators.html(html);
+                }
+            }else{
+                html += "<h6><label>No Online Operators</label></h6>";
+            }
+            $operators.html(html);
         });
+
+        socket.on('showPaired', function(rows) {
+            var html='';
+            if(rows.length > 0){
+                for (var i=0; i<rows.length; i++) {
+                html += '<p><label style="font-size:15px;"><input name="paired_rad" type="radio" onclick="enableUnpairBtn('+rows[i].con_id+')" value="'+rows[i].con_id+'"><span>'+rows[i].subscriber_name+' & '+rows[i].uname+' (as '+rows[i].persona_name+')</span></label></p>';
+
+                }
+            }else{
+                html += "<h6><label>No paired</label></h6>";
+            }
+            $paired.html(html);
+        });
+
+
 
 
 
  });
 
- function showOperators(service_id){
-           socket.emit('selectOperators', (service_id));
-        }
+ function enableUnpairBtn(con_id){
+     if(con_id){
+         $('#unpairBtn').attr('disabled', false);
+     }
+
+ }
+
+function enablePairBtn(){
+    var ops = $("input[name='operators_rad']:checked").val();
+    if(ops){
+        $('#pairBtn').attr('disabled', false);
+    }else if(empty(ops)){
+        $('#pairBtn').attr('disabled', true);
+    }
+
+}
+
+function showOperators(service_id){
+    $('#pairBtn').attr('disabled', true);
+    socket.emit('selectOperators', (service_id));
+
+}
+
+function pair(){
+
+    var subs = $("input[name='subscribers_rad']:checked").val();
+    var ops = $("input[name='operators_rad']:checked").val();
+            if(subs || ops){
+                // alert(subs + " "+ ops);
+                socket.emit('pair', {subs: subs,
+                    ops: ops,});
+                    $('#pairBtn').attr('disabled', true);
+            }else{
+                alert();
+            }
+}
+
+function unpair(){
+    var pair = $("input[name='paired_rad']:checked").val();
+    if(pair){
+        // alert(pair);
+        socket.emit('unpair', pair);
+        $('#unpairBtn').attr('disabled', true);
+    }
+}
 </script>
 
 <style>
