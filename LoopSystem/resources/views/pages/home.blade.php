@@ -166,7 +166,10 @@
       <p>You are disconnected because you have exceed the maximum time limit. (60s)</p>
     </div>
     <div class="modal-footer">
-      <a class="modal-close btn-flat">Ok</a>
+      {{-- <a class="modal-close btn-flat" data-dismiss="modal">Ok</a> --}}
+
+      <button id="close" class="waves-effect waves-light btn-small" data-dismiss="modal" name="close">Ok</button>
+
     </div>
   </div>
 
@@ -260,7 +263,7 @@ $(document).ready(function(){
 
         socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
             //Auto disconnect
-            setTimeout(function(){ $('.modal').modal(); }, 60000);
+            setTimeout(function(){ $('.modal').modal(); }, 5000);
         });
 
         socket.on('get users', function(data){
