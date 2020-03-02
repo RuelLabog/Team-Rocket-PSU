@@ -65,8 +65,12 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
             // Route::get('/home', 'adminHomeController@index')->name('admin.home');
             return view('pages.pair');
         }else{
-           return view('pages.home', ['url' => 'subscriber']);
+           return view('pages.OperatorHome');
         //    return redirect('/home');
         }
     });
 });
+
+/*
+
+*/

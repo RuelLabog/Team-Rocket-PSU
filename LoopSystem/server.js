@@ -3,6 +3,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const mysql = require('mysql');
 
+
 connected_users = [];
 users = [];
 
@@ -71,14 +72,16 @@ socket.join("room"+roomno);
 //Send this event to everyone in the room.
 io.sockets.in("room"+roomno).emit('connectToRoom', roomno);
 
-connection.query("SELECT username FROM users WHERE user_status='active'", function(err, rows, fields){
-	if(err){
-		console.log('Error: ' + err.message);
-	}else{
-          socket.emit('showrows', rows);
-	}
-});
+// connection.query("SELECT username FROM users WHERE user_status='active'", function(err, rows, fields){
+// 	if(err){
+// 		console.log('Error: ' + err.message);
+// 	}else{
+//           socket.emit('showrows', rows);
+// 	}
 
+// });
+
+showChatPersona();
 
 //User Logout
 socket.on('logout user', function(data, callback){
@@ -121,6 +124,43 @@ function updateUsernames(){
 		updateUsernames();
 	});
 
+    function showChatPersona(){
+        socket.on('getChatPersona', (data)=>{
+            connection.query('SELECT persona_name, con_id FROM personas INNER JOIN conversations ON personas.persona_id = conversations.persona_id WHERE conversations.subscriber_id = "'+data+'" AND status="active"', (err, rows, fields)=>{
+                if(err){
+                    console.log('ERROR: ' + err.message);
+                }else{
+                    socket.emit('showrows', rows);
+                }
+            });
+        });
+
+        socket.on('getChatSubscriber', (data)=>{
+            connection.query('SELECT subscriber_name, con_id FROM subscribers INNER JOIN conversations ON subscribers.id = conversations.subscriber_id WHERE conversations.user_id = "'+data+'" AND status="active"', (err, rows, fields)=>{
+                if(err){
+                    console.log('ERROR: ' + err.message);
+                }else{
+                    socket.emit('showrowsSubs', rows);
+                    console.log(data[0].subscriber_name)
+                }
+            });
+        });
+
+    }
+    getMessagesSubs();
+    function getMessagesSubs(){
+        socket.on('getMessages', (id)=>{
+            connection.query('SELECT message, date_outbound, user_id FROM (SELECT message, date_outbound, user_id FROM outbound WHERE con_id="'+id+'" UNION SELECT message, date_inbound, user_id FROM inbound WHERE con_id="'+id+'") conversations ORDER BY date_outbound', (err, msg, fields)=>{
+                if(err){
+                    console.log('Error: ' + err.message);
+                }else{
+                    socket.emit('showMessages', msg);
+                    console.log(id);
+                    // console.log('msg: ' + msg[0].message + " date: " + msg[0].date_outbound);
+                }
+            });
+        });
+    }
 
     function showpaired(){
           //show paired
@@ -165,6 +205,7 @@ function updateUsernames(){
 
 
     function loadData(){
+        showChatPersona();
         showpaired();
         socket.on('unpair', (data)=>{
             connection.query('UPDATE conversations SET status = "inactive" WHERE con_id="'+data+'"', (err)=>{
@@ -173,6 +214,7 @@ function updateUsernames(){
                 }else{
                     console.log('Unpaired Successfully');
                     showpaired();
+                    showChatPersona();
                 }
             });
         });
@@ -193,6 +235,7 @@ function updateUsernames(){
                                     }else{
                                         console.log('Successfully paired!');
                                         showpaired();
+                                        showChatPersona();
                                     }
                                 });
 
@@ -203,6 +246,7 @@ function updateUsernames(){
                                     }else{
                                         console.log('Successfully paired!');
                                         showpaired();
+                                        showChatPersona();
                                     }
                                 });
                             }
@@ -229,7 +273,32 @@ function updateUsernames(){
 	//Send Message
 	socket.on('send message', function(data){
 		console.log('send message', data.message, 'sending to ',data.roomno);
-		io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
+        // io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
+        io.sockets.emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
+
+        connection.query('INSERT INTO inbound (message, user_id, con_id) VALUES ("'+data.message+'", "'+data.subs_id+'", "'+data.con_id+'")', (err)=>{
+            if(err){
+                console.log('Error: ' + err.message);
+            }else{
+                getMessagesSubs(data.con_id);
+            }
+        });
+    });
+
+    	//Send MessageOps
+	socket.on('send messageOps', function(data){
+		console.log('send message', data.message, 'sending to ',data.roomno);
+        // io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
+        io.sockets.emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
+
+
+        connection.query('INSERT INTO outbound (message, user_id, con_id) VALUES ("'+data.message+'", "'+data.subs_id+'", "'+data.con_id+'")', (err)=>{
+            if(err){
+                console.log('Error: ' + err.message);
+            }else{
+                getMessagesSubs(data.con_id);
+            }
+        });
 	});
 
 });

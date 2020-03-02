@@ -63,10 +63,10 @@
                             <!-- <li class="collection-item truncate active"
                             >User12345687</li> -->
                         </ul>
-                        <div class="alert alert-info" ng-if="data.length !!= 0">
+                        <!-- <div class="alert alert-info" ng-if="data.length !!= 0"> -->
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <strong>No conversations available.</strong>
-                        </div>
+                            <!-- <strong>No conversations available.</strong> -->
+                        <!-- </div> -->
                         <h1 id='m'></h1>
                     </div>
 
@@ -258,7 +258,7 @@ $(document).ready(function(){
 
         $messageForm.submit(function(e){
             e.preventDefault();
-            socket.emit('send message', {message:$message.val(), roomno: $m.val(),subs_id:'{{auth()->user()->id}}', con_id: $('#submitmessage').val()});
+            socket.emit('send messageOps', {message:$message.val(), roomno: $m.val(),subs_id:'{{auth()->user()->id}}', con_id: $('#submitmessage').val()});
             // alert($('#submitmessage').val());
 			$message.val("");
             $message.focus();
@@ -289,22 +289,23 @@ $(document).ready(function(){
         //     $users.html(html);
         // });
 
-        socket.on('showrows', function(rows) {
+        socket.on('showrowsSubs', function(rows) {
         var html='';
-        for (var i=0; i<rows.length; i++) {
-          html += '<li class="collection-item truncate active" onclick="getMessages('+rows[i].con_id+')">'+rows[i].persona_name+'</li>';
-
+        if(rows.length > 0){
+            for (var i=0; i<rows.length; i++) {
+                 html += '<li class="collection-item truncate active" onclick="getMessages('+rows[i].con_id+')">'+rows[i].subscriber_name+'</li>';
+            }
+        }else{
+            html += '<div class="alert alert-info" ng-if="data.length !!= 0">'+
+                            '<strong>No conversations available.</strong>'+
+                        '</div>';
         }
+
          $users.html(html);
         });
 
-        socket.emit('getChatPersona', '{{auth()->user()->id}}', (data)=>{});
+        socket.emit('getChatSubscriber', '{{auth()->user()->id}}', (data)=>{});
 
-    //     socket.on('showMessages', function(rows){
-    //     for(var i=0; i < rows.length; i++ ){
-    //         console.log(rows[i].message);
-    //     }
-    //   });
 
     socket.on('showMessages', (data)=>{
         var html = '';
