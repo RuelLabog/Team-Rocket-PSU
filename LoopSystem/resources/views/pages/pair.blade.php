@@ -64,14 +64,14 @@
 
     <p>
         <button class="btn waves-effect waves-light btn-large" type="button" name="action" id="pairBtn" style="margin-top: 150px;" onclick="pair()">
-            <i class="material-icons right">arrow_forward</i>
+            <i class="material-icons right">keyboard_arrow_right</i>
         </button>
 
     </p>
     <p>
         <button class="btn waves-effect waves-light btn-large" type="button" name="action" id="unpairBtn" style="margin-top: 100px;" onclick="unpair()">
 
-            <i class="material-icons right">arrow_back</i>
+            <i class="material-icons right">keyboard_arrow_left</i>
         </button>
     </p>
     </div>
