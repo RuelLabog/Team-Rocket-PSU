@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Compiled and minified JavaScript -->
-      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 <div class="home-page ">
     <!-- Home page header starts -->
@@ -63,22 +63,22 @@
                             <!-- <li class="collection-item truncate active"
                             >User12345687</li> -->
                         </ul>
-                        <div class="alert alert-info" ng-if="data.length !!= 0">
+                        <!-- <div class="alert alert-info" ng-if="data.length !!= 0"> -->
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <strong>No conversations available.</strong>
-                        </div>
+                            <!-- <strong>No conversations available.</strong> -->
+                        <!-- </div> -->
                         {{-- <h1 id='m'></h1> --}}
                     </div>
 
 
 
-                    {{-- <div class="center-align" style="margin-top: 500px;">
+                    <div class="center-align" style="margin-top: 500px;">
                         <button id="disconnect" class="waves-effect waves-light btn-small col 12" type="submit" name="submit" value="Disconnect" style="background-color: #546D74; height: 50px;">
                             Disconnect
 
                         <i class="material-icons">exit_to_app</i>
                     </button>
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>
@@ -86,10 +86,11 @@
 
             <!-- Message Area Markup starts -->
             <div class="" style="width:70%; height:100%;">
-                <div class="message-container2" style="padding: 20px 0px 20px 20px;
+                <div class="message-container2" ng-if="data.messages.length == 0" style="padding: 20px 0px 20px 20px;
                 background-color: rgb(255, 255, 255);
                 margin: 10px 0px 10px 10px;
                 height: 104%;">
+                <div id="chatName"></div>
                     <div class="message-list">
                         <ul class="message-thread center-align" style="overflow-y: auto;
                         list-style-type: none;
@@ -99,15 +100,13 @@
                         padding: 5px !important;
                         border-radius: 5px;
                         border: #ffffff;">
-                            <div ng-if="message.length === 0">
-                                <h2><b>Welcome, {{auth()->user()->username}}.</b></h2>
+
+
+                            <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
                                 <h5>Please wait for a user.</h5>
                                 <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
 
-                            </div>
-
-                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;" ng-if="message.length > 0"><h1>
-                            </div>
+    </div>
 
 
 
@@ -169,10 +168,7 @@
       <p>You are disconnected because you have exceed the maximum time limit. (60s)</p>
     </div>
     <div class="modal-footer">
-      {{-- <a class="modal-close btn-flat" data-dismiss="modal">Ok</a> --}}
-
-      <button id="close" class="waves-effect waves-light btn-small" data-dismiss="modal" name="close">Ok</button>
-
+      <a class="modal-close btn-flat">Ok</a>
     </div>
   </div>
 
@@ -244,6 +240,7 @@ $(document).ready(function(){
     $(function(){
 
         //var socket = io.connect();
+        var $chatName= $('#chatName');
         var $chat = $('#chat');
         var $username = $('#username');
         var $users = $('#users');
@@ -305,11 +302,11 @@ $(document).ready(function(){
 
         socket.emit('getChatPersona', '{{auth()->user()->id}}', (data)=>{});
 
-    //     socket.on('showMessages', function(rows){
-    //     for(var i=0; i < rows.length; i++ ){
-    //         console.log(rows[i].message);
-    //     }
-    //   });
+        socket.on('showName', (data)=>{
+            var html = '<h4><b>'+data[0].persona_name+'</b></h4>';
+           $chatName.html(html);
+
+        });
 
     socket.on('showMessages', (data)=>{
         var html = '';
@@ -335,6 +332,7 @@ function getMessages(id){
     alert(id);
     $sendBtn.val(id);
     socket.emit('getMessages', id);
+    socket.emit('getChatNamePersona', id);
 }
 
 function scrollToBottom(){

@@ -67,7 +67,7 @@
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <!-- <strong>No conversations available.</strong> -->
                         <!-- </div> -->
-                        {{-- <h1 id='m'></h1> --}}
+                        <!-- <h1 id='m'></h1> -->
                     </div>
 
 
@@ -90,6 +90,7 @@
                 background-color: rgb(255, 255, 255);
                 margin: 10px 0px 10px 10px;
                 height: 104%;">
+                    <div id="chatName"></div>
                     <div class="message-list">
                         <ul class="message-thread center-align" style="overflow-y: auto;
                         list-style-type: none;
@@ -100,10 +101,9 @@
                         border-radius: 5px;
                         border: #ffffff;">
 
-
-                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
-                                <h5>Please wait for a user.</h5>
-                                <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
+                            <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h3><b>Welcome, {{auth()->user()->username}}.</b></h3>
+                                <h6>Please wait for a user.</h6>
+                                <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" width="45%">
 
     </div>
 
@@ -239,6 +239,7 @@ $(document).ready(function(){
     $(function(){
 
         //var socket = io.connect();
+        var $chatName= $('#chatName');
         var $chat = $('#chat');
         var $username = $('#username');
         var $users = $('#users');
@@ -306,8 +307,15 @@ $(document).ready(function(){
 
         socket.emit('getChatSubscriber', '{{auth()->user()->id}}', (data)=>{});
 
+        socket.on('showName', (data)=>{
+            var html = '<h4><b>'+data[0].subscriber_name+'</b></h4>';
+           $chatName.html(html);
+
+        });
+
 
     socket.on('showMessages', (data)=>{
+
         var html = '';
         for(var i=0; i < data.length; i++ ){
             if(data[i].user_id == '{{auth()->user()->id}}'){
@@ -334,6 +342,7 @@ function getMessages(id){
     alert(id);
     $sendBtn.val(id);
     socket.emit('getMessages', id);
+    socket.emit('getChatNameSub', id);
 }
 
 function scrollToBottom(){
