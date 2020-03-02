@@ -67,7 +67,7 @@
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <strong>No conversations available.</strong>
                         </div>
-                        <h1 id='m'></h1>
+                        {{-- <h1 id='m'></h1> --}}
                     </div>
 
 
