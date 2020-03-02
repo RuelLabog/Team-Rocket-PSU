@@ -72,13 +72,13 @@
 
 
 
-                    <div class="center-align" style="margin-top: 500px;">
+                    {{-- <div class="center-align" style="margin-top: 500px;">
                         <button id="disconnect" class="waves-effect waves-light btn-small col 12" type="submit" name="submit" value="Disconnect" style="background-color: #546D74; height: 50px;">
                             Disconnect
 
                         <i class="material-icons">exit_to_app</i>
                     </button>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -102,11 +102,11 @@
                         border: #ffffff;">
 
 
-                            <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
-                                <h5>Please wait for a user.</h5>
-                                <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
+                <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h3><b>Welcome, {{auth()->user()->username}}.</b></h3>
+                    <h6>Please wait for a user.</h6>
+                    <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" height="73%">
 
-    </div>
+                </div>
 
 
 
@@ -162,7 +162,7 @@
 
 
   <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer" style="height: 30%">
+  {{-- <div id="modal1" class="modal modal-fixed-footer" style="height: 30%">
     <div class="modal-content">
       <h4>Disconnected</h4>
       <p>You are disconnected because you have exceed the maximum time limit. (60s)</p>
@@ -170,7 +170,7 @@
     <div class="modal-footer">
       <a class="modal-close btn-flat">Ok</a>
     </div>
-  </div>
+  </div> --}}
 
 
 <style>
@@ -278,7 +278,7 @@ $(document).ready(function(){
         });
 
 
-        socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+        socket.emit('login user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}', '{{auth()->user()->user_type ?? 'subscriber'}}'], function(data){
             //Auto disconnect
             // setTimeout(function(){ $('.modal').modal(); }, 60000);
         });
@@ -293,9 +293,13 @@ $(document).ready(function(){
 
         socket.on('showrows', function(rows) {
         var html='';
-        for (var i=0; i<rows.length; i++) {
-          html += '<li class="collection-item truncate active" onclick="getMessages('+rows[i].con_id+')">'+rows[i].persona_name+'</li>';
+        if(rows.length > 0){
+            for (var i=0; i<rows.length; i++) {
+            html += '<li class="collection-item truncate active" onclick="getMessages('+rows[i].con_id+')">'+rows[i].persona_name+'</li>';
 
+            }
+        }else{
+            html += '<li class="collection-item active">No conversation available</li>';
         }
          $users.html(html);
         });
@@ -329,7 +333,7 @@ $(document).ready(function(){
     });
 
 function getMessages(id){
-    alert(id);
+    //alert(id);
     $sendBtn.val(id);
     socket.emit('getMessages', id);
     socket.emit('getChatNamePersona', id);
@@ -343,7 +347,7 @@ function scrollToBottom(){
     }
 
 function logout(){
-     socket.emit('logout user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}'], function(data){
+     socket.emit('logout user', ['{{auth()->user()->id}}', '{{auth()->user()->username}}', '{{auth()->user()->user_type ?? 'subscriber'}}'], function(data){
         //...
      });
 }

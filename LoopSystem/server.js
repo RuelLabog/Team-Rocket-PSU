@@ -42,26 +42,36 @@ io.on('connection', function(socket){
 socket.on('login user', function(data, callback){
 	callback(true);
 	socket.id = data[0];
-	socket.username = data[1];
+    socket.username = data[1];
+    socket.usertype = data[2];
 	if(users.includes(socket.username)){
 		console.log('exists');
 	}else{
 		users.push(socket.username);
-	}
+    }
 
 
-
-
-
-    connection.query("UPDATE users SET user_status='active' WHERE id="+socket.id+"", function(err){
-		if(err){
-			console.log('Error: ' + err.message);
-		}else{
-			console.log(socket.username+' is Online.\n');
-            updateUsernames();
-            loadData();
-		}
-	});
+    if(socket.usertype=="operator" || socket.usertype=="admin"){
+        connection.query("UPDATE users SET user_status='active' WHERE id="+socket.id+"", function(err){
+            if(err){
+                console.log('Error: ' + err.message);
+            }else{
+                console.log(socket.username+' is Online.\n');
+                updateUsernames();
+                loadData();
+            }
+        });
+    }else{
+        connection.query("UPDATE subscribers SET subscriber_status='active' WHERE id="+socket.id+"", function(err){
+            if(err){
+                console.log('Error: ' + err.message);
+            }else{
+                console.log(socket.username+' is Online.\n');
+                updateUsernames();
+                loadData();
+            }
+        });
+    }
 
 });
 
@@ -88,15 +98,26 @@ socket.on('logout user', function(data, callback){
 	callback(true);
 	socket.id = data[0];
 	socket.username = data[1];
-
-    connection.query("UPDATE users SET user_status='inactive' WHERE id="+socket.id+"", function(err){
-		if(err){
-			console.log('Error: ' + err.message);
-		}else{
-            console.log(socket.username+' is now Offline.\n');
-            loadData();
-		}
-	});
+    socket.usertype = data[2];
+    if(socket.usertype=="operator" || socket.usertype=="admin"){
+        connection.query("UPDATE users SET user_status='inactive' WHERE id="+socket.id+"", function(err){
+    		if(err){
+    			console.log('Error: ' + err.message);
+    		}else{
+                console.log(socket.username+' is now Offline.\n');
+                loadData();
+    		}
+    	});
+    }else{
+        connection.query("UPDATE subscribers SET subscriber_status='inactive' WHERE id="+socket.id+"", function(err){
+            if(err){
+                console.log('Error: ' + err.message);
+            }else{
+                console.log(socket.username+' is now Offline.\n');
+                loadData();
+            }
+        });
+    }
 
 });
 
@@ -294,7 +315,7 @@ function updateUsernames(){
 	socket.on('send message', function(data){
 		console.log('send message', data.message, 'sending to ',data.roomno);
         // io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
-        io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
+        io.sockets.emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
 
         connection.query('INSERT INTO inbound (message, user_id, con_id) VALUES ("'+data.message+'", "'+data.subs_id+'", "'+data.con_id+'")', (err)=>{
             if(err){
