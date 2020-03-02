@@ -72,13 +72,13 @@
 
 
 
-                    <div class="center-align" style="margin-top: 500px;">
+                    {{-- <div class="center-align" style="margin-top: 500px;">
                         <button id="disconnect" class="waves-effect waves-light btn-small col 12" type="submit" name="submit" value="Disconnect" style="background-color: #546D74; height: 50px;">
                             Disconnect
 
                         <i class="material-icons">exit_to_app</i>
                     </button>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -86,7 +86,7 @@
 
             <!-- Message Area Markup starts -->
             <div class="" style="width:70%; height:100%;">
-                <div class="message-container2" ng-if="data.messages.length == 0" style="padding: 20px 0px 20px 20px;
+                <div class="message-container2" style="padding: 20px 0px 20px 20px;
                 background-color: rgb(255, 255, 255);
                 margin: 10px 0px 10px 10px;
                 height: 104%;">
@@ -99,13 +99,15 @@
                         padding: 5px !important;
                         border-radius: 5px;
                         border: #ffffff;">
-
-
-                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
+                            <div ng-if="message.length === 0">
+                                <h2><b>Welcome, {{auth()->user()->username}}.</b></h2>
                                 <h5>Please wait for a user.</h5>
                                 <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
 
-    </div>
+                            </div>
+
+                            <div class="chat" id="chat" style="height:35rem; overflow-y:auto;" ng-if="message.length > 0"><h1>
+                            </div>
 
 
 
@@ -246,8 +248,8 @@ $(document).ready(function(){
         var $messageForm = $('#messageForm');
         var $m = $('#m');
 
-		
-      
+
+
         socket.on('connectToRoom',function(data) {
             var html = data;
             $m.html(html);
