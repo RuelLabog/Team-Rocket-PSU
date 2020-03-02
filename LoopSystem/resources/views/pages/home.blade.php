@@ -327,9 +327,6 @@ $(document).ready(function(){
 
     });
 
-
-
-
 function getMessages(id){
     alert(id);
     $sendBtn.val(id);
@@ -351,10 +348,6 @@ function logout(){
 }
 
 </script>
-
-
-
-
 
 @endsection
 

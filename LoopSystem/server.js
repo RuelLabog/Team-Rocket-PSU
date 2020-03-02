@@ -294,7 +294,7 @@ function updateUsernames(){
 	socket.on('send message', function(data){
 		console.log('send message', data.message, 'sending to ',data.roomno);
         // io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username});
-        io.sockets.emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
+        io.sockets.in("room"+data.roomno).emit('new message', {msg: data.message, user:socket.username, id: data.subs_id});
 
         connection.query('INSERT INTO inbound (message, user_id, con_id) VALUES ("'+data.message+'", "'+data.subs_id+'", "'+data.con_id+'")', (err)=>{
             if(err){
