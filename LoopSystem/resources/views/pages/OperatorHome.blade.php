@@ -67,7 +67,7 @@
                             <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
                             <!-- <strong>No conversations available.</strong> -->
                         <!-- </div> -->
-                        <h1 id='m'></h1>
+                        <!-- <h1 id='m'></h1> -->
                     </div>
 
 
@@ -99,8 +99,7 @@
                         padding: 5px !important;
                         border-radius: 5px;
                         border: #ffffff;">
-
-
+                        <div id="chatName"></div>
                             <div class="chat" id="chat" style="height:35rem; overflow-y:auto;"><h1><b>Welcome, {{auth()->user()->username}}.</b></h1>
                                 <h5>Please wait for a user.</h5>
                                 <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" >
@@ -239,6 +238,7 @@ $(document).ready(function(){
     $(function(){
 
         //var socket = io.connect();
+        var $chatName= $('#chatName');
         var $chat = $('#chat');
         var $username = $('#username');
         var $users = $('#users');
@@ -306,6 +306,12 @@ $(document).ready(function(){
 
         socket.emit('getChatSubscriber', '{{auth()->user()->id}}', (data)=>{});
 
+        socket.on('showName', (data)=>{
+            var html = '<h4><b>'+data[0].subscriber_name+'</b></h4><br>';
+           $chatName.html(html);
+
+        });
+
 
     socket.on('showMessages', (data)=>{
         var html = '';
@@ -334,6 +340,7 @@ function getMessages(id){
     alert(id);
     $sendBtn.val(id);
     socket.emit('getMessages', id);
+    socket.emit('getChatNameSub', id);
 }
 
 function scrollToBottom(){

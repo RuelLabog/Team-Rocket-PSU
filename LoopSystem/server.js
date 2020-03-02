@@ -155,8 +155,28 @@ function updateUsernames(){
                     console.log('Error: ' + err.message);
                 }else{
                     socket.emit('showMessages', msg);
-                    console.log(id);
+                    // console.log(id);
                     // console.log('msg: ' + msg[0].message + " date: " + msg[0].date_outbound);
+                }
+            });
+        });
+
+        socket.on('getChatNameSub', (id)=>{
+            connection.query('SELECT subscriber_name FROM subscribers INNER JOIN conversations ON subscribers.id = conversations.subscriber_id WHERE conversations.con_id="'+id+'"', (err, rows, fields)=>{
+                if(err){
+                    console.log('Error: ' + err.message);
+                }else{
+                    socket.emit('showName', rows);
+                }
+            });
+        });
+
+        socket.on('getChatNamePersona', (id)=>{
+            connection.query('SELECT persona_name FROM personas INNER JOIN conversations ON personas.persona_id = conversations.persona_id WHERE conversations.con_id="'+id+'"', (err, rows, fields)=>{
+                if(err){
+                    console.log('Error: ' + err.message);
+                }else{
+                    socket.emit('showName', rows);
                 }
             });
         });
