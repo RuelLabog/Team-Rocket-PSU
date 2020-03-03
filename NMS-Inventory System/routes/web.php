@@ -56,7 +56,14 @@ Route::post('/categories','CategoriesController@insert')->name('categoryInsert')
 Route::post('/restoreCat', 'CategoriesController@restore')->name('categoryRestore');
 Route::post('/forceDelCat', 'CategoriesController@forceDelete')->name('categoryForceDel');
 //users routes
+<<<<<<< HEAD
 Route::resource('/users_page', 'UsersController')->middleware('superAdmin');
+=======
+// Route::get('/users', 'UsersController@getData');
+Route::resource('/users_page', 'UsersController');
+Route::post('/editUser', 'UsersController@update');
+Route::post('/addUser', 'UsersController@insert')->name('addUser');
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
 Route::post('/softDelUser', 'UsersController@destroy')->name('userSoftDelete');
 Route::post('/editUser', 'UsersController@update')->name('userUpdate');
 Route::post('/addUser', 'UsersController@insert')->name('userAdd');
@@ -71,7 +78,8 @@ Route::resource('/receipts_page', 'ReceiptController');
 Route::post('/softDelRec', 'ReceiptController@delete')->name('recSoftDelete');
 Route::post('/editRec', 'ReceiptController@update')->name('recEdit');
 Route::post('/receipt','ReceiptController@insert')->name('receiptInsert');
-
+Route::post('/restoreRec', 'ReceiptController@restore')->name('receiptRestore');
+Route::post('/forceDelRec', 'ReceiptController@forceDelete')->name('receiptForceDel');
 
 // });
 

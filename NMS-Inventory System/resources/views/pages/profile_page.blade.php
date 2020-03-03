@@ -40,45 +40,35 @@
                     </div>
                     <input class="file-upload" type="file" accept="image/*" name="image"/>
                   </div>
-
-
-
-
-
-
-
                 <div class="form-group">
                   <div class="row">
-
                     <div class="col-6">
                         <input type="hidden" class="form-control" id="id" name="userid" placeholder="Username" value="{{$value->id}}">
-                      <label>Username:</label>
+                      <label>Username: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{$value->username}}">
                     </div>
                     <div class="col-6">
-                      <label>Email:</label>
+                      <label>Email: <span class="required">*</span></label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com" value="{{$value->email}}">
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>First Name:</label>
+                      <label>First Name: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="fname" name="fname" placeholder="Given Name" value="{{$value->fname}}">
                     </div>
                     <div class="col-6">
-                      <label>Last Name:</label>
+                      <label>Last Name: <span class="required">*</span></label>
                       <input type="text" class="form-control" id="lname" name="lname" placeholder="Family Name" value="{{$value->lname}}">
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <div class="row">
                     <div class="col-6">
-                      <label>Current Password:</label>
+                      <label>Current Password: <span class="required">*</span></label>
                       <input type="password" class="form-control" id="curpassword" name="curpassword" placeholder="Current Password">
                     </div>
                     <div class="col-6">
@@ -87,9 +77,7 @@
                     </div>
                   </div>
                 </div>
-
                 @endforeach
-
                 <button type="submit" class="btn btn-success float-sm-right">Save Changes</button>
               </form>
             </div>

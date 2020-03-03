@@ -114,26 +114,24 @@ class ProfileController extends Controller
             $updateprofile->image = $new_name;
         }
 
-
-
-
-
         $password = DB::table('users')->where('id', auth()->user()->id)->value('password');
         $inputpass = Hash::make($request['curpassword']);
 
 
-        if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL || $request['newpassword'] == NULL) {
+        if ($request['username'] == NULL || $request['email'] == NULL || $request['fname'] == NULL || $request['lname'] == NULL || $request['curpassword'] == NULL ) {
             $notification = array(
                 'message'=> 'Please fill up required fields!',
                 'alert-type' => 'error'
             );
         }
+
         elseif(!Hash::check($request['curpassword'], $password)){
                 $notification = array(
-                    'message'=> $inputpass . ' ' . $password,
+                    'message'=> 'Incorrect Current Password! Please contact your Administrator.',
                     'alert-type' => 'error'
                 );
-        }else{
+        }
+        else{
             $updateprofile->save();
             $notification = array(
 

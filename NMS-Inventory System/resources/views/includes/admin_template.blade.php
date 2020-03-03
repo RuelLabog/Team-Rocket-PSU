@@ -9,8 +9,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Inventory System</title>
 
+  <title>Inventory System</title>
+<link rel="icon" href="images/trlogo.png">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -112,50 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
-<script>
 
-
-$(document).ready(function() {
-
-          //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-
-    var pieData        = {
-      labels: [
-          'Admin and Finance Department',
-          'Human Resources and Development',
-          'Information Technology & Development',
-          'Messaging Support Team',
-          'Sales and Marketing',
-          'Production Recruitment Department',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-
-});
-
-
-
-</script>
 
 
 {{-- edit category --}}
@@ -245,8 +203,8 @@ $(document).ready(function() {
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #eID').val(userid)
-      modal.find('.modal-body #eUsername').val(username)
+      modal.find('.modal-body #eUserID').val(userid)
+      modal.find('.modal-body #eUserName').val(username)
       modal.find('.modal-body #eEmail').val(email)
       modal.find('.modal-body #eFirstName').val(firstname)
       modal.find('.modal-body #eLastName').val(lastname)
@@ -332,7 +290,7 @@ $(document).ready(function() {
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
 
-      modal.find('.modal-body #dID').val(userid)
+      modal.find('.modal-body #dUserID').val(userid)
       modal.find('.modal-body #dFullName').html(fname + ' ' + lname)
 
 
@@ -352,16 +310,16 @@ $(document).ready(function() {
                 },
                 columns: [
                     {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'catname',
                         name: 'catname'
                     },
                     {
                         data: 'catdesc',
                         name: 'catdesc'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
                     },
                     {
                         data: 'action',
