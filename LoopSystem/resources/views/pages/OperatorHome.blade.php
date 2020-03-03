@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Compiled and minified JavaScript -->
-      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
+
 <div class="home-page ">
     <!-- Home page header starts -->
 
@@ -12,13 +10,13 @@
           <a href="" class="brand-logo left">Welcome {{auth()->user()->username}}</a>
           <ul class="right hide-on-med-and-down ">
             <li class="right">
-                <!-- <span class="logout-user" ng-click="logout()"> -->
+
                 <a class="logout-user " id="logout-user" href="{{ route('logout') }}"
                 onclick="event.preventDefault();logout();
                 document.getElementById('logout-form').submit();">
                 <i class="material-icons" aria-hidden="true">power_settings_new</i>
                 </a>
-                {{-- <input type="submit"></button> --}}
+
                 <br><br><br>
                 @if(auth()->user()->user_type == "operator")
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none" >
@@ -44,41 +42,18 @@
             <div class="row" style="width:30%; margin-bottom:0px;">
                 <div class="chat-list-container z-depth-2 col 12" style="height: 100% !important; ">
                     <p class="chat-list-heading"><h4 class="center-align"><b>Chat list</b></h4> </p>
-                    {{-- <div class="input-field col 3">
-                        <i class="material-icons prefix">search</i>
-                        <input id="icon_prefix" type="text" class="validate">
-                        <label for="icon_prefix">Search Conversation</label>
-                    </div>
-
-                    <div class="center-align col 3 ">
-                        <ul class="tabs">
-                            <li class="tab col s6"><a href="#test1" class="active blue-text text-darken-4">Conversations</a></li>
-                            <li class="tab col s6"><a href="#test2" class="blue-text text-darken-4">Services</a></li>
-                        </ul>
-                    </div> --}}
 
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-                            <!-- <li class="collection-item truncate active"
-                            >User12345687</li> -->
+
                         </ul>
-                        <!-- <div class="alert alert-info" ng-if="data.length !!= 0"> -->
-                            <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <!-- <strong>No conversations available.</strong> -->
-                        <!-- </div> -->
-                        <!-- <h1 id='m'></h1> -->
+
                     </div>
 
 
 
-                    {{-- <div class="center-align" style="margin-top: 500px;">
-                        <button id="disconnect" class="waves-effect waves-light btn-small col 12" type="submit" name="submit" value="Disconnect" style="background-color: #546D74; height: 50px;">
-                            Disconnect
 
-                        <i class="material-icons">exit_to_app</i>
-                    </button>
-                    </div> --}}
 
                 </div>
             </div>
@@ -104,35 +79,11 @@
                             <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h3><b>Welcome, {{auth()->user()->username}}.</b></h3>
                                 <h6>Please wait for a user.</h6>
                                 <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" height="73%">
-
-    </div>
-
-
-
-
+                             </div>
                         </ul>
                     </div>
 
                 </div>
-
-
-
-                {{-- <div class="message-container" ng-if="data.messages.length > 0">
-                    <span id="fixx">
-                    <h5 class="collection-item truncate"
-                    ng-class="{'active':friend.id == data.selectedFriendId}"
-                    ></h5>
-                    </span>
-                    <div class="message-list">
-                        <ul class="message-thread">
-
-                            <li ng-repeat="messagePacket in data.messages"
-                                ng-class="{ 'align-right' : alignMessage(messagePacket.fromUserId) } ">
-
-                            </li>
-                        </ul>
-                    </div> --}}
-
 
                     <div class="message-text">
                         <form id="messageForm">
@@ -173,18 +124,7 @@
 
 
 <style>
-    /* #message {
-    border-radius: 25px;
-    background-color: eeeeee;
-    padding: 20px;
-     height: 20px;
-    width: 1020px;
-    resize: none;
-    overflow:hidden;
-    outline-width: 0;
-    display: inline;
 
-} */
 
 #submitmessage {
     border-radius: 20%;
