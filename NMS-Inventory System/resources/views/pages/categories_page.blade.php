@@ -33,10 +33,17 @@
           <table id="categories_table" class="table table-bordered table-striped">
             <thead>
              <tr>
+<<<<<<< HEAD
                   <th width="5%">#</th>
                   <th width="25%">Name</th>
                   <th width="55%">Description</th>
                   <th width="7%"></th>
+=======
+                  <th width="25%">Name</th>
+                  <th width="55">Description</th>
+                  <th width="55">Date Created</th>
+                  <th width="10%"></th>
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                 </tr>
             </thead>
           </table>
@@ -56,8 +63,13 @@
             <div class="modal-body">
               <div class="form-group">
                 {{ csrf_field() }}
+<<<<<<< HEAD
                 <label>Category: <span class="required">*</span></label>
                 <input type="text" class="form-control" name="catName" id="catName" placeholder="Category Name" required>
+=======
+                <label>Category:</label>
+                <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Category Name" required>
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
               </div>
               <div class="form-group">
                 <label>Description: <span class="required">*</span></label>
@@ -154,10 +166,12 @@
                 data: {'_token': $('input[name=_token').val(),
                         'dCatID': $('input[name=dCatID').val()},
                 beforeSend:function(){
+                    $("#categoryDelBtn").attr("disabled", true);
                     $('#categoryDelBtn').text('Deleting...');
                     $('#categoryDelBtn').attr('disabled', true);
                 },
                 success: function (response){
+<<<<<<< HEAD
                     if(response.success){
                         toastr.success('Successfully deleted.');
                         $('#modal-delete-category').modal('hide');
@@ -168,6 +182,24 @@
                     }
                         $('#categoryDelBtn').attr('disabled', false);
                         $('#categoryDelBtn').text('Delete');
+=======
+                    // setTimeout(function(){
+                        $('#modal-delete-category').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $("#categoryDelBtn").attr("disabled", false);
+                        $('#categoryDelBtn').text('Delete');
+
+                        if(response.ok == "Error"){
+                            alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
+                        }else{
+                            alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
+                        }
+                    // }, 2000);
+                },
+
+                error: function(err){
+                    alert('Error! Deletion is not successful.');
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                 }
             });
         }
@@ -175,6 +207,7 @@
         function categoryEdit(){
             var url =  "editCat";
             var eCatDesc = $('#eCatDesc').val();
+<<<<<<< HEAD
             var eCatName = $('#eCatName').val();
             if(eCatDesc == "" || eCatName == "" ){
                 toastr.error('All fields are required!');
@@ -199,21 +232,34 @@
             }
             else{
                 $.ajax({
+=======
+            var eCatName =$('#eCatName').val();
+            if(eCatName == "" || eCatDesc==""){
+                alert('All fields are required!');
+
+            }else{
+              $.ajax({
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                 type: 'POST',
                 url: url,
                 data: {
                         '_token': $('input[name=_token').val(),
                         'eCatID':$('input[name=eCatID').val(),
-                        'eCatName':$('input[name=eCatName').val(),
+                        'eCatName': eCatName,
                         'eCatDesc': eCatDesc
                         },
                 beforeSend:function(){
                     $('#categoryEditBtn').text('Updating...');
                     $('#categoryEditBtn').attr('disabled', true);
                 },
+<<<<<<< HEAD
                 success: function (response){
                     if(response.success){
                         toastr.success('Successfully Updated.');
+=======
+                success: function (data){
+                    // setTimeout(function(){
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                         $('#modal-edit-category').modal('hide');
                         $('#categories_table').DataTable().ajax.reload();
                     }else{
@@ -221,15 +267,25 @@
                     }
                         $('#categoryEditBtn').attr('disabled', false);
                         $('#categoryEditBtn').text('Save Changes');
+<<<<<<< HEAD
+=======
+                        alert('Category updated successfully');
+                    // }, 2000);
+                },
+                error: function(err){
+                    alert('Error! Update unsuccessful');
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                 }
             });
             }
 
         }
+        }
 
 
         function categoryAdd(){
             var catDesc = $('#catDesc').val();
+<<<<<<< HEAD
             var catName = $('#catName').val();
             if( catDesc == "" || catName == "" ){
                 toastr.error('All fields are required!');
@@ -257,10 +313,20 @@
                     type: 'POST',
                     url: "{{ route('categoryInsert') }}",
                     data: {
+=======
+            if(catDesc == "" || $('#catName').val()==""){
+                alert('All Fields are required!');
+            }else{
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('categoryInsert') }}",
+                data: {
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
                         '_token': $('input[name=_token').val(),
                         'catName':$('input[name=catName').val(),
                         'catDesc': catDesc
                         },
+<<<<<<< HEAD
                     beforeSend:function(){
                         $('#categoryAddBtn').text('Inserting...');
                         $('#categoryAddBtn').attr('disabled', true);
@@ -277,6 +343,25 @@
                 });
             }
         }
+=======
+                beforeSend:function(){
+                    $('#categoryAddBtn').text('Inserting...');
+                },
+                success: function (response){
+                    // setTimeout(function(){
+                        $('#modal-default').modal('hide');
+                        $('#categories_table').DataTable().ajax.reload();
+                        $('#categoryAddBtn').text('Save Changes');
+                    // }, 2000);
+                },
+                error: function(err){
+                    alert('Error! Category Name Exists!')
+                }
+            });
+        }
+        }
+    </script>
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
 
         function restore(){
             var catname = $('#restoreBtn').val();

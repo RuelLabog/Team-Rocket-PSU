@@ -135,8 +135,13 @@
             <form action="{{route('recSoftDelete')}}" method="POST">
              {{ csrf_field() }}
             <div class="modal-body">
+<<<<<<< HEAD
             <input type="hidden" id="dRecID" name="dRecID" class="form-control">
             <h6 style="text-align:center">Are you sure you want to delete receipt <label id="dOrnum"></label>?</h6>
+=======
+            <input type="hidden" id="dCatID" name="dCatID" class="form-control">
+            <h6 style="text-align:center">Are you sure you want to delete receipt <label id="dCatName"></label>?</h6>
+>>>>>>> eea553088b9d7bb791224fedd5020b0c8237ab10
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
