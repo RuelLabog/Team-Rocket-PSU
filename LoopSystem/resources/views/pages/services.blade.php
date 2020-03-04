@@ -1,6 +1,7 @@
 @extends('includes.admin_template')
 
 @section('content')
+<div ng-app="myServiceApp" ng-controller="myServiceController">
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -26,7 +27,7 @@
     <div class="card">
       <div class="card-header">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus mr-2"></i>Add Category
+          <i class="fas fa-plus mr-2"></i>Add Service
         </button>
       </div>
       <!-- /.card-header -->
@@ -35,10 +36,22 @@
           <thead>
            <tr>
                 <th width="10%">ID</th>
-                <th width="80%">Name</th>
-                <th width="10%"></th>
+                <th width="25%">Name</th>
+                <th width="25%">Status</th>
+                <th width="25%">Date Created</th>
+                <th width="15%"></th>
               </tr>
           </thead>
+          <tbody>
+              <tr ng-repeat="row in data">
+                  <td>@{{ row.service_id | json}}</td>
+                  <td>@{{ row.service_name }}</td>
+                  <td>@{{ row.service_status }}</td>
+                  <td ng-model="created_at">@{{ row.created_at }}</td>
+                  <td></td>
+              </tr>
+
+          </tbody>
         </table>
       </div>
       <!-- /.card-body -->
@@ -57,13 +70,14 @@
             <div class="form-group">
               {{ csrf_field() }}
               <label>Service Name:</label>
-              <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Category Name" required>
+              <input type="text" class="form-control @error('catName') is-invalid @enderror " name="serviceName" id="serviceName" ng-model="serviceName" placeholder="Service Name" required>
+                @{{ serviceName }}
             </div>
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
+            <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' ng-click="insertService()">Save changes</button>
           </div>
         </form>
         </div>
@@ -130,106 +144,34 @@
     </div>
     <!-- /.delete item modal -->
 
-  {{-- <script type="text/javascript">
-      function categoryDel(){
-          var id = $('#dCatID').val();
-            $.ajax({
-              type: 'POST',
-              url: 'softDelCat',
-              data: {'_token': $('input[name=_token').val(),
-                      'dCatID': $('input[name=dCatID').val()},
-              beforeSend:function(){
-                  $("#categoryDelBtn").attr("disabled", true);
-                  $('#categoryDelBtn').text('Deleting...');
-              },
-              success: function (response){
-                  // setTimeout(function(){
-                      $('#modal-delete-category').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $("#categoryDelBtn").attr("disabled", false);
-                      $('#categoryDelBtn').text('Delete');
-
-                      if(response.ok == "Error"){
-                          alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
-                      }else{
-                          alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
-                      }
-                  // }, 2000);
-              },
-
-              error: function(err){
-                  alert('Error! Deletion is not successful.');
-              }
-          });
-      }
+    </div>
+    <!-- /.end of ng-app and ng-controller -->
 
 
-      function categoryEdit(){
-          var url =  "editCat";
-          var eCatDesc = $('#eCatDesc').val();
-          var eCatName =$('#eCatName').val();
-          if(eCatName == "" || eCatDesc==""){
-              alert('All fields are required!');
+<!-- Angular js -->
+<!-- angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script>
+  var serviceApp = angular.module("myServiceApp", []);
 
-          }else{
-            $.ajax({
-              type: 'POST',
-              url: url,
-              data: {
-                      '_token': $('input[name=_token').val(),
-                      'eCatID':$('input[name=eCatID').val(),
-                      'eCatName': eCatName,
-                      'eCatDesc': eCatDesc
-                      },
-              beforeSend:function(){
-                  $('#categoryEditBtn').text('Updating...');
-              },
-              success: function (data){
-                  // setTimeout(function(){
-                      $('#modal-edit-category').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $('#categoryEditBtn').text('Save Changes');
-                      alert('Category updated successfully');
-                  // }, 2000);
-              },
-              error: function(err){
-                  alert('Error! Update unsuccessful');
-              }
-          });
-      }
-      }
+  serviceApp.controller("myServiceController", function($scope, $http){
+    $scope.insertService = function(){
+        $http.post(
+            "insertService",
+            {'serviceName':$scope.serviceName}
+        )
+        // alert($scope.serviceName);
+    }
 
 
-      function categoryAdd(){
-          var catDesc = $('#catDesc').val();
-          if(catDesc == "" || $('#catName').val()==""){
-              alert('All Fields are required!');
-          }else{
-          $.ajax({
-              type: 'POST',
-              url: "{{ route('categoryInsert') }}",
-              data: {
-                      '_token': $('input[name=_token').val(),
-                      'catName':$('input[name=catName').val(),
-                      'catDesc': catDesc
-                      },
-              beforeSend:function(){
-                  $('#categoryAddBtn').text('Inserting...');
-              },
-              success: function (response){
-                  // setTimeout(function(){
-                      $('#modal-default').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $('#categoryAddBtn').text('Save Changes');
-                  // }, 2000);
-              },
-              error: function(err){
-                  alert('Error! Category Name Exists!')
-              }
-          });
-      }
-      }
-  </script> --}}
+    $http.get('getServices').then(function(response){
+        $scope.data = response.data;
+    });
+
+    $scope.created_at = moment($scope.created_at).format('llll');
+
+  });
+  </script>
 
  @endsection
 

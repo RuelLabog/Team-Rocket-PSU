@@ -234,29 +234,35 @@ class Subscriber_AdminController extends Controller
 
     function insert(Request $req)
     {
+        // $serviceName = $req->input('serviceName');
+        // $service = array('service_name'=>$serviceName, 'service_status'=>'active');
 
-                $itemname = $req->input('itemname');
-                $itemdesc = $req->input('itemdesc');
-                $quantity = $req->input('quantity');
-                $catid = $req->input('catid');
-                $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+        // DB::table('services')->insert($service);
 
-                if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
-                    DB::table('items')->where('itemname', '=', $itemname)->delete();
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }else{
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }
+        // return $service;
 
-            return back()->with($notification);
+            //     $itemname = $req->input('itemname');
+            //     $itemdesc = $req->input('itemdesc');
+            //     $quantity = $req->input('quantity');
+            //     $catid = $req->input('catid');
+            //     $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+
+            //     if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
+            //         DB::table('items')->where('itemname', '=', $itemname)->delete();
+            //         DB::table('items')->insert($item);
+            //         $notification = array(
+            //             'message'=> 'A New Item is Inserted!',
+            //             'alert-type' => 'success'
+            //         );
+            //     }else{
+            //         DB::table('items')->insert($item);
+            //         $notification = array(
+            //             'message'=> 'A New Item is Inserted!',
+            //             'alert-type' => 'success'
+            //         );
+            //     }
+
+            // return back()->with($notification);
     }
 }
 

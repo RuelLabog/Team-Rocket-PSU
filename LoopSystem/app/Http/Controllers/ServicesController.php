@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use View;
+use App\Service;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
@@ -23,22 +24,25 @@ class ServicesController extends Controller
     // }
 
     //Retreiving of Data.
-    // function getData(){
-    //     $data['data'] = DB::table('items')
-    //                     ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
-    //                     ->join('categories', 'categories.id', '=', 'items.catid')
-    //                     ->where('items.deleted_at', '=', null)
-    //                     ->get();
+    function getData(){
+        // $data['data'] = DB::table('items')
+        //                 ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
+        //                 ->join('categories', 'categories.id', '=', 'items.catid')
+        //                 ->where('items.deleted_at', '=', null)
+        //                 ->get();
 
 
-    //     if(count($data) > 0){
-    //         return view('pages/items_page', $data);
-    //     }
-    //     else{
-    //         return view('pages/items_page');
-    //     }
-    //    // return Datatables::of($students)->make(true);
-    // }
+        // if(count($data) > 0){
+        //     return view('pages/items_page', $data);
+        // }
+        // else{
+        //     return view('pages/items_page');
+        // }
+       // return Datatables::of($students)->make(true);
+
+    //    return response()->json(['data'=>Service::all()]);
+    return Service::all();
+    }
 
 
 
@@ -76,7 +80,17 @@ class ServicesController extends Controller
         //                         // ->rawColums(['action'])
         //                         ->make(true);
         // }
-        return view('pages/services');
+        // return view('pages/services');
+        // $data['data'] = DB::table('services')->get();
+        // return view('pages/services', $data);
+
+        // $data['data']=Service::all();
+        // return view('pages.services', $data);
+        // return response()->json(['data'=> Service::all()]);
+        // return Service::all();
+        return view('pages.services');
+
+
     }
 
     /**
@@ -234,29 +248,33 @@ class ServicesController extends Controller
 
     function insert(Request $req)
     {
+         $serviceName = $req->input('serviceName');
+        $service = array('service_name'=>$serviceName, 'service_status'=>'active');
 
-                $itemname = $req->input('itemname');
-                $itemdesc = $req->input('itemdesc');
-                $quantity = $req->input('quantity');
-                $catid = $req->input('catid');
-                $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+        DB::table('services')->insert($service);
 
-                if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
-                    DB::table('items')->where('itemname', '=', $itemname)->delete();
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }else{
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }
+            //     $itemname = $req->input('itemname');
+            //     $itemdesc = $req->input('itemdesc');
+            //     $quantity = $req->input('quantity');
+            //     $catid = $req->input('catid');
+            //     $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
 
-            return back()->with($notification);
+            //     if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
+            //         DB::table('items')->where('itemname', '=', $itemname)->delete();
+            //         DB::table('items')->insert($item);
+            //         $notification = array(
+            //             'message'=> 'A New Item is Inserted!',
+            //             'alert-type' => 'success'
+            //         );
+            //     }else{
+            //         DB::table('items')->insert($item);
+            //         $notification = array(
+            //             'message'=> 'A New Item is Inserted!',
+            //             'alert-type' => 'success'
+            //         );
+            //     }
+
+            // return back()->with($notification);
     }
 }
 

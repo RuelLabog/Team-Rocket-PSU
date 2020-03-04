@@ -93,7 +93,8 @@
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
 
-
+<!-- angular
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
 
 </body>
 </html>
