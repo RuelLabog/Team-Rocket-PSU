@@ -18,18 +18,21 @@ Route::get('/', function () {
 Route::resource('/subscribers_page', 'Subscriber_AdminController');
 Route::resource('/personas_page', 'PersonaController');
 Route::resource('/operators_page', 'OperatorController');
-Route::resource('/services_page', 'ServicesController');
+// Route::resource('/services_page', 'ServicesController');
 Route::resource('/pairing_page', 'PairController');
 
 Auth::routes();
 
 
+// subscribers routes
 Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
-
 Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
 Route::post('/logout/subscriber', 'Auth\LoginController@logoutSubs')->name('logoutSubs');
 
+Route::post('/insertService', 'ServicesController@insert')->name('insertService');
+Route::get('/services', 'ServicesController@index');
+Route::get('/getServices', 'ServicesController@getData');
 
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){
@@ -42,6 +45,9 @@ Route::group(['middleware' => ['admin', 'auth']], function(){
         }
     });
 });
+
+// Blade::setContentTags('<<', '>>');
+// Blade::setEscapedContentTags('<<<', '>>>');
 
 /*
 
