@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+<div ng-app="myOperatorsApp" ng-controller="myOperatorsController">
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -18,9 +19,6 @@
   <!-- /.content-header -->
 
 
-
-
-
     <div class="card">
       <div class="card-header">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -32,7 +30,7 @@
         <table id="categories_table" class="table table-bordered table-striped">
           <thead>
            <tr>
-                <th width="10%">ID</th>
+                <th width="10%">Active/Inactive</th>
                 <th width="20%">Username</th>
                 <th width="30%">Email</th>
                 <th width="30%">Date Created</th>
@@ -45,7 +43,7 @@
     </div>
     <!-- /.card -->
 
-<!-- add items modal -->
+<!-- add operator modal -->
     <div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -58,53 +56,25 @@
               <?php echo e(csrf_field()); ?>
 
               <label>Username:</label>
-              <input type="text" class="form-control <?php $__errorArgs = ['catName'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Username" required>
+              <input type="text" class="" name="oUsername" id="oUsername" ng-model="oUsername" placeholder="Username" required>
             </div>
             <div class="form-group">
               <label>Email:</label>
-              <input type="email" class="form-control <?php $__errorArgs = ['catName'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Email Address" required>
+              <input type="email" class="" name="oEmail" id="oEmail" ng-model="oEmail" placeholder="Email Address" required>
 
             </div>
             <div class="form-group">
               <label>Password:</label>
-              <input type="password" class="form-control <?php $__errorArgs = ['catName'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Password" required>
+              <input type="password" class="" name="oPassword" id="oPassword" ng-model="oPassword" placeholder="Password" required>
             </div>
             <div class="form-group">
               <label>Confirm Password:</label>
-              <input type="password" class="form-control <?php $__errorArgs = ['catName'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Confirm Password" required>
+              <input type="password" class="" name="oConPass" id="oConPass" ng-model="oConPass" placeholder="Confirm Password" required>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
+            <button type="button" class="btn btn-success" name="submit" id='operatorAddBtn' name='operatorAddBtn' ng-click="operatorAdd()">Save changes</button>
           </div>
         </form>
         </div>
@@ -201,8 +171,18 @@ unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Passw
       <!-- /.modal-dialog -->
     </div>
     <!-- /.delete item modal -->
+  </div>
 
-  
+
+
+
+  <script>
+    var app = angular.module("myOperatorsApp", []);
+
+    app.controller("myOperatorsController", function($scope, $http){
+      $scope.operatorAdd()
+    });
+  </script>
 
  <?php $__env->stopSection(); ?>
 

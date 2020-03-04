@@ -1,6 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<!-- Compiled and minified JavaScript -->
-      
+
 <div class="home-page ">
     <!-- Home page header starts -->
 
@@ -9,13 +8,13 @@
           <a href="" class="brand-logo left">Welcome <?php echo e(auth()->user()->username); ?></a>
           <ul class="right hide-on-med-and-down ">
             <li class="right">
-                <!-- <span class="logout-user" ng-click="logout()"> -->
+
                 <a class="logout-user " id="logout-user" href="<?php echo e(route('logout')); ?>"
                 onclick="event.preventDefault();logout();
                 document.getElementById('logout-form').submit();">
                 <i class="material-icons" aria-hidden="true">power_settings_new</i>
                 </a>
-                
+
                 <br><br><br>
                 <?php if(auth()->user()->user_type == "operator"): ?>
                 <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none" >
@@ -41,24 +40,18 @@
             <div class="row" style="width:30%; margin-bottom:0px;">
                 <div class="chat-list-container z-depth-2 col 12" style="height: 100% !important; ">
                     <p class="chat-list-heading"><h4 class="center-align"><b>Chat list</b></h4> </p>
-                    
 
                     <div class="chat-list col 3">
 
                         <ul class="collection with-header left-align" ng-if="data.chatlist.length > 0" id="users">
-                            <!-- <li class="collection-item truncate active"
-                            >User12345687</li> -->
+
                         </ul>
-                        <!-- <div class="alert alert-info" ng-if="data.length !!= 0"> -->
-                            <!-- <strong>No one is online to chat, ask someone to Login.</strong> -->
-                            <!-- <strong>No conversations available.</strong> -->
-                        <!-- </div> -->
-                        <!-- <h1 id='m'></h1> -->
+
                     </div>
 
 
 
-                    
+
 
                 </div>
             </div>
@@ -84,21 +77,11 @@
                             <div class="chat" id="chat" style="height:30rem; overflow-y:auto;"><h3><b>Welcome, <?php echo e(auth()->user()->username); ?>.</b></h3>
                                 <h6>Please wait for a user.</h6>
                                 <img class="center-align" src="https://media.giphy.com/media/bcKmIWkUMCjVm/giphy.gif" alt="" height="73%">
-
-    </div>
-
-
-
-
+                             </div>
                         </ul>
                     </div>
 
                 </div>
-
-
-
-                
-
 
                     <div class="message-text">
                         <form id="messageForm">
@@ -131,18 +114,7 @@
 
 
 <style>
-    /* #message {
-    border-radius: 25px;
-    background-color: eeeeee;
-    padding: 20px;
-     height: 20px;
-    width: 1020px;
-    resize: none;
-    overflow:hidden;
-    outline-width: 0;
-    display: inline;
 
-} */
 
 #submitmessage {
     border-radius: 20%;
