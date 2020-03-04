@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use View;
+use App\Operator;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
@@ -17,28 +18,18 @@ class OperatorController extends Controller
 {
 
     // for authentication
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     //Retreiving of Data.
-    // function getData(){
-    //     $data['data'] = DB::table('items')
-    //                     ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
-    //                     ->join('categories', 'categories.id', '=', 'items.catid')
-    //                     ->where('items.deleted_at', '=', null)
-    //                     ->get();
-
-
-    //     if(count($data) > 0){
-    //         return view('pages/items_page', $data);
-    //     }
-    //     else{
-    //         return view('pages/items_page');
-    //     }
-    //    // return Datatables::of($students)->make(true);
-    // }
+    function getData(){
+        return Operator::select('id', 'username', 'user_status', 'email', 'created_at', )
+                        ->where('user_type', '!=', 'admin')
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+    }
 
 
 
@@ -50,33 +41,7 @@ class OperatorController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // if($request->ajax()){
-        //     $data = item::select('items.id', 'itemname', 'itemdesc', 'quantity', 'catname')
-        //                 ->join('categories', 'categories.id', '=', 'items.catid')
-        //                 ->get();
-
-        //     return DataTables::of($data)
-        //                         ->addColumn('action', function($data){
-        //                             $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
-
-        //                             data-itemname="'.$data->itemname.'"
-        //                             data-itemdesc="'.$data->itemdesc.'"
-        //                             data-quantity="'.$data->quantity.'"
-        //                             data-itemid="'.$data->id.'"
-        //                             data-catid="'.$data->catid.'"
-        //                             data-toggle="modal" data-target="#modal-edit-items">Edit</button>';
-
-        //                             $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
-        //                             data-itemid="'.$data->id.'"
-        //                             data-itemname="'.$data->itemname.'"
-        //                             data-toggle="modal" data-target="#modal-delete-items">Delete</button>';
-        //                             return $button;
-        //                         })
-        //                         // ->rawColums(['action'])
-        //                         ->make(true);
-        // }
-        return view('pages/operators');
+        return view('pages.operators');
     }
 
     /**
@@ -145,31 +110,39 @@ class OperatorController extends Controller
 
     public function update(Request $request)
     {
+        $id = $request->input('id');
+        $updateOperator = Operator::findOrFail($id);
+
+        $updateOperator->username = $request->input('username');
+        $updateOperator->email = $request->input('email');
+        $updateOperator->password = $request->input('password');
+
+        // $updateOperator->save();
         //
-        $id = $request->input('eItemID');
-        $updateitem = item::findOrFail($id);
+        // $id = $request->input('eItemID');
+        // $updateitem = item::findOrFail($id);
 
-        $updateitem->itemname =  $request->input('eItemname');
-        $updateitem->itemdesc = $request->input('eItemDesc');
-        $updateitem->quantity = $request->input('eQuantity');
-        $updateitem->catid = $request->input('catid');
+        // $updateitem->itemname =  $request->input('eItemname');
+        // $updateitem->itemdesc = $request->input('eItemDesc');
+        // $updateitem->quantity = $request->input('eQuantity');
+        // $updateitem->catid = $request->input('catid');
 
 
 
-        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
+        // if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
+        //     $notification = array(
+        //         'message'=> 'Please fill up required fields!',
+        //         'alert-type' => 'error'
+        //     );
 
-        }else{
-            $updateitem->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );
+        // }else{
+        //     $updateitem->save();
+        //     $notification = array(
+        //         'message'=> 'Item updated successfully!',
+        //         'alert-type' => 'success'
+        //     );
 
-        }
+        // }
 
         // return back()->with($notification);
 
@@ -211,52 +184,40 @@ class OperatorController extends Controller
      */
 
 
-    public function delete(Request $request) {
+    public function delete(Request $req) {
 
-        $deleteitem = $request->input('dItemID');
+        return $id = $req->input('id');
+       Operator::find($id)->delete();
+        // DB::table('users')->where('id', '=', $id);
+        // $deleteitem = $request->input('dItemID');
 
 
-        if (item::find($deleteitem)->delete()) {
-            $notification = array(
-                'message'=> 'Item deleted successfully!',
-                'alert-type' => 'success'
-            );
-        }else{
-            $notification = array(
-                'message'=> 'An error occured while deleting the item!',
-                'alert-type' => 'error'
-            );
-        }
+        // if (item::find($deleteitem)->delete()) {
+        //     $notification = array(
+        //         'message'=> 'Item deleted successfully!',
+        //         'alert-type' => 'success'
+        //     );
+        // }else{
+        //     $notification = array(
+        //         'message'=> 'An error occured while deleting the item!',
+        //         'alert-type' => 'error'
+        //     );
+        // }
 
-        return back()->with($notification);
+        // return back()->with($notification);
 
     }
 
     function insert(Request $req)
     {
+        $uname = $req->input('oUsername');
+        $email = $req->input('oEmail');
+        $pass = $req->input('oPassword');
 
-                $itemname = $req->input('itemname');
-                $itemdesc = $req->input('itemdesc');
-                $quantity = $req->input('quantity');
-                $catid = $req->input('catid');
-                $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
+        // $operator = array('username'=>$uname);
+        $operator = array('username'=>$uname, 'email'=>$email, 'password'=>$pass, 'user_status'=>'inactive', 'user_type'=>'operator', 'service_id'=>1);
+        DB::table('users')->insert($operator);
 
-                if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
-                    DB::table('items')->where('itemname', '=', $itemname)->delete();
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }else{
-                    DB::table('items')->insert($item);
-                    $notification = array(
-                        'message'=> 'A New Item is Inserted!',
-                        'alert-type' => 'success'
-                    );
-                }
-
-            return back()->with($notification);
     }
 }
 
