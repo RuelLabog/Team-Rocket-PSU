@@ -243,7 +243,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
   <script>
-  var serviceApp = angular.module("myServiceApp", []);
+  var serviceApp = angular.module("myServiceApp", ['ui.bootstrap']);
 
   serviceApp.filter('beginning_data', function(){
       return function(input, begin){

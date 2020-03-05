@@ -15,14 +15,10 @@ Route::get('/', function () {
 });
 
 
-Route::resource('/subscribers_page', 'Subscriber_AdminController');
-// Route::resource('/personas_page', 'PersonaController');
-// Route::resource('/operators_page', 'OperatorController');
-// Route::resource('/services_page', 'ServicesController');
+
 Route::resource('/pairing_page', 'PairController');
 
 Auth::routes();
-
 
 // subscribers routes
 Route::get('/subscriber', 'SubscriberController@index')->name('subscriber');
@@ -52,6 +48,11 @@ Route::post('/delOperator', 'OperatorController@delete')->name('delOperator');
 Route::post('/insertOperator', 'OperatorController@insert')->name('insertOperator');
 Route::get('/operators', 'OperatorController@index');
 Route::get('/getOperators', 'OperatorController@getData');
+
+//Admin subscriber routes
+Route::get('/insertSubscriber', 'Subscriber_AdminController@insert');
+Route::get('/subscribersA', 'Subscriber_AdminController@index');
+Route::get('/getSubscribers', 'Subscriber_AdminController@getData');
 
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){

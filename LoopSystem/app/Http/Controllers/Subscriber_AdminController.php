@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use View;
+use App\Subscriber;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
@@ -17,28 +18,15 @@ class Subscriber_AdminController extends Controller
 {
 
     // for authentication
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     //Retreiving of Data.
-    // function getData(){
-    //     $data['data'] = DB::table('items')
-    //                     ->select('items.id', 'itemname', 'itemdesc', 'price', 'quantity', 'items.deleted_at', 'catname', 'catid')
-    //                     ->join('categories', 'categories.id', '=', 'items.catid')
-    //                     ->where('items.deleted_at', '=', null)
-    //                     ->get();
-
-
-    //     if(count($data) > 0){
-    //         return view('pages/items_page', $data);
-    //     }
-    //     else{
-    //         return view('pages/items_page');
-    //     }
-    //    // return Datatables::of($students)->make(true);
-    // }
+    function getData(){
+       return Subscriber::all();
+    }
 
 
 
@@ -50,32 +38,6 @@ class Subscriber_AdminController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // if($request->ajax()){
-        //     $data = item::select('items.id', 'itemname', 'itemdesc', 'quantity', 'catname')
-        //                 ->join('categories', 'categories.id', '=', 'items.catid')
-        //                 ->get();
-
-        //     return DataTables::of($data)
-        //                         ->addColumn('action', function($data){
-        //                             $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"
-
-        //                             data-itemname="'.$data->itemname.'"
-        //                             data-itemdesc="'.$data->itemdesc.'"
-        //                             data-quantity="'.$data->quantity.'"
-        //                             data-itemid="'.$data->id.'"
-        //                             data-catid="'.$data->catid.'"
-        //                             data-toggle="modal" data-target="#modal-edit-items">Edit</button>';
-
-        //                             $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"
-        //                             data-itemid="'.$data->id.'"
-        //                             data-itemname="'.$data->itemname.'"
-        //                             data-toggle="modal" data-target="#modal-delete-items">Delete</button>';
-        //                             return $button;
-        //                         })
-        //                         // ->rawColums(['action'])
-        //                         ->make(true);
-        // }
         return view('pages/subscribers');
     }
 
@@ -234,35 +196,13 @@ class Subscriber_AdminController extends Controller
 
     function insert(Request $req)
     {
-        // $serviceName = $req->input('serviceName');
-        // $service = array('service_name'=>$serviceName, 'service_status'=>'active');
+      $name = $req->input('name');
+      $uname = $req->input('username');
+      $email = $req->input('email');
+      $password = $req->input('password');
 
-        // DB::table('services')->insert($service);
-
-        // return $service;
-
-            //     $itemname = $req->input('itemname');
-            //     $itemdesc = $req->input('itemdesc');
-            //     $quantity = $req->input('quantity');
-            //     $catid = $req->input('catid');
-            //     $item =  array('itemname'=>$itemname,'itemdesc'=>$itemdesc,'quantity'=>$quantity,'catid'=>$catid,'created_at'=>NOW(),'updated_at'=>NULL,'deleted_at'=>NULL);
-
-            //     if (DB::table('items')->where('itemname', '=', $itemname)->exists()) {
-            //         DB::table('items')->where('itemname', '=', $itemname)->delete();
-            //         DB::table('items')->insert($item);
-            //         $notification = array(
-            //             'message'=> 'A New Item is Inserted!',
-            //             'alert-type' => 'success'
-            //         );
-            //     }else{
-            //         DB::table('items')->insert($item);
-            //         $notification = array(
-            //             'message'=> 'A New Item is Inserted!',
-            //             'alert-type' => 'success'
-            //         );
-            //     }
-
-            // return back()->with($notification);
+      $subscriber = array('subscriber_name'=>$name, 'username'=>$uname, 'email'=>$email, 'password'=>$password, 'subscriber_status'=>'inactive', 'service_id'=>'1');
+      Subscriber::insert($subscriber);
     }
 }
 

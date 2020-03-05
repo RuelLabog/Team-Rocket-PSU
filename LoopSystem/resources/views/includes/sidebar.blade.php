@@ -31,7 +31,7 @@
           </li>
 
          <li class="nav-item">
-            <a href="{{url('subscribers_page')}}" class="nav-link">
+            <a href="{{url('subscribersA')}}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
               <p>
                 Subscribers
