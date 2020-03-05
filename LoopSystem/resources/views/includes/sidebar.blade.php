@@ -57,7 +57,7 @@
           </li>
 
           <li class="nav-item">
-          <a href="{{url('personas')}}" class="nav-link">
+          <a href="{{url('persona')}}" class="nav-link">
               <i class="nav-icon fas fa fa-comments"></i>
               <p>
                 Personas

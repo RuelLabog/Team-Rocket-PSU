@@ -41,10 +41,10 @@ Route::get('/getServices', 'ServicesController@getData');
 //persona routes
 Route::post('/deletePersona', 'PersonaController@delete')->name('deletePersona');
 Route::post('/editPersona', 'PersonaController@update')->name('editPersona');
-Route::post('/fecthPersona', 'PersonaController@fetch')->name('fecthPersona');
 Route::post('/insertPersona', 'PersonaController@insert')->name('insertPersona');
 Route::get('/persona', 'PersonaController@index');
 Route::get('/getPersona', 'PersonaController@getData');
+
 //operators routes
 Route::post('/editOperator', 'OperatorController@update')->name('editOperator');
 Route::post('/delOperator', 'OperatorController@delete')->name('delOperator');

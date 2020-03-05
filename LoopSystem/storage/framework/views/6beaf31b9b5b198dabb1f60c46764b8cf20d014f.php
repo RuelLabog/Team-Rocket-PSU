@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+<div ng-app="myPersonaApp" ng-controller="myPersonaController">
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -23,7 +24,7 @@
 
     <div class="card">
       <div class="card-header">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+        <button type="button" class="waves-effect waves-light btn-small" data-toggle="modal" data-target="#modal-default">
           <i class="fas fa-plus mr-2"></i>Add Persona
         </button>
       </div>
@@ -38,6 +39,20 @@
                 <th width="10%"></th>
               </tr>
           </thead>
+          <tbody>
+              <tr ng-repeat="row in data">
+                  <td>{{ row.id}}</td>
+                  <td>{{ row.persona_name }}</td>
+                  <td>{{ row.persona_status }}</td>
+                  <td>
+                      <button type="button" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
+                            <i class="material-icons">edit</i></button>
+                      <button type="button" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
+                            <i class="material-icons">delete</i></button>
+                </td>
+              </tr>
+
+          </tbody>
         </table>
       </div>
       <!-- /.card-body -->
@@ -45,7 +60,7 @@
     <!-- /.card -->
 
 <!-- add items modal -->
-    <div class="modal fade" id="modal-default">
+<div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger">
@@ -56,21 +71,25 @@
             <div class="form-group">
               <?php echo e(csrf_field()); ?>
 
-              <label>Name:</label>
-              <input type="text" class="form-control <?php $__errorArgs = ['catName'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Category Name" required>
+
+              <div class="input-field col s6">
+                <input type="text" name="personaName" id="personaName" ng-model="personaName" class="validate" required>
+                <label for="personaName">Persona Name</label>
+
+
+            <!-- Dropdown Structure -->
+                
+
+              </div>
+
+
+
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
+            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small green right" ng-click="insertPersona()">Save</button>
           </div>
         </form>
         </div>
@@ -82,32 +101,28 @@ unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Categ
 
 
      <!-- edit item modal -->
-     <div class="modal fade" id="modal-edit-category">
+     <div class="modal fade" id="modal-edit">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header btn-danger">
-            <h4 class="modal-title">Edit Category</h4>
+            <h4 class="modal-title">Edit Persona</h4>
           </div>
           <form action="" method="POST">
               <?php echo e(csrf_field()); ?>
 
               <?php echo e(method_field('PATCH')); ?>
 
-          <div class="modal-body">
-              <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Category Name" required>
+          <div class="modal-body" >
+              <input type="text" class="form-control" ng-model="id" required>
               <div class="form-group">
-              <label>Category:</label>
-              <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Category Name" required>
-            </div>
-            <div class="form-group">
-              <label>Description:</label>
-              <textarea class="form-control" placeholder="Category Description" id="eCatDesc" name="eCatDesc" required></textarea>
+              <label>Persona Name: </label>
+              <input type="text" class="form-control" required ng-model="editPersonaName">
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" id="categoryEditBtn" onclick="categoryEdit()">Save changes</button>
+            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small blue right" ng-click="editPersona()">Save changes</button>
           </div>
           </form>
         </div>
@@ -118,32 +133,109 @@ unset($__errorArgs, $__bag); ?> " name="catName" id="catName" placeholder="Categ
     <!-- /.edit item modal -->
 
           <!-- delete categories modal -->
-    <div class="modal fade" id="modal-delete-category">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
-            <h4 class="modal-title">Delete Category</h4>
-          </div>
-          
-           <?php echo e(csrf_field()); ?>
+          <div class="modal fade" id="modal-delete">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-danger">
+                  <h4 class="modal-title">Delete Persona</h4>
+                </div>
+                 <?php echo e(csrf_field()); ?>
 
-          <div class="modal-body">
-          <input type="hidden" id="dCatID" name="dCatID" class="form-control">
-          <h6 style="text-align:center">Are you sure you want to delete category <label id="dCatName"></label>?</h6>
+                <div class="modal-body">
+                <input type="hidden" ng-model="dPersonaId" class="form-control">
+                <h6 style="text-align:center">Are you sure you want to delete service <label ng-value='dPersonaName'></label>?</h6>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delPersona()'>Delete</button>
+                </div>
+                <!-- </form> -->
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
-          </div>
-          <!-- </form> -->
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
     <!-- /.delete item modal -->
 
-  
+    </div>
+
+<!-- Angular js -->
+<!-- angular -->
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+  <script>
+  var personaApp = angular.module("myPersonaApp", []);
+
+  personaApp.controller("myPersonaController", function($scope, $http){
+      //insert new Persona
+      $scope.insertPersona = function(){
+        $http.post(
+            "insertPersona",
+            {'personaName':$scope.personaName}
+        ).then(function(){
+            $scope.init();
+            $('#modal-default').modal('hide');
+            $('.modal-backdrop').remove();
+            M.toast({html: 'Successfully Added!', classes: 'rounded'});
+        })
+    }
+
+    //display persona
+    $scope.init= function(){
+        $http.get('getPersona').then(function(response){
+        $scope.data = response.data;
+    });
+    }
+
+    $scope.init2= function(){
+        $http.get('getService').then(function(response){
+        $scope.data2 = response.data;
+    });
+    }
+
+    // fetch data to edit
+    $scope.fetchSingleData = function(id, name){
+        $scope.editPersonaName = name;
+        $scope.id = id;
+    };
+
+    //edit a Persona
+    $scope.editPersona = function(){
+        $http.post(
+            'editPersona',
+            {'personaName':$scope.editPersonaName, 'id':$scope.id}
+        ).then(function(data){
+            $scope.init();
+            $('#modal-edit').modal('hide');
+            $('.modal-backdrop').remove();
+            M.toast({html: 'Successfully Updated!', classes: 'rounded'});
+        })
+    };
+
+    // fetch data to delete
+    $scope.fetchDel = function(id, name){
+        $scope.dPersonaId = id;
+
+    }
+
+    //delete a Persona
+    $scope.delPersona = function(){
+        $http.post(
+            'deletePersona',
+            {'id':$scope.dPersonaId}
+        ).then(function(response){
+            $scope.init();
+            $('#modal-delete').modal('hide');
+            $('.modal-backdrop').remove();
+            M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
+        })
+    }
+
+    $scope.init();
+  });
+  </script>
 
  <?php $__env->stopSection(); ?>
 
