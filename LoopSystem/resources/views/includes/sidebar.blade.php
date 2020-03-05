@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('operators_page')}}" class="nav-link">
+            <a href="{{url('operators')}}" class="nav-link">
               <i class="nav-icon fas fa-headphones"></i>
               <p>
                 Operators

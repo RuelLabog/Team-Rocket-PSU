@@ -55,18 +55,10 @@ Route::get('/getOperators', 'OperatorController@getData');
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){
          if(Auth::user()->user_type == "admin"){
-            // Route::get('/home', 'adminHomeController@index')->name('admin.home');
             return view('pages.pair');
         }else{
            return view('pages.operatorHome');
-        //    return redirect('/home');
         }
     });
 });
 
-// Blade::setContentTags('<<', '>>');
-// Blade::setEscapedContentTags('<<<', '>>>');
-
-/*
-
-*/
