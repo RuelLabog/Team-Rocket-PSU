@@ -1,6 +1,7 @@
 @extends('includes.admin_template')
 
 @section('content')
+<div ng-app="myOperatorsApp" ng-controller="myOperatorsController">
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -20,9 +21,6 @@
   <!-- /.content-header -->
 
 
-
-
-
     <div class="card">
       <div class="card-header">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
@@ -31,23 +29,88 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="categories_table" class="table table-bordered table-striped">
-          <thead>
-           <tr>
-                <th width="10%">ID</th>
-                <th width="20%">Username</th>
-                <th width="30%">Email</th>
-                <th width="30%">Date Created</th>
-                <th width="10%"></th>
-              </tr>
-          </thead>
-        </table>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>PageSize:</label>
+                <select ng-model="data_limit" class="form-control">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+
+            <div class="col-sm-8 pull-right">
+                <label>Search:</label>
+                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
+            </div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12" >
+                <table class="highlight striped table-bordered">
+                    <thead>
+                        <th>Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th>Username&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
+                        <th>Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
+                        <th>Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                        <th>&nbsp;</th>
+
+                    </thead>
+                    <tbody ng-show="filter_data > 0">
+                        <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
+                            <td>@{{ row.user_status }}</td>
+                            <td>@{{ row.username}}</td>
+                            <td>@{{ row.email }}</td>
+                            <td>@{{row.created_at}}</td>
+                            <td>
+                                <button type="button" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password)">Edit</button>
+                                <button type="button" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">Delete</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tfoot ng-show="filter_data == 0">
+                        <th>No records found..</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
+
+                </table>
+            </div>
       </div>
+
+      {{-- <div class="col-md-12" ng-show="filter_data == 0">
+        <div class="col-md-12">
+            <h4>No records found..</h4>
+        </div>
+    </div> --}}
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <p>Showing @{{data.length}} of @{{ entire_user}} entries</p>
+        </div>
+        <div class="col-md-6 pull-right" ng-show="filter_data > 0">
+            <pagination page="current_grid"
+                on-select-page="page_position(page)"
+                boundary-links="true"
+                total-items="filter_data"
+                items-per-page="data_limit"
+
+                class="pagination-small right-align"
+                previous-text="&laquo;" next-text="&raquo;" style="cursor:context-menu"></pagination>
+        </div>
+    </div>
+
+
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
 
-<!-- add items modal -->
+<!-- add operator modal -->
     <div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -59,25 +122,25 @@
             <div class="form-group">
               {{ csrf_field() }}
               <label>Username:</label>
-              <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Username" required>
+              <input type="text" class="" name="oUsername" id="oUsername" ng-model="oUsername" placeholder="Username" required>
             </div>
             <div class="form-group">
               <label>Email:</label>
-              <input type="email" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Email Address" required>
+              <input type="email" class="" name="oEmail" id="oEmail" ng-model="oEmail" placeholder="Email Address" required>
 
             </div>
             <div class="form-group">
               <label>Password:</label>
-              <input type="password" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Password" required>
+              <input type="password" class="" name="oPassword" id="oPassword" ng-model="oPassword" placeholder="Password" required>
             </div>
             <div class="form-group">
               <label>Confirm Password:</label>
-              <input type="password" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Confirm Password" required>
+              <input type="password" class="" name="oConPass" id="oConPass" ng-model="oConPass" placeholder="Confirm Password" required>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" name="submit" id='categoryAddBtn' onclick="categoryAdd()">Save changes</button>
+            <button type="button" class="btn btn-success" name="submit" id='operatorAddBtn' name='operatorAddBtn' ng-click="insertOperator()">Save changes</button>
           </div>
         </form>
         </div>
@@ -87,48 +150,43 @@
     </div>
     <!-- /.add items modal -->
 
-
-     <!-- edit item modal -->
-     <div class="modal fade" id="modal-edit-category">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header btn-danger">
-            <h4 class="modal-title">Edit Operator</h4>
-          </div>
-          <form action="" method="POST">
-            <div class="modal-body">
-                <div class="form-group">
-                  {{ csrf_field() }}
-                  <label>Username:</label>
-                  <input type="text" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                  <label>Email:</label>
-                  <input type="email" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Email Address" required>
-
-                </div>
-                <div class="form-group">
-                  <label>Password:</label>
-                  <input type="password" class="form-control @error('catName') is-invalid @enderror " name="catName" id="catName" placeholder="Password" required>
+    <div class="modal fade" id="modal-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header btn-danger">
+                    <h4 class="modal-title">Edit Operator</h4>
                 </div>
 
-              </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" ng-model="eId" class="form-control" />
+                      {{ csrf_field() }}
+                      <label>Username:</label>
+                      <input type="text" name="catName" id="catName" placeholder="Username" ng-model="eUsername" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Email:</label>
+                      <input type="email" name="catName" id="catName" placeholder="Email Address" ng-model="eEmail" required>
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" id="categoryEditBtn" onclick="categoryEdit()">Save changes</button>
-          </div>
-          </form>
+                    </div>
+                    <div class="form-group">
+                      <label>Password:</label>
+                      <input type="password" name="catName" id="catName" placeholder="Password" ng-model="ePassword" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="categoryEditBtn" ng-click="editOperator()">Save changes</button>
+                </div>
+            </div>
         </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
     </div>
-    <!-- /.edit item modal -->
+
+
+
 
     <!-- delete categories modal -->
-    <div class="modal fade" id="modal-delete-category">
+    <div class="modal fade" id="modal-delete">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger">
@@ -137,12 +195,12 @@
           {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
            {{ csrf_field() }}
           <div class="modal-body">
-          <input type="hidden" id="dCatID" name="dCatID" class="form-control">
+          <input type="text" id="dCatID" name="dCatID" class="form-control" ng-model="dId" >
           <h6 style="text-align:center">Are you sure you want to delete operator <label id="dCatName"></label>?</h6>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
+            <button type="button" class="btn btn-danger" id='categoryDelBtn' ng-click='delOperator()'>Delete</button>
           </div>
           <!-- </form> -->
         </div>
@@ -151,107 +209,127 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.delete item modal -->
+  </div>
 
-  {{-- <script type="text/javascript">
-      function categoryDel(){
-          var id = $('#dCatID').val();
-            $.ajax({
-              type: 'POST',
-              url: 'softDelCat',
-              data: {'_token': $('input[name=_token').val(),
-                      'dCatID': $('input[name=dCatID').val()},
-              beforeSend:function(){
-                  $("#categoryDelBtn").attr("disabled", true);
-                  $('#categoryDelBtn').text('Deleting...');
-              },
-              success: function (response){
-                  // setTimeout(function(){
-                      $('#modal-delete-category').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $("#categoryDelBtn").attr("disabled", false);
-                      $('#categoryDelBtn').text('Delete');
 
-                      if(response.ok == "Error"){
-                          alert('Category "'+ $('#dCatName').html() + '" cannot be deleted.');
-                      }else{
-                          alert('Category "'+ $('#dCatName').html() + '" deleted successfully.');
-                      }
-                  // }, 2000);
-              },
 
-              error: function(err){
-                  alert('Error! Deletion is not successful.');
-              }
-          });
+
+
+<!-- Angular js -->
+<!-- angular -->
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.12/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+  <script>
+
+  var operatorApp = angular.module('myOperatorsApp', ['ui.bootstrap']);
+
+  operatorApp.filter('beginning_data', function(){
+      return function(input, begin){
+          if(input){
+              begin = +begin;
+              return input.slice(begin);
+          }
+          return [];
       }
+  });
 
 
-      function categoryEdit(){
-          var url =  "editCat";
-          var eCatDesc = $('#eCatDesc').val();
-          var eCatName =$('#eCatName').val();
-          if(eCatName == "" || eCatDesc==""){
-              alert('All fields are required!');
+  operatorApp.controller("myOperatorsController", function($scope, $http, $timeout){
+    $scope.insertOperator = function(){
+        $http.post(
+            "insertOperator",
+            {'oUsername':$scope.oUsername,
+            'oEmail':$scope.oEmail,
+            'oPassword':$scope.oPassword
 
-          }else{
-            $.ajax({
-              type: 'POST',
-              url: url,
-              data: {
-                      '_token': $('input[name=_token').val(),
-                      'eCatID':$('input[name=eCatID').val(),
-                      'eCatName': eCatName,
-                      'eCatDesc': eCatDesc
-                      },
-              beforeSend:function(){
-                  $('#categoryEditBtn').text('Updating...');
-              },
-              success: function (data){
-                  // setTimeout(function(){
-                      $('#modal-edit-category').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $('#categoryEditBtn').text('Save Changes');
-                      alert('Category updated successfully');
-                  // }, 2000);
-              },
-              error: function(err){
-                  alert('Error! Update unsuccessful');
-              }
-          });
-      }
-      }
+            }
+        ).then(function(response){
+            $scope.init();
+            alert(response.data);
+        })
+    }
+
+$scope.init = function(){
+    $http.get('getOperators').then(function(response){
+        // $('#operators_table').DataTable();
+        $scope.data = response.data;
+        $scope.file = response.data;
+        $scope.current_grid =1;
+        $scope.data_limit = 10;
+        $scope.filter_data = $scope.data.length;
+        $scope.entire_user =  $scope.file.length;
+
+    });
+}
+
+$scope.fetchSingleData = function(id, username, email, password){
+    // alert();
+    $scope.eId = id;
+    $scope.eUsername = username;
+    $scope.eEmail = email;
+    $scope.ePassword = password;
+
+}
+
+$scope.fetchData = function(id, username){
+    $scope.dId = id;
+}
+
+$scope.editOperator = function(){
+    $http.post(
+        'editOperator',
+        {'id':$scope.eId, 'username':$scope.eUsername,'email':$scope.eEmail, 'password':$scope.ePassword}
+    ).then(function(response){
+        $scope.init();
+    })
+}
+
+$scope.delOperator = function(){
+    $http.post(
+        'delOperator',
+        {'id':$scope.dId}
+    ).then(function(response){
+        $scope.init();
+        alert(response.data);
+    })
+}
+
+$scope.init();
 
 
-      function categoryAdd(){
-          var catDesc = $('#catDesc').val();
-          if(catDesc == "" || $('#catName').val()==""){
-              alert('All Fields are required!');
-          }else{
-          $.ajax({
-              type: 'POST',
-              url: "{{ route('categoryInsert') }}",
-              data: {
-                      '_token': $('input[name=_token').val(),
-                      'catName':$('input[name=catName').val(),
-                      'catDesc': catDesc
-                      },
-              beforeSend:function(){
-                  $('#categoryAddBtn').text('Inserting...');
-              },
-              success: function (response){
-                  // setTimeout(function(){
-                      $('#modal-default').modal('hide');
-                      $('#categories_table').DataTable().ajax.reload();
-                      $('#categoryAddBtn').text('Save Changes');
-                  // }, 2000);
-              },
-              error: function(err){
-                  alert('Error! Category Name Exists!')
-              }
-          });
-      }
-      }
-  </script> --}}
+    $scope.page_position = function(page_number){
+        $scope.current_grid =page_number;
+    }
+
+    $scope.filter = function(){
+        $timeout(function(){
+            $scope.filter_data = $scope.data.length;
+        }, 20);
+
+    }
+
+    $scope.sort_with = function(base) {
+        $scope.base = base;
+        $scope.reverse = !$scope.reverse;
+    };
+
+    $.noConflict();
+
+    // $scope.created_at = moment($scope.created_at).format('llll');
+
+  });
+</script>
+
+
+{{-- <script>
+
+    $(document).ready(function() {
+
+  } );
+    </script> --}}
+
+
 
  @endsection
 

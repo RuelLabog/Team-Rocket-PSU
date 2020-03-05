@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+    <title><?php echo e(config('app.name', 'LOOP')); ?></title>
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
@@ -22,7 +24,9 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -62,6 +66,12 @@
 
       <!-- Compiled and minified JavaScript -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/material.css" integrity="sha256-wJo5gtF+u+ZWGuf0wTVDOtfyrPIWF7jAB+qlYx+78d8=" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/material.min.css" integrity="sha256-3d30ZChWkJs7cJ4IPPBr8vrbF+qLluUXNTVxSkypyR8=" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/material.min.css.map" integrity="undefined" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/dataTable.css" integrity="sha256-Qag8nSImj1zxbNwxZV2mJ3uRginlgSlmUjO8nGJtaV0=" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/dataTable.min.css" integrity="sha256-Hy8+mUOLD1moX0EvqObO8nwARTkEEPbEeXsGxmeeRRY=" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/dataTable.min.css.map" integrity="undefined" crossorigin="anonymous" />
 
 
 </head>
@@ -72,11 +82,14 @@
     <div class="wrapper">
         <div class="content-wrapper">
     <?php echo $__env->yieldContent('content'); ?>
+
         </div>
     </div>
     <?php echo $__env->make('includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    
+    
+
 <!-- jQuery -->
 <script src="bower_components/admin-lte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -87,13 +100,16 @@
 <script src="bower_components/admin-lte/plugins/select2/js/select2.full.min.js"></script>
 
 <!-- DataTables -->
+
 <script src="bower_components/admin-lte/plugins/datatables/jquery.dataTables.js"></script>
 <script src="bower_components/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <script src="bower_components/admin-lte/plugins/toastr/toastr.min.js"></script>
 
+<!-- angular
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
 
-
+ 
 
 </body>
 </html>

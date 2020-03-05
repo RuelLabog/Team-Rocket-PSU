@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::resource('/subscribers_page', 'Subscriber_AdminController');
 // Route::resource('/personas_page', 'PersonaController');
-Route::resource('/operators_page', 'OperatorController');
+// Route::resource('/operators_page', 'OperatorController');
 // Route::resource('/services_page', 'ServicesController');
 Route::resource('/pairing_page', 'PairController');
 
@@ -45,6 +45,12 @@ Route::post('/fecthPersona', 'PersonaController@fetch')->name('fecthPersona');
 Route::post('/insertPersona', 'PersonaController@insert')->name('insertPersona');
 Route::get('/persona', 'PersonaController@index');
 Route::get('/getPersona', 'PersonaController@getData');
+//operators routes
+Route::post('/editOperator', 'OperatorController@update')->name('editOperator');
+Route::post('/delOperator', 'OperatorController@delete')->name('delOperator');
+Route::post('/insertOperator', 'OperatorController@insert')->name('insertOperator');
+Route::get('/operators', 'OperatorController@index');
+Route::get('/getOperators', 'OperatorController@getData');
 
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){

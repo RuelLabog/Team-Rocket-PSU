@@ -29,6 +29,7 @@
                 </p>
             </a>
           </li>
+
          <li class="nav-item">
             <a href="{{url('subscribers_page')}}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>

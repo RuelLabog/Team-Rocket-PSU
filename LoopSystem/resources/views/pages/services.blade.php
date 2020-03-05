@@ -79,7 +79,7 @@
 
               <div class="input-field col s6">
                 <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" class="validate" required>
-                <label for="ServiceName">Service Name</label>
+                <label for="serviceName">Service Name</label>
               </div>
               <!-- <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" placeholder="Service Name" required> -->
             </div>

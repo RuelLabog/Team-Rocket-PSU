@@ -30,6 +30,40 @@
             </a>
           </li>
 
+         <li class="nav-item">
+            <a href="<?php echo e(url('subscribers_page')); ?>" class="nav-link">
+              <i class="nav-icon fas fa fa-user"></i>
+              <p>
+                Subscribers
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo e(url('operators_page')); ?>" class="nav-link">
+              <i class="nav-icon fas fa-headphones"></i>
+              <p>
+                Operators
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?php echo e(url('services_page')); ?>" class="nav-link">
+              <i class="nav-icon fas fa-box"></i>
+              <p>
+                Services
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?php echo e(url('personas_page')); ?>" class="nav-link">
+              <i class="nav-icon fas fa fa-comments"></i>
+              <p>
+                Personas
+              </p>
+            </a>
+          </li>
 
 
           <li class="nav-item">
