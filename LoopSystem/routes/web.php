@@ -16,7 +16,7 @@ Route::get('/', function () {
 
 
 Route::resource('/subscribers_page', 'Subscriber_AdminController');
-Route::resource('/personas_page', 'PersonaController');
+// Route::resource('/personas_page', 'PersonaController');
 Route::resource('/operators_page', 'OperatorController');
 // Route::resource('/services_page', 'ServicesController');
 Route::resource('/pairing_page', 'PairController');
@@ -30,9 +30,21 @@ Route::get('/login/subscriber', 'Auth\LoginController@showSubscriberLoginForm');
 Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
 Route::post('/logout/subscriber', 'Auth\LoginController@logoutSubs')->name('logoutSubs');
 
+//service routes
+Route::post('/deleteService', 'ServicesController@delete')->name('deleteService');
+Route::post('/editService', 'ServicesController@update')->name('editService');
+Route::post('/fecthService', 'ServicesController@fetch')->name('fecthService');
 Route::post('/insertService', 'ServicesController@insert')->name('insertService');
 Route::get('/services', 'ServicesController@index');
 Route::get('/getServices', 'ServicesController@getData');
+
+//persona routes
+Route::post('/deletePersona', 'PersonaController@delete')->name('deletePersona');
+Route::post('/editPersona', 'PersonaController@update')->name('editPersona');
+Route::post('/fecthPersona', 'PersonaController@fetch')->name('fecthPersona');
+Route::post('/insertPersona', 'PersonaController@insert')->name('insertPersona');
+Route::get('/persona', 'PersonaController@index');
+Route::get('/getPersona', 'PersonaController@getData');
 
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){

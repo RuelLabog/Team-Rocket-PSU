@@ -29,7 +29,6 @@
                 </p>
             </a>
           </li>
-{{--
          <li class="nav-item">
             <a href="{{url('subscribers_page')}}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
@@ -48,7 +47,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{url('services_page')}}" class="nav-link">
+            <a href="{{url('services')}}" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>
                 Services
@@ -57,13 +56,13 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{url('personas_page')}}" class="nav-link">
+          <a href="{{url('personas')}}" class="nav-link">
               <i class="nav-icon fas fa fa-comments"></i>
               <p>
                 Personas
               </p>
             </a>
-          </li> --}}
+          </li>
 
 
           <li class="nav-item">

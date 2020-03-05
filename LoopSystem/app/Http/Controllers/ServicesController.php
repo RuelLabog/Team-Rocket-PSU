@@ -93,6 +93,13 @@ class ServicesController extends Controller
 
     }
 
+    public function fetch(Request $req){
+        $serviceId = $req->input('id');
+        return Service::select('id', 'service_name')->where('id', '=', $serviceId)->get();
+    //    return response()->json(['service_name'=>$data->service_name]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -157,33 +164,42 @@ class ServicesController extends Controller
 
 
 
-    public function update(Request $request)
+    public function update(Request $req)
     {
-        //
-        $id = $request->input('eItemID');
-        $updateitem = item::findOrFail($id);
-
-        $updateitem->itemname =  $request->input('eItemname');
-        $updateitem->itemdesc = $request->input('eItemDesc');
-        $updateitem->quantity = $request->input('eQuantity');
-        $updateitem->catid = $request->input('catid');
+        $id = $req->input('id');
+        // $updateService = Service::findOrFail($id);
+        $updateService = Service::findOrFail($id);
 
 
+        $updateService->service_name = $req->input('serviceName');
+        $updateService->save();
 
-        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
 
-        }else{
-            $updateitem->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );
+        // //
+        // $id = $request->input('eItemID');
+        // $updateitem = item::findOrFail($id);
 
-        }
+        // $updateitem->itemname =  $request->input('eItemname');
+        // $updateitem->itemdesc = $request->input('eItemDesc');
+        // $updateitem->quantity = $request->input('eQuantity');
+        // $updateitem->catid = $request->input('catid');
+
+
+
+        // if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
+        //     $notification = array(
+        //         'message'=> 'Please fill up required fields!',
+        //         'alert-type' => 'error'
+        //     );
+
+        // }else{
+        //     $updateitem->save();
+        //     $notification = array(
+        //         'message'=> 'Item updated successfully!',
+        //         'alert-type' => 'success'
+        //     );
+
+        // }
 
         // return back()->with($notification);
 
@@ -225,24 +241,29 @@ class ServicesController extends Controller
      */
 
 
-    public function delete(Request $request) {
+    public function delete(Request $req) {
 
-        $deleteitem = $request->input('dItemID');
+        // $deleteitem = $request->input('dItemID');
 
 
-        if (item::find($deleteitem)->delete()) {
-            $notification = array(
-                'message'=> 'Item deleted successfully!',
-                'alert-type' => 'success'
-            );
-        }else{
-            $notification = array(
-                'message'=> 'An error occured while deleting the item!',
-                'alert-type' => 'error'
-            );
-        }
+        // if (item::find($deleteitem)->delete()) {
+        //     $notification = array(
+        //         'message'=> 'Item deleted successfully!',
+        //         'alert-type' => 'success'
+        //     );
+        // }else{
+        //     $notification = array(
+        //         'message'=> 'An error occured while deleting the item!',
+        //         'alert-type' => 'error'
+        //     );
+        // }
 
-        return back()->with($notification);
+        // return back()->with($notification);
+
+        $id = $req->input('id');
+        Service::where('id', '=', $id)->delete();
+        // Service::find($id);
+
 
     }
 

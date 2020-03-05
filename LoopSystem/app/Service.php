@@ -8,9 +8,9 @@ use View;
 
 class Service extends Model
 {
-    // use SoftDeletes;
+    use SoftDeletes;
     protected $fillable =['services'];
     protected $table ='services';
-    // protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
 }
