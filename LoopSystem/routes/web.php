@@ -45,6 +45,7 @@ Route::post('/fecthPersona', 'PersonaController@fetch')->name('fecthPersona');
 Route::post('/insertPersona', 'PersonaController@insert')->name('insertPersona');
 Route::get('/persona', 'PersonaController@index');
 Route::get('/getPersona', 'PersonaController@getData');
+
 //operators routes
 Route::post('/editOperator', 'OperatorController@update')->name('editOperator');
 Route::post('/delOperator', 'OperatorController@delete')->name('delOperator');
@@ -55,18 +56,10 @@ Route::get('/getOperators', 'OperatorController@getData');
 Route::group(['middleware' => ['admin', 'auth']], function(){
     Route::get('/home', function(){
          if(Auth::user()->user_type == "admin"){
-            // Route::get('/home', 'adminHomeController@index')->name('admin.home');
             return view('pages.pair');
         }else{
            return view('pages.operatorHome');
-        //    return redirect('/home');
         }
     });
 });
 
-// Blade::setContentTags('<<', '>>');
-// Blade::setEscapedContentTags('<<<', '>>>');
-
-/*
-
-*/
