@@ -8,9 +8,9 @@ use View;
 
 class Persona extends Model
 {
-    // use SoftDeletes;
+    use SoftDeletes;
     protected $fillable =['personas'];
     protected $table ='personas';
-    //protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
 }

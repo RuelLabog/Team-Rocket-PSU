@@ -43,15 +43,14 @@
           </thead>
           <tbody>
               <tr ng-repeat="row in data">
-                  <td>@{{ row.persona_id}}</td>
+                  <td>@{{ row.id}}</td>
                   <td>@{{ row.persona_name }}</td>
                   <td>@{{ row.persona_status }}</td>
                   <td>
-                      <button type="button" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.persona_id, row.persona_name)">
-
+                      <button type="button" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
                             <i class="material-icons">edit</i></button>
-                      <button type="button" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.persona_id, row.persona_name)">
-                      <i class="material-icons">delete</i></button>
+                      <button type="button" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
+                            <i class="material-icons">delete</i></button>
                 </td>
               </tr>
 
@@ -63,7 +62,7 @@
     <!-- /.card -->
 
 <!-- add items modal -->
-<div class="modal" id="modal-default">
+<div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger">
@@ -77,14 +76,24 @@
               <div class="input-field col s6">
                 <input type="text" name="personaName" id="personaName" ng-model="personaName" class="validate" required>
                 <label for="personaName">Persona Name</label>
+
+
+            <!-- Dropdown Structure -->
+                {{-- <select name="" class="browser-default" id="">
+                <option value="" disabled selected>Select a service</option>
+                <option value=" @{{row.id}}" ng-repeat="row in data2"> @{{ row.service_name }}</option>
+                </select> --}}
+
               </div>
-              <!-- <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" placeholder="Service Name" required> -->
+
+
+
             </div>
 
           </div>
           <div class="modal-footer">
             <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small green right" name="submit" id='categoryAddBtn' ng-click="insertPersona()" >Save</button>
+            <button type="button" class="waves-effect waves-light btn-small green right" ng-click="insertPersona()">Save</button>
           </div>
         </form>
         </div>
@@ -100,16 +109,16 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header btn-danger">
-            <h4 class="modal-title">Edit Service</h4>
+            <h4 class="modal-title">Edit Persona</h4>
           </div>
           <form action="" method="POST">
               {{ csrf_field() }}
               {{method_field('PATCH')}}
           <div class="modal-body" >
-              <input type="text" class="form-control" placeholder="Service ID" ng-model="id" required>
+              <input type="text" class="form-control" ng-model="id" required>
               <div class="form-group">
               <label>Persona Name: </label>
-              <input type="text" class="form-control" placeholder="Service Name" required ng-model="editPersonaName">
+              <input type="text" class="form-control" required ng-model="editPersonaName">
             </div>
 
           </div>
@@ -126,29 +135,27 @@
     <!-- /.edit item modal -->
 
           <!-- delete categories modal -->
-    <div class="modal fade" id="modal-delete">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
-            <h4 class="modal-title">Delete Persona</h4>
+          <div class="modal fade" id="modal-delete">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-danger">
+                  <h4 class="modal-title">Delete Persona</h4>
+                </div>
+                 {{ csrf_field() }}
+                <div class="modal-body">
+                <input type="hidden" ng-model="dPersonaId" class="form-control">
+                <h6 style="text-align:center">Are you sure you want to delete service <label ng-value='dPersonaName'></label>?</h6>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delPersona()'>Delete</button>
+                </div>
+                <!-- </form> -->
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
           </div>
-          {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
-           {{ csrf_field() }}
-           <div class="modal-body">
-          <input type="text" ng-model="dPersonaId" class="form-control">
-          <h6 style="text-align:center">Are you sure you want to delete persona <label ng-value='dPersonaName'></label>?</h6>
-          </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delPersona()'>Delete</button>
-          </div>
-          <!-- </form> -->
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
     <!-- /.delete item modal -->
 
     </div>
@@ -158,11 +165,12 @@
 <script src ="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
   <script>
   var personaApp = angular.module("myPersonaApp", []);
 
   personaApp.controller("myPersonaController", function($scope, $http){
-      //insert new service
+      //insert new Persona
       $scope.insertPersona = function(){
         $http.post(
             "insertPersona",
@@ -175,10 +183,16 @@
         })
     }
 
-    //display service
+    //display persona
     $scope.init= function(){
         $http.get('getPersona').then(function(response){
         $scope.data = response.data;
+    });
+    }
+
+    $scope.init2= function(){
+        $http.get('getService').then(function(response){
+        $scope.data2 = response.data;
     });
     }
 
@@ -188,7 +202,7 @@
         $scope.id = id;
     };
 
-    //edit a service
+    //edit a Persona
     $scope.editPersona = function(){
         $http.post(
             'editPersona',
@@ -204,10 +218,10 @@
     // fetch data to delete
     $scope.fetchDel = function(id, name){
         $scope.dPersonaId = id;
-        // $scope.dServiceName = name;
+
     }
 
-    //delete a service
+    //delete a Persona
     $scope.delPersona = function(){
         $http.post(
             'deletePersona',
@@ -221,7 +235,6 @@
     }
 
     $scope.init();
-
   });
   </script>
 

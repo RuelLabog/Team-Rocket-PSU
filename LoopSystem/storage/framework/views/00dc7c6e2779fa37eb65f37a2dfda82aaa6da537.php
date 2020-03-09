@@ -48,7 +48,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="<?php echo e(url('services_page')); ?>" class="nav-link">
+            <a href="<?php echo e(url('services')); ?>" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>
                 Services
@@ -57,7 +57,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="<?php echo e(url('personas_page')); ?>" class="nav-link">
+          <a href="<?php echo e(url('persona')); ?>" class="nav-link">
               <i class="nav-icon fas fa fa-comments"></i>
               <p>
                 Personas
