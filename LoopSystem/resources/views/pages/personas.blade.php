@@ -32,7 +32,7 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="categories_table" class="table table-bordered table-striped">
+        <!-- <table id="categories_table" class="table table-bordered table-striped">
           <thead>
            <tr>
                 <th width="10%">ID</th>
@@ -55,7 +55,83 @@
               </tr>
 
           </tbody>
-        </table>
+        </table> -->
+
+        <div class="row">
+            <div class="col-sm-2">
+                <label>PageSize:</label>
+                <select ng-model="data_limit" class="form-control">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+
+            <div class="col-sm-8 pull-right">
+                <label>Search:</label>
+                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
+            </div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12" >
+                <table class="highlight striped table-bordered">
+                    <thead>
+                        <th width="10%">ID&nbsp;<a ng-click="sort_with('ID');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="15%">&nbsp;</th>
+
+                    </thead>
+                    <tbody ng-show="filter_data > 0">
+                        <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
+                            <td>@{{ row.id }}</td>
+                            <td>@{{ row.persona_name}}</td>
+                            <td>@{{ row.persona_status }}</td>
+                            <td>@{{row.created_at}}</td>
+                            <td>
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot ng-show="filter_data == 0">
+                        <th></th>
+                        <th></th>
+                        <th>No matching records found..</th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
+
+                </table>
+            </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="col-md-4">
+            <p>Showing @{{data.length}} of @{{ entire_user}} entries</p>
+        </div>
+        <div class="col-md-6 pull-right" ng-show="filter_data > 0">
+            <pagination page="current_grid"
+                on-select-page="page_position(page)"
+                boundary-links="true"
+                total-items="filter_data"
+                items-per-page="data_limit"
+
+                class="pagination-small right-align"
+                previous-text="&laquo;" next-text="&raquo;" style="cursor:context-menu">
+            </pagination>
+        </div>
+    </div>
+
+
       </div>
       <!-- /.card-body -->
     </div>
@@ -115,7 +191,7 @@
               {{ csrf_field() }}
               {{method_field('PATCH')}}
           <div class="modal-body" >
-              <input type="text" class="form-control" ng-model="id" required>
+              <input type="hidden" class="form-control" ng-model="id" required>
               <div class="form-group">
               <label>Persona Name: </label>
               <input type="text" class="form-control" required ng-model="editPersonaName">
@@ -144,7 +220,7 @@
                  {{ csrf_field() }}
                 <div class="modal-body">
                 <input type="hidden" ng-model="dPersonaId" class="form-control">
-                <h6 style="text-align:center">Are you sure you want to delete service <label ng-value='dPersonaName'></label>?</h6>
+                <h6 style="text-align:center">Are you sure you want to delete persona <b ng-bind='dPersonaName'></b>?</h6>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
@@ -164,12 +240,25 @@
 <!-- angular -->
 <script src ="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.12/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 
   <script>
-  var personaApp = angular.module("myPersonaApp", []);
+  var personaApp = angular.module("myPersonaApp", ['ui.bootstrap']);
 
-  personaApp.controller("myPersonaController", function($scope, $http){
+  personaApp.filter('beginning_data', function(){
+      return function(input, begin){
+          if(input){
+              begin = +begin;
+              return input.slice(begin);
+          }
+          return [];
+      }
+  });
+
+  personaApp.controller("myPersonaController", function($scope, $http, $timeout){
       //insert new Persona
       $scope.insertPersona = function(){
         $http.post(
@@ -187,6 +276,11 @@
     $scope.init= function(){
         $http.get('getPersona').then(function(response){
         $scope.data = response.data;
+        $scope.file = response.data;
+        $scope.current_grid =1;
+        $scope.data_limit = 10;
+        $scope.filter_data = $scope.data.length;
+        $scope.entire_user =  $scope.file.length;
     });
     }
 
@@ -218,7 +312,7 @@
     // fetch data to delete
     $scope.fetchDel = function(id, name){
         $scope.dPersonaId = id;
-
+        $scope.dPersonaName = name;
     }
 
     //delete a Persona
@@ -235,6 +329,28 @@
     }
 
     $scope.init();
+
+
+    //pagination
+    $scope.page_position = function(page_number){
+        $scope.current_grid =page_number;
+    }
+
+
+    //filter in search
+    $scope.filter = function(){
+        $timeout(function(){
+            $scope.filter_data = $scope.data.length;
+        }, 20);
+
+    }
+
+    //reverse sort (arrow)
+    $scope.sort_with = function(base) {
+        $scope.base = base;
+        $scope.reverse = !$scope.reverse;
+    };
+
   });
   </script>
 

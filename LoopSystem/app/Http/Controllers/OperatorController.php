@@ -119,7 +119,7 @@ class OperatorController extends Controller
         $id = $req->input('id');
         Operator::find($id)->delete();
         // Operator::where('id', '=', $id)->delete();
-        return $id;
+
     }
 
     function insert(Request $req)

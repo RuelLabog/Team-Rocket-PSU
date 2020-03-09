@@ -322,8 +322,8 @@
 
     $scope.init();
 
-      //pagination
-      $scope.page_position = function(page_number){
+    //pagination
+    $scope.page_position = function(page_number){
         $scope.current_grid =page_number;
     }
 

@@ -120,8 +120,9 @@ class Subscriber_AdminController extends Controller
 
 
     public function delete(Request $request) {
-         $id = $request->input('id');
+        $id = $request->input('id');
         Subscriber_Admin::find($id)->delete();
+
 
     }
 

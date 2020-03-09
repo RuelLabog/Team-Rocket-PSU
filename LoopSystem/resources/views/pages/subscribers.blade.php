@@ -299,12 +299,14 @@
             $http.post(
                 'editSubscriber',
                 {'id':$scope.eId,'name':$scope.eName,'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword}
-            ).then(function(data){
+            )
+            .then(function(data){
                 $scope.init();
                 $('#modal-edit').modal('hide');
                 $('.modal-backdrop').remove();
                 M.toast({html: 'Successfully Updated!', classes: 'rounded'});
-            })
+            });
+            // alert($scope.eId + $scope.eName + $scope.eUsername + $scope.eEmail + $scope.ePassword);
         };
 
         //fetch data to delete
@@ -317,13 +319,14 @@
         $scope.delSubscriber = function(){
             $http.post(
                 'delSubscriber',
-                {'id':$scope.dId}
+                {'id': $scope.dId}
             ).then(function(response){
                 $scope.init();
                 $('#modal-delete').modal('hide');
                 $('.modal-backdrop').remove();
                 M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
-            })
+            });
+
         }
 
 
