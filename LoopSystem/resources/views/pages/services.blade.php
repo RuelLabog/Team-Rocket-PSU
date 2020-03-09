@@ -70,10 +70,10 @@
                             <td>@{{ row.service_status }}</td>
                             <td>@{{row.created_at}}</td>
                             <td>
-                                <button type="button" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
                                     <i class="material-icons">delete</i>
                                 </button>
                             </td>
@@ -313,6 +313,7 @@
             {'id':$scope.dServiceId}
         ).then(function(response){
             $scope.init();
+            // $scope.page_position(page_number);
             $('#modal-delete').modal('hide');
             $('.modal-backdrop').remove();
             M.toast({html: 'Successfully Deleted!', classes: 'rounded'});

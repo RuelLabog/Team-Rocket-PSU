@@ -50,7 +50,9 @@ Route::get('/operators', 'OperatorController@index');
 Route::get('/getOperators', 'OperatorController@getData');
 
 //Admin subscriber routes
-Route::get('/insertSubscriber', 'Subscriber_AdminController@insert');
+Route::post('/editSubscriber', 'Subscriber_AdminController@update');
+Route::post('/delSubscriber', 'Subscriber_AdminController@delete');
+Route::post('/insertSubscriber', 'Subscriber_AdminController@insert');
 Route::get('/subscribersA', 'Subscriber_AdminController@index');
 Route::get('/getSubscribers', 'Subscriber_AdminController@getData');
 

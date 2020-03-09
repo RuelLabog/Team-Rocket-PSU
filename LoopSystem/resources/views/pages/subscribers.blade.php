@@ -42,9 +42,9 @@
                     <option>50</option>
                     <option>100</option>
                 </select>
-            </div>
+            </div> <br/>
 
-            <div class="col-sm-8 pull-right">
+            <div class="col-sm-6 pull-right">
                 <label>Search:</label>
                 <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
             </div>
@@ -55,11 +55,11 @@
             <div class="col-md-12" >
                 <table class="highlight striped table-bordered">
                     <thead>
-                        <th>Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Name&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th>&nbsp;</th>
+                        <th width="15%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="20%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="15%">&nbsp;</th>
 
                     </thead>
                     <tbody ng-show="filter_data > 0">
@@ -69,16 +69,20 @@
                             <td>@{{ row.email }}</td>
                             <td>@{{row.created_at}}</td>
                             <td>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.email, row.password)">Edit</button>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">Delete</button>
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.username, row.email, row.password)">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">
+                                    <i class="material-icons">delete</i>
+                                </button>
                             </td>
 
                         </tr>
                     </tbody>
                     <tfoot ng-show="filter_data == 0">
+                        <th></th>
+                        <th></th>
                         <th>No records found..</th>
-                        <th></th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tfoot>
@@ -120,24 +124,34 @@
           <div class="modal-body">
             <div class="form-group">
               {{ csrf_field() }}
-              <label>Name:</label>
-              <input type="text" class="form-control" ng-model="name" placeholder="Name" required>
+              <div class="input-field col s6">
+                <input type="text" id="name" class="form-control" ng-model="name" required>
+                <label for="name">Name</label>
+              </div>
             </div>
             <div class="form-group">
-              <label>Username:</label>
-              <input type="text" class="form-control" ng-model="username" placeholder="Username" required>
+                <div class="input-field col s6">
+                    <input type="text" id="username" class="form-control" ng-model="username" required>
+                    <label for="username">Username</label>
+                </div>
             </div>
             <div class="form-group">
-              <label>Email:</label>
-              <input type="email" class="form-control" ng-model="email" placeholder="Email" required>
+                <div class="input-field col s6">
+                    <input type="email" id="email" class="form-control" ng-model="email" required>
+                    <label for="email">Email</label>
+                </div>
             </div>
             <div class="form-group">
-              <label>Password:</label>
-              <input type="text" class="form-control" ng-model="password" placeholder="Password" required>
+                <div class="input-field col s6">
+                    <input type="text" id="password" class="form-control" ng-model="password" required>
+                    <label for="password">Password</label>
+                </div>
             </div>
             <div class="form-group">
-              <label>Confirm Password:</label>
-              <input type="text" class="form-control" ng-model="confPassword" placeholder="Confirm Password" required>
+                <div class="input-field col s6">
+                    <input type="text" id="confPassword" class="form-control" ng-model="confPassword"  required>
+                    <label for="confPassword">Confirm Password</label>
+                </div>
             </div>
 
           </div>
@@ -171,8 +185,12 @@
               <input type="text" class="form-control"  ng-model="eName" placeholder="Name" required>
             </div>
             <div class="form-group">
+              <label>Username:</label>
+              <input type="text" class="form-control"  ng-model="eUsername" placeholder="Username" required>
+            </div>
+            <div class="form-group">
               <label>Email:</label>
-              <input type="text" class="form-control"  ng-model="eEmail" placeholder="Email" required>
+              <input type="email" class="form-control"  ng-model="eEmail" placeholder="Email" required>
             </div>
             <div class="form-group">
               <label>Password:</label>
@@ -212,7 +230,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id='categoryDelBtn' onclick='categoryDel()'>Delete</button>
+            <button type="button" class="btn btn-danger" id='categoryDelBtn' ng-click='delSubscriber()'>Delete</button>
           </div>
           <!-- </form> -->
         </div>
@@ -248,7 +266,9 @@
             {'name':$scope.name,'username':$scope.username, 'email':$scope.email, 'password':$scope.password}
         ).then(function(response){
             $scope.init();
-
+            $('#modal-default').modal('hide');
+            $('.modal-backdrop').remove();
+            M.toast({html: 'Successfully Added!', classes: 'rounded'});
         })
     }
 
@@ -265,19 +285,46 @@
         }
 
          //fetch data to edit
-    $scope.fetchSingleData = function(id, name, email, password){
-        $scope.eId = id;
-        $scope.eName = name;
-        $scope.eEmail = email;
-        $scope.ePassword = password;
+        $scope.fetchSingleData = function(id, name, username, email, password){
+            $scope.eId = id;
+            $scope.eUsername = username;
+            $scope.eName = name;
+            $scope.eEmail = email;
+            $scope.ePassword = password;
 
-    }
+        }
 
-    //fetch data to delete
-    $scope.fetchData = function(id, name){
-        $scope.dId = id;
-        $scope.dSubscriberName = name;
-    }
+          //edit a service
+        $scope.editSubscriber = function(){
+            $http.post(
+                'editSubscriber',
+                {'id':$scope.eId,'name':$scope.eName,'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword}
+            ).then(function(data){
+                $scope.init();
+                $('#modal-edit').modal('hide');
+                $('.modal-backdrop').remove();
+                M.toast({html: 'Successfully Updated!', classes: 'rounded'});
+            })
+        };
+
+        //fetch data to delete
+        $scope.fetchData = function(id, name){
+            $scope.dId = id;
+            $scope.dSubscriberName = name;
+        }
+
+        //delete a subscriber
+        $scope.delSubscriber = function(){
+            $http.post(
+                'delSubscriber',
+                {'id':$scope.dId}
+            ).then(function(response){
+                $scope.init();
+                $('#modal-delete').modal('hide');
+                $('.modal-backdrop').remove();
+                M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
+            })
+        }
 
 
         $scope.init();

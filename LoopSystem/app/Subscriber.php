@@ -5,11 +5,15 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subscriber extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
+    protected $table = 'subscribers';
+    protected $dates = ['deleted_at'];
     // protected $table ='subscribers';
 
     protected $guard = 'subscriber';
@@ -41,5 +45,5 @@ class Subscriber extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table = 'subscribers';
+
 }

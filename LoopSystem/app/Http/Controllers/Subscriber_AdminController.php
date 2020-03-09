@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use View;
-use App\Subscriber;
+use App\Subscriber_Admin;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
@@ -25,7 +25,7 @@ class Subscriber_AdminController extends Controller
 
     //Retreiving of Data.
     function getData(){
-       return Subscriber::all();
+       return Subscriber_Admin::all();
     }
 
 
@@ -73,20 +73,6 @@ class Subscriber_AdminController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request)
-    {
-        $eItemID = $request->input('eItemID');
-
-        $data = item::join('categories', 'categories.id', '=', 'items.catid')->findOrFail($eItemID);
-
-        return response()->json(['result' => $data]);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -107,61 +93,21 @@ class Subscriber_AdminController extends Controller
 
     public function update(Request $request)
     {
-        //
-        $id = $request->input('eItemID');
-        $updateitem = item::findOrFail($id);
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $uname = $request->input('username');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        $updateitem->itemname =  $request->input('eItemname');
-        $updateitem->itemdesc = $request->input('eItemDesc');
-        $updateitem->quantity = $request->input('eQuantity');
-        $updateitem->catid = $request->input('catid');
+        $updateSubscriber = Subscriber_Admin::findOrFail($id);
 
+        $updateSubscriber->subscriber_name = $name;
+        $updateSubscriber->username = $uname;
+        $updateSubscriber->email = $email;
+        $updateSubscriber->password = $password;
 
+        $updateSubscriber->save();
 
-        if ($request['eItemname'] == NULL || $request['eItemDesc'] == NULL || $request['eQuantity'] == NULL) {
-            $notification = array(
-                'message'=> 'Please fill up required fields!',
-                'alert-type' => 'error'
-            );
-
-        }else{
-            $updateitem->save();
-            $notification = array(
-                'message'=> 'Item updated successfully!',
-                'alert-type' => 'success'
-            );
-
-        }
-
-        // return back()->with($notification);
-
-        // $id = $request->input('eItemID');
-        // $updateitem = item::findOrFail($id);
-
-        // $updateitem->itemname =  $request->input('eItemname');
-        // $updateitem->itemdesc = $request->input('eItemDesc');
-        // $updateitem->price = $request->input('ePrice');
-        // $updateitem->quantity = $request->input('eQuantity');
-        // $updateitem->catid = $request->input('catid');
-
-
-
-        // if ($request['eCatName'] == NULL || $request['eCatDesc'] == NULL) {
-        //     $notification = array(
-        //         'message'=> 'Please fill up required fields!',
-        //         'alert-type' => 'error'
-        //     );
-
-        // }else{
-        //     $updateitem->save();
-        //     $notification = array(
-        //         'message'=> 'Item updated successfully!',
-        //         'alert-type' => 'success'
-        //     );
-
-        // }
-
-        // return back()->with($notification);
 
     }
 
@@ -174,23 +120,8 @@ class Subscriber_AdminController extends Controller
 
 
     public function delete(Request $request) {
-
-        $deleteitem = $request->input('dItemID');
-
-
-        if (item::find($deleteitem)->delete()) {
-            $notification = array(
-                'message'=> 'Item deleted successfully!',
-                'alert-type' => 'success'
-            );
-        }else{
-            $notification = array(
-                'message'=> 'An error occured while deleting the item!',
-                'alert-type' => 'error'
-            );
-        }
-
-        return back()->with($notification);
+         $id = $request->input('id');
+        Subscriber_Admin::find($id)->delete();
 
     }
 
@@ -202,7 +133,7 @@ class Subscriber_AdminController extends Controller
       $password = $req->input('password');
 
       $subscriber = array('subscriber_name'=>$name, 'username'=>$uname, 'email'=>$email, 'password'=>$password, 'subscriber_status'=>'inactive', 'service_id'=>'1');
-      Subscriber::insert($subscriber);
+      Subscriber_Admin::insert($subscriber);
     }
 }
 

@@ -51,11 +51,11 @@
             <div class="col-md-12" >
                 <table class="highlight striped table-bordered">
                     <thead>
-                        <th>Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Username&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th>&nbsp;</th>
+                        <th width="15%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Username&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="20%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="15%">&nbsp;</th>
 
                     </thead>
                     <tbody ng-show="filter_data > 0">
@@ -65,8 +65,12 @@
                             <td>@{{ row.email }}</td>
                             <td>@{{row.created_at}}</td>
                             <td>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password)">Edit</button>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">Delete</button>
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password)">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">
+                                <i class="material-icons">delete</i>
+                                </button>
                             </td>
 
                         </tr>
