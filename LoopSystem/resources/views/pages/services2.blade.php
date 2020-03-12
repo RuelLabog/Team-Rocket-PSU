@@ -9,16 +9,16 @@
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <span class="card-title">Services</span>
-          <a type="button" class="waves-effect waves-teal btn-small modal-trigger" href="#modal-default">
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal-default">
                 <i class="material-icons">add</i>Add Service
-        </a>
+          </a>
         </div>
       </div>
     </div>
-  <!-- </div> -->
+
   <!-- /.title and add button modal -->
 
-  <!-- <div class="row"> -->
+
       <!-- data table -->
     <div class="col s12">
       <div class="card">
@@ -57,8 +57,8 @@
                                     <div class="switch">
                                         <label>
                                         Inactive
-                                        <input type="checkbox" ng-if="row.service_status == 'active'" checked class="green" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-toggle="modal" data-target="#modal-status">
-                                        <input type="checkbox" ng-if="row.service_status == 'inactive'" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-toggle="modal" data-target="#modal-status">
+                                        <input type="checkbox" ng-if="row.service_status == 'active'" checked class="green modal-trigger" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-target="modal-status">
+                                        <input type="checkbox" ng-if="row.service_status == 'inactive'" class="modal-trigger" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-target="modal-status">
                                         <span class="lever"></span>
                                         Active
                                         </label>
@@ -67,12 +67,12 @@
                             <td>@{{ row.service_name}}</td>
                             <td>@{{row.created_at}}</td>
                             <td>
-                                <button type="button" title="Edit" class="btn-floating btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
+                                <a title="Edit" class="btn-floating btn-small blue modal-trigger" id='' href="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
                                     <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" title="Delete" class="btn-floating btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
+                                </a>
+                                <a title="Delete" class="btn-floating btn-small red right modal-trigger" id=''  href="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
                                     <i class="material-icons">delete</i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -114,8 +114,34 @@
       </div>
     </div>
   </div>
+
+
+<!-- update status modal -->
+<div class="modal" id="modal-status">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
+            <h4 class="modal-title">Change Service Status</h4>
+          </div>
+          {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
+           {{ csrf_field() }}
+          <div class="modal-body">
+          <input type="hidden"  ng-model="sId" class="form-control">
+          <input type="hidden"  ng-model="sStatus" class="form-control">
+          <h6 style="text-align:center" ng-bind-html="confirmMessage"></h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='changeStatus()'>Change</button>
+          </div>
+          <!-- </form> -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.update status  modal -->
+
+
     <!-- Modal Add -->
-   <div class="modal" id="modal-default">
+<div class="modal" id="modal-default">
         <div class="modal-content">
           <div class="modal-header bg-danger">
             <h4 class="modal-title">Add New Service</h4>
@@ -139,6 +165,58 @@
         <!-- /.modal-content -->
     </div>
     <!-- /. modal add -->
+
+        <!-- edit item modal -->
+        <div class="modal fade" id="modal-edit">
+        <div class="modal-content">
+          <div class="modal-header btn-danger">
+            <h4 class="modal-title">Edit Service</h4>
+          </div>
+          <form action="" method="POST">
+              {{ csrf_field() }}
+              {{method_field('PATCH')}}
+          <div class="modal-body" >
+              <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Service ID" ng-model="id" required>
+              <div class="form-group">
+              <label>Service Name: @{{service}}</label>
+              <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Service Name" required ng-model="editServiceName">
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small blue right" id="categoryEditBtn" ng-click="editService()">Save changes</button>
+          </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.edit item modal -->
+
+
+          <!-- delete categories modal -->
+          <div class="modal" id="modal-delete">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
+            <h4 class="modal-title">Delete Service</h4>
+          </div>
+          {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
+           {{ csrf_field() }}
+          <div class="modal-body">
+          <input type="hidden" id="dCatID" name="dCatID" ng-model="dServiceId" class="form-control">
+          <h6 style="text-align:center">Are you sure you want to delete service <b ng-bind='dServiceName'></b>?</h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delService()'>Delete</button>
+          </div>
+          <!-- </form> -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.delete item modal -->
+
 </div>
 <!-- /.ng-app -->
 
@@ -168,14 +246,20 @@
   serviceApp.controller("myServiceController", function($scope, $http, $timeout){
       //insert new service
     $scope.insertService = function(){
-        $http.post(
-            "insertService",
-            {'serviceName':$scope.serviceName}
-        ).then(function(){
-            $scope.init();
-            angular.element('.modal-close').trigger('click');
-            M.toast({html: 'Successfully Added!', classes: 'rounded'});
-        });
+        if($scope.serviceName == null){
+            M.toast({html: 'Service name is required!', classes: 'rounded red'});
+        }else{
+            $http.post(
+                "insertService",
+                {'serviceName':$scope.serviceName}
+            ).then(function(){
+                $scope.init();
+                $scope.serviceName = null;
+                angular.element('.modal-close').trigger('click');
+                M.toast({html: 'Successfully Added!', classes: 'rounded green'});
+            });
+        }
+
     }
 
     //display service
@@ -203,9 +287,8 @@
             {'serviceName':$scope.editServiceName, 'id':$scope.id}
         ).then(function(data){
             $scope.init();
-            $('#modal-edit').modal('hide');
-            $('.modal-backdrop').remove();
-            M.toast({html: 'Successfully Updated!', classes: 'rounded'});
+            angular.element('.modal-close').trigger('click');
+            M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
         })
     };
 
@@ -222,10 +305,8 @@
             {'id':$scope.dServiceId}
         ).then(function(response){
             $scope.init();
-            // $scope.page_position(page_number);
-            $('#modal-delete').modal('hide');
-            $('.modal-backdrop').remove();
-            M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
+            angular.element('.modal-close').trigger('click');
+            M.toast({html: 'Successfully Deleted!', classes: 'rounded green'});
         })
     }
 
@@ -247,9 +328,8 @@
             {'id':$scope.sId, 'status':$scope.sStatus}
         ).then(function(response){
             $scope.init();
-            $('#modal-status').modal('hide');
-            $('.modal-backdrop').remove();
-            M.toast({html: 'Successfully Updated!', classes: 'rounded'});
+            angular.element('.modal-close').trigger('click');
+            M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
         })
     }
 
@@ -275,6 +355,10 @@
         $scope.reverse = !$scope.reverse;
     };
 
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
   });
   </script>
 

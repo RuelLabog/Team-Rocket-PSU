@@ -2,39 +2,27 @@
 
 @section('content')
 <div ng-app="myOperatorsApp" ng-controller="myOperatorsController">
-<div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
 
-          <h1 class="m-0 text-dark"><i class="nav-icon fas fa-headphones"></i> Operators</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
+<div class="row">
+    <div class="col s12">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+            <span class="card-title">Operators</span>
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal-default">
+                    <i class="material-icons">add</i>Add Operator
+            </a>
+            </div>
+        </div>
+    </div>
 
 
+<div class="col s12">
     <div class="card">
-      <div class="card-header">
-        <button type="button" class="waves-effect waves-light btn-small"  data-toggle="modal" data-target="#modal-default">
-        <i class="material-icons">add</i>Add Operator
-        </button>
-      </div>
-
-
-      <!-- /.card-header -->
-      <div class="card-body">
+      <div class="card-content">
         <div class="row">
-            <div class="col-sm-2">
-                <label>PageSize:</label>
-                <select ng-model="data_limit" class="form-control">
+        <div class="col s2">
+                <label>Records per page</label>
+                <select class="browser-default" ng-model="data_limit">
                     <option>10</option>
                     <option>20</option>
                     <option>50</option>
@@ -42,9 +30,9 @@
                 </select>
             </div>
 
-            <div class="col-sm-8 pull-right">
-                <label>Search:</label>
-                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
+            <div class="col s8 right">
+                <label for="search">Search:</label>
+                <input type="text" ng-model="search" ng-change="filter()" id="search" class="form-control" />
             </div>
         </div>
         <br/>
@@ -77,10 +65,10 @@
                             <td>@{{ row.service_name }}</td>
                             <td><span id="moment">@{{row.created_at}}</span></td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password, row.service_id)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue modal-trigger" id=""  data-target="modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password, row.service_id)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating btn-small red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating btn-small red right modal-trigger" id=""  data-target="modal-delete" ng-click="fetchData(row.id, row.username)">
                                 <i class="material-icons">delete</i>
                                 </button>
                             </td>
@@ -127,67 +115,68 @@
         </div>
     </div>
 
-
+      </div>
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
+</div>
+</div>
 
 <!-- add operator modal -->
     <div class="modal fade" id="modal-default">
-      <div class="modal-dialog" width="100%">
         <div class="modal-content">
           <div class="modal-header bg-danger">
             <h4 class="modal-title">Add New Operator</h4>
           </div>
           <form action="" method="POST">
           <div class="modal-body">
-            <div class="form-group">
-              {{ csrf_field() }}
-                <div class="input-field col s6">
-                    <input type="text" class="" name="oUsername" id="oUsername" ng-model="oUsername" required>
-                    <label for="oUsername">Username</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-field col s6">
-                    <input type="email" class="" name="oEmail" id="oEmail" ng-model="oEmail"  required>
-                    <label for="oEmail">Email</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-field col s6">
-                    <input type="password" class="" name="oPassword" id="oPassword" ng-model="oPassword" required>
-                    <label for="oPassword">Password</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-field col s6">
-                    <input type="password" class="" name="oConPass" id="oConPass" ng-model="oConPass"  required>
-                    <label for="oConPass">Confirm Password</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col s12">
-                    <label>Service</label>
-                    <select class="browser-default" ng-model='serviceId'>
-                        <option value="" disabled selected><label>Select Service</label></option>
-                        <option ng-repeat='rows in dataService' value="@{{rows.id}}">@{{rows.service_name}}</option>
-                    </select>
+              <div class="row">
 
-                </div><br/>
-                <button type="button" class="waves-effect waves-light btn-small blue left" data-toggle="modal" data-target="#Service">Service</button>
-            </div>
+                        <div class="input-field col s6">
+                            <input type="text" class="" name="oUsername" id="oUsername" ng-model="oUsername" required>
+                            <label for="oUsername">Username</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="email" class="" name="oEmail" id="oEmail" ng-model="oEmail"  required>
+                            <label for="oEmail">Email</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="password" class="" name="oPassword" id="oPassword" ng-model="oPassword" required>
+                            <label for="oPassword">Password</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="password" class="" name="oConPass" id="oConPass" ng-model="oConPass"  required>
+                            <label for="oConPass">Confirm Password</label>
+                        </div>
+
+                        <div class="col s6">
+                            <label>Service</label>
+                            <select class="browser-default" ng-model='serviceId'>
+                                <option value="" disabled selected><label>Select Service</label></option>
+                                <option ng-repeat='rows in dataService' value="@{{rows.id}}">@{{rows.service_name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col s6">
+                            <br/>
+                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Service</button>
+                        </div>
+
+              </div>
+
+
           </div>
           <!-- ./modal-body -->
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close">Cancel</button>
             <button type="button" class="waves-effect waves-light btn-small green right" id='operatorAddBtn' name='operatorAddBtn' ng-click="insertOperator()" ng-disabled="OperatorSave" >Save</button>
           </div>
         </form>
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
     </div>
     <!-- /.add items modal -->
 
@@ -199,36 +188,43 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" ng-model="eId" class="form-control" />
-                      {{ csrf_field() }}
-                      <label>Username:</label>
-                      <input type="text" name="eUsername" id="eUsername" placeholder="Username" ng-model="eUsername" required>
-                    </div>
-                    <div class="form-group">
-                      <label>Email:</label>
-                      <input type="email" name="eEmail" id="eEmail" placeholder="Email Address" ng-model="eEmail" required>
+                    <div class="row">
+                        <div class="col s6">
+                            <input type="hidden" ng-model="eId" class="form-control" />
+                            <label>Username:</label>
+                            <input type="text" name="eUsername" id="eUsername" placeholder="Username" ng-model="eUsername" required>
+                        </div>
+                        <div class="col s6">
+                            <label>Email:</label>
+                            <input type="email" name="eEmail" id="eEmail" placeholder="Email Address" ng-model="eEmail" required>
 
-                    </div>
-                    <div class="form-group">
-                      <label>Password:</label>
-                      <input type="password" name="ePassword" id="ePassword" placeholder="Password" ng-model="ePassword" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="col s12">
+                        </div>
+                        <div class="col s6">
+                            <label>Password:</label>
+                            <input type="password" name="ePassword" id="ePassword" placeholder="Password" ng-model="ePassword" required>
+                        </div>
+                        <div class="col s6">
+                            <label>Confirm Password:</label>
+                            <input type="password" name="eConfPassword" id="eConfPassword"  ng-model="eConfPassword" required>
+                        </div>
+                        <div class="col s6">
                             <label>Service</label>
                             <select class="browser-default" ng-model='eServiceId'>
                                 <option value="" disabled selected><label>Select Service</label></option>
                                 <option ng-repeat='rows in dataService' value="@{{rows.id}}">@{{rows.service_name}}</option>
-                            </select>
+                             </select>
 
-                        </div><br/>
-                        <button type="button" class="waves-effect waves-light btn-small blue left" data-toggle="modal" data-target="#Service">Service</button>
+                        </div>
+
+                        <div class="col s6">
+                            <br/>
+                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Service</button>
+                        </div>
                     </div>
                 </div>
                 <!-- /.modal-body -->
                 <div class="modal-footer">
-                    <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="waves-effect waves-light btn-small red left modal-close">Cancel</button>
                     <button type="button" class="waves-effect waves-light btn-small green right" id="categoryEditBtn" ng-click="editOperator()">Save changes</button>
                 </div>
             </div>
@@ -248,11 +244,11 @@
           {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
            {{ csrf_field() }}
           <div class="modal-body">
-          <input type="text" id="dCatID" name="dCatID" class="form-control" ng-model="dId" >
+          <input type="hidden" id="dCatID" name="dCatID" class="form-control" ng-model="dId" >
           <h6 style="text-align:center">Are you sure you want to delete operator <b ng-bind="dOperatorName"></b>?</h6>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small orange left" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small orange left modal-close">Cancel</button>
             <button type="button" class="waves-effect waves-light btn-small red right" id='categoryDelBtn' ng-click='delOperator()'>Delete</button>
           </div>
           <!-- </form> -->
@@ -262,10 +258,10 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.delete item modal -->
-  </div>
+
 
 <!-- Service modal -->
-<div class="modal fade" id="Service">
+<div class="modal" id="Service">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger">
@@ -281,7 +277,7 @@
             <button type="button" class="waves-effect waves-light btn green right" id='categoryDelBtn' ng-click='insertService()'>Add</button>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Done</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close">Done</button>
 
           </div>
           <!-- </form> -->
@@ -293,7 +289,8 @@
     <!-- /.Service modal -->
 
 
-
+</div>
+<!-- ng app -->
 
 <!-- Angular js -->
 <!-- angular -->
@@ -329,8 +326,7 @@
             {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
         ).then(function(response){
             $scope.OperatorSave = false;
-            $('#modal-default').modal('hide');
-            $('.modal-backdrop').remove();
+            angular.element('.modal-close').trigger('click');
             M.toast({html: 'Successfully Added!', classes: 'rounded'});
         });
     }
@@ -343,8 +339,7 @@
         )
         .then(function(response){
             $scope.getService();
-            $('#Service').modal('hide');
-            $('.modal-backdrop').remove();
+            angular.element('.modal-close').trigger('click');
             M.toast({html: 'Successfully Added!', classes: 'rounded'});
         })
     }
@@ -388,8 +383,7 @@
         )
         .then(function (response){
            $scope.init();
-           $('#modal-edit').modal('hide');
-            $('.modal-backdrop').remove();
+           angular.element('.modal-close').trigger('click');
             M.toast({html: 'Successfully Updated!', classes: 'rounded'});
         })
     }
@@ -406,8 +400,7 @@
         )
         .then(function(response){
             $scope.init();
-            $('#modal-delete').modal('hide');
-            $('.modal-backdrop').remove();
+            angular.element('.modal-close').trigger('click');
             M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
         });
 
