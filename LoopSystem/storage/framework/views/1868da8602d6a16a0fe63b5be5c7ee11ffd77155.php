@@ -1,16 +1,11 @@
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-danger navbar-dark" >
-    <!-- Left navbar links -->
-    <ul class="navbar-nav" >
-      <li class="nav-item" >
-        <a class="nav-link" data-widget="pushmenu" href="#" ><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
+<nav>
+    <div class="nav-wrapper grey darken-4">
+      <a href="#!" class="brand-logo center">Team Rocket</a>
+      <ul class="left hide-on-med-and-down">
 
-
-
-    <!-- Right navbar links -->
-
+        <!-- <li><a href="#" data-activates="slide-out" class="button-collapse show-on-medium-and-up"><i class="material-icons">menu</i></a></li> -->
+        <li><a href="#" data-target="slide-out" class="button-collapse show-on-medium-and-up sidenav-trigger"><i class="material-icons">menu</i></a></li>
+      </ul>
+    </div>
   </nav>
-  <!-- /.navbar -->
 <?php /**PATH C:\xampp\htdocs\Repository\LoopSystem\resources\views/includes/header.blade.php ENDPATH**/ ?>

@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<div ng-app="myServiceApp" ng-controller="myServiceController">
+<div ng-app="myServiceApp" ng-controller="myServiceController" >
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -33,19 +33,19 @@
       <div class="card-body">
 
         <div class="row">
-            <div class="col-sm-2">
-                <label>PageSize:</label>
-                <select ng-model="data_limit" class="form-control">
+        <div class="col-sm-2">
+                <label>Records per page</label>
+                <select class="browser-default" ng-model="data_limit">
                     <option>10</option>
                     <option>20</option>
                     <option>50</option>
                     <option>100</option>
                 </select>
-            </div>
+            </div> <br/>
 
-            <div class="col-sm-8 pull-right">
-                <label>Search:</label>
-                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
+            <div class="input-field col s6  right">
+                <label for="search">Search</label>
+                <input type="text" ng-model="search" ng-change="filter()" id="search" class="form-control" />
             </div>
         </div>
         <br/>
@@ -54,24 +54,34 @@
             <div class="col-md-12" >
                 <table class="highlight striped table-bordered">
                     <thead>
-                        <th width="10%">ID&nbsp;<a ng-click="sort_with('ID');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
                         <th width="25%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
                         <th width="25%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="15%">&nbsp;</th>
+                        <th width="10%">&nbsp;</th>
 
                     </thead>
                     <tbody ng-show="filter_data > 0">
                         <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
-                            <td>{{ row.id }}</td>
+                            <td>
+
+                                 <!-- Switch -->
+                                    <div class="switch">
+                                        <label>
+                                        Inactive
+                                        <input type="checkbox" ng-if="row.service_status == 'active'" checked class="green" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-toggle="modal" data-target="#modal-status">
+                                        <input type="checkbox" ng-if="row.service_status == 'inactive'" ng-click="updateStatus(row.id, row.service_status, row.service_name)" data-toggle="modal" data-target="#modal-status">
+                                        <span class="lever"></span>
+                                        Active
+                                        </label>
+                                    </div>
+                            </td>
                             <td>{{ row.service_name}}</td>
-                            <td>{{ row.service_status }}</td>
                             <td>{{row.created_at}}</td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
                                     <i class="material-icons">delete</i>
                                 </button>
                             </td>
@@ -232,6 +242,36 @@
     </div>
     <!-- /.delete item modal -->
 
+<!-- update status modal -->
+    <div class="modal fade" id="modal-status">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
+            <h4 class="modal-title">Change Service Status</h4>
+          </div>
+          
+           <?php echo e(csrf_field()); ?>
+
+          <div class="modal-body">
+          <input type="hidden"  ng-model="sId" class="form-control">
+          <input type="hidden"  ng-model="sStatus" class="form-control">
+          <h6 style="text-align:center" ng-bind-html="confirmMessage"></h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='changeStatus()'>Change</button>
+          </div>
+          <!-- </form> -->
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.update status  modal -->
+
+    </div>
+    <!-- /.end of ng-app and ng-controller -->
+
     </div>
     <!-- /.end of ng-app and ng-controller -->
 
@@ -242,10 +282,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.12/angular.min.js"></script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
   <script>
-  var serviceApp = angular.module("myServiceApp", ['ui.bootstrap']);
+  var serviceApp = angular.module("myServiceApp", ['ui.bootstrap', 'ngSanitize']);
 
   serviceApp.filter('beginning_data', function(){
       return function(input, begin){
@@ -268,7 +310,7 @@
             $('#modal-default').modal('hide');
             $('.modal-backdrop').remove();
             M.toast({html: 'Successfully Added!', classes: 'rounded'});
-        })
+        });
     }
 
     //display service
@@ -319,6 +361,30 @@
             $('#modal-delete').modal('hide');
             $('.modal-backdrop').remove();
             M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
+        })
+    }
+
+    // fecth data to update status
+    $scope.updateStatus = function(id, status, name){
+        $scope.init();
+        $scope.sId = id;
+        $scope.sStatus = status;
+        if(status == 'inactive'){
+            $scope.confirmMessage = 'Are you sure you want to change service <b>'+name+'</b> status from inactive to active?';
+        }else{
+            $scope.confirmMessage = 'Are you sure you want to change service <b>'+name+'</b> status from active to inactive?';
+        }
+    }
+    // update service status
+    $scope.changeStatus = function(){
+        $http.post(
+            'updateStatus',
+            {'id':$scope.sId, 'status':$scope.sStatus}
+        ).then(function(response){
+            $scope.init();
+            $('#modal-status').modal('hide');
+            $('.modal-backdrop').remove();
+            M.toast({html: 'Successfully Updated!', classes: 'rounded'});
         })
     }
 

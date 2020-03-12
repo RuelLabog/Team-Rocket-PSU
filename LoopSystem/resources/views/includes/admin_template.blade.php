@@ -28,7 +28,7 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> --}} -->
 
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"> -->
 
     <!--Import Google Icon Font-->
@@ -61,12 +61,6 @@
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
 
 
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-      <!-- Compiled and minified JavaScript -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
       <!-- angular datatable -->
       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/material.css" integrity="sha256-wJo5gtF+u+ZWGuf0wTVDOtfyrPIWF7jAB+qlYx+78d8=" crossorigin="anonymous" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/material.min.css" integrity="sha256-3d30ZChWkJs7cJ4IPPBr8vrbF+qLluUXNTVxSkypyR8=" crossorigin="anonymous" />
@@ -76,18 +70,40 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.8.1/dataTable.min.css.map" integrity="undefined" crossorigin="anonymous" /> -->
 
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <!-- Compiled and minified JavaScript -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+      {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+        <!--Import jQuery Library-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--Import materialize.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> --}}
+
 </head>
-<body class="hold-transition sidebar-mini">
+<body>
+    <script>
+    // $(document).ready(function(){
+    //     $('.sidenav').sidenav();
+    //   });
+    //   function zxc(){
+    //     $('#modal1').modal('close');
+    //   };
+  </script>
     @include('includes.header')
     @include('includes.sidebar')
 
-    <div class="wrapper">
-        <div class="content-wrapper">
     @yield('content')
 
-        </div>
-    </div>
     @include('includes.footer')
+
 
     <!-- {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> --}}
@@ -117,6 +133,7 @@
 
 </body>
 </html>
+
 
 
 
