@@ -39,6 +39,7 @@ Route::post('/editPersona', 'PersonaController@update')->name('editPersona');
 Route::post('/insertPersona', 'PersonaController@insert')->name('insertPersona');
 Route::get('/persona', 'PersonaController@index');
 Route::get('/getPersona', 'PersonaController@getData');
+Route::get('/getServiceData', 'PersonaController@getServiceData');
 
 //operators routes
 Route::get('/getOperatorService', 'OperatorController@getService');

@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position:fixed">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="../public/images/rocket.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -31,7 +31,7 @@
           </li>
 
          <li class="nav-item">
-            <a href="<?php echo e(url('subscribers_page')); ?>" class="nav-link">
+            <a href="<?php echo e(url('subscribersA')); ?>" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
               <p>
                 Subscribers
@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo e(url('operators_page')); ?>" class="nav-link">
+            <a href="<?php echo e(url('operators')); ?>" class="nav-link">
               <i class="nav-icon fas fa-headphones"></i>
               <p>
                 Operators
