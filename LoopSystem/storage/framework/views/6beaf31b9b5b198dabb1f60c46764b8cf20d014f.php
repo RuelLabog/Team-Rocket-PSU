@@ -24,36 +24,10 @@
 
     <div class="card">
       <div class="card-header">
-        <button type="button" class="waves-effect waves-light btn-small" data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus mr-2"></i>Add Persona
-        </button>
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal-default"><i class="material-icons">add</i>Add Persona</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <!-- <table id="categories_table" class="table table-bordered table-striped">
-          <thead>
-           <tr>
-                <th width="10%">ID</th>
-                <th width="40%">Name</th>
-                <th width="40%">Status</th>
-                <th width="10%"></th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr ng-repeat="row in data">
-                  <td>{{ row.id}}</td>
-                  <td>{{ row.persona_name }}</td>
-                  <td>{{ row.persona_status }}</td>
-                  <td>
-                      <button type="button" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
-                            <i class="material-icons">edit</i></button>
-                      <button type="button" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
-                            <i class="material-icons">delete</i></button>
-                </td>
-              </tr>
-
-          </tbody>
-        </table> -->
 
         <div class="row">
             <div class="col-sm-2">
@@ -78,8 +52,8 @@
                 <table class="highlight striped table-bordered">
                     <thead>
                         <th width="15%">Inactive/Active&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="50%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
-
+                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Service</th>
                         <th width="25%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
                         <th width="10%">&nbsp;</th>
 
@@ -109,15 +83,15 @@
                                   </div>
                             </td>
                             <td>{{ row.persona_name}}</td>
-
+                            <td>{{ row.service_name}}</td>
                             <td>{{row.created_at}}</td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
+                                <a title="Edit" class="waves-effect waves-light btn-small btn-floating modal-trigger" href="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name, row.service_id)">
                                     <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
+                                </a>
+                                <a title="Delete" class="waves-effect waves-light btn-small btn-floating red right modal-trigger" href="#modal-delete" ng-click="fetchDel(row.id, row.persona_name)">
                                     <i class="material-icons">delete</i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -157,53 +131,47 @@
     <!-- /.card -->
 
 <!-- add items modal -->
-<div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
-            <h4 class="modal-title">Add New Persona</h4>
-          </div>
-          <form action="" method="POST">
-          <div class="modal-body">
-            <div class="form-group">
-              <?php echo e(csrf_field()); ?>
+ <!-- Modal Structure -->
+ <div id="modal-default" class="modal">
 
-
-              <div class="input-field col s6">
-                <input type="text" name="personaName" id="personaName" ng-model="personaName" class="validate" required>
-                <label for="personaName">Persona Name</label>
-
-                <div class="input-field col s12">
-                    <select class="browser-default" ng-model="serviceID">
-                        <option value="" disabled selected>Choose a Service</option>
-                        <option value="{{ row.id }}" ng-repeat="row in data2">{{ row.service_name }}</option>
-                    </select>
-                </div>
-
-
-              </div>
-
-            </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small green right" ng-click="insertPersona()">Save</button>
-          </div>
-        </form>
+    <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Persona</h4>
         </div>
-        <!-- /.modal-content -->
+        <form action="" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <?php echo e(csrf_field()); ?>
+
+
+            <div class="input-field col s6">
+              <input type="text" name="personaName" id="personaName" ng-model="personaName" class="validate" required>
+              <label for="personaName">Persona Name</label>
+
+              <div class="input-field col s12">
+                  <select class="browser-default" ng-model="serviceID">
+                      <option value="" disabled selected>Choose a Service</option>
+                      <option value="{{ row.id }}" ng-repeat="row in data2">{{ row.service_name }}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-light btn-small red left modal-close">Cancel</button>
+          <button type="button" class="waves-effect waves-light btn-small green right" ng-click="insertPersona()">Save</button>
+        </div>
+      </form>
       </div>
-      <!-- /.modal-dialog -->
-    </div>
+
+  </div>
     <!-- /.add items modal -->
 
 
      <!-- edit item modal -->
-     <div class="modal fade" id="modal-edit">
-      <div class="modal-dialog">
+     <div id="modal-edit" class="modal">
         <div class="modal-content">
-          <div class="modal-header btn-danger">
+          <div class="modal-header">
             <h4 class="modal-title">Edit Persona</h4>
           </div>
           <form action="" method="POST">
@@ -212,45 +180,37 @@
               <?php echo e(method_field('PATCH')); ?>
 
           <div class="modal-body" >
-            
-              
-            
             <div class="input-field col s6">
-                <input type="text" class="form-control" ng-model="id" required>
+                <input type="hidden" class="form-control" ng-model="id" required>
                     <input placeholder="Placeholder" id="first_name" ng-model="editPersonaName" type="text" class="validate">
                     <label for="personaName">Persona Name</label>
 
 
                 <div class="input-field col s12">
-                    <select class="browser-default" ng-model="serviceID" ng-change="loadCity()">
+                    <select class="browser-default" ng-model="editServiceID">
                         <option value="" disabled selected>Choose a Service</option>
-                        <option value="{{ rows.id }}" ng-repeat="state in state" >{{ rows.service_name }}</option>
+                        <option  ng-repeat="rows in data2" value="{{rows.id}}">{{ rows.service_name }}</option>
 
                     </select>
                 </div>
 
-
               </div>
-
-
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small blue right" ng-click="editPersona()">Save changes</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small green right" ng-click="editPersona()">Save changes</button>
           </div>
           </form>
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
+
     </div>
     <!-- /.edit item modal -->
 
           <!-- delete categories modal -->
-          <div class="modal fade" id="modal-delete">
-            <div class="modal-dialog">
+          <div class="modal" id="modal-delete">
               <div class="modal-content">
-                <div class="modal-header bg-danger">
+                <div class="modal-header">
                   <h4 class="modal-title">Delete Persona</h4>
                 </div>
                  <?php echo e(csrf_field()); ?>
@@ -260,14 +220,12 @@
                 <h6 style="text-align:center">Are you sure you want to delete persona <b ng-bind='dPersonaName'></b>?</h6>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delPersona()'>Delete</button>
+                  <button type="button" class="waves-effect waves-light btn-small orange left modal-close">Cancel</button>
+                  <button type="button" class="waves-effect waves-light btn-small red right" id='categoryDelBtn' ng-click='delPersona()'>Delete</button>
                 </div>
                 <!-- </form> -->
               </div>
               <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
           </div>
     <!-- /.delete item modal -->
 
@@ -283,6 +241,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 
   <script>
+
+
   var personaApp = angular.module("myPersonaApp", ['ui.bootstrap']);
 
   personaApp.filter('beginning_data', function(){
@@ -300,11 +260,10 @@
       $scope.insertPersona = function(){
         $http.post(
             "insertPersona",
-            {'personaName':$scope.personaName, 'serviceID':$scope.serviceID}
+            {'personaName':$scope.personaName, 'service':$scope.serviceID}
         ).then(function(){
             $scope.init();
-            $('#modal-default').modal('hide');
-            $('.modal-backdrop').remove();
+            angular.elemet('.modal-close').trigger('click');
             M.toast({html: 'Successfully Added!', classes: 'rounded'});
         })
     }
@@ -318,38 +277,29 @@
         $scope.data_limit = 10;
         $scope.filter_data = $scope.data.length;
         $scope.entire_user =  $scope.file.length;
+        $scope.init2();
     });
     }
 
     $scope.init2= function(){
-        $http.get('getServices').then(function(response){
+        $http.get('getSubscriberService').then(function(response){
         $scope.data2 = response.data;
     });
     }
-    // $scope.loadCity = function(){
-    //        var url="<?php echo e(url('getServiceData')); ?>?id="+$scope.id
-    //        $http.get(url)
-    //        .success(function(data){
-    //             $scope.states = data;
-    //        });
-    //   }
-    // $scope.init3= function(){
-    //     $http.get('getServiceData').then(function(response){
-    //     $scope.data3 = response.data;
-    // });
-    // }
+
 
     // fetch data to edit
-    $scope.fetchSingleData = function(id, name){
+    $scope.fetchSingleData = function(id, name, service){
         $scope.editPersonaName = name;
         $scope.id = id;
+        $scope.editServiceID = service;
     };
 
     //edit a Persona
     $scope.editPersona = function(){
         $http.post(
             'editPersona',
-            {'personaName':$scope.editPersonaName, 'id':$scope.id}
+            {'personaName':$scope.editPersonaName, 'id':$scope.id, 'service':$scope.editServiceID}
         ).then(function(data){
             $scope.init();
             $('#modal-edit').modal('hide');
@@ -378,7 +328,7 @@
     }
 
     $scope.init();
-    $scope.init2();
+
     // $scope.init3();
 
 
@@ -402,6 +352,14 @@
     };
 
   });
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
+
+
   </script>
 
  <?php $__env->stopSection(); ?>

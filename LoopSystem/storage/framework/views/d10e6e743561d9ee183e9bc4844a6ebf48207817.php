@@ -21,9 +21,8 @@
 
     <div class="card">
       <div class="card-header">
-        <button type="button" class="btn-primary btn"  data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus mr-2"></i>Add Operator
-        </button>
+        
+        <a class="waves-effect waves-light btn modal-trigger"  data-toggle="modal" href="#modal-default"><i class="large material-icons">add</i>Add Operator</a>
       </div>
 
 
@@ -75,10 +74,10 @@
                             <td>{{ row.service_name }}</td>
                             <td><span id="moment">{{row.created_at}}</span></td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password, row.service_id)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password, row.service_id)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating btn-small red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">
                                 <i class="material-icons">delete</i>
                                 </button>
                             </td>
@@ -131,14 +130,14 @@
     <!-- /.card -->
 
 <!-- add operator modal -->
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog" width="100%">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
+<div id="modal-default" class="modal">
+
+    <div class="modal-content">
+        <div class="modal-header">
             <h4 class="modal-title">Add New Operator</h4>
-          </div>
-          <form action="" method="POST">
-          <div class="modal-body">
+        </div>
+        <form action="" method="POST">
+        <div class="modal-body">
             <div class="form-group">
               <?php echo e(csrf_field()); ?>
 
@@ -184,11 +183,9 @@
           </div>
         </form>
         </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.add items modal -->
+</div>
+<!-- add operator modal -->
+
 
     <div class="modal fade" id="modal-edit">
         <div class="modal-dialog">
@@ -444,6 +441,14 @@
 
 
 
+  });
+</script>
+
+
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
   });
 </script>
 
