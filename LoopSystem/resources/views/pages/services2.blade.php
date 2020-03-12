@@ -1,4 +1,4 @@
-@extends('includes.new_template')
+@extends('includes.admin_template')
 
 @section('content')
 <div ng-app="myServiceApp" ng-controller="myServiceController">
@@ -67,10 +67,10 @@
                             <td>@{{ row.service_name}}</td>
                             <td>@{{row.created_at}}</td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
+                                <button type="button" title="Edit" class="btn-floating btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.service_name)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
+                                <button type="button" title="Delete" class="btn-floating btn-small red right" id='' data-toggle="modal" data-target="#modal-delete" ng-click="fetchDel(row.id, row.service_name)">
                                     <i class="material-icons">delete</i>
                                 </button>
                             </td>
@@ -138,7 +138,7 @@
         </div>
         <!-- /.modal-content -->
     </div>
-    <!-- /.add modal -->
+    <!-- /. modal add -->
 </div>
 <!-- /.ng-app -->
 

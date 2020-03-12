@@ -41,11 +41,7 @@
      <!-- Font Awesome Icons -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css"> -->
   <!-- Theme style adminstyle-->
-<<<<<<< HEAD
-  <!-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> -->
-=======
   {{-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> --}}
->>>>>>> b458b92dc74158841fef06a3b56efcbf732d4055
   <!-- Select -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css"> -->
@@ -116,7 +112,9 @@ header, main, footer,.content {
     @include('includes.header')
     @include('includes.sidebar')
 
+    <main>
     @yield('content')
+    </main>
 
     @include('includes.footer')
 
