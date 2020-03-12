@@ -24,8 +24,8 @@
 
     <div class="card">
       <div class="card-header">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus mr-2"></i>Add Subscriber
+        <button type="button" class="waves-effect waves-light btn-small" data-toggle="modal" data-target="#modal-default">
+        <i class="material-icons">add</i>Add Subscriber
         </button>
       </div>
       <!-- /.card-header -->
@@ -69,10 +69,10 @@
                             <td>{{ row.service_name }}</td>
                             <td>{{ row.created_at }}</td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.username, row.email, row.password, row.service_id)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.username, row.email, row.password, row.service_id)">
                                     <i class="material-icons">edit</i>
                                 </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating red btn-small right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">
                                     <i class="material-icons">delete</i>
                                 </button>
                             </td>

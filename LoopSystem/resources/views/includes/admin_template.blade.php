@@ -19,7 +19,7 @@
     <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <!-- Styles -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <!-- <link rel="stylesheet" href="css/style.css"> -->
 
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
@@ -41,7 +41,7 @@
      <!-- Font Awesome Icons -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css"> -->
   <!-- Theme style adminstyle-->
-  <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css">
+  {{-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> --}}
   <!-- Select -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css"> -->
