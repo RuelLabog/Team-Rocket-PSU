@@ -1,90 +1,49 @@
-<!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position:fixed">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="../public/images/rocket.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">Team Rocket</span>
-    </a>
+<div class="row">
+    <div class="container">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2 sidebar-dark-primary" style="height:100%;">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-
-
-
-          <li class="nav-item" style="height:100px;">
-            <a href="<?php echo e(url('pairing_page')); ?>" class="nav-link" >
-                <i class="nav-icon fas fa fa-heartbeat"></i>
-                <p>
-                Pairing
-                </p>
-            </a>
-          </li>
-
-         <li class="nav-item">
-            <a href="<?php echo e(url('subscribersA')); ?>" class="nav-link">
-              <i class="nav-icon fas fa fa-user"></i>
-              <p>
-                Subscribers
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?php echo e(url('operators')); ?>" class="nav-link">
-              <i class="nav-icon fas fa-headphones"></i>
-              <p>
-                Operators
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="<?php echo e(url('services')); ?>" class="nav-link">
-              <i class="nav-icon fas fa-box"></i>
-              <p>
-                Services
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-          <a href="<?php echo e(url('persona')); ?>" class="nav-link">
-              <i class="nav-icon fas fa fa-comments"></i>
-              <p>
-                Personas
-              </p>
-            </a>
-          </li>
-
-
-          <li class="nav-item">
-            <a class="nav-link"
-                onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-                <p>
-                <?php echo e(__('Logout')); ?>
-
-                </p>
-            </a>
-
+        <ul id="slide-out" class="sidenav">
+            <li><div class="user-view">
+              <div class="background">
+                <img src="../public/images/background.png">
+              </div>
+              <a href="#user"><img class="circle" src="../public/images/rocket.jpg"></a>
+              <a href="#name"><span class="white-text name" style="font-size: 150%;"><b>Team Rocket</b></span></a>
+              <a href="#email"><span class="white-text email">https://github.com/RuelLabog/Team-Rocket-PSU</span></a>
+            </div></li>
+            <li><a href="<?php echo e(url('pairing_page')); ?>" class="waves-effect"><i class="material-icons">favorite</i>Pairing</a></li>
+          <li><a href="<?php echo e(url('subscribersA')); ?>" class="waves-effect"><i class="material-icons">person</i>Subscribers</a></li>
+          <li><a href="<?php echo e(url('operators')); ?>" class="waves-effect"><i class="material-icons">headset_mic</i>Operators</a></li>
+          <li><a href="<?php echo e(url('services')); ?>" class="waves-effect" ><i class="material-icons">laptop_mac</i>Services</a></li>
+          <li><a href="<?php echo e(url('persona')); ?>" class="waves-effect" ><i class="material-icons">chat</i>Personas</a></li>
+          <li><a onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"
+            class="waves-effect" ><i class="material-icons">power_settings_new</i><p><?php echo e(__('Logout')); ?></p></a>
             <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
                 <?php echo csrf_field(); ?>
-            </form>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+            </form></li>
+          </ul>
+
+       <!-- Modal Structure -->
+
     </div>
-    <!-- /.sidebar -->
-  </aside>
+</div>
+
+
+<script>
+
+
+
+    // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+    // var collapsibleElem = document.querySelector('.collapsible');
+    // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+    // Or with jQuery
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+  });
+
+
+   </script>
+
 <?php /**PATH C:\xampp\htdocs\Repository\LoopSystem\resources\views/includes/sidebar.blade.php ENDPATH**/ ?>
