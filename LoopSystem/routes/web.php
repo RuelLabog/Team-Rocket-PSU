@@ -14,8 +14,6 @@ Route::get('/', function () {
     return redirect('/login');;
 });
 
-
-
 Route::resource('/pairing_page', 'PairController');
 
 Auth::routes();
@@ -27,6 +25,7 @@ Route::post('/login/subscriber', 'Auth\LoginController@subscriberLogin');
 Route::post('/logout/subscriber', 'Auth\LoginController@logoutSubs')->name('logoutSubs');
 
 //service routes
+Route::post('/updateStatus', 'ServicesController@updateStatus');
 Route::post('/deleteService', 'ServicesController@delete')->name('deleteService');
 Route::post('/editService', 'ServicesController@update')->name('editService');
 Route::post('/fecthService', 'ServicesController@fetch')->name('fecthService');
@@ -42,6 +41,7 @@ Route::get('/persona', 'PersonaController@index');
 Route::get('/getPersona', 'PersonaController@getData');
 
 //operators routes
+Route::get('/getOperatorService', 'OperatorController@getService');
 Route::post('/editOperator', 'OperatorController@update')->name('editOperator');
 Route::post('/delOperator', 'OperatorController@delete')->name('delOperator');
 Route::post('/insertOperator', 'OperatorController@insert')->name('insertOperator');
@@ -49,6 +49,7 @@ Route::get('/operators', 'OperatorController@index');
 Route::get('/getOperators', 'OperatorController@getData');
 
 //Admin subscriber routes
+Route::get('/getSubscriberService', 'Subscriber_AdminController@getService');
 Route::post('/editSubscriber', 'Subscriber_AdminController@update');
 Route::post('/delSubscriber', 'Subscriber_AdminController@delete');
 Route::post('/insertSubscriber', 'Subscriber_AdminController@insert');

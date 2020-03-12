@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use DB;
 use View;
 use App\Subscriber_Admin;
+use App\Service;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidateRequests;
 use Illuminate\Foundation\Validation\AuthorizesRequests;
 use Illuminate\Support\Facades\Redirect;
 use Validator, Input;
+use Illuminate\Support\Facades\Hash;
 
 class Subscriber_AdminController extends Controller
 {
@@ -25,9 +27,16 @@ class Subscriber_AdminController extends Controller
 
     //Retreiving of Data.
     function getData(){
-       return Subscriber_Admin::all();
+        return Subscriber_Admin::select('subscribers.id', 'subscriber_name','username', 'email', 'subscribers.created_at', 'service_name', 'subscriber_status', 'service_id')
+                                ->join('services', 'services.id','=', 'subscribers.service_id')
+                                ->orderBy('subscribers.created_at', 'DESC')
+                                ->get();
     }
 
+
+    function getService(){
+        return Service::select('id', 'service_name')->orderBy('service_name', 'ASC')->get();
+    }
 
 
 
@@ -98,13 +107,18 @@ class Subscriber_AdminController extends Controller
         $uname = $request->input('username');
         $email = $request->input('email');
         $password = $request->input('password');
+        $service = $request->input('service');
 
         $updateSubscriber = Subscriber_Admin::findOrFail($id);
 
         $updateSubscriber->subscriber_name = $name;
         $updateSubscriber->username = $uname;
         $updateSubscriber->email = $email;
-        $updateSubscriber->password = $password;
+        $updateSubscriber->service_id = $service;
+        if($password != ""){
+            $updateSubscriber->password = $password;
+        }
+
 
         $updateSubscriber->save();
 
@@ -133,7 +147,7 @@ class Subscriber_AdminController extends Controller
       $email = $req->input('email');
       $password = $req->input('password');
 
-      $subscriber = array('subscriber_name'=>$name, 'username'=>$uname, 'email'=>$email, 'password'=>$password, 'subscriber_status'=>'inactive', 'service_id'=>'1');
+      $subscriber = array('subscriber_name'=>$name, 'username'=>$uname, 'email'=>$email, 'password'=>Hash::make($password), 'subscriber_status'=>'inactive', 'service_id'=>'1');
       Subscriber_Admin::insert($subscriber);
     }
 }
