@@ -49,11 +49,11 @@
             <div class="col-md-12" >
                 <table class="highlight striped table-bordered">
                     <thead>
-                        <th>Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Username&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
-                        <th>Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th>&nbsp;</th>
+                        <th width="15%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Username&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="25%">Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="20%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="15%">&nbsp;</th>
 
                     </thead>
                     <tbody ng-show="filter_data > 0">
@@ -63,8 +63,12 @@
                             <td>{{ row.email }}</td>
                             <td>{{row.created_at}}</td>
                             <td>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password)">Edit</button>
-                                <button type="button" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">Delete</button>
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password)">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" title="Delete" class="waves-effect waves-light btn-small red right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.username)">
+                                <i class="material-icons">delete</i>
+                                </button>
                             </td>
 
                         </tr>
@@ -81,7 +85,6 @@
             </div>
       </div>
 
-      
 
     <div class="col-md-12">
         <div class="col-md-4">
@@ -135,7 +138,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" name="submit" id='operatorAddBtn' name='operatorAddBtn' ng-click="insertOperator()">Save changes</button>
+            <button type="button" class="btn btn-success" id='operatorAddBtn' name='operatorAddBtn' ng-click="insertOperator()">Save changes</button>
           </div>
         </form>
         </div>
@@ -193,7 +196,7 @@
 
           <div class="modal-body">
           <input type="text" id="dCatID" name="dCatID" class="form-control" ng-model="dId" >
-          <h6 style="text-align:center">Are you sure you want to delete operator <label id="dCatName"></label>?</h6>
+          <h6 style="text-align:center">Are you sure you want to delete operator <b ng-bind="dOperatorName"></b>?</h6>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -214,7 +217,7 @@
 
 <!-- Angular js -->
 <!-- angular -->
-
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.12/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
   <script>
@@ -233,72 +236,55 @@
 
 
   operatorApp.controller("myOperatorsController", function($scope, $http, $timeout){
+    //insert operator
     $scope.insertOperator = function(){
         $http.post(
-            "insertOperator",
-            {'oUsername':$scope.oUsername,
-            'oEmail':$scope.oEmail,
-            'oPassword':$scope.oPassword
-
-            }
+            'insertOperator',
+            {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword}
         ).then(function(response){
             $scope.init();
-            alert(response.data);
+
         })
     }
 
-$scope.init = function(){
-    $http.get('getOperators').then(function(response){
-        // $('#operators_table').DataTable();
-        $scope.data = response.data;
-        $scope.file = response.data;
-        $scope.current_grid =1;
-        $scope.data_limit = 10;
-        $scope.filter_data = $scope.data.length;
-        $scope.entire_user =  $scope.file.length;
+    //display operator data
+    $scope.init = function(){
+        $http.get('getOperators').then(function(response){
+            $scope.data = response.data;
+            $scope.file = response.data;
+            $scope.current_grid =1;
+            $scope.data_limit = 10;
+            $scope.filter_data = $scope.data.length;
+            $scope.entire_user =  $scope.file.length;
 
-    });
-}
+        });
+    }
 
-$scope.fetchSingleData = function(id, username, email, password){
-    // alert();
-    $scope.eId = id;
-    $scope.eUsername = username;
-    $scope.eEmail = email;
-    $scope.ePassword = password;
+    //fetch data to edit
+    $scope.fetchSingleData = function(id, username, email, password){
+        $scope.eId = id;
+        $scope.eUsername = username;
+        $scope.eEmail = email;
+        $scope.ePassword = password;
 
-}
+    }
 
-$scope.fetchData = function(id, username){
-    $scope.dId = id;
-}
-
-$scope.editOperator = function(){
-    $http.post(
-        'editOperator',
-        {'id':$scope.eId, 'username':$scope.eUsername,'email':$scope.eEmail, 'password':$scope.ePassword}
-    ).then(function(response){
-        $scope.init();
-    })
-}
-
-$scope.delOperator = function(){
-    $http.post(
-        'delOperator',
-        {'id':$scope.dId}
-    ).then(function(response){
-        $scope.init();
-        alert(response.data);
-    })
-}
-
-$scope.init();
+    //fetch data to delete
+    $scope.fetchData = function(id, username){
+        $scope.dId = id;
+        $scope.dOperatorName = username;
+    }
 
 
+    $scope.init();
+
+    //pagination
     $scope.page_position = function(page_number){
         $scope.current_grid =page_number;
     }
 
+
+    //filter in search
     $scope.filter = function(){
         $timeout(function(){
             $scope.filter_data = $scope.data.length;
@@ -306,21 +292,16 @@ $scope.init();
 
     }
 
+    //reverse sort (arrow)
     $scope.sort_with = function(base) {
         $scope.base = base;
         $scope.reverse = !$scope.reverse;
     };
 
-    $.noConflict();
 
-    // $scope.created_at = moment($scope.created_at).format('llll');
 
   });
 </script>
-
-
-
-
 
 
  <?php $__env->stopSection(); ?>

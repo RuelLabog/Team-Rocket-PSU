@@ -79,18 +79,39 @@
             <div class="col-md-12" >
                 <table class="highlight striped table-bordered">
                     <thead>
-                        <th width="10%">ID&nbsp;<a ng-click="sort_with('ID');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="25%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="25%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="15%">Inactive/Active&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                        <th width="50%">Name&nbsp;<a ng-click="sort_with('Name');"><i class="material-icons">swap_vert</i></a></th>
+
                         <th width="25%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="15%">&nbsp;</th>
+                        <th width="10%">&nbsp;</th>
 
                     </thead>
                     <tbody ng-show="filter_data > 0">
                         <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
-                            <td>@{{ row.id }}</td>
+                            <td ng-if="row.persona_status == 'inactive'">
+
+                                <div class="switch">
+                                    <label>
+                                      Inactive
+                                      <input disabled type="checkbox">
+                                      <span class="lever"></span>
+                                      Active
+                                    </label>
+                                  </div>
+                            </td>
+                            <td ng-if="row.persona_status == 'active'">
+
+                                <div class="switch">
+                                    <label>
+                                      Inactive
+                                      <input disabled type="checkbox" checked>
+                                      <span class="lever"></span>
+                                      Active
+                                    </label>
+                                  </div>
+                            </td>
                             <td>@{{ row.persona_name}}</td>
-                            <td>@{{ row.persona_status }}</td>
+
                             <td>@{{row.created_at}}</td>
                             <td>
                                 <button type="button" title="Edit" class="waves-effect waves-light btn-small blue" id='' data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.persona_name)">
@@ -153,16 +174,15 @@
                 <input type="text" name="personaName" id="personaName" ng-model="personaName" class="validate" required>
                 <label for="personaName">Persona Name</label>
 
+                <div class="input-field col s12">
+                    <select class="browser-default" ng-model="serviceID">
+                        <option value="" disabled selected>Choose a Service</option>
+                        <option value="@{{ row.id }}" ng-repeat="row in data2">@{{ row.service_name }}</option>
+                    </select>
+                </div>
 
-            <!-- Dropdown Structure -->
-                {{-- <select name="" class="browser-default" id="">
-                <option value="" disabled selected>Select a service</option>
-                <option value=" @{{row.id}}" ng-repeat="row in data2"> @{{ row.service_name }}</option>
-                </select> --}}
 
               </div>
-
-
 
             </div>
 
@@ -191,11 +211,29 @@
               {{ csrf_field() }}
               {{method_field('PATCH')}}
           <div class="modal-body" >
-              <input type="hidden" class="form-control" ng-model="id" required>
-              <div class="form-group">
+            {{-- @{{states}} --}}
+              {{-- <div class="form-group">
               <label>Persona Name: </label>
               <input type="text" class="form-control" required ng-model="editPersonaName">
-            </div>
+            </div> --}}
+            {{-- @{{states}} --}}
+            <div class="input-field col s6">
+                <input type="text" class="form-control" ng-model="id" required>
+                    <input placeholder="Placeholder" id="first_name" ng-model="editPersonaName" type="text" class="validate">
+                    <label for="personaName">Persona Name</label>
+
+
+                <div class="input-field col s12">
+                    <select class="browser-default" ng-model="serviceID" ng-change="loadCity()">
+                        <option value="" disabled selected>Choose a Service</option>
+                        <option value="@{{ rows.id }}" ng-repeat="state in state" >@{{ rows.service_name }}</option>
+
+                    </select>
+                </div>
+
+
+              </div>
+
 
           </div>
           <div class="modal-footer">
@@ -263,7 +301,7 @@
       $scope.insertPersona = function(){
         $http.post(
             "insertPersona",
-            {'personaName':$scope.personaName}
+            {'personaName':$scope.personaName, 'serviceID':$scope.serviceID}
         ).then(function(){
             $scope.init();
             $('#modal-default').modal('hide');
@@ -285,10 +323,22 @@
     }
 
     $scope.init2= function(){
-        $http.get('getService').then(function(response){
+        $http.get('getServices').then(function(response){
         $scope.data2 = response.data;
     });
     }
+    // $scope.loadCity = function(){
+    //        var url="{{url('getServiceData')}}?id="+$scope.id
+    //        $http.get(url)
+    //        .success(function(data){
+    //             $scope.states = data;
+    //        });
+    //   }
+    // $scope.init3= function(){
+    //     $http.get('getServiceData').then(function(response){
+    //     $scope.data3 = response.data;
+    // });
+    // }
 
     // fetch data to edit
     $scope.fetchSingleData = function(id, name){
@@ -329,6 +379,8 @@
     }
 
     $scope.init();
+    $scope.init2();
+    // $scope.init3();
 
 
     //pagination
@@ -342,7 +394,6 @@
         $timeout(function(){
             $scope.filter_data = $scope.data.length;
         }, 20);
-
     }
 
     //reverse sort (arrow)

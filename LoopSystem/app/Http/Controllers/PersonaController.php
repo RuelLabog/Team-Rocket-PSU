@@ -26,8 +26,36 @@ class PersonaController extends Controller
 
     //Retreiving of Data.
     function getData(){
-        return Persona::all();
-        return Service::all();
+        return Persona::join('services', 'personas.service_id', '=', 'services.id')
+                        ->select('personas.*', 'services.service_name')
+                        ->distinct('$service_name')
+                        ->get();
+        // return Persona::all();
+        // ->join('services', 'services.id', '=', 'personas.service_id')
+    }
+
+    function getServiceData(request $request){
+        // $id = $request->input('id');
+        // $updatePersona = Persona::findOrFail($id);
+        // return Persona::join('services', 'personas.service_id', '=', 'services.id')
+        //                 ->where('personas.id','=',$updatePersona)
+        //                 ->select('services.service_name')
+        //                 ->get();
+        //  $id = $request->input('id');
+        // return Persona::join('services', 'personas.service_id', '=', 'services.id')
+        //                 ->select('personas.*', 'services.service_name')
+        //                 ->where('personas.id','=', $id)
+        //                 ->select('services.service_name')
+        //                 ->get();
+
+        // ->join('services', 'services.id', '=', 'personas.service_id')
+
+        $states = DB::table("personas")
+                    ->join('services', 'personas.service_id', '=', 'services.id')
+                    ->where("personas.id",$request->id)
+                    ->select("personas.*","services.service_name")
+                    ->get();
+        return response()->json($states);
     }
 
 
@@ -75,7 +103,8 @@ class PersonaController extends Controller
     {
 
         $personaName = $request->input('personaName');
-        $persona = array('persona_name'=>$personaName, 'persona_status'=>'active', 'service_id'=>'1');
+        $serviceID = $request->input('serviceID');
+        $persona = array('persona_name'=>$personaName, 'persona_status'=>'active', 'service_id'=>$serviceID);
 
         DB::table('personas')->insert($persona);
 
