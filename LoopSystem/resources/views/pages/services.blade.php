@@ -1,19 +1,13 @@
-@extends('includes.admin_template')
+@extends('includes.new_template')
 
 @section('content')
-<div ng-app="myServiceApp" ng-controller="myServiceController" >
+<div ng-app="myServiceApp" ng-controller="myServiceController" class="card card-content">
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
 
-          <h1 class="m-0 text-dark"><i class="nav-icon fas fa-box"></i> Services</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol>
+          <h3 class="m-0 text-dark"><i class="nav-icon fas fa-box"></i> Services</h3>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->

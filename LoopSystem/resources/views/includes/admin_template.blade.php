@@ -41,7 +41,7 @@
      <!-- Font Awesome Icons -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css"> -->
   <!-- Theme style adminstyle-->
-  <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css">
+  <!-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> -->
   <!-- Select -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css"> -->
@@ -88,6 +88,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> --}}
 
 </head>
+<style>
+
+header, main, footer,.content {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer,.content {
+    padding-left: 0;
+  }
+}
+</style>
 <body>
     <script>
     // $(document).ready(function(){

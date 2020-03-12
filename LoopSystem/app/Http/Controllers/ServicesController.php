@@ -58,7 +58,7 @@ class ServicesController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages.services');
+        return view('pages.services2');
     }
 
 
