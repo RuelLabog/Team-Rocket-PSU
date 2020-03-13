@@ -148,13 +148,12 @@
           </div>
           <form action="" method="POST">
           <div class="modal-content">
-            <div class="col s12">
-                <div class="input-field col s12">
-                    <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" class="validate" required>
-                    <label for="serviceName">Service Name</label>
+                <div class="col s12">
+                    <div class="input-field col s12">
+                        <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" class="validate" required>
+                        <label for="serviceName">Service Name</label>
+                    </div>
                 </div>
-            </div>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn-small red left modal-close" >Cancel</button>
@@ -175,12 +174,14 @@
           <form action="" method="POST">
               {{ csrf_field() }}
               {{method_field('PATCH')}}
-          <div class="modal-body" >
-              <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Service ID" ng-model="id" required>
-              <div class="form-group">
-              <label>Service Name: @{{service}}</label>
-              <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Service Name" required ng-model="editServiceName">
-            </div>
+          <div class="modal-content" >
+                <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Service ID" ng-model="id" required>
+                <div class="col 12">
+                    <div class="col s6">
+                        <label>Service Name </label>
+                        <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Service Name" required ng-model="editServiceName">
+                    </div>
+                </div>
 
 
           </div>
@@ -282,14 +283,19 @@
 
     //edit a service
     $scope.editService = function(){
-        $http.post(
-            'editService',
-            {'serviceName':$scope.editServiceName, 'id':$scope.id}
-        ).then(function(data){
-            $scope.init();
-            angular.element('.modal-close').trigger('click');
-            M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
-        })
+        if($scope.editServiceName == null){
+            M.toast({html: 'Service name is required', classes: 'rounded red'});
+        }else{
+            $http.post(
+                'editService',
+                {'serviceName':$scope.editServiceName, 'id':$scope.id}
+            ).then(function(data){
+                $scope.init();
+                angular.element('.modal-close').trigger('click');
+                M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
+            });
+        }
+
     };
 
     // fetch data to delete

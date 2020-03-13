@@ -148,7 +148,7 @@
                         </div>
 
                         <div class="input-field col s6">
-                            <input type="password" class="" name="oConPass" id="oConPass" ng-model="oConPass"  required>
+                            <input type="password" class="" name="oConfPassword" id="oConfPassword" ng-model="oConfPassword"  required>
                             <label for="oConPass">Confirm Password</label>
                         </div>
 
@@ -162,7 +162,7 @@
 
                         <div class="col s6">
                             <br/>
-                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Service</button>
+                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Add Service</button>
                         </div>
 
               </div>
@@ -189,22 +189,22 @@
 
                 <div class="modal-body">
                     <div class="row">
+                        <input type="hidden" ng-model="eId" class="form-control" />
                         <div class="col s6">
-                            <input type="hidden" ng-model="eId" class="form-control" />
-                            <label>Username:</label>
-                            <input type="text" name="eUsername" id="eUsername" placeholder="Username" ng-model="eUsername" required>
+                            <label for="eUsername">Username</label>
+                            <input type="text" name="eUsername" id="eUsername" ng-model="eUsername" required>
                         </div>
                         <div class="col s6">
-                            <label>Email:</label>
-                            <input type="email" name="eEmail" id="eEmail" placeholder="Email Address" ng-model="eEmail" required>
+                            <label for="eEmail">Email</label>
+                            <input type="email" name="eEmail" id="eEmail"  ng-model="eEmail" required>
 
                         </div>
-                        <div class="col s6">
-                            <label>Password:</label>
-                            <input type="password" name="ePassword" id="ePassword" placeholder="Password" ng-model="ePassword" required>
+                        <div class="input-field col s6">
+                            <label for="ePassword">Password</label>
+                            <input type="password" name="ePassword" id="ePassword"  ng-model="ePassword" required>
                         </div>
-                        <div class="col s6">
-                            <label>Confirm Password:</label>
+                        <div class="input-field col s6">
+                            <label for="eConfPassword">Confirm Password</label>
                             <input type="password" name="eConfPassword" id="eConfPassword"  ng-model="eConfPassword" required>
                         </div>
                         <div class="col s6">
@@ -218,7 +218,7 @@
 
                         <div class="col s6">
                             <br/>
-                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Service</button>
+                            <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Add Service</button>
                         </div>
                     </div>
                 </div>
@@ -269,7 +269,7 @@
           </div>
           {{-- <!-- <form action="{{route('catSoftDelete')}}" method="POST"> --> --}}
            {{ csrf_field() }}
-          <div class="modal-body">
+          <div class="modal-content">
             <div class="input-field col s6">
               <input type="text" class="" name="oService" id="oService" ng-model="oService" required>
               <label for="oService">Service </label>
@@ -277,7 +277,7 @@
             <button type="button" class="waves-effect waves-light btn green right" id='categoryDelBtn' ng-click='insertService()'>Add</button>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left modal-close">Done</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" id="serviceCancel">Cancel</button>
 
           </div>
           <!-- </form> -->
@@ -321,27 +321,48 @@
     //insert operator
     $scope.insertOperator = function(){
         $scope.OperatorSave = true;
-        $http.post(
-            'insertOperator',
-            {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
-        ).then(function(response){
-            $scope.OperatorSave = false;
-            angular.element('.modal-close').trigger('click');
-            M.toast({html: 'Successfully Added!', classes: 'rounded'});
-        });
+        if($scope.oUsername == null || $scope.oEmail == null || $scope.oPassword == null || $scope.serviceId == null){
+            M.toast({html: 'All fields are required!', classes: 'rounded red'});
+        }else{
+            if($scope.oPassword != $scope.oConfPassword){
+                M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
+            }else{
+                $http.post(
+                    'insertOperator',
+                    {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
+                ).then(function(response){
+                    $scope.OperatorSave = false;
+                    $scope.oUsername = null;
+                    $scope.oEmail = null;
+                    $scope.oPassword = null;
+                    $scope.oConfPassword = null;
+                    $scope.serviceId = null;
+                    angular.element('.modal-close').trigger('click');
+                    M.toast({html: 'Successfully Added!', classes: 'rounded green'});
+                });
+            }
+
+        }
+
     }
 
     //insert new service
     $scope.insertService = function(){
-        $http.post(
-            'insertService',
-            {'serviceName':$scope.oService}
-        )
-        .then(function(response){
-            $scope.getService();
-            angular.element('.modal-close').trigger('click');
-            M.toast({html: 'Successfully Added!', classes: 'rounded'});
-        })
+        if($scope.oService == null){
+            M.toast({html: 'Service name is required', classes: 'rounded red'});
+        }else{
+            $http.post(
+                'insertService',
+                {'serviceName':$scope.oService}
+            )
+            .then(function(response){
+                $scope.getService();
+                $scope.oService = null;
+                angular.element('#serviceCancel').trigger('click');
+                M.toast({html: 'Successfully Added!', classes: 'rounded green'});
+            });
+        }
+
     }
 
     //display operator data
@@ -355,7 +376,7 @@
             $scope.filter_data = $scope.data.length;
             $scope.entire_user =  $scope.file.length;
             $scope.ctr=1;
-            $scope.getService();
+
         });
     }
 
@@ -377,15 +398,25 @@
     }
 
     $scope.editOperator = function(){
-        $http.post(
-            'editOperator',
-            {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
-        )
-        .then(function (response){
-           $scope.init();
-           angular.element('.modal-close').trigger('click');
-            M.toast({html: 'Successfully Updated!', classes: 'rounded'});
-        })
+        if($scope.eUsername == null || $scope.eEmail == null ){
+            M.toast({html: 'All fields are required!', classes: 'rounded red'});
+        }else{
+            if($scope.ePassword != $scope.eConfPassword){
+                M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
+            }else{
+                $http.post(
+                    'editOperator',
+                    {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
+                )
+                .then(function (response){
+                    $scope.init();
+                    angular.element('.modal-close').trigger('click');
+                    M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
+                });
+            }
+
+        }
+
     }
     //fetch data to delete
     $scope.fetchData = function(id, username){
@@ -407,6 +438,7 @@
     }
 
     $scope.init();
+    $scope.getService();
 
     //pagination
     $scope.page_position = function(page_number){
