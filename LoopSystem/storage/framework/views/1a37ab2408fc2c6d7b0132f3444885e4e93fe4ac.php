@@ -1,188 +1,182 @@
 <?php $__env->startSection('content'); ?>
 <div ng-app="mySubsApp" ng-controller="mySubsController">
-<div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
+    <div class="row">
+        <div class="col s12">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Subscribers</span>
+              <a class="waves-effect waves-teal btn-small modal-trigger" href="#modal-default">
+                    <i class="material-icons">add</i>Add Subscriber
+            </a>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+      <!-- /.title and add button modal -->
 
-          <h1 class="m-0 text-dark"><i class="nav-icon fas fa fa-user"></i> Subscribers</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
-          </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
+      <!-- <div class="row"> -->
+          <!-- data table -->
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+                <div class="col s2">
+                    <label>Records per page</label>
+                    <select class="browser-default" ng-model="data_limit">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
 
+                <div class="input-field col s6  right">
+                    <label for="search">Search</label>
+                    <input type="text" ng-model="search" ng-change="filter()" id="search" class="form-control" />
+                </div>
 
+                <!-- table -->
+                <div class="row">
+                <div class="col s12" >
+                    <table class="highlight striped table-bordered">
+                        <thead>
+                            <th width="15%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
+                            <th width="15%">Name&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
+                            <th width="20%">Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
+                            <th width="15%">Service&nbsp;<a ng-click="sort_with('Service');"><i class="material-icons">swap_vert</i></a></th>
+                            <th width="20%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
+                            <th width="12%">&nbsp;</th>
 
+                        </thead>
+                        <tbody ng-show="filter_data > 0">
+                            <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
+                                <td>{{ row.subscriber_status }}</td>
+                                <td>{{ row.subscriber_name}}</td>
+                                <td>{{ row.email }}</td>
+                                <td>{{ row.service_name }}</td>
+                                <td>{{ row.created_at }}</td>
+                                <td>
+                                    <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue modal-trigger" id="" data-target="modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.username, row.email, row.password, row.service_id)">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button type="button" title="Delete" class="waves-effect waves-light btn-floating red btn-small right modal-trigger" id="" data-target="modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
 
+                            </tr>
+                        </tbody>
+                        <tfoot ng-show="filter_data == 0">
+                            <th></th>
+                            <th></th>
+                            <th>No records found..</th>
+                            <th></th>
+                            <th></th>
+                        </tfoot>
 
-    <div class="card">
-      <div class="card-header">
-        <button type="button" class="waves-effect waves-light btn-small" data-toggle="modal" data-target="#modal-default">
-        <i class="material-icons">add</i>Add Subscriber
-        </button>
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body">
+                    </table>
+                </div>
+          </div>
+    <!-- /.table -->
+    <!--  record length and pagination -->
+    <div class="col-md-12">
+            <div class="col-md-4">
+                <p>Showing {{data.length}} of {{ entire_user}} entries</p>
+            </div>
+            <div class="col-md-6 pull-right" ng-show="filter_data > 0">
+                <pagination page="current_grid"
+                    on-select-page="page_position(page)"
+                    boundary-links="true"
+                    total-items="filter_data"
+                    items-per-page="data_limit"
 
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Records per page</label>
-                <select class="browser-default" ng-model="data_limit">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                    <option>100</option>
-                </select>
-            </div> <br/>
-
-            <div class="input-field col s6  right">
-                <label for="search">Search</label>
-                <input type="text" ng-model="search" ng-change="filter()" id="search" class="form-control" />
+                    class="pagination-small right-align"
+                    previous-text="&laquo;" next-text="&raquo;" style="cursor:context-menu">
+                </pagination>
             </div>
         </div>
-        <br/>
-
-        <div class="row">
-            <div class="col-md-12" >
-                <table class="highlight striped table-bordered">
-                    <thead>
-                        <th width="15%">Status&nbsp;<a ng-click="sort_with('Status');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="15%">Name&nbsp;<a ng-click="sort_with('Username');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="20%">Email&nbsp;<a ng-click="sort_with('Email');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="15%">Service&nbsp;<a ng-click="sort_with('Service');"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="20%">Date Created&nbsp;<a ng-click="sort_with('Date');" style="cursor:text-menu"><i class="material-icons">swap_vert</i></a></th>
-                        <th width="12%">&nbsp;</th>
-
-                    </thead>
-                    <tbody ng-show="filter_data > 0">
-                        <tr ng-repeat="row in data = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1)* data_limit | limitTo:data_limit">
-                            <td>{{ row.subscriber_status }}</td>
-                            <td>{{ row.subscriber_name}}</td>
-                            <td>{{ row.email }}</td>
-                            <td>{{ row.service_name }}</td>
-                            <td>{{ row.created_at }}</td>
-                            <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue" id="" data-toggle="modal" data-target="#modal-edit" ng-click="fetchSingleData(row.id, row.subscriber_name, row.username, row.email, row.password, row.service_id)">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" title="Delete" class="waves-effect waves-light btn-floating red btn-small right" id="" data-toggle="modal" data-target="#modal-delete" ng-click="fetchData(row.id, row.subscriber_name)">
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                    <tfoot ng-show="filter_data == 0">
-                        <th></th>
-                        <th></th>
-                        <th>No records found..</th>
-                        <th></th>
-                        <th></th>
-                    </tfoot>
-
-                </table>
+        <!-- record length -->
             </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="col-md-4">
-            <p>Showing {{data.length}} of {{ entire_user}} entries</p>
+            <!-- <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div> -->
+          </div>
         </div>
-        <div class="col-md-6 pull-right" ng-show="filter_data > 0">
-            <pagination page="current_grid"
-                on-select-page="page_position(page)"
-                boundary-links="true"
-                total-items="filter_data"
-                items-per-page="data_limit"
-
-                class="pagination-small right-align"
-                previous-text="&laquo;" next-text="&raquo;" style="cursor:context-menu"></pagination>
-        </div>
-    </div>
-
-
       </div>
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-
 <!-- add items modal -->
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
+    <div class="modal" id="modal-default">
         <div class="modal-content">
-          <div class="modal-header bg-danger">
+          <div class="modal-header">
             <h4 class="modal-title">Add New Subscriber</h4>
           </div>
           <form action="" method="POST">
           <div class="modal-body">
-            <div class="form-group">
+            <div class="row">
               <?php echo e(csrf_field()); ?>
 
               <div class="input-field col s6">
-                <input type="text" id="name" class="form-control" ng-model="name" required>
                 <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" ng-model="name" required>
+
               </div>
-            </div>
-            <div class="form-group">
+
+
                 <div class="input-field col s6">
                     <input type="text" id="username" class="form-control" ng-model="username" required>
                     <label for="username">Username</label>
                 </div>
-            </div>
-            <div class="form-group">
+
+
                 <div class="input-field col s6">
                     <input type="email" id="email" class="form-control" ng-model="email" required>
                     <label for="email">Email</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="input-field col s6">
-                    <input type="text" id="password" class="form-control" ng-model="password" required>
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-field col s6">
-                    <input type="text" id="confPassword" class="form-control" ng-model="confPassword"  required>
-                    <label for="confPassword">Confirm Password</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col s12">
+
+                <div class="col s3">
                     <label>Service</label>
                     <select class="browser-default" ng-model='serviceId'>
                         <option value="" disabled selected><label>Select Service</label></option>
                         <option ng-repeat='rows in dataService' value="{{rows.id}}">{{rows.service_name}}</option>
                     </select>
+                </div>
 
-                </div><br/>
-                <button type="button" class="waves-effect waves-light btn-small blue left" data-toggle="modal" data-target="#Service">Service</button>
-            </div><br>
+                <div class="col s3">
+                    <br>
+                    <a class="waves-effect waves-light btn-small blue left  modal-trigger" href="#Service">Add Service</a>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <input type="text" id="password" class="form-control" ng-model="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" id="confPassword" class="form-control" ng-model="confPassword"  required>
+                    <label for="confPassword">Confirm Password</label>
+                </div>
+
+            </div><br/>
+
+
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small green right" name="submit" id='categoryAddBtn' ng-click="insertSubscriber()">Save</button>
+            <button type="button" class="waves-effect waves-light btn-small red left close-modal" id='addCancel'>Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small green right" name="submit"  ng-click="insertSubscriber()">Save</button>
           </div>
         </form>
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
     </div>
     <!-- /.add items modal -->
 
 
      <!-- edit item modal -->
-     <div class="modal fade" id="modal-edit">
-      <div class="modal-dialog">
+     <div class="modal" id="modal-edit">
+
         <div class="modal-content">
           <div class="modal-header btn-danger">
             <h4 class="modal-title">Edit Subscriber</h4>
@@ -194,61 +188,72 @@
 
           <div class="modal-body">
               <input type="hidden" class="form-control" ng-model="eId" value=""  required>
-              <div class="form-group">
-              <label>Name:</label>
-              <input type="text" class="form-control"  ng-model="eName" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-              <label>Username:</label>
-              <input type="text" class="form-control"  ng-model="eUsername" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-              <label>Email:</label>
-              <input type="email" class="form-control"  ng-model="eEmail" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-              <label>Password:</label>
-              <input type="text" class="form-control"  ng-model="ePassword" placeholder="Password" required>
-            </div>
+            <div class="row">
 
-            <div class="form-group">
-              <label>Confirm Password:</label>
-              <input type="text" class="form-control"  ng-model="eConfPassword" placeholder="Confirm Password" required>
-            </div>
-            <label>Service</label>
-            <div class="form-group">
-                <div class="col s12">
+                <div class="input-field col s6">
+                    <input type="text" id="name" class="form-control" ng-model="eName" placeholder=" "required>
+                    <label for="name">Name</label>
+                </div>
+
+
+                <div class="input-field col s6">
+                    <input type="text" id="username" class="form-control" ng-model="eUsername" placeholder=" "required>
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input type="text" id="email" class="form-control" ng-model="eEmail" placeholder=" "required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="col s3">
                     <label>Service</label>
                     <select class="browser-default" ng-model='eServiceId'>
                         <option value="" disabled selected><label>Select Service</label></option>
                         <option ng-repeat='rows in dataService' value="{{rows.id}}">{{rows.service_name}}</option>
                     </select>
 
-                </div><br/>
-                <button type="button" class="waves-effect waves-light btn-small blue left" data-toggle="modal" data-target="#Service">Service</button>
-            </div><br/>
+                </div>
+
+                <div class="col s3">
+                    <br>
+                    <button type="button" class="waves-effect waves-light btn-small blue left modal-trigger" data-target="Service">Add Service</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" id="password" class="form-control" ng-model="ePassword" required>
+                    <label for="password">Password</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input type="text" id="conpassword" class="form-control" ng-model="eConfPassword" required>
+                    <label for="conpassword">Confirm Password</label>
+                </div>
+            </div>
+
+
+            <br/>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small green right" id="categoryEditBtn" ng-click="editSubscriber()">Save changes</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" id="editCancel">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small green right"  ng-click="editSubscriber()">Save changes</button>
           </div>
           </form>
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
+
     </div>
     <!-- /.edit item modal -->
 
-          <!-- delete categories modal -->
-    <div class="modal fade" id="modal-delete">
-      <div class="modal-dialog">
+    <!-- delete categories modal -->
+    <div class="modal" id="modal-delete">
         <div class="modal-content">
-          <div class="modal-header bg-danger">
+          <div class="modal-header">
             <h4 class="modal-title">Delete Subscriber</h4>
           </div>
-          
+
            <?php echo e(csrf_field()); ?>
 
           <div class="modal-body">
@@ -256,22 +261,19 @@
           <h6 style="text-align:center">Are you sure you want to delete subscriber <b ng-bind="dSubscriberName"></b>?</h6>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small orange left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small red right" id='categoryDelBtn' ng-click='delSubscriber()'>Delete</button>
+            <button type="button" class="waves-effect waves-light btn-small orange left modal-close" id='delCancel'>Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small red right"  ng-click='delSubscriber()'>Delete</button>
           </div>
           <!-- </form> -->
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
     </div>
     <!-- /.delete item modal -->
 
     <!-- Service modal -->
-<div class="modal fade" id="Service">
-      <div class="modal-dialog">
+    <div class="modal" id="Service">
         <div class="modal-content">
-          <div class="modal-header bg-danger">
+          <div class="modal-header">
             <h4 class="modal-title">Service</h4>
           </div>
           
@@ -282,17 +284,16 @@
               <input type="text" class="" name="oService" id="oService" ng-model="oService" required>
               <label for="oService">Service </label>
             </div>
-            <button type="button" class="waves-effect waves-light btn green right" id='categoryDelBtn' ng-click='insertService()'>Add</button>
+            <button type="button" class="waves-effect waves-light btn green right"  ng-click='insertService()'>Add</button>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left" data-dismiss="modal">Done</button>
+            <button type="button" class="waves-effect waves-light btn-small red left modal-close" id='serviceCancel'>Cancel</button>
 
           </div>
           <!-- </form> -->
         </div>
         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
+
     </div>
     <!-- /.Service modal -->
 </div>
@@ -321,8 +322,7 @@
             {'name':$scope.name,'username':$scope.username, 'email':$scope.email, 'password':$scope.password}
         ).then(function(response){
             $scope.init();
-            $('#modal-default').modal('hide');
-            $('.modal-backdrop').remove();
+            angular.element('#addCancel').trigger('click');
             M.toast({html: 'Successfully Added!', classes: 'rounded'});
         })
     }
@@ -335,8 +335,7 @@
             )
             .then(function(response){
                 $scope.getService();
-                $('#Service').modal('hide');
-                $('.modal-backdrop').remove();
+                angular.element('#serviceCancel').trigger('click');
                 M.toast({html: 'Successfully Added!', classes: 'rounded green'});
             })
         }
@@ -377,8 +376,7 @@
             )
             .then(function(data){
                 $scope.init();
-                $('#modal-edit').modal('hide');
-                $('.modal-backdrop').remove();
+                angular.element('#editCancel').trigger('click');
                 M.toast({html: 'Successfully Updated!', classes: 'rounded'});
             });
 
@@ -398,8 +396,7 @@
                 {'id': $scope.dId}
             ).then(function(response){
                 $scope.init();
-                $('#modal-delete').modal('hide');
-                $('.modal-backdrop').remove();
+                angular.element('#delCancel').trigger('click');
                 M.toast({html: 'Successfully Deleted!', classes: 'rounded'});
             });
 
@@ -434,6 +431,11 @@
         };
 
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
 </script>
  <?php $__env->stopSection(); ?>
 

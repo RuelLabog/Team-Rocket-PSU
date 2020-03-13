@@ -81,6 +81,18 @@
       
 
 </head>
+<style>
+
+header, main, footer,.content {
+  padding-left: 300px;
+}
+
+@media  only screen and (max-width : 992px) {
+  header, main, footer,.content {
+    padding-left: 0;
+  }
+}
+</style>
 <body>
     <script>
     // $(document).ready(function(){
@@ -93,7 +105,9 @@
     <?php echo $__env->make('includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php echo $__env->make('includes.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+    <main>
     <?php echo $__env->yieldContent('content'); ?>
+    </main>
 
     <?php echo $__env->make('includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

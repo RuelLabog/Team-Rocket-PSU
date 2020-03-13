@@ -21,8 +21,9 @@
 
     <div class="card">
       <div class="card-header">
-        
-        <a class="waves-effect waves-light btn modal-trigger"  data-toggle="modal" href="#modal-default"><i class="large material-icons">add</i>Add Operator</a>
+        <button type="button" class="waves-effect waves-light btn-small"  data-toggle="modal" data-target="#modal-default">
+        <i class="material-icons">add</i>Add Operator
+        </button>
       </div>
 
 
@@ -130,14 +131,14 @@
     <!-- /.card -->
 
 <!-- add operator modal -->
-<div id="modal-default" class="modal">
-
-    <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog" width="100%">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
             <h4 class="modal-title">Add New Operator</h4>
-        </div>
-        <form action="" method="POST">
-        <div class="modal-body">
+          </div>
+          <form action="" method="POST">
+          <div class="modal-body">
             <div class="form-group">
               <?php echo e(csrf_field()); ?>
 
@@ -183,9 +184,11 @@
           </div>
         </form>
         </div>
-</div>
-<!-- add operator modal -->
-
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.add items modal -->
 
     <div class="modal fade" id="modal-edit">
         <div class="modal-dialog">
@@ -441,14 +444,6 @@
 
 
 
-  });
-</script>
-
-
-<script>
-      document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
   });
 </script>
 
