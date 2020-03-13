@@ -19,7 +19,7 @@
     <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <!-- {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}} -->
     <!-- <link rel="stylesheet" href="css/style.css"> -->
 
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
@@ -41,7 +41,7 @@
      <!-- Font Awesome Icons -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/fontawesome-free/css/all.min.css"> -->
   <!-- Theme style adminstyle-->
-  {{-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> --}}
+  <!-- {{-- <link rel="stylesheet" href="bower_components/admin-lte/dist/css/adminlte.min.css"> --}} -->
   <!-- Select -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> -->
   <!-- <link rel="stylesheet" href="bower_components/admin-lte/plugins/select2/css/select2.min.css"> -->
@@ -78,14 +78,14 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-      {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
         <!--Import materialize.css-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> -->
 
         <!--Import jQuery Library-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--Import materialize.js-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> --}}
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> --}} -->
 
 </head>
 <style>
@@ -146,7 +146,14 @@ header, main, footer,.content {
  <!-- {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> --}} -->
 
 </body>
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
+</script>
 </html>
+
 
 
 
