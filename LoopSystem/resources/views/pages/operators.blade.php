@@ -65,7 +65,7 @@
                             <td>@{{ row.service_name }}</td>
                             <td><span id="moment">@{{row.created_at}}</span></td>
                             <td>
-                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue modal-trigger" id=""  data-target="modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.password, row.service_id)">
+                                <button type="button" title="Edit" class="waves-effect waves-light btn-floating btn-small blue modal-trigger" id=""  data-target="modal-edit" ng-click="fetchSingleData(row.id, row.username, row.email, row.service_id)">
                                     <i class="material-icons">edit</i>
                                 </button>
                                 <button type="button" title="Delete" class="waves-effect waves-light btn-floating btn-small red right modal-trigger" id=""  data-target="modal-delete" ng-click="fetchData(row.id, row.username)">
@@ -323,23 +323,31 @@
         $scope.OperatorSave = true;
         if($scope.oUsername == null || $scope.oEmail == null || $scope.oPassword == null || $scope.serviceId == null){
             M.toast({html: 'All fields are required!', classes: 'rounded red'});
+            $scope.OperatorSave = false;
         }else{
             if($scope.oPassword != $scope.oConfPassword){
                 M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
+                $scope.OperatorSave = false;
             }else{
-                $http.post(
-                    'insertOperator',
-                    {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
-                ).then(function(response){
+                if($scope.oPassword.length < 8){
+                    M.toast({html: 'Password is weak!', classes: 'rounded red'});
                     $scope.OperatorSave = false;
-                    $scope.oUsername = null;
-                    $scope.oEmail = null;
-                    $scope.oPassword = null;
-                    $scope.oConfPassword = null;
-                    $scope.serviceId = null;
-                    angular.element('.modal-close').trigger('click');
-                    M.toast({html: 'Successfully Added!', classes: 'rounded green'});
-                });
+                }else{
+                    $http.post(
+                        'insertOperator',
+                        {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
+                    ).then(function(response){
+                        $scope.OperatorSave = false;
+                        $scope.oUsername = null;
+                        $scope.oEmail = null;
+                        $scope.oPassword = null;
+                        $scope.oConfPassword = null;
+                        $scope.serviceId = null;
+                        angular.element('.modal-close').trigger('click');
+                        M.toast({html: 'Successfully Added!', classes: 'rounded green'});
+                    });
+                }
+
             }
 
         }
@@ -389,11 +397,10 @@
 
 
     //fetch data to edit
-    $scope.fetchSingleData = function(id, username, email, password, service){
+    $scope.fetchSingleData = function(id, username, email, service){
         $scope.eId = id;
         $scope.eUsername = username;
         $scope.eEmail = email;
-        $scope.ePassword = password;
         $scope.eServiceId = service;
     }
 
@@ -404,15 +411,24 @@
             if($scope.ePassword != $scope.eConfPassword){
                 M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
             }else{
-                $http.post(
-                    'editOperator',
-                    {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
-                )
-                .then(function (response){
-                    $scope.init();
-                    angular.element('.modal-close').trigger('click');
-                    M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
-                });
+                if($scope.ePassword != null){
+                    if($scope.ePassword.length < 8){
+                        M.toast({html: 'Password is weak!', classes: 'rounded red'});
+                    }
+                }else{
+                    $http.post(
+                        'editOperator',
+                        {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
+                    )
+                    .then(function (response){
+                        $scope.init();
+                        angular.element('.modal-close').trigger('click');
+                        $scope.ePassword = null;
+                        $scope.eConfPassword = null;
+                        M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
+                    });
+                }
+
             }
 
         }
