@@ -152,6 +152,7 @@
                     <div class="input-field col s12">
                         <input type="text" name="serviceName" id="serviceName" ng-model="serviceName" class="validate" required>
                         <label for="serviceName">Service Name</label>
+                        <span class="helper-text" data-error="This field is required"></span>
                     </div>
                 </div>
           </div>
@@ -177,9 +178,10 @@
           <div class="modal-content" >
                 <input type="hidden" class="form-control" id="eCatID" name="eCatID" value="" placeholder="Service ID" ng-model="id" required>
                 <div class="col 12">
-                    <div class="col s6">
+                    <div class="input-field col s6">
                         <label>Service Name </label>
-                        <input type="text" class="form-control" id="eCatName" name="eCatName" placeholder="Service Name" required ng-model="editServiceName">
+                        <input type="text" class="validate" id="eCatName" name="eCatName" placeholder="Service Name" required ng-model="editServiceName">
+                        <span class="helper-text" data-error="This field is required"></span>
                     </div>
                 </div>
 
@@ -209,8 +211,8 @@
           <h6 style="text-align:center">Are you sure you want to delete service <b ng-bind='dServiceName'></b>?</h6>
           </div>
           <div class="modal-footer">
-            <button type="button" class="waves-effect waves-light btn-small red left modal-close" data-dismiss="modal">Cancel</button>
-            <button type="button" class="waves-effect waves-light btn-small blue right" id='categoryDelBtn' ng-click='delService()'>Delete</button>
+            <button type="button" class="waves-effect waves-light btn-small orange left modal-close" data-dismiss="modal">Cancel</button>
+            <button type="button" class="waves-effect waves-light btn-small red right" id='categoryDelBtn' ng-click='delService()'>Delete</button>
           </div>
           <!-- </form> -->
         </div>

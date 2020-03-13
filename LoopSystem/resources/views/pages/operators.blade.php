@@ -131,33 +131,37 @@
           <form action="" method="POST">
           <div class="modal-body">
               <div class="row">
-
                         <div class="input-field col s6">
-                            <input type="text" class="" name="oUsername" id="oUsername" ng-model="oUsername" required>
+                            <input type="text" class="validate" name="oUsername" id="oUsername" ng-model="oUsername" required>
                             <label for="oUsername">Username</label>
+                            <span class="helper-text" data-error="This field is required"></span>
                         </div>
 
                         <div class="input-field col s6">
-                            <input type="email" class="" name="oEmail" id="oEmail" ng-model="oEmail"  required>
+                            <input type="email" class="validate" name="oEmail" id="oEmail" ng-model="oEmail"  required>
                             <label for="oEmail">Email</label>
+                            <span class="helper-text" data-error="Email is not valid"></span>
                         </div>
 
                         <div class="input-field col s6">
-                            <input type="password" class="" name="oPassword" id="oPassword" ng-model="oPassword" required>
+                            <input type="password" class="validate" name="oPassword" id="oPassword" ng-model="oPassword" required>
                             <label for="oPassword">Password</label>
+                            <span class="helper-text" data-error="This field is required"></span>
                         </div>
 
                         <div class="input-field col s6">
-                            <input type="password" class="" name="oConfPassword" id="oConfPassword" ng-model="oConfPassword"  required>
-                            <label for="oConPass">Confirm Password</label>
+                            <input type="password" class="validate" name="oConfPassword" id="oConfPassword" ng-model="oConfPassword"  required>
+                            <label for="oConfPassword">Confirm Password</label>
+                            <span class="helper-text" data-error="This field is required"></span>
                         </div>
 
                         <div class="col s6">
                             <label>Service</label>
-                            <select class="browser-default" ng-model='serviceId'>
+                            <select class="browser-default validate" ng-model='serviceId' ng-change="select()">
                                 <option value="" disabled selected><label>Select Service</label></option>
                                 <option ng-repeat='rows in dataService' value="@{{rows.id}}">@{{rows.service_name}}</option>
                             </select>
+                            <span class="helper-text red-text" data-error="This field is required" ng-bind="required"></span>
                         </div>
 
                         <div class="col s6">
@@ -190,22 +194,23 @@
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" ng-model="eId" class="form-control" />
-                        <div class="col s6">
-                            <label for="eUsername">Username</label>
-                            <input type="text" name="eUsername" id="eUsername" ng-model="eUsername" required>
+                        <div class="input-field col s6">
+                            <label for="eUsername"  class="active">Username</label>
+                            <input type="text" class="validate" name="eUsername" id="eUsername" ng-model="eUsername" placeholder="Username" required>
+                            <span class="helper-text" data-error="This field is required"></span>
                         </div>
-                        <div class="col s6">
-                            <label for="eEmail">Email</label>
-                            <input type="email" name="eEmail" id="eEmail"  ng-model="eEmail" required>
-
+                        <div class="input-field col s6">
+                            <label for="eEmail" class="active">Email</label>
+                            <input type="email" class="validate" name="eEmail" id="eEmail"  ng-model="eEmail" placeholder="Email" required>
+                            <span class="helper-text" data-error="Email is not valid"></span>
                         </div>
                         <div class="input-field col s6">
                             <label for="ePassword">Password</label>
-                            <input type="password" name="ePassword" id="ePassword"  ng-model="ePassword" required>
+                            <input type="password" class="validate" name="ePassword" id="ePassword"  ng-model="ePassword">
                         </div>
                         <div class="input-field col s6">
                             <label for="eConfPassword">Confirm Password</label>
-                            <input type="password" name="eConfPassword" id="eConfPassword"  ng-model="eConfPassword" required>
+                            <input type="password" class="validate" name="eConfPassword" id="eConfPassword"  ng-model="eConfPassword">
                         </div>
                         <div class="col s6">
                             <label>Service</label>
@@ -321,34 +326,41 @@
     //insert operator
     $scope.insertOperator = function(){
         $scope.OperatorSave = true;
-        if($scope.oUsername == null || $scope.oEmail == null || $scope.oPassword == null || $scope.serviceId == null){
+        if($scope.oUsername == null || $scope.oPassword == null || $scope.serviceId == null){
             M.toast({html: 'All fields are required!', classes: 'rounded red'});
             $scope.OperatorSave = false;
         }else{
-            if($scope.oPassword != $scope.oConfPassword){
-                M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
+            if($scope.oEmail == null){
+                M.toast({html: 'Email is not valid!', classes: 'rounded red'});
                 $scope.OperatorSave = false;
             }else{
-                if($scope.oPassword.length < 8){
-                    M.toast({html: 'Password is weak!', classes: 'rounded red'});
+                if($scope.oPassword != $scope.oConfPassword){
+                    M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
                     $scope.OperatorSave = false;
                 }else{
-                    $http.post(
-                        'insertOperator',
-                        {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
-                    ).then(function(response){
+                    if($scope.oPassword.length < 8){
+                        M.toast({html: 'Password is weak!', classes: 'rounded red'});
                         $scope.OperatorSave = false;
-                        $scope.oUsername = null;
-                        $scope.oEmail = null;
-                        $scope.oPassword = null;
-                        $scope.oConfPassword = null;
-                        $scope.serviceId = null;
-                        angular.element('.modal-close').trigger('click');
-                        M.toast({html: 'Successfully Added!', classes: 'rounded green'});
-                    });
-                }
+                    }else{
+                        $http.post(
+                            'insertOperator',
+                            {'username':$scope.oUsername, 'email':$scope.oEmail, 'password':$scope.oPassword, 'service': $scope.serviceId}
+                        ).then(function(response){
+                            $scope.OperatorSave = false;
+                            $scope.oUsername = null;
+                            $scope.oEmail = null;
+                            $scope.oPassword = null;
+                            $scope.oConfPassword = null;
+                            $scope.serviceId = null;
+                            $scope.required = null;
+                            angular.element('.modal-close').trigger('click');
+                            M.toast({html: 'Successfully Added!', classes: 'rounded green'});
+                        });
+                    }
 
+                }
             }
+
 
         }
 
@@ -405,31 +417,36 @@
     }
 
     $scope.editOperator = function(){
-        if($scope.eUsername == null || $scope.eEmail == null ){
+        if($scope.eUsername == null || $scope.eServiceId == null ){
             M.toast({html: 'All fields are required!', classes: 'rounded red'});
         }else{
-            if($scope.ePassword != $scope.eConfPassword){
-                M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
+            if( $scope.eEmail == null){
+                M.toast({html: 'Email is not valid!', classes: 'rounded red'});
             }else{
-                if($scope.ePassword != null){
-                    if($scope.ePassword.length < 8){
-                        M.toast({html: 'Password is weak!', classes: 'rounded red'});
-                    }
+                if($scope.ePassword != $scope.eConfPassword){
+                    M.toast({html: 'Passwords did not match!', classes: 'rounded red'});
                 }else{
-                    $http.post(
-                        'editOperator',
-                        {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
-                    )
-                    .then(function (response){
-                        $scope.init();
-                        angular.element('.modal-close').trigger('click');
-                        $scope.ePassword = null;
-                        $scope.eConfPassword = null;
-                        M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
-                    });
-                }
+                    if($scope.ePassword != null){
+                        if($scope.ePassword.length < 8){
+                            M.toast({html: 'Password is weak!', classes: 'rounded red'});
+                        }
+                    }else{
+                        $http.post(
+                            'editOperator',
+                            {'id':$scope.eId, 'username':$scope.eUsername, 'email':$scope.eEmail, 'password':$scope.ePassword, 'service':$scope.eServiceId}
+                        )
+                        .then(function (response){
+                            $scope.init();
+                            angular.element('.modal-close').trigger('click');
+                            $scope.ePassword = null;
+                            $scope.eConfPassword = null;
+                            M.toast({html: 'Successfully Updated!', classes: 'rounded green'});
+                        });
+                    }
 
+                }
             }
+
 
         }
 
@@ -484,6 +501,7 @@
 
 
   });
+
 </script>
 
 

@@ -345,7 +345,7 @@
                 $scope.data_limit = 10;
                 $scope.filter_data = $scope.data.length;
                 $scope.entire_user =  $scope.file.length;
-                $scope.getService();
+
             });
         }
 
@@ -401,6 +401,7 @@
 
 
         $scope.init();
+        $scope.getService();
 
         //pagination
         $scope.page_position = function(page_number){
